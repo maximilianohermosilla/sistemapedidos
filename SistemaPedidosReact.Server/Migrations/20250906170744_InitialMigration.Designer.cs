@@ -12,7 +12,7 @@ using SistemaPedidosReact.Server.Data;
 namespace SistemaPedidosReact.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250906043523_InitialMigration")]
+    [Migration("20250906170744_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -24,6 +24,44 @@ namespace SistemaPedidosReact.Server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.BillingInformation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BillingType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocumentNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocumentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrderDetailId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BillingInformations");
+                });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Category", b =>
                 {
@@ -63,10 +101,12 @@ namespace SistemaPedidosReact.Server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("ServiceFee")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal>("Shipping")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");
 
@@ -81,22 +121,84 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("DocumentNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("UserType")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.DeliveryDiscount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("TotalPercentageDiscount")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("TotalValueDiscount")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DeliveryDiscounts");
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.DeliveryInformation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Complement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompleteAdress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Neighborhood")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DeliveryInformations");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Discount", b =>
@@ -107,17 +209,70 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<decimal?>("AmmountByPartners")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal?>("AmmountBySystem")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("DiscountProductUnitValue")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int?>("DiscountProductUnits")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IncludesToppings")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("MaxValue")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int?>("OrderDetailId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<decimal?>("PercentageByPartners")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal?>("PercentageBySystem")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal?>("RawValue")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("Sku")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Value")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
 
                     b.HasIndex("OrderDetailId");
 
@@ -141,6 +296,10 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("MaxLimit")
                         .HasColumnType("int");
 
@@ -148,11 +307,15 @@ namespace SistemaPedidosReact.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Observacciones")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("ParentItemId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("Sku")
                         .IsRequired()
@@ -214,7 +377,7 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     b.HasIndex("StoreId");
 
-                    b.ToTable("Menu");
+                    b.ToTable("Menus");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Mesa", b =>
@@ -234,7 +397,7 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Mesa");
+                    b.ToTable("Mesas");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Order", b =>
@@ -283,22 +446,25 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BillingInformation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ChargesId")
+                    b.Property<int?>("BillingInformationId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CantidadCubiertos")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeliveryDiscount")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("DeliveryDiscountId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("DeliveryInformation")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("DeliveryInformationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("DeliveryMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeliveryOperationType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MesaId")
@@ -307,19 +473,31 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PaymentMethod")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PaymentMethodId")
+                        .HasColumnType("int");
 
                     b.Property<decimal?>("Tip")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int?>("TotalsId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChargesId");
+                    b.HasIndex("BillingInformationId");
+
+                    b.HasIndex("DeliveryDiscountId");
+
+                    b.HasIndex("DeliveryInformationId");
 
                     b.HasIndex("MesaId");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.HasIndex("TotalsId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -338,11 +516,15 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MaxLimit")
+                        .HasColumnType("int");
+
                     b.Property<int>("OrderDetailId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -414,13 +596,20 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MaxLimit")
+                        .HasColumnType("int");
+
                     b.Property<int>("OrderItemId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortingPosition")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -430,6 +619,23 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasIndex("OrderItemId");
 
                     b.ToTable("OrderSubItems");
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.OtherTotals", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Tip")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OtherTotals");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Parameter", b =>
@@ -451,6 +657,70 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Parameters");
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.PaymentMethod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentMethods");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = "EF",
+                            Name = "Efectivo"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Code = "TC",
+                            Name = "Tarjeta Crédito"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Code = "TD",
+                            Name = "Tarjeta Débito"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Code = "ON",
+                            Name = "Pago Online"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Code = "MP",
+                            Name = "MercadoPago"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Code = "MO",
+                            Name = "Modo"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Code = "PN",
+                            Name = "Pago Nube"
+                        });
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Store", b =>
@@ -476,6 +746,44 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stores");
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.Totals", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ChargesId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OtherTotalsId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalDiscounts")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("TotalOrder")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<int>("TotalProducts")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalToPay")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChargesId");
+
+                    b.HasIndex("OtherTotalsId");
+
+                    b.ToTable("Totals");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.User", b =>
@@ -517,9 +825,17 @@ namespace SistemaPedidosReact.Server.Migrations
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Discount", b =>
                 {
+                    b.HasOne("SistemaPedidosReact.Server.Models.Item", "Item")
+                        .WithMany("Discounts")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("SistemaPedidosReact.Server.Models.OrderDetail", "OrderDetail")
                         .WithMany("Discounts")
-                        .HasForeignKey("OrderDetailId");
+                        .HasForeignKey("OrderDetailId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Item");
 
                     b.Navigation("OrderDetail");
                 });
@@ -539,7 +855,8 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     b.HasOne("SistemaPedidosReact.Server.Models.Store", "Store")
                         .WithMany("Items")
-                        .HasForeignKey("StoreId");
+                        .HasForeignKey("StoreId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Category");
 
@@ -559,7 +876,7 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasOne("SistemaPedidosReact.Server.Models.Menu", "Menu")
                         .WithMany("ItemMenus")
                         .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Item");
@@ -572,7 +889,7 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasOne("SistemaPedidosReact.Server.Models.Store", "Store")
                         .WithMany("Menus")
                         .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Store");
@@ -583,16 +900,17 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasOne("SistemaPedidosReact.Server.Models.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("SistemaPedidosReact.Server.Models.OrderState", "OrderState")
                         .WithMany("Orders")
-                        .HasForeignKey("OrderStateId");
+                        .HasForeignKey("OrderStateId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("SistemaPedidosReact.Server.Models.Store", "Store")
                         .WithMany("Orders")
                         .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -604,27 +922,55 @@ namespace SistemaPedidosReact.Server.Migrations
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.OrderDetail", b =>
                 {
-                    b.HasOne("SistemaPedidosReact.Server.Models.Charges", "Charges")
+                    b.HasOne("SistemaPedidosReact.Server.Models.BillingInformation", "BillingInformation")
                         .WithMany("OrderDetails")
-                        .HasForeignKey("ChargesId")
+                        .HasForeignKey("BillingInformationId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("SistemaPedidosReact.Server.Models.DeliveryDiscount", "DeliveryDiscount")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("DeliveryDiscountId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("SistemaPedidosReact.Server.Models.DeliveryInformation", "DeliveryInformation")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("DeliveryInformationId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("SistemaPedidosReact.Server.Models.Mesa", "Mesa")
                         .WithMany("OrderDetails")
                         .HasForeignKey("MesaId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("SistemaPedidosReact.Server.Models.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Charges");
+                    b.HasOne("SistemaPedidosReact.Server.Models.PaymentMethod", "PaymentMethod")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("SistemaPedidosReact.Server.Models.Totals", "Totals")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("TotalsId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("BillingInformation");
+
+                    b.Navigation("DeliveryDiscount");
+
+                    b.Navigation("DeliveryInformation");
 
                     b.Navigation("Mesa");
 
                     b.Navigation("Order");
+
+                    b.Navigation("PaymentMethod");
+
+                    b.Navigation("Totals");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.OrderItem", b =>
@@ -632,13 +978,13 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasOne("SistemaPedidosReact.Server.Models.Item", "Item")
                         .WithMany("OrderItems")
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("SistemaPedidosReact.Server.Models.OrderDetail", "OrderDetail")
-                        .WithMany("Items")
+                        .WithMany("OrderItems")
                         .HasForeignKey("OrderDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Item");
@@ -651,18 +997,40 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasOne("SistemaPedidosReact.Server.Models.Item", "Item")
                         .WithMany("OrderSubItems")
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("SistemaPedidosReact.Server.Models.OrderItem", "OrderItem")
                         .WithMany("OrderSubItems")
                         .HasForeignKey("OrderItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Item");
 
                     b.Navigation("OrderItem");
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.Totals", b =>
+                {
+                    b.HasOne("SistemaPedidosReact.Server.Models.Charges", "Charges")
+                        .WithMany("Totals")
+                        .HasForeignKey("ChargesId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("SistemaPedidosReact.Server.Models.OtherTotals", "OtherTotals")
+                        .WithMany("Totals")
+                        .HasForeignKey("OtherTotalsId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Charges");
+
+                    b.Navigation("OtherTotals");
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.BillingInformation", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Category", b =>
@@ -672,7 +1040,7 @@ namespace SistemaPedidosReact.Server.Migrations
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Charges", b =>
                 {
-                    b.Navigation("OrderDetails");
+                    b.Navigation("Totals");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Customer", b =>
@@ -680,9 +1048,21 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.DeliveryDiscount", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.DeliveryInformation", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Item", b =>
                 {
                     b.Navigation("Children");
+
+                    b.Navigation("Discounts");
 
                     b.Navigation("ItemMenus");
 
@@ -710,7 +1090,7 @@ namespace SistemaPedidosReact.Server.Migrations
                 {
                     b.Navigation("Discounts");
 
-                    b.Navigation("Items");
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.OrderItem", b =>
@@ -723,6 +1103,16 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.OtherTotals", b =>
+                {
+                    b.Navigation("Totals");
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.PaymentMethod", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Store", b =>
                 {
                     b.Navigation("Items");
@@ -730,6 +1120,11 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.Navigation("Menus");
 
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.Totals", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 #pragma warning restore 612, 618
         }

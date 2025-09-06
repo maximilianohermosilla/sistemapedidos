@@ -14,6 +14,26 @@ namespace SistemaPedidosReact.Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "BillingInformations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BillingType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DocumentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DocumentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderDetailId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BillingInformations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -36,8 +56,8 @@ namespace SistemaPedidosReact.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Shipping = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ServiceFee = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Shipping = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    ServiceFee = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,10 +70,12 @@ namespace SistemaPedidosReact.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DocumentNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -61,7 +83,40 @@ namespace SistemaPedidosReact.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Mesa",
+                name: "DeliveryDiscounts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalPercentageDiscount = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    TotalValueDiscount = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeliveryDiscounts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DeliveryInformations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompleteAdress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StreetNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Neighborhood = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Complement = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StreetName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeliveryInformations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Mesas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -71,7 +126,7 @@ namespace SistemaPedidosReact.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mesa", x => x.Id);
+                    table.PrimaryKey("PK_Mesas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -88,6 +143,19 @@ namespace SistemaPedidosReact.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OtherTotals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tip = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OtherTotals", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Parameters",
                 columns: table => new
                 {
@@ -99,6 +167,20 @@ namespace SistemaPedidosReact.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Parameters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaymentMethods",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentMethods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -136,6 +218,34 @@ namespace SistemaPedidosReact.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Totals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalProducts = table.Column<int>(type: "int", nullable: false),
+                    TotalDiscounts = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    TotalOrder = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    TotalToPay = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    ChargesId = table.Column<int>(type: "int", nullable: true),
+                    OtherTotalsId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Totals", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Totals_Charges_ChargesId",
+                        column: x => x.ChargesId,
+                        principalTable: "Charges",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Totals_OtherTotals_OtherTotalsId",
+                        column: x => x.OtherTotalsId,
+                        principalTable: "OtherTotals",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Items",
                 columns: table => new
                 {
@@ -143,9 +253,11 @@ namespace SistemaPedidosReact.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Observacciones = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Sku = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Combo = table.Column<bool>(type: "bit", nullable: false),
                     MaxLimit = table.Column<int>(type: "int", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
@@ -174,7 +286,7 @@ namespace SistemaPedidosReact.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Menu",
+                name: "Menus",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -183,13 +295,12 @@ namespace SistemaPedidosReact.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Menu", x => x.Id);
+                    table.PrimaryKey("PK_Menus", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Menu_Stores_StoreId",
+                        name: "FK_Menus_Stores_StoreId",
                         column: x => x.StoreId,
                         principalTable: "Stores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -199,11 +310,11 @@ namespace SistemaPedidosReact.Server.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StoreId = table.Column<int>(type: "int", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: true),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Delay = table.Column<int>(type: "int", nullable: true),
                     CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrderStateId = table.Column<int>(type: "int", nullable: true)
+                    OrderStateId = table.Column<int>(type: "int", nullable: true),
+                    CustomerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -212,8 +323,7 @@ namespace SistemaPedidosReact.Server.Migrations
                         name: "FK_Orders_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_OrderStates_OrderStateId",
                         column: x => x.OrderStateId,
@@ -223,8 +333,7 @@ namespace SistemaPedidosReact.Server.Migrations
                         name: "FK_Orders_Stores_StoreId",
                         column: x => x.StoreId,
                         principalTable: "Stores",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -245,10 +354,11 @@ namespace SistemaPedidosReact.Server.Migrations
                         principalTable: "Items",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ItemMenus_Menu_MenuId",
+                        name: "FK_ItemMenus_Menus_MenuId",
                         column: x => x.MenuId,
-                        principalTable: "Menu",
-                        principalColumn: "Id");
+                        principalTable: "Menus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,36 +368,56 @@ namespace SistemaPedidosReact.Server.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<int>(type: "int", nullable: false),
+                    DeliveryOperationType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeliveryMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MesaId = table.Column<int>(type: "int", nullable: true),
-                    ChargesId = table.Column<int>(type: "int", nullable: true),
-                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tip = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    DeliveryInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BillingInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeliveryDiscount = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CantidadCubiertos = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PaymentMethodId = table.Column<int>(type: "int", nullable: true),
+                    Tip = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: true),
+                    DeliveryInformationId = table.Column<int>(type: "int", nullable: true),
+                    BillingInformationId = table.Column<int>(type: "int", nullable: true),
+                    DeliveryDiscountId = table.Column<int>(type: "int", nullable: true),
+                    TotalsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_Charges_ChargesId",
-                        column: x => x.ChargesId,
-                        principalTable: "Charges",
+                        name: "FK_OrderDetails_BillingInformations_BillingInformationId",
+                        column: x => x.BillingInformationId,
+                        principalTable: "BillingInformations",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_OrderDetails_Mesa_MesaId",
+                        name: "FK_OrderDetails_DeliveryDiscounts_DeliveryDiscountId",
+                        column: x => x.DeliveryDiscountId,
+                        principalTable: "DeliveryDiscounts",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_DeliveryInformations_DeliveryInformationId",
+                        column: x => x.DeliveryInformationId,
+                        principalTable: "DeliveryInformations",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Mesas_MesaId",
                         column: x => x.MesaId,
-                        principalTable: "Mesa",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalTable: "Mesas",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OrderDetails_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_PaymentMethods_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalTable: "PaymentMethods",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_OrderDetails_Totals_TotalsId",
+                        column: x => x.TotalsId,
+                        principalTable: "Totals",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -296,13 +426,33 @@ namespace SistemaPedidosReact.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: true),
-                    OrderDetailId = table.Column<int>(type: "int", nullable: true)
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Value = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderDetailId = table.Column<int>(type: "int", nullable: true),
+                    ItemId = table.Column<int>(type: "int", nullable: true),
+                    Sku = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RawValue = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: true),
+                    TypeValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MaxValue = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: true),
+                    IncludesToppings = table.Column<bool>(type: "bit", nullable: false),
+                    PercentageBySystem = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: true),
+                    PercentageByPartners = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: true),
+                    AmmountBySystem = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: true),
+                    AmmountByPartners = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: true),
+                    DiscountProductUnits = table.Column<int>(type: "int", nullable: true),
+                    DiscountProductUnitValue = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Discounts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Discounts_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Discounts_OrderDetails_OrderDetailId",
                         column: x => x.OrderDetailId,
@@ -319,8 +469,9 @@ namespace SistemaPedidosReact.Server.Migrations
                     ItemId = table.Column<int>(type: "int", nullable: false),
                     OrderDetailId = table.Column<int>(type: "int", nullable: false),
                     Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
+                    MaxLimit = table.Column<int>(type: "int", nullable: true),
                     SortingPosition = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -330,14 +481,12 @@ namespace SistemaPedidosReact.Server.Migrations
                         name: "FK_OrderItems_Items_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OrderItems_OrderDetails_OrderDetailId",
                         column: x => x.OrderDetailId,
                         principalTable: "OrderDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -348,8 +497,10 @@ namespace SistemaPedidosReact.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ItemId = table.Column<int>(type: "int", nullable: false),
                     OrderItemId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    MaxLimit = table.Column<int>(type: "int", nullable: true),
+                    SortingPosition = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -358,14 +509,12 @@ namespace SistemaPedidosReact.Server.Migrations
                         name: "FK_OrderSubItems_Items_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OrderSubItems_OrderItems_OrderItemId",
                         column: x => x.OrderItemId,
                         principalTable: "OrderItems",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -379,6 +528,25 @@ namespace SistemaPedidosReact.Server.Migrations
                     { 4, "LISTO" },
                     { 5, "ENVIADO" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "PaymentMethods",
+                columns: new[] { "Id", "Code", "Name" },
+                values: new object[,]
+                {
+                    { 1, "EF", "Efectivo" },
+                    { 2, "TC", "Tarjeta Crédito" },
+                    { 3, "TD", "Tarjeta Débito" },
+                    { 4, "ON", "Pago Online" },
+                    { 5, "MP", "MercadoPago" },
+                    { 6, "MO", "Modo" },
+                    { 7, "PN", "Pago Nube" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Discounts_ItemId",
+                table: "Discounts",
+                column: "ItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Discounts_OrderDetailId",
@@ -411,14 +579,24 @@ namespace SistemaPedidosReact.Server.Migrations
                 column: "StoreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Menu_StoreId",
-                table: "Menu",
+                name: "IX_Menus_StoreId",
+                table: "Menus",
                 column: "StoreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_ChargesId",
+                name: "IX_OrderDetails_BillingInformationId",
                 table: "OrderDetails",
-                column: "ChargesId");
+                column: "BillingInformationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_DeliveryDiscountId",
+                table: "OrderDetails",
+                column: "DeliveryDiscountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_DeliveryInformationId",
+                table: "OrderDetails",
+                column: "DeliveryInformationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_MesaId",
@@ -429,6 +607,16 @@ namespace SistemaPedidosReact.Server.Migrations
                 name: "IX_OrderDetails_OrderId",
                 table: "OrderDetails",
                 column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_PaymentMethodId",
+                table: "OrderDetails",
+                column: "PaymentMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderDetails_TotalsId",
+                table: "OrderDetails",
+                column: "TotalsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_ItemId",
@@ -464,6 +652,16 @@ namespace SistemaPedidosReact.Server.Migrations
                 name: "IX_OrderSubItems_OrderItemId",
                 table: "OrderSubItems",
                 column: "OrderItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Totals_ChargesId",
+                table: "Totals",
+                column: "ChargesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Totals_OtherTotalsId",
+                table: "Totals",
+                column: "OtherTotalsId");
         }
 
         /// <inheritdoc />
@@ -485,7 +683,7 @@ namespace SistemaPedidosReact.Server.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Menu");
+                name: "Menus");
 
             migrationBuilder.DropTable(
                 name: "OrderItems");
@@ -500,13 +698,25 @@ namespace SistemaPedidosReact.Server.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Charges");
+                name: "BillingInformations");
 
             migrationBuilder.DropTable(
-                name: "Mesa");
+                name: "DeliveryDiscounts");
+
+            migrationBuilder.DropTable(
+                name: "DeliveryInformations");
+
+            migrationBuilder.DropTable(
+                name: "Mesas");
 
             migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "PaymentMethods");
+
+            migrationBuilder.DropTable(
+                name: "Totals");
 
             migrationBuilder.DropTable(
                 name: "Customers");
@@ -516,6 +726,12 @@ namespace SistemaPedidosReact.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Stores");
+
+            migrationBuilder.DropTable(
+                name: "Charges");
+
+            migrationBuilder.DropTable(
+                name: "OtherTotals");
         }
     }
 }

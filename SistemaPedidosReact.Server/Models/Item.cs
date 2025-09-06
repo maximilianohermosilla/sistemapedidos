@@ -9,11 +9,13 @@ namespace SistemaPedidosReact.Server.Models
         [Required]
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; } = string.Empty;
-        public decimal Price { get; set; } = 0;
+        public string? Observacciones { get; set; } = string.Empty;
         [Required]
         public string Sku { get; set; } = string.Empty;
         [Required]
         public string Type { get; set; } = string.Empty; // PRODUCT, TOPPING, etc.
+        public decimal Price { get; set; } = 0;
+        public string ImageUrl { get; set; } = string.Empty;
         public bool Combo { get; set; } = false;
         public int? MaxLimit { get; set; }
         public int CategoryId { get; set; }
@@ -27,5 +29,6 @@ namespace SistemaPedidosReact.Server.Models
         public virtual ICollection<ItemMenu>? ItemMenus { get; set; } = new List<ItemMenu>();
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public virtual ICollection<OrderSubItem> OrderSubItems { get; set; } = new List<OrderSubItem>();
+        public virtual ICollection<Discount> Discounts { get; set; } = new List<Discount>();
     }
 }

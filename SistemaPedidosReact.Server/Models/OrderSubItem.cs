@@ -10,6 +10,8 @@ namespace SistemaPedidosReact.Server.Models
         public int OrderItemId { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public int? MaxLimit { get; set; } = null;
+        public int SortingPosition { get; set; } = 0;
 
         public Item Item { get; set; } = null!;
         public OrderItem OrderItem { get; set; } = null!;
