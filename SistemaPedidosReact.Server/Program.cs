@@ -1,5 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaPedidosReact.Server.Data;
+using SistemaPedidosReact.Server.Data.Interfaces;
+using SistemaPedidosReact.Server.Data.Repositories;
+using SistemaPedidosReact.Server.Profiles;
+using SistemaPedidosReact.Server.Responses.Interfaces;
+using SistemaPedidosReact.Server.Responses.Services;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,12 +17,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Configurar AutoMapper
+builder.Services.AddAutoMapper(config => new MappingProfile(config));
+
+// Configurar servicios de infraestructura
+builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+
+// Configurar servicios de la aplicación 
+builder.Services.AddScoped<IPaymentMethodService, PaymentMethodService>();
+
 //ADD CORS
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp",
     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
-// Configurar AutoMapper
-//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
 var app = builder.Build();
 

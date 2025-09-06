@@ -30,13 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Interfaces\" />
-    <Folder Include="Data\Repositories\" />
-    <Folder Include="DTOs\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Profiles\" />
-    <Folder Include="Responses\Interfaces\" />
-    <Folder Include="Responses\Services\" />
   </ItemGroup>
 
 </Project>
