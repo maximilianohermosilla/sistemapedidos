@@ -4,7 +4,7 @@ namespace SistemaPedidosReact.Server.Models
 {
     public class Customer
     {
-        [Required]
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string? LastName { get; set; } = null;

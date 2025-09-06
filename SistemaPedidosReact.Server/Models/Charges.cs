@@ -9,5 +9,7 @@ namespace SistemaPedidosReact.Server.Models
 
         public decimal Shipping { get; set; }
         public decimal ServiceFee { get; set; }
+
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
     }
 }

@@ -20,6 +20,7 @@ namespace SistemaPedidosReact.Server.Data
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<OrderSubItem> OrderSubItems { get; set; }
         public DbSet<Store> Stores { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,7 +30,10 @@ namespace SistemaPedidosReact.Server.Data
                 entity.HasMany(i => i.Items).WithOne(i => i.Category).HasForeignKey(i => i.CategoryId).OnDelete(DeleteBehavior.NoAction);
             });
 
-
+            modelBuilder.Entity<Charges>(entity =>
+            {
+                entity.HasMany(i => i.OrderDetails).WithOne(i => i.Charges).HasForeignKey(i => i.ChargesId).OnDelete(DeleteBehavior.NoAction);
+            });
 
             modelBuilder.Entity<Customer>(entity =>
             {
@@ -69,7 +73,7 @@ namespace SistemaPedidosReact.Server.Data
             // Relación OrderItem -> SubItems
             modelBuilder.Entity<OrderItem>(entity =>
             {
-                entity.HasMany(i => i.SubItems).WithOne(si => si.OrderItem).HasForeignKey(si => si.OrderItemId);
+                entity.HasMany(i => i.OrderSubItems).WithOne(si => si.OrderItem).HasForeignKey(si => si.OrderItemId);
             });
 
             modelBuilder.Entity<Store>(entity =>

@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "9ufIbRWGH2t/WCd0SLiW9j6mzxdDEs67M4xuAilUtrc=",
+  "Hash": "nsy76GjMao9Kq1S3dXxTOs225iJPQFb7qUJaxmK1g6g=",
   "Source": "SistemaPedidosReact.Server",
   "BasePath": "_content/SistemaPedidosReact.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "F:\\addoc\\_Gitlab\\Net\\SistemaPedidosReact\\sistemapedidosreact.client\\sistemapedidosreact.client.esproj",
+      "Identity": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\sistemapedidosreact.client.esproj",
       "Version": 2,
       "Source": "sistemapedidosreact.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
