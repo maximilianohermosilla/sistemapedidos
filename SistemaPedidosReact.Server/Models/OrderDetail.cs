@@ -12,10 +12,10 @@ namespace SistemaPedidosReact.Server.Models
         public int? MesaId { get; set; }
         public int? ChargesId { get; set; } = null;
         public string? PaymentMethod { get; set; } = null;
+        public decimal? Tip { get; set; } = 0;
         public string? DeliveryInformation { get; set; } = null;
         public string? BillingInformation { get; set; } = null;
         public string? DeliveryDiscount { get; set; } = null;
-        public decimal? Tip { get; set; } = 0;
 
         public Order Order { get; set; } = null!;
         public Mesa Mesa { get; set; } = null!;

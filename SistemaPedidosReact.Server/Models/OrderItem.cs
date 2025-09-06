@@ -11,6 +11,7 @@ namespace SistemaPedidosReact.Server.Models
         public string? Comments { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public int SortingPosition { get; set; } = 0;
 
         public Item Item { get; set; } = null!;
         public OrderDetail OrderDetail { get; set; } = null!;

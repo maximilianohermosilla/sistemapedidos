@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace SistemaPedidosReact.Server.Migrations
 {
     /// <inheritdoc />
@@ -73,6 +75,33 @@ namespace SistemaPedidosReact.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderStates",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderStates", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Parameters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Parameters", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Stores",
                 columns: table => new
                 {
@@ -94,14 +123,11 @@ namespace SistemaPedidosReact.Server.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastLogin = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsEmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     Enabled = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -116,6 +142,7 @@ namespace SistemaPedidosReact.Server.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Sku = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -174,7 +201,9 @@ namespace SistemaPedidosReact.Server.Migrations
                     StoreId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Delay = table.Column<int>(type: "int", nullable: true)
+                    Delay = table.Column<int>(type: "int", nullable: true),
+                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderStateId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -185,6 +214,11 @@ namespace SistemaPedidosReact.Server.Migrations
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_OrderStates_OrderStateId",
+                        column: x => x.OrderStateId,
+                        principalTable: "OrderStates",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_Stores_StoreId",
                         column: x => x.StoreId,
@@ -229,10 +263,10 @@ namespace SistemaPedidosReact.Server.Migrations
                     MesaId = table.Column<int>(type: "int", nullable: true),
                     ChargesId = table.Column<int>(type: "int", nullable: true),
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tip = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     DeliveryInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BillingInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeliveryDiscount = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tip = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    DeliveryDiscount = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -286,7 +320,8 @@ namespace SistemaPedidosReact.Server.Migrations
                     OrderDetailId = table.Column<int>(type: "int", nullable: false),
                     Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    SortingPosition = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -331,6 +366,18 @@ namespace SistemaPedidosReact.Server.Migrations
                         principalTable: "OrderItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "OrderStates",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "RECIBIDO" },
+                    { 2, "ACEPTADO" },
+                    { 3, "RECHAZADO" },
+                    { 4, "LISTO" },
+                    { 5, "ENVIADO" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -399,6 +446,11 @@ namespace SistemaPedidosReact.Server.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_OrderStateId",
+                table: "Orders",
+                column: "OrderStateId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_StoreId",
                 table: "Orders",
                 column: "StoreId");
@@ -425,6 +477,9 @@ namespace SistemaPedidosReact.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "OrderSubItems");
+
+            migrationBuilder.DropTable(
+                name: "Parameters");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -455,6 +510,9 @@ namespace SistemaPedidosReact.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "OrderStates");
 
             migrationBuilder.DropTable(
                 name: "Stores");

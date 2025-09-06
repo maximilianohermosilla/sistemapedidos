@@ -18,7 +18,9 @@ namespace SistemaPedidosReact.Server.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<OrderState> OrderStates { get; set; }
         public DbSet<OrderSubItem> OrderSubItems { get; set; }
+        public DbSet<Parameter> Parameters { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<User> Users { get; set; }
 
@@ -69,6 +71,11 @@ namespace SistemaPedidosReact.Server.Data
                 entity.HasMany(od => od.Items).WithOne(i => i.OrderDetail).HasForeignKey(i => i.OrderDetailId);
                 entity.HasMany(od => od.Discounts).WithOne(i => i.OrderDetail).HasForeignKey(i => i.OrderDetailId);
             });
+            
+            modelBuilder.Entity<OrderState>(entity =>
+            {
+                entity.HasMany(i => i.Orders).WithOne(si => si.OrderState).HasForeignKey(si => si.OrderStateId);
+            });
 
             // Relación OrderItem -> SubItems
             modelBuilder.Entity<OrderItem>(entity =>
@@ -82,6 +89,15 @@ namespace SistemaPedidosReact.Server.Data
                 entity.HasMany(s => s.Menus).WithOne(i => i.Store).HasForeignKey(i => i.StoreId);
                 entity.HasMany(s => s.Orders).WithOne(i => i.Store).HasForeignKey(i => i.StoreId);
             });
+
+            //HASDATA
+            modelBuilder.Entity<OrderState>().HasData(
+                new OrderState { Id = 1, Name = "RECIBIDO" },
+                new OrderState { Id = 2, Name = "ACEPTADO" },
+                new OrderState { Id = 3, Name = "RECHAZADO" },
+                new OrderState { Id = 4, Name = "LISTO" },
+                new OrderState { Id = 5, Name = "ENVIADO" }
+            );
 
             base.OnModelCreating(modelBuilder);
         }
