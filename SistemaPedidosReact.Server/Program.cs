@@ -22,9 +22,11 @@ builder.Services.AddAutoMapper(config => new MappingProfile(config));
 
 // Configurar servicios de infraestructura
 builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 // Configurar servicios de la aplicación 
 builder.Services.AddScoped<IPaymentMethodService, PaymentMethodService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 //ADD CORS
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp",

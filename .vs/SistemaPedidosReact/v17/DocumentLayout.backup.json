@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "F:\\GitHub\\DigitalProject\\sistemapedidos\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\repositories\\paymentmethodrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\repositories\\paymentmethodrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\profiles\\profiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\profiles\\profiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\services\\paymentmethodservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\services\\paymentmethodservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\repositories\\paymentmethodrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\repositories\\paymentmethodrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\paymentmethodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,20 +27,12 @@
       "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\interfaces\\ipaymentmethodservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\interfaces\\ipaymentmethodservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\interfaces\\iitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\interfaces\\iitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\profiles\\profiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\profiles\\profiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\paymentmethodcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -154,17 +154,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Program.cs",
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Program.cs",
               "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Program.cs",
               "RelativeToolTip": "SistemaPedidosReact.Server\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAABKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-06T03:34:46.143Z",
               "IsPinned": true,
@@ -180,33 +180,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "PaymentMethodController.cs",
               "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\PaymentMethodController.cs",
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\PaymentMethodController.cs",
               "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\PaymentMethodController.cs",
               "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\PaymentMethodController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwCUAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwCUAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-06T17:50:58.477Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PaymentMethodService.cs",
               "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\PaymentMethodService.cs",
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Services\\PaymentMethodService.cs",
               "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\PaymentMethodService.cs",
               "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\PaymentMethodService.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAvwDQAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAvwDYAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-06T17:45:54.137Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "IPaymentMethodService.cs",
               "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Interfaces\\IPaymentMethodService.cs",
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Interfaces\\IPaymentMethodService.cs",
@@ -219,13 +219,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
               "Title": "Profiles.cs",
               "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Profiles\\Profiles.cs",
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Profiles\\Profiles.cs",
               "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Profiles\\Profiles.cs",
               "RelativeToolTip": "SistemaPedidosReact.Server\\Profiles\\Profiles.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-06T17:38:44.754Z",
               "EditorCaption": ""
@@ -258,13 +258,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "PaymentMethodRepository.cs",
               "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\PaymentMethodRepository.cs",
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Repositories\\PaymentMethodRepository.cs",
               "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\PaymentMethodRepository.cs",
               "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Repositories\\PaymentMethodRepository.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAnwB8AAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAnwCIAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-06T17:31:27.366Z",
               "EditorCaption": ""
@@ -284,7 +284,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "OrderController.cs",
               "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\OrderController.cs",
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\OrderController.cs",
@@ -310,7 +310,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "IItemRepository.cs",
               "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\IItemRepository.cs",
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Interfaces\\IItemRepository.cs",

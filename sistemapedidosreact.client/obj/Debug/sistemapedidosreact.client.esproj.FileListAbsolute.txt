@@ -1,2 +1,3 @@
 F:\addoc\_Gitlab\Net\SistemaPedidosReact\sistemapedidosreact.client\obj\Debug\sistemapedidosreact.client.esproj.CoreCompileInputs.cache
 F:\GitHub\DigitalProject\sistemapedidos\sistemapedidosreact.client\obj\Debug\sistemapedidosreact.client.esproj.CoreCompileInputs.cache
+C:\Users\Maximiliano\Documents\Github\sistemapedidos\sistemapedidosreact.client\obj\Debug\sistemapedidosreact.client.esproj.CoreCompileInputs.cache

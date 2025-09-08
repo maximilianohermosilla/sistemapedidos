@@ -351,5 +351,8 @@ MigrationBackup/
 
 
 FileContentIndex/
-/v17/*
-/obj/Debug/*
+.vs/
+v17/*
+SistemaPedidosReact.Server/obj/*
+SistemaPedidosReact.Server/bin/Debug/*
+SistemaPedidosReact.Server/o

@@ -193,7 +193,7 @@ namespace SistemaPedidosReact.Server.Data
             });
 
 
-            //HASDATA
+            #region HasData
             modelBuilder.Entity<OrderState>().HasData(
                 new OrderState { Id = 1, Name = "RECIBIDO" },
                 new OrderState { Id = 2, Name = "ACEPTADO" },
@@ -211,6 +211,17 @@ namespace SistemaPedidosReact.Server.Data
                new PaymentMethod { Id = 6, Code = "MO", Name = "Modo" },
                new PaymentMethod { Id = 7, Code = "PN", Name = "Pago Nube" }
             );
+
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, Name = "Administrador", LastName = "Sistemas", Email = "maximiliano_hermosilla@hotmail.com", 
+                    UserName = "admin", Password = "CLAve123**", CreatedAt = DateTime.Now, Enabled = true }            
+            );
+
+            modelBuilder.Entity<Store>().HasData(
+                new Store { Id = 1, Name = "El Refugio", InternalId = "1", ExternalId = "1" }
+            );
+
+            #endregion
 
             base.OnModelCreating(modelBuilder);
         }
