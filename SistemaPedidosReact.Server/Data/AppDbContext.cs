@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using SistemaPedidosReact.Server.Models;
 
 namespace SistemaPedidosReact.Server.Data
@@ -206,7 +207,9 @@ namespace SistemaPedidosReact.Server.Data
 
             modelBuilder.Entity<User>().HasData(
                 new User { Id = 1, Name = "Administrador", LastName = "Sistemas", Email = "maximiliano_hermosilla@hotmail.com", 
-                    UserName = "admin", Password = "CLAve123**", CreatedAt = new DateTime(2025, 09, 01, 00, 0, 0, DateTimeKind.Utc), Enabled = true }            
+                    UserName = "admin", Password = "U+QpQHyCKuYC78AAH05KwA==", CreatedAt = new DateTime(2025, 09, 01, 00, 0, 0, DateTimeKind.Utc), Enabled = true },
+                new User { Id = 2, Name = "Administrador", LastName = "El Refugio", Email = "rodri.molinaf@gmail.com",
+                    UserName = "adminRefugio", Password = "LjliO6jJsinV8L1xpIj20g==", CreatedAt = new DateTime(2025, 09, 01, 00, 0, 0, DateTimeKind.Utc), Enabled = true }      
             );
 
             modelBuilder.Entity<Store>().HasData(

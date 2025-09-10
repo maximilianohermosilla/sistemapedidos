@@ -10,11 +10,13 @@ namespace SistemaPedidosReact.Server.Controllers
     {
         private readonly IMenuService vGblService;
         private readonly IStoreService vGblStoreService;
+        private readonly IUserService vGblUserService;
 
-        public MenuController(IMenuService pService, IStoreService pStoreService)
+        public MenuController(IMenuService pService, IStoreService pStoreService, IUserService pUserService)
         {
             vGblService = pService;
             vGblStoreService = pStoreService;
+            vGblUserService = pUserService;
         }
 
         [HttpGet]
@@ -92,6 +94,28 @@ namespace SistemaPedidosReact.Server.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ActionResult<UserReadDTO>> Login(string pUserName, string pPassword)
+        {
+            try
+            {
+                var vUser = await vGblUserService.GetByUserNamePassword(pUserName, pPassword);
+
+                if (vUser == null)
+                {
+                    return NotFound(new UserLoginReadDTO() { Mensaje = "Credenciales incorrectas" });
+                }
+
+                return Ok(new UserLoginReadDTO() { Mensaje = "Usuario registrado correctamente", Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTdjNjM0NzNmMGFhMDEyNDM4ZDE3YiIsImlhdCI6MTcyNzcwMjI3MiwiZXhwIjoxNzI3NzA1ODcyfQ.9rT2HaSyFjkOX053A_1LHrdsg1bnC28mFDttbAu3E2g" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new UserLoginReadDTO() { Mensaje = ex.Message });
             }
         }
 
