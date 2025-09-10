@@ -1,11 +1,13 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using SistemaPedidosReact.Server.Data;
 using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.Data.Repositories;
 using SistemaPedidosReact.Server.Profiles;
 using SistemaPedidosReact.Server.Responses.Interfaces;
 using SistemaPedidosReact.Server.Responses.Services;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +42,22 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp",
     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+        };
+    });
 
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -63,6 +80,7 @@ app.UseCors(policy => policy.AllowAnyHeader()
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

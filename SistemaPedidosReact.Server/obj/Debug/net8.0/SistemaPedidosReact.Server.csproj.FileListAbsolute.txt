@@ -390,3 +390,4 @@ C:\Users\Maximiliano\Documents\Github\sistemapedidos\SistemaPedidosReact.Server\
 C:\Users\Maximiliano\Documents\Github\sistemapedidos\SistemaPedidosReact.Server\obj\Debug\net8.0\SistemaPedidosReact.Server.pdb
 C:\Users\Maximiliano\Documents\Github\sistemapedidos\SistemaPedidosReact.Server\obj\Debug\net8.0\SistemaPedidosReact.Server.genruntimeconfig.cache
 C:\Users\Maximiliano\Documents\Github\sistemapedidos\SistemaPedidosReact.Server\obj\Debug\net8.0\ref\SistemaPedidosReact.Server.dll
+F:\GitHub\DigitalProject\sistemapedidos\SistemaPedidosReact.Server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Responses.Interfaces;
 
@@ -67,6 +68,7 @@ namespace SistemaPedidosReact.Server.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<MenuReadDTO>> CreateMenuPOS(MenuCreatePOS pMenu)
         {
             try
@@ -100,18 +102,18 @@ namespace SistemaPedidosReact.Server.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<UserReadDTO>> Login(string pUserName, string pPassword)
+        public async Task<ActionResult<UserReadDTO>> Login([FromBody] UserLoginDTO pUserLogin)
         {
             try
             {
-                var vUser = await vGblUserService.GetByUserNamePassword(pUserName, pPassword);
+                var vUser = await vGblUserService.GetByUserNamePassword(pUserLogin.UserName, pUserLogin.Password);
 
                 if (vUser == null)
                 {
                     return NotFound(new UserLoginReadDTO() { Mensaje = "Credenciales incorrectas" });
                 }
 
-                return Ok(new UserLoginReadDTO() { Mensaje = "Usuario registrado correctamente", Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTdjNjM0NzNmMGFhMDEyNDM4ZDE3YiIsImlhdCI6MTcyNzcwMjI3MiwiZXhwIjoxNzI3NzA1ODcyfQ.9rT2HaSyFjkOX053A_1LHrdsg1bnC28mFDttbAu3E2g" });
+                return Ok(new UserLoginReadDTO() { Mensaje = "Usuario registrado correctamente", Token = vUser.Token });
             }
             catch (Exception ex)
             {

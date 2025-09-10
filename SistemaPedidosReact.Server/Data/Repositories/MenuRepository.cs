@@ -28,12 +28,12 @@ namespace SistemaPedidosReact.Server.Data.Repositories
 
         public IEnumerable<Menu> GetAll()
         {
-            return vGblContext.Menus.ToList();
+            return vGblContext.Menus.Include(m => m.Items)!.ThenInclude(i => i.Category).ToList();
         }
 
         public Menu GetById(int pId)
         {
-            return vGblContext.Menus.Where(e => e.Id == pId).Include(m => m.Items).ThenInclude(i => i.Category)
+            return vGblContext.Menus.Where(e => e.Id == pId).Include(m => m.Items)!.ThenInclude(i => i.Category)
                 .Include(m => m.Items!).ThenInclude(i => i.Children!).ThenInclude(i => i.Category).FirstOrDefault()!;
 
         }

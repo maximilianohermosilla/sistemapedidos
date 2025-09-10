@@ -8,6 +8,7 @@
         public string? Email { get; set; } = string.Empty;
         public string UserName { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        public string? Token { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
         public bool Enabled { get; set; } = true;
     }
