@@ -77,7 +77,7 @@ namespace SistemaPedidosReact.Server.Controllers
 
                 if (vStore == null)
                 {
-                    return BadRequest("Store inexistente");
+                    return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
                 }
                 else
                 {
@@ -88,10 +88,10 @@ namespace SistemaPedidosReact.Server.Controllers
 
                 if (vMenu == null)
                 {
-                    return BadRequest("Ocurrió un error al actualizar el menú");
+                    return BadRequest(new ResponseMessage() { Message = "La estructura del menú es inválida" });
                 }
 
-                return Created("", vMenu);
+                return Ok(new ResponseMessage() { Message = "Menú actualizado y listo para ser validado" });
             }
             catch (Exception ex)
             {

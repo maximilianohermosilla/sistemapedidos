@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemaPedidosReact.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1928e2a16fda2dd3128ad02921eff2a344a9e597")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39b37c018fcc8c84b1adcc4cb424cad1529667d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemaPedidosReact.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemaPedidosReact.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,10 +1,12 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SistemaPedidosReact.Server.Data;
 using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.Data.Repositories;
+using SistemaPedidosReact.Server.Helpers;
 using SistemaPedidosReact.Server.Profiles;
 using SistemaPedidosReact.Server.Responses.Interfaces;
 using SistemaPedidosReact.Server.Responses.Services;
@@ -14,10 +16,32 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configurar Response Error Parametros
+builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState.Values
+            .SelectMany(v => v.Errors)
+            .Select(e => e.ErrorMessage)
+            .ToList();
+
+        var customErrorResponse = new
+        {
+            Message = string.Join(' ', errors),
+            //Status = StatusCodes.Status400BadRequest,
+            //Title = "Validation Error",
+            //Errors = errors,
+            //Timestamp = DateTime.UtcNow
+        };
+        return new BadRequestObjectResult(customErrorResponse);
+    };
+});
+
 
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(config => new MappingProfile(config));
@@ -42,6 +66,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp",
     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
+//AUTHENTICATION JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -54,6 +79,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnChallenge = async context =>
+            {
+                context.HandleResponse();
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                context.Response.ContentType = "application/json";
+
+                var response = new
+                {
+                    Message = "Credenciales inválidas",
+                    //ErrorCode = "INVALID_TOKEN_OR_MISSING_AUTH"
+                };
+                await context.Response.WriteAsJsonAsync(response);
+            }
         };
     });
 
@@ -84,6 +126,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseMiddleware<CustomUnsupportedMediaTypeMiddleware>();
 
 // Aplicar migraciones automáticamente
 using (var scope = app.Services.CreateScope())
