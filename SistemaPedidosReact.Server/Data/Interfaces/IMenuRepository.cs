@@ -7,6 +7,7 @@ namespace SistemaPedidosReact.Server.Data.Interfaces
         bool SaveChanges();
         IEnumerable<Menu> GetAll();
         Menu GetById(int pId);
+        Menu GetLastMenu();
         Menu Create(Menu pMenu);
     }
 }

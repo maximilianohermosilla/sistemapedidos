@@ -48,6 +48,22 @@ namespace SistemaPedidosReact.Server.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<MenuReadDTO>> GetLastMenu()
+        {
+            try
+            {
+                var vMenu = await vGblService.GetLastMenu();
+
+                return Ok(vMenu);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<MenuReadDTO>> CreateMenuPOS(MenuCreatePOS pMenu)
         {

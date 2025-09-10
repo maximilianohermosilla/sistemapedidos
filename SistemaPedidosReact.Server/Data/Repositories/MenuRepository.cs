@@ -1,9 +1,10 @@
-﻿using SistemaPedidosReact.Server.Data.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.Models;
 
 namespace SistemaPedidosReact.Server.Data.Repositories
 {
-    public class MenuRepository: IMenuRepository
+    public class MenuRepository : IMenuRepository
     {
         private readonly AppDbContext vGblContext;
 
@@ -32,7 +33,15 @@ namespace SistemaPedidosReact.Server.Data.Repositories
 
         public Menu GetById(int pId)
         {
-            return vGblContext.Menus.FirstOrDefault(e => e.Id == pId)!;
+            return vGblContext.Menus.Where(e => e.Id == pId).Include(m => m.Items).ThenInclude(i => i.Category)
+                .Include(m => m.Items!).ThenInclude(i => i.Children!).ThenInclude(i => i.Category).FirstOrDefault()!;
+
+        }
+
+        public Menu GetLastMenu()
+        {
+            return vGblContext.Menus.OrderByDescending(e => e.Id)!.Include(m => m.Items)!.ThenInclude(i => i.Category)
+                .Include(m => m.Items!).ThenInclude(i => i.Children!).ThenInclude(i => i.Category).FirstOrDefault()!;
         }
     }
 }

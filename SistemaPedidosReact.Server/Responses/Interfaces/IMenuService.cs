@@ -8,5 +8,6 @@ namespace SistemaPedidosReact.Server.Responses.Interfaces
         Task<MenuReadDTO?> CreateMenuPOS(MenuCreatePOS pMenu);
         Task<IEnumerable<MenuReadDTO>> GetAll();
         Task<MenuReadDTO?> GetById(int pId);
+        Task<MenuReadDTO?> GetLastMenu();
     }
 }

@@ -64,11 +64,26 @@ namespace SistemaPedidosReact.Server.Responses.Services
             }
         }
 
+        public async Task<MenuReadDTO?> GetLastMenu()
+        {
+            try
+            {
+                var vMenu = vGblRepository.GetLastMenu();
+
+                return vGblMapper.Map<MenuReadDTO>(vMenu)!;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<MenuReadDTO> CreateMenuPOS(MenuCreatePOS pMenu)
         {
             try
             {
                 var vMenu = vGblMapper.Map<Menu>(pMenu);
+                vMenu.Name = $"Menú {DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss")}";
                 //var vItems = vGblMapper.Map<ICollection<Item>>(pMenu.Items);
 
                 foreach (var vItem in vMenu.Items!)
