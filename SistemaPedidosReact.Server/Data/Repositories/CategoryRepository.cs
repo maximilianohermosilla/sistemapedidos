@@ -34,5 +34,10 @@ namespace SistemaPedidosReact.Server.Data.Repositories
         {
             return vGblContext.Categories.FirstOrDefault(e => e.Id == pId)!;
         }
+
+        public Category GetByExternalId(string pExternalId)
+        {
+            return vGblContext.Categories.FirstOrDefault(e => e.ExternalId == pExternalId)!;
+        }
     }
 }

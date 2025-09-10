@@ -34,5 +34,10 @@ namespace SistemaPedidosReact.Server.Data.Repositories
         {
             return vGblContext.Items.FirstOrDefault(e => e.Id == pId)!;
         }
+
+        public Item GetBySku(string pSku)
+        {
+            return vGblContext.Items.FirstOrDefault(e => e.Sku == pSku)!;
+        }
     }
 }

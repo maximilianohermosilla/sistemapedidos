@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj": {}
+    "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj": {
+    "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj",
+        "projectUniqueName": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj",
         "projectName": "SistemaPedidosReact.Server",
-        "projectPath": "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj",
-        "packagesPath": "C:\\Users\\Maximiliano\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\obj\\",
+        "projectPath": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj",
+        "packagesPath": "C:\\Users\\maxim\\.nuget\\packages\\",
+        "outputPath": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Maximiliano\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maxim\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -43,9 +43,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -97,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

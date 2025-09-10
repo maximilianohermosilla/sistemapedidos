@@ -7,8 +7,10 @@ namespace SistemaPedidosReact.Server.Models
         [Key]
         public int Id { get; set; }
         public int StoreId { get; set; }
+        public string? Name { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public Store Store { get; set; } = null!;
-        public virtual ICollection<ItemMenu>? ItemMenus { get; set; }
+        public virtual ICollection<Item>? Items { get; set; }
     }
 }

@@ -8,12 +8,12 @@ namespace SistemaPedidosReact.Server.Responses.Services
 {
     public class CategoryService: ICategoryService
     {
-        private readonly ICategoryRepository vGblRepositorio;
+        private readonly ICategoryRepository vGblRepository;
         private readonly IMapper vGblMapper;
 
-        public CategoryService(ICategoryRepository pRepositorio, IMapper pMapper)
+        public CategoryService(ICategoryRepository pRepository, IMapper pMapper)
         {
-            vGblRepositorio = pRepositorio;
+            vGblRepository = pRepository;
             vGblMapper = pMapper;
         }
 
@@ -22,7 +22,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
             try
             {
                 var vCategory = vGblMapper.Map<Category>(pCategory);
-                var vCategoryCreada = vGblRepositorio.Create(vCategory);
+                var vCategoryCreada = vGblRepository.Create(vCategory);
 
                 return vGblMapper.Map<CategoryReadDTO>(vCategoryCreada);
             }
@@ -36,7 +36,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
         {
             try
             {
-                var vCategorys = vGblRepositorio.GetAll();
+                var vCategorys = vGblRepository.GetAll();
 
                 return vGblMapper.Map<IEnumerable<CategoryReadDTO>>(vCategorys);
             }
@@ -50,7 +50,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
         {
             try
             {
-                var vCategory = vGblRepositorio.GetById(pId);
+                var vCategory = vGblRepository.GetById(pId);
 
                 return vGblMapper.Map<CategoryReadDTO>(vCategory)!;                
             }

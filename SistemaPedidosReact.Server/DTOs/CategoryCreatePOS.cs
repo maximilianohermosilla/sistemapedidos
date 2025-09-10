@@ -1,8 +1,8 @@
 ﻿namespace SistemaPedidosReact.Server.DTOs
 {
-    public class CategoryCreateDTO
+    public class CategoryCreatePOS
     {
-        public int Id { get; set; }
+        public string Id { get; set; } = string.Empty;
         public string? ExternalId { get; set; } = string.Empty;
         public string? Name { get; set; } = string.Empty;
         public int? MaxQty { get; set; } = 0;

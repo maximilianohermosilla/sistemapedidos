@@ -7,6 +7,7 @@ namespace SistemaPedidosReact.Server.Data.Interfaces
         bool SaveChanges();
         IEnumerable<Category> GetAll();
         Category GetById(int pId);
+        Category GetByExternalId(string pExternalId);
         Category Create(Category pCategory);
     }
 }

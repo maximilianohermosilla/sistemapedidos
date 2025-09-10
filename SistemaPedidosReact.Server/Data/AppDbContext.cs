@@ -15,7 +15,6 @@ namespace SistemaPedidosReact.Server.Data
         public DbSet<DeliveryInformation> DeliveryInformations { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<ItemMenu> ItemMenus { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<Mesa> Mesas { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -87,23 +86,16 @@ namespace SistemaPedidosReact.Server.Data
                 entity.HasOne(i => i.Category).WithMany(i => i.Items).HasForeignKey(i => i.CategoryId).OnDelete(DeleteBehavior.NoAction);
                 entity.HasOne(i => i.Store).WithMany(i => i.Items).HasForeignKey(i => i.StoreId).OnDelete(DeleteBehavior.NoAction);
                 entity.HasMany(i => i.Children).WithOne(i => i.ParentItem).HasForeignKey(i => i.ParentItemId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasMany(i => i.ItemMenus).WithOne(i => i.Item).HasForeignKey(i => i.ItemId).OnDelete(DeleteBehavior.Restrict);
                 entity.HasMany(i => i.OrderItems).WithOne(i => i.Item).HasForeignKey(i => i.ItemId).OnDelete(DeleteBehavior.Restrict);
                 entity.HasMany(i => i.OrderSubItems).WithOne(i => i.Item).HasForeignKey(i => i.ItemId).OnDelete(DeleteBehavior.Restrict);
                 entity.HasMany(i => i.Discounts).WithOne(i => i.Item).HasForeignKey(i => i.ItemId).OnDelete(DeleteBehavior.Restrict);
                 entity.Property(t => t.Price).HasPrecision(10, 2);
             });
 
-            modelBuilder.Entity<ItemMenu>(entity =>
-            {
-                entity.HasOne(i => i.Item).WithMany(i => i.ItemMenus).HasForeignKey(i => i.ItemId).OnDelete(DeleteBehavior.NoAction);
-                entity.HasOne(i => i.Menu).WithMany(i => i.ItemMenus).HasForeignKey(i => i.MenuId).OnDelete(DeleteBehavior.NoAction);
-            });
-
             modelBuilder.Entity<Menu>(entity =>
             {
                 entity.HasOne(i => i.Store).WithMany(i => i.Menus).HasForeignKey(i => i.StoreId).OnDelete(DeleteBehavior.NoAction);
-                entity.HasMany(i => i.ItemMenus).WithOne(i => i.Menu).HasForeignKey(i => i.MenuId).OnDelete(DeleteBehavior.Restrict);
+                entity.HasMany(i => i.Items).WithOne(i => i.Menu).HasForeignKey(i => i.MenuId).OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Mesa>(entity =>
@@ -214,7 +206,7 @@ namespace SistemaPedidosReact.Server.Data
 
             modelBuilder.Entity<User>().HasData(
                 new User { Id = 1, Name = "Administrador", LastName = "Sistemas", Email = "maximiliano_hermosilla@hotmail.com", 
-                    UserName = "admin", Password = "CLAve123**", CreatedAt = DateTime.Now, Enabled = true }            
+                    UserName = "admin", Password = "CLAve123**", CreatedAt = new DateTime(2025, 09, 01, 00, 0, 0, DateTimeKind.Utc), Enabled = true }            
             );
 
             modelBuilder.Entity<Store>().HasData(

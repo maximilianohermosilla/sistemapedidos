@@ -246,52 +246,14 @@ namespace SistemaPedidosReact.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Items",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Observacciones = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Sku = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Combo = table.Column<bool>(type: "bit", nullable: false),
-                    MaxLimit = table.Column<int>(type: "int", nullable: true),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    ParentItemId = table.Column<int>(type: "int", nullable: true),
-                    StoreId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Items", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Items_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Items_Items_ParentItemId",
-                        column: x => x.ParentItemId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Items_Stores_StoreId",
-                        column: x => x.StoreId,
-                        principalTable: "Stores",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Menus",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StoreId = table.Column<int>(type: "int", nullable: false)
+                    StoreId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -337,28 +299,51 @@ namespace SistemaPedidosReact.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ItemMenus",
+                name: "Items",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Observaciones = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sku = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Combo = table.Column<bool>(type: "bit", nullable: false),
+                    MaxLimit = table.Column<int>(type: "int", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ParentItemId = table.Column<int>(type: "int", nullable: true),
+                    StoreId = table.Column<int>(type: "int", nullable: true),
+                    SortingPosition = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ItemMenus", x => x.Id);
+                    table.PrimaryKey("PK_Items", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ItemMenus_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
+                        name: "FK_Items_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ItemMenus_Menus_MenuId",
+                        name: "FK_Items_Items_ParentItemId",
+                        column: x => x.ParentItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Items_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Items_Stores_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Stores",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -543,6 +528,16 @@ namespace SistemaPedidosReact.Server.Migrations
                     { 7, "PN", "Pago Nube" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Stores",
+                columns: new[] { "Id", "ExternalId", "InternalId", "Name" },
+                values: new object[] { 1, "1", "1", "El Refugio" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "CreatedAt", "Email", "Enabled", "LastName", "Name", "Password", "UserName" },
+                values: new object[] { 1, new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc), "maximiliano_hermosilla@hotmail.com", true, "Sistemas", "Administrador", "CLAve123**", "admin" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Discounts_ItemId",
                 table: "Discounts",
@@ -554,19 +549,14 @@ namespace SistemaPedidosReact.Server.Migrations
                 column: "OrderDetailId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemMenus_ItemId",
-                table: "ItemMenus",
-                column: "ItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ItemMenus_MenuId",
-                table: "ItemMenus",
-                column: "MenuId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Items_CategoryId",
                 table: "Items",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Items_MenuId",
+                table: "Items",
+                column: "MenuId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Items_ParentItemId",
@@ -671,9 +661,6 @@ namespace SistemaPedidosReact.Server.Migrations
                 name: "Discounts");
 
             migrationBuilder.DropTable(
-                name: "ItemMenus");
-
-            migrationBuilder.DropTable(
                 name: "OrderSubItems");
 
             migrationBuilder.DropTable(
@@ -681,9 +668,6 @@ namespace SistemaPedidosReact.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Menus");
 
             migrationBuilder.DropTable(
                 name: "OrderItems");
@@ -696,6 +680,9 @@ namespace SistemaPedidosReact.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Menus");
 
             migrationBuilder.DropTable(
                 name: "BillingInformations");

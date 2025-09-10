@@ -1,17 +1,105 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\",
+  "WorkspaceRootPath": "F:\\GitHub\\DigitalProject\\sistemapedidos\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|c:\\users\\maximiliano\\documents\\github\\sistemapedidos\\sistemapedidosreact.server\\profiles\\profiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Migrations\\20250910022807_InitialMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:SistemaPedidosReact.Server\\Migrations\\20250910022807_InitialMigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\models\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\models\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\models\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\models\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\menureaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\menureaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\menucreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\menucreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\menucreatepos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\menucreatepos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\itemreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\itemreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\itemcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\itemcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\itemcreatepos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\itemcreatepos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\services\\menuservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\services\\menuservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\services\\paymentmethodservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\services\\paymentmethodservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\services\\itemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\services\\itemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\profiles\\profiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\profiles\\profiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|c:\\users\\maximiliano\\documents\\github\\sistemapedidos\\sistemapedidosreact.server\\dtos\\orderstatereaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\discountreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\discountreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\categoryreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\categoryreaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\categorycreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\categorycreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\repositories\\storerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\repositories\\storerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\interfaces\\imenurepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\interfaces\\imenurepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\repositories\\itemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\repositories\\itemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\interfaces\\imenuservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\interfaces\\imenuservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\orderstatereaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\orderstatereaddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|c:\\users\\maximiliano\\documents\\github\\sistemapedidos\\sistemapedidosreact.server\\dtos\\orderstatecreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\orderstatecreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\orderstatecreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -22,17 +110,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 14,
               "Title": "Profiles.cs",
-              "DocumentMoniker": "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\Profiles\\Profiles.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Profiles\\Profiles.cs",
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Profiles\\Profiles.cs",
-              "ToolTip": "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\Profiles\\Profiles.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Profiles\\Profiles.cs",
               "RelativeToolTip": "SistemaPedidosReact.Server\\Profiles\\Profiles.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEkAAAA/AAAAAAAAAA==",
+              "ViewState": "AgIAADcAAAAAAAAAAAAqwE0AAABXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-08T00:44:49.646Z",
               "IsPinned": true,
@@ -40,29 +128,323 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "OrderStateReadDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderStateReadDTO.cs",
-              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\OrderStateReadDTO.cs",
-              "ToolTip": "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderStateReadDTO.cs",
-              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\OrderStateReadDTO.cs",
+              "DocumentIndex": 18,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Program.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Program.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Program.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Program.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADAAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T00:33:40.435Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MenuService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\MenuService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Services\\MenuService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\MenuService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\MenuService.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAAAqwEIAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T21:40:56.732Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20250910022807_InitialMigration.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Migrations\\20250910022807_InitialMigration.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Migrations\\20250910022807_InitialMigration.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Migrations\\20250910022807_InitialMigration.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Migrations\\20250910022807_InitialMigration.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-08T00:44:41.268Z",
+              "WhenOpened": "2025-09-10T02:28:08.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Menu.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Models\\Menu.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Models\\Menu.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Models\\Menu.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Models\\Menu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T02:27:43.072Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Item.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Models\\Item.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Models\\Item.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Models\\Item.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Models\\Item.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAuwBwAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T02:27:25.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MenuCreatePOS.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\MenuCreatePOS.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\MenuCreatePOS.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\MenuCreatePOS.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\MenuCreatePOS.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T02:25:55.458Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ItemCreateDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\ItemCreateDTO.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\ItemCreateDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\ItemCreateDTO.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\ItemCreateDTO.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwA0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T01:39:38.154Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CategoryReadDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\CategoryReadDTO.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\CategoryReadDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\CategoryReadDTO.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\CategoryReadDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T01:39:23.357Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "CategoryCreateDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\CategoryCreateDTO.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\CategoryCreateDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\CategoryCreateDTO.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\CategoryCreateDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T01:39:03.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MenuReadDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\MenuReadDTO.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\MenuReadDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\MenuReadDTO.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\MenuReadDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T00:07:07.584Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MenuCreateDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\MenuCreateDTO.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\MenuCreateDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\MenuCreateDTO.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\MenuCreateDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T01:41:02.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "MenuController.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\MenuController.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\MenuController.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\MenuController.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\MenuController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAQwEIAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T21:42:28.357Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ItemService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\ItemService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Services\\ItemService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\ItemService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\ItemService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T00:30:57.451Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ItemCreatePOS.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\ItemCreatePOS.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\ItemCreatePOS.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\ItemCreatePOS.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\ItemCreatePOS.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T01:39:45.903Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ItemReadDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\ItemReadDTO.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\ItemReadDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\ItemReadDTO.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\ItemReadDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T01:40:10.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CategoryService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\CategoryService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Services\\CategoryService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\CategoryService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\CategoryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T01:51:14.204Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PaymentMethodService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\PaymentMethodService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Services\\PaymentMethodService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\PaymentMethodService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\PaymentMethodService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T01:51:42.903Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "DiscountReadDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\DiscountReadDTO.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\DiscountReadDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\DiscountReadDTO.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\DiscountReadDTO.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T01:40:15.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "IMenuService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Interfaces\\IMenuService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Interfaces\\IMenuService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Interfaces\\IMenuService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Interfaces\\IMenuService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T21:40:42.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ItemRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\ItemRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Repositories\\ItemRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\ItemRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Repositories\\ItemRepository.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwCMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T21:40:14.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "StoreRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\StoreRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Repositories\\StoreRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\StoreRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Repositories\\StoreRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T00:27:48.154Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "IMenuRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\IMenuRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Interfaces\\IMenuRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\IMenuRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Interfaces\\IMenuRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-09T21:40:00.042Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "OrderStateReadDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderStateReadDTO.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\OrderStateReadDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderStateReadDTO.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\OrderStateReadDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-08T00:44:41.268Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
               "Title": "OrderStateCreateDTO.cs",
-              "DocumentMoniker": "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderStateCreateDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderStateCreateDTO.cs",
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\OrderStateCreateDTO.cs",
-              "ToolTip": "C:\\Users\\Maximiliano\\Documents\\Github\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderStateCreateDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderStateCreateDTO.cs",
               "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\OrderStateCreateDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-08T00:44:42.129Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-08T00:44:42.129Z"
             }
           ]
         }

@@ -300,11 +300,14 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.Property<int?>("MaxLimit")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MenuId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Observacciones")
+                    b.Property<string>("Observaciones")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentItemId")
@@ -318,6 +321,9 @@ namespace SistemaPedidosReact.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SortingPosition")
+                        .HasColumnType("int");
+
                     b.Property<int?>("StoreId")
                         .HasColumnType("int");
 
@@ -329,34 +335,13 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("MenuId");
+
                     b.HasIndex("ParentItemId");
 
                     b.HasIndex("StoreId");
 
                     b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("SistemaPedidosReact.Server.Models.ItemMenu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MenuId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
-
-                    b.HasIndex("MenuId");
-
-                    b.ToTable("ItemMenus");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Menu", b =>
@@ -366,6 +351,12 @@ namespace SistemaPedidosReact.Server.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
@@ -743,6 +734,15 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stores");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ExternalId = "1",
+                            InternalId = "1",
+                            Name = "El Refugio"
+                        });
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Totals", b =>
@@ -818,6 +818,19 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "maximiliano_hermosilla@hotmail.com",
+                            Enabled = true,
+                            LastName = "Sistemas",
+                            Name = "Administrador",
+                            Password = "CLAve123**",
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Discount", b =>
@@ -845,6 +858,11 @@ namespace SistemaPedidosReact.Server.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("SistemaPedidosReact.Server.Models.Menu", "Menu")
+                        .WithMany("Items")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("SistemaPedidosReact.Server.Models.Item", "ParentItem")
                         .WithMany("Children")
                         .HasForeignKey("ParentItemId")
@@ -857,28 +875,11 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     b.Navigation("Category");
 
+                    b.Navigation("Menu");
+
                     b.Navigation("ParentItem");
 
                     b.Navigation("Store");
-                });
-
-            modelBuilder.Entity("SistemaPedidosReact.Server.Models.ItemMenu", b =>
-                {
-                    b.HasOne("SistemaPedidosReact.Server.Models.Item", "Item")
-                        .WithMany("ItemMenus")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("SistemaPedidosReact.Server.Models.Menu", "Menu")
-                        .WithMany("ItemMenus")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Item");
-
-                    b.Navigation("Menu");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Menu", b =>
@@ -1061,8 +1062,6 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     b.Navigation("Discounts");
 
-                    b.Navigation("ItemMenus");
-
                     b.Navigation("OrderItems");
 
                     b.Navigation("OrderSubItems");
@@ -1070,7 +1069,7 @@ namespace SistemaPedidosReact.Server.Migrations
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Menu", b =>
                 {
-                    b.Navigation("ItemMenus");
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Mesa", b =>

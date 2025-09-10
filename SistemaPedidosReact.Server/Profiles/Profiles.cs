@@ -32,9 +32,6 @@ namespace SistemaPedidosReact.Server.Profiles
             config.CreateMap<Item, ItemReadDTO>().ReverseMap();
             config.CreateMap<Item, ItemCreateDTO>().ReverseMap();
 
-            config.CreateMap<ItemMenu, ItemMenuReadDTO>().ReverseMap();
-            config.CreateMap<ItemMenu, ItemMenuCreateDTO>().ReverseMap();
-
             config.CreateMap<Menu, MenuReadDTO>().ReverseMap();
             config.CreateMap<Menu, MenuCreateDTO>().ReverseMap();
 
@@ -73,6 +70,16 @@ namespace SistemaPedidosReact.Server.Profiles
 
             config.CreateMap<User, UserReadDTO>().ReverseMap();
             config.CreateMap<User, UserCreateDTO>().ReverseMap();
+
+            //POS
+            config.CreateMap<MenuCreatePOS, Menu>().ReverseMap();
+
+            config.CreateMap<CategoryCreatePOS, Category>()
+                .ForMember(dest => dest.ExternalId, opt => opt.MapFrom(src => src.Id));
+
+            config.CreateMap<ItemCreatePOS, Item>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Convert.ToInt32(src.Id)));
+                //.ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => Convert.ToInt32(src!.Category!.Id)));
         }
     }
 }

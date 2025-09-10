@@ -8,12 +8,12 @@ namespace SistemaPedidosReact.Server.Responses.Services
 {
     public class PaymentMethodService: IPaymentMethodService
     {
-        private readonly IPaymentMethodRepository vGblRepositorio;
+        private readonly IPaymentMethodRepository vGblRepository;
         private readonly IMapper vGblMapper;
 
-        public PaymentMethodService(IPaymentMethodRepository pRepositorio, IMapper pMapper)
+        public PaymentMethodService(IPaymentMethodRepository pRepository, IMapper pMapper)
         {
-            vGblRepositorio = pRepositorio;
+            vGblRepository = pRepository;
             vGblMapper = pMapper;
         }
 
@@ -22,7 +22,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
             try
             {
                 var vPaymentMethod = vGblMapper.Map<PaymentMethod>(pPaymentMethod);
-                var vPaymentMethodCreada = vGblRepositorio.Create(vPaymentMethod);
+                var vPaymentMethodCreada = vGblRepository.Create(vPaymentMethod);
 
                 return vGblMapper.Map<PaymentMethodReadDTO>(vPaymentMethodCreada);
             }
@@ -36,7 +36,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
         {
             try
             {
-                var vPaymentMethods = vGblRepositorio.GetAll();
+                var vPaymentMethods = vGblRepository.GetAll();
 
                 return vGblMapper.Map<IEnumerable<PaymentMethodReadDTO>>(vPaymentMethods);
             }
@@ -50,7 +50,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
         {
             try
             {
-                var vPaymentMethod = vGblRepositorio.GetById(pId);
+                var vPaymentMethod = vGblRepository.GetById(pId);
 
                 return vGblMapper.Map<PaymentMethodReadDTO>(vPaymentMethod)!;                
             }

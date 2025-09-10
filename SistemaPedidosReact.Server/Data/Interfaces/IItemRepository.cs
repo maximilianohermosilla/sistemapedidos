@@ -7,6 +7,7 @@ namespace SistemaPedidosReact.Server.Data.Interfaces
         bool SaveChanges();
         IEnumerable<Item> GetAll();
         Item GetById(int pId);
+        Item GetBySku(string pSku);
         Item Create(Item pItem);
     }
 }

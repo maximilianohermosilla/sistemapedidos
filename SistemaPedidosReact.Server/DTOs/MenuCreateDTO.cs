@@ -5,6 +5,6 @@
         public int Id { get; set; }
         public int StoreId { get; set; }
 
-        public virtual ICollection<ItemMenuCreateDTO>? ItemMenus { get; set; }
+        public virtual ICollection<ItemCreateDTO>? Items { get; set; }
     }
 }

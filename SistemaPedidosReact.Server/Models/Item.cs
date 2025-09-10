@@ -8,8 +8,9 @@ namespace SistemaPedidosReact.Server.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; } = string.Empty;
+        public int? MenuId { get; set; } = null;
         public string? Description { get; set; } = string.Empty;
-        public string? Observacciones { get; set; } = string.Empty;
+        public string? Observaciones { get; set; } = string.Empty;
         [Required]
         public string Sku { get; set; } = string.Empty;
         [Required]
@@ -21,12 +22,13 @@ namespace SistemaPedidosReact.Server.Models
         public int CategoryId { get; set; }
         public int? ParentItemId { get; set; }
         public int? StoreId { get; set; }
-        
+        public int? SortingPosition { get; set; } = 0;
+
         public Category Category { get; set; } = null!;
         public Item? ParentItem { get; set; }
+        public Menu? Menu { get; set; } = null!;
         public Store? Store { get; set; } = null!;
         public virtual ICollection<Item> Children { get; set; } = new List<Item>();
-        public virtual ICollection<ItemMenu>? ItemMenus { get; set; } = new List<ItemMenu>();
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public virtual ICollection<OrderSubItem> OrderSubItems { get; set; } = new List<OrderSubItem>();
         public virtual ICollection<Discount> Discounts { get; set; } = new List<Discount>();
