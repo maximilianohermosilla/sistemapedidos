@@ -10,6 +10,6 @@
         public int? OrderStateId { get; set; } = null;
         public int? CustomerId { get; set; } = null;
 
-        public virtual ICollection<OrderDetailCreateDTO> OrderDetails { get; set; } = new List<OrderDetailCreateDTO>();
+        public virtual OrderDetailCreateDTO OrderDetail { get; set; } = new OrderDetailCreateDTO();
     }
 }

@@ -536,7 +536,11 @@ namespace SistemaPedidosReact.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "Email", "Enabled", "LastName", "Name", "Password", "UserName" },
-                values: new object[] { 1, new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc), "maximiliano_hermosilla@hotmail.com", true, "Sistemas", "Administrador", "CLAve123**", "admin" });
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc), "maximiliano_hermosilla@hotmail.com", true, "Sistemas", "Administrador", "U+QpQHyCKuYC78AAH05KwA==", "admin" },
+                    { 2, new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc), "rodri.molinaf@gmail.com", true, "El Refugio", "Administrador", "LjliO6jJsinV8L1xpIj20g==", "adminRefugio" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Discounts_ItemId",
@@ -596,7 +600,8 @@ namespace SistemaPedidosReact.Server.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderId",
                 table: "OrderDetails",
-                column: "OrderId");
+                column: "OrderId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_PaymentMethodId",

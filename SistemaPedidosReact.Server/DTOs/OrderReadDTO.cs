@@ -13,6 +13,6 @@
         public StoreReadDTO Store { get; set; } = null!;
         public OrderStateReadDTO OrderState { get; set; } = null!;
         public CustomerReadDTO Customer { get; set; } = null!;
-        public virtual ICollection<OrderDetailReadDTO> OrderDetails { get; set; } = new List<OrderDetailReadDTO>();
+        public OrderDetailReadDTO OrderDetail { get; set; } = null!;
     }
 }

@@ -109,12 +109,12 @@ namespace SistemaPedidosReact.Server.Data
                 entity.HasOne(i => i.Store).WithMany(i => i.Orders).HasForeignKey(i => i.StoreId).OnDelete(DeleteBehavior.NoAction);
                 entity.HasOne(i => i.OrderState).WithMany(i => i.Orders).HasForeignKey(i => i.OrderStateId).OnDelete(DeleteBehavior.NoAction);
                 entity.HasOne(i => i.Customer).WithMany(i => i.Orders).HasForeignKey(i => i.CustomerId).OnDelete(DeleteBehavior.NoAction);
-                entity.HasMany(i => i.OrderDetails).WithOne(i => i.Order).HasForeignKey(i => i.OrderId).OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(i => i.OrderDetail).WithOne(i => i.Order).HasForeignKey<OrderDetail>(i => i.OrderId).OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
-                entity.HasOne(i => i.Order).WithMany(i => i.OrderDetails).HasForeignKey(i => i.OrderId).OnDelete(DeleteBehavior.NoAction);
+                entity.HasOne(i => i.Order).WithOne(i => i.OrderDetail).HasForeignKey<OrderDetail>(i => i.OrderId).OnDelete(DeleteBehavior.NoAction);
                 entity.HasOne(i => i.Mesa).WithMany(i => i.OrderDetails).HasForeignKey(i => i.MesaId).OnDelete(DeleteBehavior.NoAction);
                 entity.HasOne(i => i.PaymentMethod).WithMany(i => i.OrderDetails).HasForeignKey(i => i.PaymentMethodId).OnDelete(DeleteBehavior.NoAction);
                 entity.HasOne(i => i.DeliveryInformation).WithMany(i => i.OrderDetails).HasForeignKey(i => i.DeliveryInformationId).OnDelete(DeleteBehavior.NoAction);

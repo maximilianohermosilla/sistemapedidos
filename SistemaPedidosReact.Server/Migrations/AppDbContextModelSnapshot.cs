@@ -481,7 +481,8 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     b.HasIndex("MesaId");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderId")
+                        .IsUnique();
 
                     b.HasIndex("PaymentMethodId");
 
@@ -828,8 +829,19 @@ namespace SistemaPedidosReact.Server.Migrations
                             Enabled = true,
                             LastName = "Sistemas",
                             Name = "Administrador",
-                            Password = "CLAve123**",
+                            Password = "U+QpQHyCKuYC78AAH05KwA==",
                             UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "rodri.molinaf@gmail.com",
+                            Enabled = true,
+                            LastName = "El Refugio",
+                            Name = "Administrador",
+                            Password = "LjliO6jJsinV8L1xpIj20g==",
+                            UserName = "adminRefugio"
                         });
                 });
 
@@ -941,8 +953,8 @@ namespace SistemaPedidosReact.Server.Migrations
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("SistemaPedidosReact.Server.Models.Order", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderId")
+                        .WithOne("OrderDetail")
+                        .HasForeignKey("SistemaPedidosReact.Server.Models.OrderDetail", "OrderId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -1079,7 +1091,7 @@ namespace SistemaPedidosReact.Server.Migrations
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Order", b =>
                 {
-                    b.Navigation("OrderDetails");
+                    b.Navigation("OrderDetail");
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.OrderDetail", b =>
