@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:52353",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\..\\sistemapedidosreact.client",
+"WorkingDirectory": "C:\\addoc\\GitLab\\maximilianohermosilla\\sistemapedidos\\SistemaPedidosReact.Server\\..\\sistemapedidosreact.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }

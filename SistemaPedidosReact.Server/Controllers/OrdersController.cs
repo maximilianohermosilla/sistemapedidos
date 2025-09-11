@@ -32,7 +32,7 @@ namespace SistemaPedidosReact.Server.Controllers
                     return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
                 }
 
-                var vOrders = await vGblService.GetAll();
+                var vOrders = await vGblService.GetAllPendingsByStore(vStore.Id);
 
                 return Ok(vOrders);
             }

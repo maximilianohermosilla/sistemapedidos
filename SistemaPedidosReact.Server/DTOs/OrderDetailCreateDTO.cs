@@ -4,9 +4,9 @@
     {
         public int Id { get; set; }
         public int OrderId { get; set; }
-        public string? DeliveryOperationType { get; set; } = string.Empty; //Turbo || Regular
+        public string? DeliveryOperationType { get; set; } = "Regular"; //Turbo || Regular
         public DateTime CreatedAt { get; set; }
-        public string? DeliveryMethod { get; set; } = string.Empty; //Mesa || Delivery || Pickup
+        public string? DeliveryMethod { get; set; } = "Pickup"; //Mesa || Delivery || Pickup
         public int? MesaId { get; set; }
         public string? CantidadCubiertos { get; set; } = null;
         public int? PaymentMethodId { get; set; } = null;

@@ -48,6 +48,20 @@ namespace SistemaPedidosReact.Server.Responses.Services
             }
         }
 
+        public async Task<IEnumerable<OrderReadPOS>> GetAllPendingsByStore(int? pStoreId)
+        {
+            try
+            {
+                var vOrders = vGblRepository.GetAllPendingsByStore(pStoreId);
+
+                return vGblMapper.Map<IEnumerable<OrderReadPOS>>(vOrders);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<OrderReadDTO?> GetById(int pId)
         {
             try
