@@ -1,6 +1,6 @@
 @SistemaPedidosReact.Server_HostAddress = http://localhost:5299
 
-GET {{SistemaPedidosReact.Server_HostAddress}}/weatherforecast/
+GET {{SistemaPedidosReact.Server_HostAddress}}/api/Orders/
 Accept: application/json
 
 ###

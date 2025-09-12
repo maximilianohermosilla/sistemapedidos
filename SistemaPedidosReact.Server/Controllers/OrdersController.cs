@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
-using SistemaPedidosReact.Server.Models;
 using SistemaPedidosReact.Server.Responses.Interfaces;
 
 namespace SistemaPedidosReact.Server.Controllers
@@ -12,7 +10,6 @@ namespace SistemaPedidosReact.Server.Controllers
     {
         private readonly IOrderService vGblService;
         private readonly IStoreService vGblStoreService;
-        private readonly IUserService vGblUserService;
 
         public OrdersController(IOrderService pService, IStoreService pStoreService)
         {
@@ -33,6 +30,29 @@ namespace SistemaPedidosReact.Server.Controllers
                 }
 
                 var vOrders = await vGblService.GetAllPendingsByStore(vStore.Id);
+
+                return Ok(vOrders);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ActionResult<IEnumerable<OrderReadPOS>>> Create(OrderCreateDTO pOrder)
+        {
+            try
+            {
+                var vStore = await vGblStoreService.GetById(pOrder.StoreId);
+
+                if (vStore == null)
+                {
+                    return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
+                }
+
+                var vOrders = await vGblService.Create(pOrder);
 
                 return Ok(vOrders);
             }
