@@ -1,11 +1,13 @@
 import "./CardProduct.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import imgDefault from "../assets/logo/logo_gray_top.jpeg";
 import { formatMoney } from '../utils/formatMoney.ts';
 import { FaPlus } from "react-icons/fa6";
+import { CartContext } from "../context/CartContext.tsx";
 
 export default function CardProduct({ product }: any) {
     const [item, setItem] = useState<any>();
+    const cartContext = useContext<any>(CartContext);
 
     useEffect(() => {
         setItem(product);
@@ -28,7 +30,8 @@ export default function CardProduct({ product }: any) {
                             <p className="text-cyan-700 font-bold">{formatMoney(item.price)}</p>
                         </div>
                         <div className="">
-                            <button className="button__add rounded-full p-2 mt-5 hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40">
+                            <button className="button__add rounded-full p-2 mt-5 hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                onClick={cartContext.addToCart.bind(null, item)}>
                                 <FaPlus color="white"/>
                             </button>
                         </div>

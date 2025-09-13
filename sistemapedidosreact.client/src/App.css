@@ -37,6 +37,28 @@
     scrollbar-color: var(--primary-color) transparent;
 }
 
+button{
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    border-radius: 0.5rem;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+button:active, a:active{
+    opacity: 0.5;
+}
+
+.button__primary{
+    background-color: var(--primary-color);
+    color: #FFF;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.button__primary:hover{    
+    background-color: var(--secondary-color);
+}
+
 
 @keyframes text-appear {
     from {

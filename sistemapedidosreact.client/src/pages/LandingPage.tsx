@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import GetLastMenu from "../services/menu.service";
-import Menu from "./Menu";
+import Menu from "../components/Menu";
+import Delay from "../components/Delay";
 
 export default function LandingPage() {
     const [menu, setMenu] = useState<any>();
@@ -24,7 +25,8 @@ export default function LandingPage() {
     }
 
     return (
-        <div className="main__container">
+        <div className="main__container">            
+            <Delay></Delay>
             <Menu items={menuFavs} title={"Favoritos"}></Menu>
             <Menu items={menuCombos} title={"Combos"}></Menu>
             <Menu items={menuOffers} title={"Pizzas"}></Menu>
