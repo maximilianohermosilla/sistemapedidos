@@ -18,7 +18,7 @@ export default function CardProduct({ product }: any) {
     return (
         <>
             {item === undefined ? <p>No se encontraron datos</p> :
-                <div className="card__product bg-white text-left rounded-md hover:shadow-lg shadow-gray-500/40 hover:cursor-pointer">
+                <div className="card__product bg-white text-left rounded-md hover:shadow-lg shadow-gray-500/40 hover:cursor-pointer mx-auto md:mx-2">
                     <img src={item.imageUrl && item.imageUrl != '' ? item.imageUrl : imgDefault} alt={item.name} onError={addDefaultImg}
                         className="w-full h-48 object-cover rounded-t-md" />
                     <footer className="flex p-4 justify-between">

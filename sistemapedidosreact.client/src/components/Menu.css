@@ -1,0 +1,14 @@
+.menu__section {
+  margin: auto;
+  max-width: 1200px;
+  width: 100%;
+  /* flex-wrap: wrap; */
+}
+
+.horizontal__scrol__wrapper{
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) transparent;
+}
