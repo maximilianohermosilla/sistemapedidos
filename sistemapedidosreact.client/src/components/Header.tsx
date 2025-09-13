@@ -13,10 +13,9 @@ const Header: React.FC = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
-                    <div className="flex-shrink-0">
+                    <a href="#" className="flex-shrink-0 hover:cursor-pointer hover:opacity-75 active:ring-2 active:ring-blue-400">
                         <img src={logo} alt="Logo Header" width={100} height={50} />
-
-                    </div>
+                    </a>
 
                     {/* Search bar (visible en desktop) */}
                     <div className="hidden md:flex flex-1 mx-6">
@@ -24,7 +23,7 @@ const Header: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="Buscar productos..."
-                                className="search-input-field w-full rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-green-500"
+                                className="search-input-field w-full rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
                             />
                             <FaSearch className="search-icon" />
                         </div>
@@ -32,10 +31,10 @@ const Header: React.FC = () => {
 
                     {/* Links desktop */}
                     <div className="hidden md:flex space-x-6">
-                        <a href="#" className="text-gray-600 hover:text-red-500">
+                        <a href="#" className="text-gray-600 hover:text-blue-400">
                             <FaMapMarkerAlt />
                         </a>
-                        <a href="#" className="text-gray-600 hover:text-red-500">
+                        <a href="#" className="text-gray-600 hover:text-blue-400">
                             <FaCartShopping />
                         </a>
                     </div>

@@ -32,7 +32,6 @@ body {
   place-items: center;
   min-width: 360px;
   min-height: 100dvh;
-  width: 100vw;
 }
 
 @media (prefers-color-scheme: light) {
