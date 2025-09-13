@@ -7,13 +7,15 @@ import ShoppingCart from './pages/ShoppingCart';
 
 function App() {
     return (
-        <main className="w-full min-h-screen bg-gray-100">
+        <main className="main__height w-full bg-gray-100">
             <Header></Header>
-            <div className="w-full pt-5 px-3 min-h-screen">
+            <div className="w-full pt-5 h-full">
                 <Routes>
+                    <Route index element={<LandingPage />} />
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/shopping-cart" element={<ShoppingCart />} />
+                    <Route path="*" element={<LandingPage />} />
                 </Routes>
             </div>
         </main>

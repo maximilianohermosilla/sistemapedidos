@@ -3,6 +3,10 @@
     margin-top: 64px;
 }
 
+.main__height{
+    height: calc(100dvh - 70px);
+}
+
 .header__info{
     max-width: 300px;
     color: var(--primary-color);
@@ -42,21 +46,55 @@ button{
     padding: 0.5rem 1rem;
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
     border-radius: 0.5rem;
-    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
 }
 
 button:active, a:active{
     opacity: 0.5;
 }
 
+
 .button__primary{
+    background-color: var(--primary-color);
+    color: #FFF;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+}
+.button__primary:hover{    
+    background-color: var(--secondary-color);
+}
+
+
+.button__primary__outlined{
+    border: 2px solid var(--primary-color);
+    background-color: transparent;
+    color: var(--primary-color);
+}
+.button__primary__outlined:hover{  
     background-color: var(--primary-color);
     color: #FFF;
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.button__primary:hover{    
+
+.button__danger{
+    background-color: var(--danger-color);
+    color: #FFF;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+}
+.button__danger:hover{    
     background-color: var(--secondary-color);
+}
+
+.button__danger__outlined{
+    border: 2px solid var(--danger-color);
+    background-color: transparent;
+    color: var(--danger-color);
+}
+.button__danger__outlined:hover{  
+    background-color: var(--danger-color);
+    color: #FFF;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 

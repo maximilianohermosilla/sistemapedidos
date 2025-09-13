@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import GetLastMenu from "../services/menu.service";
 import Menu from "../components/Menu";
 import Delay from "../components/Delay";
+import ViewCartButton from "../components/ViewCartButton";
+import Footer from "../components/Footer";
 
 export default function LandingPage() {
     const [menu, setMenu] = useState<any>();
@@ -30,6 +32,8 @@ export default function LandingPage() {
             <Menu items={menuFavs} title={"Favoritos"}></Menu>
             <Menu items={menuCombos} title={"Combos"}></Menu>
             <Menu items={menuOffers} title={"Pizzas"}></Menu>
+            <ViewCartButton></ViewCartButton>
+            <Footer menu={menu}></Footer>
         </div>
     )
 }
