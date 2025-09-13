@@ -1,7 +1,7 @@
 import './App.css';
 import Header from './components/Header';
 import HeaderInfo from './components/HeaderInfo';
-import Menu from './components/Menu';
+import LandingPage from './components/LandingPage';
 
 function App() {
     return (
@@ -9,8 +9,7 @@ function App() {
             <Header></Header>
             <div className="w-full pt-5 px-3 min-h-screen">
                 <HeaderInfo></HeaderInfo>
-                <Menu></Menu>
-                <Menu></Menu>
+                <LandingPage></LandingPage>
             </div>
         </main>
     );
