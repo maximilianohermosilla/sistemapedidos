@@ -23,7 +23,7 @@ const Header: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="Buscar productos..."
-                                className="search-input-field w-full rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400"
+                                className="search-input-field w-full rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-cyan-700"
                             />
                             <FaSearch className="search-icon" />
                         </div>
@@ -31,17 +31,17 @@ const Header: React.FC = () => {
 
                     {/* Links desktop */}
                     <div className="hidden md:flex space-x-6">
-                        <a href="#" className="text-gray-600 hover:text-blue-400">
+                        <a href="#" className="header__link text-gray-600 hover:text-blue-400">
                             <FaMapMarkerAlt />
                         </a>
-                        <a href="#" className="text-gray-600 hover:text-blue-400">
+                        <a href="#" className="header__link text-gray-600 hover:text-blue-400">
                             <FaCartShopping />
                         </a>
                     </div>
 
                     {/* Hamburguesa mobile */}
                     <div className="md:hidden flex items-center">
-                        <button onClick={() => setMenuOpen(!menuOpen)} className="hover:cursor-pointer hover:opacity-50">
+                        <button onClick={() => setMenuOpen(!menuOpen)} className="header__link hover:cursor-pointer">
                             <FiMenu></FiMenu>
                         </button>
                     </div>
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
 
                         {/* Links */}
                         <a href="#" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                                <FaMapMarkerAlt /> Ubicación
+                            <FaMapMarkerAlt /> Ubicación
                         </a>
                         <a href="#" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
                             <FaCartShopping /> Carrito

@@ -1,5 +1,9 @@
-.card__product{
-    margin: auto;
-    margin-bottom: 1rem;
-    max-width: 360px;
+.card__product {
+  margin: auto;
+  margin-bottom: 1rem;
+  max-width: 300px;
+}
+
+.button__add {
+  background-color: var(--primary-color);
 }

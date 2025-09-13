@@ -16,3 +16,11 @@
   color: #888;
   font-size: 18px;
 }
+
+.header__link{
+    color: var(--primary-color)
+}
+
+.header__link:hover{
+    color: var(--secondary-color)
+}
