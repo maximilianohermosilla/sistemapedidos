@@ -1,38 +1,40 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-
-interface Forecast {
-    date: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
-}
+import getOrders from './services/api';
+import GetLastMenu from './services/menu.service';
 
 function App() {
-    const [forecasts, setForecasts] = useState<Forecast[]>();
+    const [menu, setMenu] = useState<any>();
 
     useEffect(() => {
-        populateWeatherData();
+        getLastMenu();
+        //GetOrders(storeId);
     }, []);
+    
+    async function getLastMenu(){
+        const data = await GetLastMenu();
+        console.log(data);
+        setMenu(data);
+    }
 
-    const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
+    const contents = menu === undefined
+        ? <p><em>Loading... Please refresh once the ASP.NET backend has started.</em></p>
         : <table className="table table-striped" aria-labelledby="tableLabel">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
+                    <th>Name</th>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th>Price</th>
                 </tr>
             </thead>
             <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
+                {menu?.items?.map((item: any) =>
+                    <tr key={item.id}>
+                        <td>{item.name}</td>
+                        <td>{item.sku}</td>
+                        <td>{item.category?.name}</td>
+                        <td>$ {item.price}</td>
                     </tr>
                 )}
             </tbody>
@@ -40,19 +42,11 @@ function App() {
 
     return (
         <div>
-            <h1 id="tableLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
+            <h1>EL REFUGIO</h1>
             {contents}
         </div>
     );
 
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        if (response.ok) {
-            const data = await response.json();
-            setForecasts(data);
-        }
-    }
 }
 
 export default App;

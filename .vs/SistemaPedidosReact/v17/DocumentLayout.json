@@ -67,8 +67,7 @@
               "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
               "ViewState": "AgIAAPYAAAAAAAAAAAAYwAkBAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-09-12T20:15:32.858Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-12T20:15:32.858Z"
             },
             {
               "$type": "Document",
@@ -80,8 +79,7 @@
               "RelativeToolTip": "SistemaPedidosReact.Server\\Models\\OrderItem.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAmwBIAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T19:33:22.788Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-11T19:33:22.788Z"
             },
             {
               "$type": "Document",
@@ -93,8 +91,7 @@
               "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\OrdersController.cs",
               "ViewState": "AgIAABoAAAAAAAAAAAAIwCsAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T19:28:13.6Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-11T19:28:13.6Z"
             },
             {
               "$type": "Document",
@@ -106,8 +103,7 @@
               "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Interfaces\\IOrderService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T19:27:05.163Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-11T19:27:05.163Z"
             },
             {
               "$type": "Document",
@@ -119,8 +115,7 @@
               "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Repositories\\OrderRepository.cs",
               "ViewState": "AgIAAB0AAAAAAAAAAAAkwC4AAABuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T19:16:16.692Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-11T19:16:16.692Z"
             },
             {
               "$type": "Document",
@@ -132,8 +127,7 @@
               "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Interfaces\\IOrdersRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T19:05:42.246Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-11T19:05:42.246Z"
             },
             {
               "$type": "Document",
@@ -143,7 +137,7 @@
               "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\OrderDetailCreateDTO.cs",
               "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderDetailCreateDTO.cs",
               "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\OrderDetailCreateDTO.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAowBYAAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA5wBYAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-11T19:06:21.904Z",
               "EditorCaption": ""
@@ -158,8 +152,7 @@
               "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\OrderService.cs",
               "ViewState": "AgIAACUAAAAAAAAAAAAAwD4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T19:27:25.642Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-11T19:27:25.642Z"
             },
             {
               "$type": "Document",
@@ -171,8 +164,7 @@
               "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\OrderCreateDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-11T19:05:56.017Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-11T19:05:56.017Z"
             },
             {
               "$type": "Document",
@@ -184,8 +176,7 @@
               "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\MenuController.cs",
               "ViewState": "AgIAADIAAAAAAAAAAAAwwGYAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T20:12:28.955Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-12T20:12:28.955Z"
             }
           ]
         }

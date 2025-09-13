@@ -30,6 +30,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+[Vv]17/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -353,6 +354,7 @@ MigrationBackup/
 FileContentIndex/
 .vs/
 v17/*
+/v17
 SistemaPedidosReact.Server/obj/*
 SistemaPedidosReact.Server/bin/Debug/*
 SistemaPedidosReact.Server/o
