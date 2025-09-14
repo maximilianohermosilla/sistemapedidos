@@ -21,6 +21,7 @@ export default function CardProductCart({ product }: any) {
         }
     }, [cartContext.cartItems, item]);
 
+
     const addDefaultImg = (event: any) => {
         event!.target!.src = imgDefault
     }
@@ -55,7 +56,6 @@ export default function CardProductCart({ product }: any) {
                             </footer>
                         </div>
                     </section>
-
                 </div>
             }
         </>

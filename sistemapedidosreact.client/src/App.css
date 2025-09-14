@@ -57,6 +57,11 @@ button:active, a:active{
     opacity: 0.5;
 }
 
+.btn-close{
+    padding: 0!important;
+    margin-right: -1rem;
+    margin-top: -2rem;
+}
 
 .button__primary{
     background-color: var(--primary-color);
