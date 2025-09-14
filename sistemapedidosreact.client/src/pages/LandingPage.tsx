@@ -27,13 +27,16 @@ export default function LandingPage() {
     }
 
     return (
-        <div className="main__container">            
-            <Delay></Delay>
-            <Menu items={menuFavs} title={"Favoritos"}></Menu>
-            <Menu items={menuCombos} title={"Combos"}></Menu>
-            <Menu items={menuOffers} title={"Pizzas"}></Menu>
-            <ViewCartButton></ViewCartButton>
+        <div className="main__container h-full flex flex-col justify-between">
+            <div>
+                <Delay></Delay>
+                {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
+                {menuCombos?.length > 0 && <Menu items={menuCombos} title={"Combos"}></Menu>}
+                {menuOffers?.length > 0 && <Menu items={menuOffers} title={"Pizzas"}></Menu>}
+                {menuOffers?.length > 0 && <Menu items={menuOffers} title={"Pizzas"}></Menu>}
+            </div>
             <Footer menu={menu}></Footer>
+            <ViewCartButton></ViewCartButton>
         </div>
     )
 }

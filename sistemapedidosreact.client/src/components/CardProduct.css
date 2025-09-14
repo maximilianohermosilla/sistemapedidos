@@ -1,9 +1,7 @@
 .card__product {
   margin-bottom: 1rem;
   max-width: 300px;
-  min-width: 31%;
-  flex-grow: 1;
-  box-sizing: border-box;
+  min-width: 300px;
 }
 
 .button__add {

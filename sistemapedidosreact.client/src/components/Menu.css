@@ -10,7 +10,7 @@
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width:inherit;
-    scrollbar-color: var(--primary-color) transparent;
+    scrollbar-color: var(--primary-color) transparent;;
 }
 
 .menu__carrousel{
@@ -22,6 +22,7 @@
 
 .menu__container{
     position: relative;
+    max-width: 90vw
 }
 
 .arrow{
