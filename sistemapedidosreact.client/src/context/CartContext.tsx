@@ -10,14 +10,11 @@ export const CartProvider = ({ children }: any) => {
     });
 
     useEffect(() => {
-        console.log(cartItems)
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }, [cartItems]);
 
 
     const addToCart = (item: any) => {
-        // Logic to add item, handle quantity, etc.
-        console.log(item)
         setCartItems((prevItems: any) => {
             const itemExists = prevItems.find((cartItem: any) => cartItem.id === item.id);
             if (itemExists) {
@@ -30,14 +27,11 @@ export const CartProvider = ({ children }: any) => {
     };
 
     const removeFromCart = (itemId: any) => {
-        // Logic to remove item
-        console.log(itemId)
         setCartItems((prevItems: any) => prevItems.filter((item: any) => item.id !== itemId));
     };
 
     const updateQuantity = (itemId: any, newQuantity: any) => {
-        // Logic to update item quantity
-        console.log(itemId)
+        if(newQuantity === 0) removeFromCart(itemId);
         setCartItems((prevItems: any) =>
             prevItems.map((item: any) =>
                 item.id === itemId ? { ...item, quantity: newQuantity } : item
