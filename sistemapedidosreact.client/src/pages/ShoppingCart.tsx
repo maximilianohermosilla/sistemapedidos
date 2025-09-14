@@ -5,6 +5,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import CardProductCart from "../components/CardProductCart";
 import { formatMoney } from "../utils/formatMoney";
+import { BsCartXFill } from "react-icons/bs";
 
 
 export default function ShoppingCart() {
@@ -26,10 +27,10 @@ export default function ShoppingCart() {
             <h1 className="text-2xl font-semibold w-full text-center mb-3">Carrito de compras</h1>
                 {cartItems && cartItems!.length > 0 ?
                     cartItems.map((item: any) => <CardProductCart key={item.id} product={item} />) :
-                    <p className="text-center">No hay productos en el carrito</p>}
+                    <p className="text-center m-auto mt-6"><BsCartXFill size={64} className="text-gray-500 m-auto"/></p>}
             </section>
             <footer>
-                <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPrice)}</p>
+                {cartItems && cartItems!.length > 0 && <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPrice)}</p>}
                 <div className="flex justify-center gap-3">
                     <button className="button__primary__outlined my-3 flex items-center gap-1" onClick={cartContext.clearCart}><FaRegTrashAlt /> Vaciar carrito</button>
                     <button className="button__primary my-3 flex items-center gap-2" onClick={cartContext.clearCart}><FaCartShopping /> Confirmar <div></div></button>
