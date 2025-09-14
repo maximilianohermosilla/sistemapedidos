@@ -48,6 +48,11 @@ button{
     border-radius: 0.5rem;
 }
 
+button:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 button:active, a:active{
     opacity: 0.5;
 }
