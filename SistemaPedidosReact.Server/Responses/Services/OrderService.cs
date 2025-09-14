@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using SistemaPedidosReact.Server.Responses.Interfaces;
 using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Models;
+using SistemaPedidosReact.Server.Responses.Interfaces;
+using System.Security.Cryptography;
 
 namespace SistemaPedidosReact.Server.Responses.Services
 {
@@ -69,6 +70,68 @@ namespace SistemaPedidosReact.Server.Responses.Services
                 var vOrder = vGblRepository.GetById(pId);
 
                 return vGblMapper.Map<OrderReadDTO>(vOrder)!;                
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        
+        public async Task<bool?> UpdateState(int? pOrderId, string pState, string pDelay)
+        {
+            try
+            {
+                var vOrder = vGblRepository.GetById(Convert.ToInt32(pOrderId));
+
+                if(vOrder == null)
+                {
+                    return null;
+                }
+
+                vOrder.State = pState;
+                vOrder.Delay = Convert.ToInt32(pDelay);
+                vGblRepository.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<bool?> CancelItems(int? pOrderId, IEnumerable<OrderCancelItemDTO> pItems)
+        {
+            try
+            {
+                var vOrder = vGblRepository.GetById(Convert.ToInt32(pOrderId));
+
+                if (vOrder == null)
+                {
+                    return null;
+                }
+
+                foreach (var vItem in vOrder.OrderDetail!.OrderItems)
+                {
+                    var vItemCancel = pItems.Where(i => i.Sku == vItem.Item.Sku).FirstOrDefault();
+                    if(vItemCancel != null)
+                    {
+                        var vCantidad = vItem.Quantity - vItemCancel.Cantidad;
+                        if(vCantidad > 0)
+                        {
+                            vItem.Quantity = vCantidad;
+                        }
+                        else
+                        {
+                            vOrder.OrderDetail!.OrderItems = vOrder.OrderDetail!.OrderItems.Where(i => i.Item.Sku != vItemCancel.Sku).ToList();
+                        }
+                    }
+                }
+
+                vGblRepository.SaveChanges();
+
+                return true;
             }
             catch (Exception ex)
             {

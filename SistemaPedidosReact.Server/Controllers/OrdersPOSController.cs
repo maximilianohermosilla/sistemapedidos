@@ -54,9 +54,19 @@ namespace SistemaPedidosReact.Server.Controllers
                     return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
                 }
 
-                var vOrders = await vGblService.GetAllPendingsByStore(vStore.Id);
+                var vOrderUpdated = await vGblService.UpdateState(Convert.ToInt32(orderId), state, delay);
 
-                return Ok(vOrders);
+                if(vOrderUpdated == null)
+                {
+                    return NotFound(new ResponseMessage() { Message = "Orden no encontrada" });
+                }
+
+                if (vOrderUpdated == false)
+                {
+                    return BadRequest(new ResponseMessage() { Message = "Cambio de estado inválido" });
+                }
+
+                return Ok(new ResponseMessage() { Message = "Orden modificada" });
             }
             catch (Exception ex)
             {
@@ -70,16 +80,21 @@ namespace SistemaPedidosReact.Server.Controllers
         {
             try
             {
-                var vStore = await vGblStoreService.GetByExternalId(orderId);
+                var vStore = await vGblStoreService.GetByExternalId(pOrderCancel.StoreId);
 
                 if (vStore == null)
                 {
                     return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
                 }
 
-                var vOrders = await vGblService.GetAllPendingsByStore(vStore.Id);
+                var vOrder = await vGblService.CancelItems(Convert.ToInt32(orderId), pOrderCancel.Items);
 
-                return Ok(vOrders);
+                if(vOrder == null)
+                {
+                    return BadRequest(new ResponseMessage() { Message = "La orden es inválida" });
+                }
+
+                return Ok(new ResponseMessage() { Message = "OK" });
             }
             catch (Exception ex)
             {
