@@ -16,6 +16,7 @@ export default function ShoppingCart() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
+        console.log(cartContext.cartItems);
         setCartItems(cartContext.cartItems);
         const total = cartContext?.cartItems.reduce((accumulator: any, product: any) => {
             return accumulator + (product.price * product.quantity);
