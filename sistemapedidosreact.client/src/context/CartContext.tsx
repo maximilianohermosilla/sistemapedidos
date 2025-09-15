@@ -19,7 +19,7 @@ export const CartProvider = ({ children }: any) => {
             const itemExists = prevItems.find((cartItem: any) => cartItem.id === item.id);
             if (itemExists) {
                 return prevItems.map((cartItem: any) =>
-                    cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1, totalPrice: item.totalPrice } : cartItem
+                    cartItem.id === item.id ? { ...cartItem, quantity: item.quantity, totalPrice: item.totalPrice, toppings: item.toppings } : cartItem
                 );
             }
             return [...prevItems, { ...item, quantity: item.quantity || 1 }];

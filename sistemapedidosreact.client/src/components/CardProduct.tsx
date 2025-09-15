@@ -45,7 +45,7 @@ export default function CardProduct({ product }: any) {
                         </div>
                         <div className="">
                             <button className="button__add relative rounded-full p-2 mt-5 hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
-                                onClick={cartContext.addToCart.bind(null, item)}>
+                                onClick={openModal}>
                                 {cartItemQuantity > 0 && <span className="absolute bg-green-500 text-white text-xs font-medium px-2.5 rounded-full my-5 -mx-3 leading-6 right-0">{cartItemQuantity}</span>}
                                 <FaPlus color="white" />
                             </button>

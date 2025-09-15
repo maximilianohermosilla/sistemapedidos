@@ -19,7 +19,7 @@ export default function ShoppingCart() {
         console.log(cartContext.cartItems);
         setCartItems(cartContext.cartItems);
         const total = cartContext?.cartItems.reduce((accumulator: any, product: any) => {
-            return accumulator + (product.price * product.quantity);
+            return accumulator + product.totalPrice;
         }, 0);
         setTotalPrice(total);
     }, [cartContext.cartItems, cartContext.cartItems.quantity]);

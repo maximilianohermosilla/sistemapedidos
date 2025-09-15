@@ -16,10 +16,9 @@ export default function ProductInfo({ product }: any) {
 
     useEffect(() => {
         if (product) {
-            console.log(product)
-            product.quantity = 1;
+            product.quantity = product.quantity || 1;
             setItem(product);
-            setTotalPrice(product?.price);
+            setTotalPrice(product?.totalPrice || product?.price);
             setToppings(groupToppings(product?.children));
         }
     }, [product]);
@@ -86,7 +85,7 @@ export default function ProductInfo({ product }: any) {
             {item &&
                 <div className="product__container">
                     <img src={item?.imageUrl && item?.imageUrl != '' ? item?.imageUrl : imgDefault} alt={item?.name} onError={addDefaultImg}
-                        className="w-full h-48 object-fill rounded-t-md" />
+                        className="w-full h-50 md:h-80 object-fill rounded-t-md" />
                     <section className="mt-2">
                         <div className="product__info">
                             <p className="text-cyan-700 font-bold">{formatMoney(item?.price || 0)}</p>
@@ -111,7 +110,7 @@ export default function ProductInfo({ product }: any) {
                                 <FaPlus />
                             </button>
                         </div>
-                        <button className="button__primary flex items-center gap-1" onClick={handleConfirm}>Agregar {formatMoney(totalPrice || 0)}</button>
+                        <button tabIndex={0} className="button__primary flex items-center gap-1" onClick={handleConfirm}>Agregar {formatMoney(totalPrice || 0)}</button>
                     </footer>
                 </div>
             }

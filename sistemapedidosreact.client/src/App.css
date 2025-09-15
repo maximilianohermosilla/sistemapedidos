@@ -63,6 +63,10 @@ button:active, a:active{
     margin-top: -2rem;
 }
 
+.btn-close:hover{
+    opacity: 0.7;
+}
+
 .text-primary{
     color: var(--primary-color);
 }

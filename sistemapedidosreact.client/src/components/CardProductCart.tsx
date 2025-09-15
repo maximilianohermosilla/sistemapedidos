@@ -5,11 +5,14 @@ import { formatMoney } from '../utils/formatMoney.ts';
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { CartContext } from "../context/CartContext.tsx";
 import { FaRegTrashAlt } from "react-icons/fa";
+import Dialog from "./Dialog.tsx";
+import ProductInfo from "./ProductInfo.tsx";
 
 export default function CardProductCart({ product }: any) {
     const [item, setItem] = useState<any>();
     const [cartItemQuantity, setCartItemQuantity] = useState<number>(0);
     const [totalPrice, setTotalPrice] = useState<number>(0);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>();
     const cartContext = useContext<any>(CartContext);
 
     useEffect(() => {
@@ -23,6 +26,8 @@ export default function CardProductCart({ product }: any) {
         }
     }, [cartContext.cartItems, item]);
 
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
 
     const addDefaultImg = (event: any) => {
         event!.target!.src = imgDefault
@@ -33,7 +38,7 @@ export default function CardProductCart({ product }: any) {
             {item !== undefined &&
                 <div className="card__product__cart flex relative bg-white text-left rounded-md shadow-md shadow-gray-500/40 mb-5 m-auto ">
                     <img src={item.imageUrl && item.imageUrl != '' ? item.imageUrl : imgDefault} alt={item.name} onError={addDefaultImg}
-                        className="w-25 md:w-40 object-fit rounded-t-md" />
+                        className="w-25 md:w-40 object-contain bg-black rounded-t-md" />
                     <section className="md:flex w-full px-3 py-3 md:p-4 justify-between">
                         <div className="w-full">
                             <h3 className="font-bold">{item.name}</h3>
@@ -42,22 +47,35 @@ export default function CardProductCart({ product }: any) {
                             <footer className="w-full flex justify-between items-center mt-3">
                                 <div className="flex justify-between items-center w-25">
                                     <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
-                                        onClick={cartContext.updateQuantity.bind(null, item!.id, item!.quantity - 1)}>
+                                        // onClick={cartContext.updateQuantity.bind(null, item!.id, item!.quantity - 1)}>
+                                        onClick={openModal}>
                                         <FaMinus />
                                     </button>
-                                    <span className="font-semibold text-gray-400 md:mx-2">{cartItemQuantity}</span>
+                                    <span className="font-semibold text-gray-400 md:mx-1">{cartItemQuantity}</span>
                                     <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
-                                        onClick={cartContext.addToCart.bind(null, item)}>
+                                        // onClick={cartContext.addToCart.bind(null, item)}>
+                                        onClick={openModal}>
                                         <FaPlus />
                                     </button>
                                 </div>
-                                <button className="button__danger__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
-                                    onClick={cartContext.removeFromCart.bind(null, item!.id)}>
-                                    <FaRegTrashAlt />
-                                </button>
+                                <div className="flex gap-1">
+                                    {/* <button className="button__primary__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                        onClick={openModal}>
+                                        <FaPencil />
+                                    </button> */}
+                                    <button className="button__danger__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                        onClick={cartContext.removeFromCart.bind(null, item!.id)}>
+                                        <FaRegTrashAlt />
+                                    </button>
+                                </div>
                             </footer>
                         </div>
                     </section>
+                    {item !== undefined && isModalOpen &&
+                        <Dialog title={item.name} isOpen={isModalOpen || false} onClose={closeModal}>
+                            {item && isModalOpen && <ProductInfo product={item}></ProductInfo>}
+                        </Dialog>
+                    }
                 </div>
             }
         </>

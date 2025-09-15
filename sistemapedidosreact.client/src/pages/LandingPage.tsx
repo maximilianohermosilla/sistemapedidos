@@ -23,7 +23,7 @@ export default function LandingPage() {
         setMenu(data);
         setMenuFavs(data.items);
         setMenuCombos(data.items.filter((e: any) => e.imageUrl != ''));
-        setMenuOffers(data.items.filter((e: any) => e.categoryId == 3));
+        setMenuOffers(data.items.filter((e: any) => e.categoryId == 4));
     }
 
     return (
@@ -32,7 +32,7 @@ export default function LandingPage() {
                 <Delay></Delay>
                 {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
                 {menuCombos?.length > 0 && <Menu items={menuCombos} title={"Combos"}></Menu>}
-                {menuOffers?.length > 0 && <Menu items={menuOffers} title={"Pizzas"}></Menu>}
+                {menuOffers?.length > 0 && <Menu items={menuOffers} title={"Ofertas"}></Menu>}
                 {menuOffers?.length > 0 && <Menu items={menuOffers} title={"Pizzas"}></Menu>}
             </div>
             <Footer menu={menu}></Footer>
