@@ -7,6 +7,8 @@ import CardProductCart from "../components/CardProductCart";
 import { formatMoney } from "../utils/formatMoney";
 import { BsCartXFill } from "react-icons/bs";
 import DialogConfirm from "../components/DialogConfirm";
+import Dialog from "../components/Dialog";
+import ShoppingCartConfirm from "../components/ShoppingCartConfirm";
 
 
 export default function ShoppingCart() {
@@ -14,6 +16,7 @@ export default function ShoppingCart() {
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpenClear, setIsModalOpenClear] = useState(false);
 
     useEffect(() => {
         setCartItems(cartContext.cartItems);
@@ -26,8 +29,16 @@ export default function ShoppingCart() {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
+    const openModalClear = () => setIsModalOpenClear(true);
+    const closeModalClear = () => setIsModalOpenClear(false);
+
     const handleConfirm = () => {
         alert("Compra realizada con exito");
+    }
+
+    const handleConfirmClear = () => {
+        cartContext.clearCart.bind(null)();
+        closeModalClear();
     }
 
     return (
@@ -36,12 +47,12 @@ export default function ShoppingCart() {
                 <h1 className="text-2xl font-semibold w-full text-center mb-3">Carrito de compras</h1>
                 {cartItems && cartItems!.length > 0 ?
                     cartItems.map((item: any) => <CardProductCart key={item.id} product={item} />) :
-                    <p className="text-center m-auto mt-6"><BsCartXFill size={64} className="text-gray-500 m-auto" /></p>}
+                    <p className="text-center m-auto mt-6 flex flex-col gap-4"><BsCartXFill size={64} className="text-gray-500 m-auto" /><span className="mt-3 font-semibold text-primary">Tu carrito se encuentra vacío</span></p>}
             </section>
             <footer>
                 {cartItems && cartItems!.length > 0 && <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPrice)}</p>}
                 <div className="flex justify-center gap-3">
-                    <button className="button__primary__outlined my-3 flex items-center gap-1" onClick={cartContext.clearCart} disabled={cartItems!.length == 0}>
+                    <button className="button__primary__outlined my-3 flex items-center gap-1" onClick={openModalClear} disabled={cartItems!.length == 0}>
                         <FaRegTrashAlt /> Vaciar carrito
                     </button>
                     <button className="button__primary my-3 flex items-center gap-2" onClick={openModal} disabled={cartItems!.length == 0}>
@@ -49,9 +60,16 @@ export default function ShoppingCart() {
                     </button>
                 </div>
             </footer>
-            <DialogConfirm title="Confirmación" message="¿Desea confirmar el pedido?"
-                isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirm}>
-            </DialogConfirm>
+            {cartItems!.length > 0 !== undefined && isModalOpen &&
+                <Dialog title="Confirmación" isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirm}>
+                    <ShoppingCartConfirm prop={cartItems}></ShoppingCartConfirm>
+                </Dialog>
+            }
+            {cartItems!.length > 0 !== undefined && isModalOpenClear &&
+                <DialogConfirm title="Confirmación" message="¿Desea vaciar el carrito?"
+                    isOpen={isModalOpenClear} onClose={closeModalClear} onConfirm={handleConfirmClear}>
+                </DialogConfirm>
+            }
         </main>
     )
 }

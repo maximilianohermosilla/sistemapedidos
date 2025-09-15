@@ -1,3 +1,29 @@
 input[type="radio"] {
-  accent-color: var(--primary-color);
+  -webkit-appearance: none; /* For Safari/Chrome */
+  -moz-appearance: none; /* For Firefox */
+  appearance: none; /* Standard property */
+  width: 16px;
+  height: 16px;
+  border: 2px solid #AAA;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+input[type="radio"]:checked {
+  border-color: var(--primary-color);
+}
+
+input[type="radio"]:checked::before {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

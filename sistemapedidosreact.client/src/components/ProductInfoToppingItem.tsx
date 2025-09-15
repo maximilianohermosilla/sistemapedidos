@@ -18,7 +18,7 @@ export default function ProductInfoToppingItem({ item, setSelectedOption, checke
         <div className="flex justify-between mb-2 p-2 hover:opacity-70">
             {item &&
                 <>
-                    <label className="flex gap-2 font-semibold cursor-pointer">
+                    <label className="flex gap-2 font-semibold cursor-pointer items-center">
                         <input
                             id={`${topping?.categoryId}_${productNumber}`}
                             type="radio"

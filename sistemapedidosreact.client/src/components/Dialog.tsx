@@ -37,14 +37,14 @@ export default function Dialog({ title, labelConfirm, isOpen, onClose, onConfirm
     return (
         <dialog ref={dialogRef} className="rounded-md m-auto backdrop:backdrop-brightness-30" onClick={handleClose}>
             <div tabIndex={0} className="dialog__content relative p-5 bg-gray-100 text-gray-900" onClick={(e) => e.stopPropagation()}>
-                <div className="flex justify-between gap-3">
+                <header className="flex justify-between gap-3">
                     <h3 className="font-semibold my-2 overflow-x-auto">{title}</h3>
                     <button className="btn-close p-0" onClick={handleClose}><IoClose /></button>
-                </div>
+                </header>
                 {children}
-                <div className="flex justify-center gap-3">
+                <footer className="flex justify-center gap-3">
                     {onConfirm != undefined && <button className="button__primary mt-3 flex items-center gap-1" onClick={handleConfirm}>{labelConfirm || "Confirmar"}</button>}
-                </div>
+                </footer>
             </div>
         </dialog>
     );

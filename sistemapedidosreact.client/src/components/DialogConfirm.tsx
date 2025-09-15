@@ -23,15 +23,17 @@ export default function DialogConfirm({ title, message, isOpen, onClose, onConfi
     }, [isOpen]);
 
     const handleClose = () => {
-        onClose();
+        if (onClose != undefined)
+            onClose!();
     };
 
     const handleConfirm = () => {
-        onConfirm();
+        if (onConfirm != undefined)
+            onConfirm!();
     };
 
     return (
-        <dialog ref={dialogRef} className="rounded-md m-auto backdrop:backdrop-brightness-30" onClick={handleClose}>
+        <dialog ref={dialogRef} className="rounded-md m-auto backdrop:backdrop-brightness-30 w-screen" onClick={handleClose}>
             <div className="p-5 bg-gray-100 text-gray-900" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between gap-3">
                     <h3 className="font-semibold my-2 overflow-x-auto">{title}</h3>
