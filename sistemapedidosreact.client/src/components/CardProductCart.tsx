@@ -44,7 +44,7 @@ export default function CardProductCart({ product }: any) {
                             <h3 className="font-bold">{item.name}</h3>
                             {/* <p className="text-cyan-500">{item.category?.name}</p> */}
                             <p className="text-cyan-700 font-bold">{formatMoney(totalPrice)}</p>
-                            <footer className="w-full flex justify-between items-center mt-3">
+                            <footer className="w-full flex justify-between items-center mt-1">
                                 <div className="flex justify-between items-center w-25">
                                     <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
                                         // onClick={cartContext.updateQuantity.bind(null, item!.id, item!.quantity - 1)}>
@@ -73,7 +73,7 @@ export default function CardProductCart({ product }: any) {
                     </section>
                     {item !== undefined && isModalOpen &&
                         <Dialog title={item.name} isOpen={isModalOpen || false} onClose={closeModal}>
-                            {item && isModalOpen && <ProductInfo product={item}></ProductInfo>}
+                            {item && isModalOpen && <ProductInfo product={item} onConfirm={closeModal}></ProductInfo>}
                         </Dialog>
                     }
                 </div>

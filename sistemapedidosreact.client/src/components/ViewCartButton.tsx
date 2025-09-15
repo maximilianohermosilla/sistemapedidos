@@ -25,7 +25,7 @@ export default function ViewCartButton() {
     return (
         <>
             {cartItems?.length > 0 &&
-                <div className="w-full fixed bottom-3">
+                <div className="w-full fixed bottom-3 opacity-80">
                     <button className="button__primary flex items-center gap-2 my-3 m-auto" onClick={() => redirect('/shopping-cart')}><FaCartShopping />
                         <span className="text-md font-semibold">Ver carrito: </span>{formatMoney(totalPrice)}
                     </button>

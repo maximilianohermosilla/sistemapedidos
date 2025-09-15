@@ -5,7 +5,7 @@ import ProductInfoTopping from "./ProductInfoTopping";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { CartContext } from "../context/CartContext";
 
-export default function ProductInfo({ product }: any) {
+export default function ProductInfo({ product, onConfirm }: any) {
     const [item, setItem] = useState<any>();
     const [itemQuantity, setItemQuantity] = useState<number>(1);
     const [toppings, setToppings] = useState<any>();
@@ -67,17 +67,25 @@ export default function ProductInfo({ product }: any) {
         }
     }
 
+    const handleDiscount = () => {
+        const newQuantity = itemQuantity - 1;
+        const newSelectedToppings  = selectedToppings.filter((topping: any) => topping.productNumber !== newQuantity);
+        setItemQuantity(newQuantity > 0 ? newQuantity : 1);
+        setSelectedToppings([...newSelectedToppings]);
+    }
+
+    const handleConfirm = () => {
+        const product = { ...item, quantity: itemQuantity, toppings: selectedToppings, totalPrice: totalPrice }
+        cartContext.addToCart.bind(null, product)();
+        onConfirm();
+    }
+
     const renderToppings = (_item: any, index: number) => {
         if (toppings) {            
             return toppings.map((topping: any) => 
                 <ProductInfoTopping key={`${topping.category.id}_${itemQuantity}`} toppingProp={topping} productNumber={index} setSelectedTopping={handleTopping} 
                     checked={selectedToppings.find((t: any) => t.categoryId === topping.category.id && t.productNumber === index)}/>);
         }
-    }
-
-    const handleConfirm = () => {
-        const product = { ...item, quantity: itemQuantity, toppings: selectedToppings, totalPrice: totalPrice }
-        cartContext.addToCart.bind(null, product)();
     }
 
     return (
@@ -101,7 +109,7 @@ export default function ProductInfo({ product }: any) {
                     <footer className="flex justify-between items-center mt-5">
                         <div className="flex justify-between items-center w-20">
                             <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
-                                onClick={() => setItemQuantity(itemQuantity - 1 > 0 ? itemQuantity - 1 : 1)}>
+                                onClick={handleDiscount}>
                                 <FaMinus />
                             </button>
                             <span className="font-semibold text-gray-400 md:mx-2">{itemQuantity}</span>

@@ -55,7 +55,7 @@ export default function CardProduct({ product }: any) {
             }
             {item !== undefined && isModalOpen &&
                 <Dialog title={item.name} isOpen={isModalOpen || false} onClose={closeModal}>
-                    {item && isModalOpen && <ProductInfo product={item}></ProductInfo>}
+                    {item && isModalOpen && <ProductInfo product={item} onConfirm={closeModal}></ProductInfo>}
                 </Dialog>
             }
         </>
