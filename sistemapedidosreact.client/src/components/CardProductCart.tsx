@@ -38,21 +38,21 @@ export default function CardProductCart({ product }: any) {
             {item !== undefined &&
                 <div className="card__product__cart flex relative bg-white text-left rounded-md shadow-md shadow-gray-500/40 mb-5 m-auto ">
                     <img src={item.imageUrl && item.imageUrl != '' ? item.imageUrl : imgDefault} alt={item.name} onError={addDefaultImg}
-                        className="w-25 md:w-40 object-contain bg-black rounded-t-md" />
-                    <section className="md:flex w-full px-3 py-3 md:p-4 justify-between">
+                        className="w-25 md:w-40 object-cover bg-black rounded-l-md" />
+                    <section className="md:flex w-full px-3 py-2 md:p-4 justify-between">
                         <div className="w-full">
                             <h3 className="font-bold">{item.name}</h3>
                             {/* <p className="text-cyan-500">{item.category?.name}</p> */}
                             <p className="text-cyan-700 font-bold">{formatMoney(totalPrice)}</p>
                             <footer className="w-full flex justify-between items-center mt-1">
                                 <div className="flex justify-between items-center w-25">
-                                    <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                    <button className="button__add__outlined mx-0 rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
                                         // onClick={cartContext.updateQuantity.bind(null, item!.id, item!.quantity - 1)}>
                                         onClick={openModal}>
                                         <FaMinus />
                                     </button>
                                     <span className="font-semibold text-gray-400 md:mx-1">{cartItemQuantity}</span>
-                                    <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                    <button className="button__add__outlined mx-0 rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
                                         // onClick={cartContext.addToCart.bind(null, item)}>
                                         onClick={openModal}>
                                         <FaPlus />

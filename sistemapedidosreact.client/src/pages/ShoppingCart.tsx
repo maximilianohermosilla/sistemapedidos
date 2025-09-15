@@ -32,10 +32,6 @@ export default function ShoppingCart() {
     const openModalClear = () => setIsModalOpenClear(true);
     const closeModalClear = () => setIsModalOpenClear(false);
 
-    const handleConfirm = () => {
-        alert("Compra realizada con exito");
-    }
-
     const handleConfirmClear = () => {
         cartContext.clearCart.bind(null)();
         closeModalClear();
@@ -61,8 +57,8 @@ export default function ShoppingCart() {
                 </div>
             </footer>
             {cartItems!.length > 0 !== undefined && isModalOpen &&
-                <Dialog title="Confirmación" isOpen={isModalOpen} onClose={closeModal} onConfirm={handleConfirm}>
-                    <ShoppingCartConfirm prop={cartItems}></ShoppingCartConfirm>
+                <Dialog title="Confirmación" isOpen={isModalOpen} onClose={closeModal}>
+                    <ShoppingCartConfirm prop={cartItems} onConfirm={closeModal}></ShoppingCartConfirm>
                 </Dialog>
             }
             {cartItems!.length > 0 !== undefined && isModalOpenClear &&
