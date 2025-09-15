@@ -1,3 +1,4 @@
+import type { Customer } from "./customer";
 import type { OrderDetail } from "./order-detail";
 
 export interface Order {
@@ -6,7 +7,8 @@ export interface Order {
     state: string;
     delay: number;
     customerName: string;
-    orderStateId: number;
-    customerId: number;
+    orderStateId?: number;
+    customerId?: number;
+    customer?: Customer;
     orderDetail: OrderDetail;
 }

@@ -58,7 +58,7 @@ export default function ShoppingCart() {
             </footer>
             {cartItems!.length > 0 !== undefined && isModalOpen &&
                 <Dialog title="Confirmación" isOpen={isModalOpen} onClose={closeModal}>
-                    <ShoppingCartConfirm prop={cartItems} onConfirm={closeModal}></ShoppingCartConfirm>
+                    <ShoppingCartConfirm prop={cartItems} totalPrice={totalPrice} onConfirm={closeModal}></ShoppingCartConfirm>
                 </Dialog>
             }
             {cartItems!.length > 0 !== undefined && isModalOpenClear &&

@@ -3,7 +3,6 @@ using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Models;
 using SistemaPedidosReact.Server.Responses.Interfaces;
-using System.Security.Cryptography;
 
 namespace SistemaPedidosReact.Server.Responses.Services
 {
@@ -11,12 +10,14 @@ namespace SistemaPedidosReact.Server.Responses.Services
     {
         private readonly IOrderRepository vGblRepository;
         private readonly IOrderRepository vGblOrderRepository;
+        private readonly ICustomerRepository vGblCustomerRepository;
         private readonly IMapper vGblMapper;
 
-        public OrderService(IOrderRepository pRepository, IOrderRepository pOrderRepository, IMapper pMapper)
+        public OrderService(IOrderRepository pRepository, IOrderRepository pOrderRepository, ICustomerRepository pCustomerRepository, IMapper pMapper)
         {
             vGblRepository = pRepository;
             vGblOrderRepository = pOrderRepository;
+            vGblCustomerRepository = pCustomerRepository;
             vGblMapper = pMapper;
         }
 
@@ -24,6 +25,8 @@ namespace SistemaPedidosReact.Server.Responses.Services
         {
             try
             {
+                var vCustomer = vGblCustomerRepository.GetByEmailOrPhone(pOrder!.Customer!.Email, pOrder!.Customer!.PhoneNumber);
+
                 var vOrder = vGblMapper.Map<Order>(pOrder);
                 var vOrderCreada = vGblRepository.Create(vOrder);
 

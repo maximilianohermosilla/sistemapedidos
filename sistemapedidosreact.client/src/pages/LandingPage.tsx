@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import GetLastMenu from "../services/menu.service";
+import { GetLastMenu } from "../services/menu-service";
 import Menu from "../components/Menu";
 import Delay from "../components/Delay";
 import ViewCartButton from "../components/ViewCartButton";

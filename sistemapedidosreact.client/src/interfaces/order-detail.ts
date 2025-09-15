@@ -11,14 +11,14 @@ export interface OrderDetail {
   deliveryOperationType: string;
   createdAt: string; // ISO date string
   deliveryMethod: string;
-  mesaId: number;
-  cantidadCubiertos: string;
-  paymentMethodId: number;
+  mesaId?: number;
+  cantidadCubiertos?: string;
+  paymentMethodId?: number;
   tip: number;
-  deliveryInformationId: number;
-  billingInformationId: number;
-  deliveryDiscountId: number;
-  totalsId: number;
+  deliveryInformationId?: number;
+  billingInformationId?: number;
+  deliveryDiscountId?: number;
+  totalsId?: number;
   deliveryInformation?: DeliveryInformation;
   billingInformation?: BillingInformation;
   deliveryDiscount?: DeliveryDiscount;

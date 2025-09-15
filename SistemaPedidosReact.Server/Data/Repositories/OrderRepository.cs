@@ -33,7 +33,7 @@ namespace SistemaPedidosReact.Server.Data.Repositories
 
         public IEnumerable<Order> GetAllPendingsByStore(int? pStoreId)
         {
-            return vGblContext.Orders
+            var vOrders =  vGblContext.Orders
                 .Include(o => o.Customer).Include(o => o.Store)
                 .Include(o => o.OrderDetail).ThenInclude(d => d!.Mesa)
                 .Include(o => o.OrderDetail).ThenInclude(d => d!.PaymentMethod)
@@ -44,8 +44,10 @@ namespace SistemaPedidosReact.Server.Data.Repositories
                 .Include(o => o.OrderDetail).ThenInclude(d => d!.DeliveryDiscount)
                 .Include(o => o.OrderDetail).ThenInclude(d => d!.Discounts)
                 .Include(o => o.OrderDetail).ThenInclude(d => d!.OrderItems).ThenInclude(i => i!.Item)
-                    .ThenInclude(i => i.OrderSubItems).ThenInclude(d => d!.OrderItem).ThenInclude(s => s.Item)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.OrderItems).ThenInclude(i => i.OrderSubItems).ThenInclude(s => s.Item)
                 .Where(o => o.StoreId == pStoreId && o.OrderStateId == null).ToList();
+
+            return vOrders;
         }
 
         public Order GetById(int pId)
