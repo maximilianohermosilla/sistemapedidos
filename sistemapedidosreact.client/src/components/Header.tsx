@@ -9,12 +9,22 @@ import { CartContext } from "../context/CartContext";
 const Header: React.FC = () => {
     const [cartItems, setCartItems] = useState([]);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [inputSearch, setInputSearch] = useState('');
     const cartContext = useContext<any>(CartContext);
 
     useEffect(() => {
         setCartItems(cartContext.cartItems);
     }, [cartContext.cartItems]);
 
+    const handleSearch = () => {
+        alert("Buscando: " + inputSearch);
+    }
+
+    const handleKeyDown = (event: any) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
+    };
 
     return (
         <nav className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
@@ -30,10 +40,13 @@ const Header: React.FC = () => {
                         <div className="search-input-container relative w-full">
                             <input
                                 type="text"
+                                value={inputSearch}
+                                onChange={(e) => setInputSearch(e.target.value)}
+                                onKeyDown={handleKeyDown}
                                 placeholder="Buscar productos..."
                                 className="search-input-field w-full rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-cyan-700"
                             />
-                            <FaSearch className="search-icon" />
+                            <FaSearch className="search-icon cursor-pointer hover:opacity-50" onClick={handleSearch} />
                         </div>
                     </div>
 
@@ -69,10 +82,13 @@ const Header: React.FC = () => {
                         <div className="search-input-container relative w-full">
                             <input
                                 type="text"
+                                value={inputSearch}
+                                onChange={(e) => setInputSearch(e.target.value)}
+                                onKeyDown={handleKeyDown}
                                 placeholder="Buscar productos..."
-                                className="search-input-field w-full rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-green-500"
+                                className="search-input-field w-full rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:ring-2 focus:ring-cyan-700"
                             />
-                            <FaSearch className="search-icon" />
+                            <FaSearch className="search-icon cursor-pointer hover:opacity-50" onClick={handleSearch} />
                         </div>
 
                         {/* Links */}

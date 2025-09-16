@@ -27,7 +27,7 @@ export default function Menu({items, title}: any) {
 
     return (
         <section className="menu__carrousel">
-            <h2 className="w-full text-center text-2xl font-bold text-gray-600 my-3">{title}</h2>
+            <h2 className="w-full text-center text-2xl font-bold text-primary mt-3">{title}</h2>
             <div className="menu__container relative">
                 {items?.length > 0 && <BsArrowLeftCircleFill className="hidden lg:block arrow arrow-left z-10" onClick={scrollLeft}></BsArrowLeftCircleFill>}
                 <div ref={scrollContainerRef} className="horizontal__scrol__wrapper menu__section flex gap-5 overflow-x-auto mb-3 w-75">

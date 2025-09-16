@@ -6,6 +6,7 @@
 
 .search-input-field {
   width: 100%;
+  color: #555;
   padding: 10px 10px 10px 40px; /* Adjust padding-left for icon */
   border: 1px solid #ccc;
   border-radius: 4px;

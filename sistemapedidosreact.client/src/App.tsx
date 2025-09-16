@@ -9,7 +9,7 @@ function App() {
     return (
         <main className="main__height w-full bg-gray-100">
             <Header></Header>
-            <div className="w-full pt-5 h-full">
+            <div className="w-full h-full mb-0" style={{paddingTop: "64px"}}>
                 <Routes>
                     <Route index element={<LandingPage />} />
                     <Route path="/" element={<LandingPage />} />

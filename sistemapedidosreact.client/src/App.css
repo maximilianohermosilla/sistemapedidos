@@ -1,16 +1,10 @@
 ﻿#root {
     width: 100vw;
-    margin-top: 64px;
+    height: 100dvh;
 }
 
 .main__height{
-    height: calc(100dvh - 70px);
-}
-
-.header__info{
-    max-width: 300px;
-    color: var(--primary-color);
-    border-color: var(--primary-color);
+    height: 100dvh;
 }
 
 .auto__show{    

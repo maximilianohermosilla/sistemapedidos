@@ -34,7 +34,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any
     };
 
     const validate = () => {
-        let newErrors: any = {};
+        const newErrors: any = {};
         if (!formData.name) {
             newErrors!.name = 'Nombre es requerido';
         }

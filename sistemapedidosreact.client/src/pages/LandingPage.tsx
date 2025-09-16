@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { GetLastMenu } from "../services/menu-service";
 import Menu from "../components/Menu";
-import Delay from "../components/Delay";
 import ViewCartButton from "../components/ViewCartButton";
-import Footer from "../components/Footer";
+import Delay from "../components/Delay";
+import Footer from "../components/footer";
 
 export default function LandingPage() {
     const [menu, setMenu] = useState<any>();
@@ -28,7 +28,7 @@ export default function LandingPage() {
 
     return (
         <div className="main__container h-full flex flex-col justify-between">
-            <div>
+            <div className="pt-3">
                 <Delay></Delay>
                 {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
                 {menuCombos?.length > 0 && <Menu items={menuCombos} title={"Combos"}></Menu>}

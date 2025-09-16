@@ -25,7 +25,17 @@ namespace SistemaPedidosReact.Server.Responses.Services
         {
             try
             {
-                var vCustomer = vGblCustomerRepository.GetByEmailOrPhone(pOrder!.Customer!.Email, pOrder!.Customer!.PhoneNumber);
+                var vCustomer = vGblCustomerRepository.GetByEmailOrPhone(pOrder!.Customer!.Email!, pOrder!.Customer!.PhoneNumber!);
+                if(vCustomer != null)
+                {
+                    vCustomer.FirstName = pOrder!.Customer!.FirstName;
+                    vCustomer.Email = vCustomer.Email == null || vCustomer.Email == "" ? pOrder!.Customer!.Email : vCustomer.Email;
+                    vCustomer.PhoneNumber = vCustomer.PhoneNumber == null || vCustomer.PhoneNumber == "" ? pOrder!.Customer!.PhoneNumber : vCustomer.PhoneNumber;
+                    pOrder.CustomerId = vCustomer.Id;
+                    pOrder.Customer = null;
+
+                    vGblCustomerRepository.SaveChanges();
+                }
 
                 var vOrder = vGblMapper.Map<Order>(pOrder);
                 var vOrderCreada = vGblRepository.Create(vOrder);
