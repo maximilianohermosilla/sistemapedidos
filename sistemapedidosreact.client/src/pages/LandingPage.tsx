@@ -9,7 +9,7 @@ export default function LandingPage() {
     const [menu, setMenu] = useState<any>();
     const [menuFavs, setMenuFavs] = useState<any>();
     const [menuCombos, setMenuCombos] = useState<any>();
-    const [menuOffers, setMenuOffers] = useState<any>();
+    const [menuGrouped, setMenuGrouped] = useState<any>();
 
     useEffect(() => {
         getLastMenu();
@@ -17,13 +17,32 @@ export default function LandingPage() {
 
     async function getLastMenu() {
         const data = await GetLastMenu();
+        const productsGrouped = groupProducts(data?.items);
         data!.items!.push(...data.items);
         data!.items!.push(...data.items);
         console.log(data);
+        console.log(productsGrouped);
+
         setMenu(data);
         setMenuFavs(data.items);
-        setMenuCombos(data.items.filter((e: any) => e.imageUrl != ''));
-        setMenuOffers(data.items.filter((e: any) => e.categoryId == 4));
+        setMenuCombos(data.items.filter((item: any) => item.combo));
+        setMenuGrouped(productsGrouped);
+    }
+
+    const groupProducts = (items: any[]) => {
+        const map = new Map<string, { category: any; items: Omit<any, "category" | "children">[] }>();
+
+        items?.forEach((item: any) => {
+            const { category, ...rest } = item;
+
+            if (!map.has(category.id)) {
+                map.set(category.id, { category, items: [] });
+            }
+
+            map.get(category.id)!.items.push(rest);
+        });
+
+        return Array.from(map.values());
     }
 
     return (
@@ -31,9 +50,8 @@ export default function LandingPage() {
             <div className="pt-3">
                 <Delay></Delay>
                 {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
-                {menuCombos?.length > 0 && <Menu items={menuCombos} title={"Combos"}></Menu>}
-                {menuOffers?.length > 0 && <Menu items={menuOffers} title={"Ofertas"}></Menu>}
-                {menuOffers?.length > 0 && <Menu items={menuOffers} title={"Pizzas"}></Menu>}
+                {menuCombos?.length > 0 && <Menu items={menuCombos} title={"Combos"}></Menu>}                
+                {menuGrouped?.map((group: any, index: any) => <Menu key={index} items={group!.items} title={group!.category!.name}></Menu>)}
             </div>
             <Footer menu={menu}></Footer>
             <ViewCartButton></ViewCartButton>
