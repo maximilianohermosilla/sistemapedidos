@@ -5,19 +5,24 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaMapMarkerAlt, FaSearch } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
     const [cartItems, setCartItems] = useState([]);
     const [menuOpen, setMenuOpen] = useState(false);
     const [inputSearch, setInputSearch] = useState('');
     const cartContext = useContext<any>(CartContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setCartItems(cartContext.cartItems);
     }, [cartContext.cartItems]);
 
     const handleSearch = () => {
-        alert("Buscando: " + inputSearch);
+        if (inputSearch) {
+            setMenuOpen(false);
+            navigate(`/search/${inputSearch}`);
+        }        
     }
 
     const handleKeyDown = (event: any) => {

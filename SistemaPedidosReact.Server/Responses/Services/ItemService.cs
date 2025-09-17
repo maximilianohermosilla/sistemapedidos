@@ -48,6 +48,20 @@ namespace SistemaPedidosReact.Server.Responses.Services
             }
         }
 
+        public async Task<IEnumerable<ItemReadDTO>> Search(string pSearch)
+        {
+            try
+            {
+                var vItems = vGblRepository.Search(pSearch);
+
+                return vGblMapper.Map<IEnumerable<ItemReadDTO>>(vItems);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<ItemReadDTO?> GetById(int pId)
         {
             try

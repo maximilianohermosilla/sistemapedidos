@@ -3,7 +3,7 @@ import { GetLastMenu } from "../services/menu-service";
 import Menu from "../components/Menu";
 import ViewCartButton from "../components/ViewCartButton";
 import Delay from "../components/Delay";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 
 export default function LandingPage() {
     const [menu, setMenu] = useState<any>();

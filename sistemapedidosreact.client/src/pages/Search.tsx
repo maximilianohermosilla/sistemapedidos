@@ -1,5 +1,37 @@
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { SearchItems } from "../services/item-service";
+import CardProduct from "../components/CardProduct";
+
 export default function Search() {
+    const [items, setItems] = useState<any>();
+    const { query } = useParams();
+
+    useEffect(() => {
+        searchItems();
+    }, [query]);
+
+    const searchItems = async () => {
+        const response = await SearchItems(query!);
+        setItems(response);
+    }
+
+    const contents = items === undefined || items.length === 0 ?
+        <p className="text-lg font-semibold text-center text-cyan-700 w-full my-3">No hay productos para mostrar</p> :
+        <> {items?.map((item: any, index: any) => <CardProduct key={index} product={item}></CardProduct>)} </>;
+
     return (
-        <div>Search</div>
+        <main className="w-full flex flex-col justify-start h-full p-2 mt-3">
+            <section className="products">
+                <h1 className="text-primary text-2xl font-semibold w-full text-center mb-1">Resultados de búsqueda</h1>
+                <p className="text-gray-500 text-center mb-2">Buscar: {query}</p>
+            </section>
+            <section className="m-auto">
+                {items?.length > 0
+                    ? contents
+                    : <p className="text-lg font-semibold text-center text-cyan-700 w-full my-3">No hay productos para mostrar</p>
+                }
+            </section>
+        </main>
     )
 }

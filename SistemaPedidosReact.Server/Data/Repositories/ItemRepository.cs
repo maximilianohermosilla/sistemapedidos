@@ -1,4 +1,5 @@
-﻿using SistemaPedidosReact.Server.Data.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.Models;
 
 namespace SistemaPedidosReact.Server.Data.Repositories
@@ -29,6 +30,16 @@ namespace SistemaPedidosReact.Server.Data.Repositories
         {
             return vGblContext.Items.ToList();
         }
+
+        public IEnumerable<Item> Search(string pSearch)
+        {
+            var vMaxMenuId = vGblContext.Menus.Max(c => c.Id);
+            var vItems = vGblContext.Items.Include(i => i.Category).Where(i => i.MenuId == vMaxMenuId && i.Type!.ToUpper() == "PRODUCT" &&
+                (i.Name!.ToLower().Contains(pSearch!.ToLower()) || i.Description!.ToLower().Contains(pSearch!.ToLower()) || i.Category!.Name!.ToLower().Contains(pSearch!.ToLower())))
+                .ToList();
+            return vItems;
+        }
+        
 
         public Item GetById(int pId)
         {

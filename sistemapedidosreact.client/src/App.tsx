@@ -13,7 +13,7 @@ function App() {
                 <Routes>
                     <Route index element={<LandingPage />} />
                     <Route path="/" element={<LandingPage />} />
-                    <Route path="/search" element={<Search />} />
+                    <Route path="/search/:query" element={<Search />} />
                     <Route path="/shopping-cart" element={<ShoppingCart />} />
                     <Route path="*" element={<LandingPage />} />
                 </Routes>

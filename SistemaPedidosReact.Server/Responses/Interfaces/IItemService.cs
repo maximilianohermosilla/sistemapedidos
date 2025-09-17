@@ -6,6 +6,7 @@ namespace SistemaPedidosReact.Server.Responses.Interfaces
     {
         Task<ItemReadDTO?> Create(ItemCreateDTO pItem);
         Task<IEnumerable<ItemReadDTO>> GetAll();
+        Task<IEnumerable<ItemReadDTO>> Search(string pSearch);
         Task<ItemReadDTO?> GetById(int pId);
     }
 }
