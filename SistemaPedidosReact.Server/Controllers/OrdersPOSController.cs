@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Responses.Interfaces;
 
@@ -19,6 +20,7 @@ namespace SistemaPedidosReact.Server.Controllers
 
         [HttpPost]
         [Route("orders")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<OrderReadPOS>>> GetAllOrdersPOS([FromQuery] string storeid)
         {
             try
@@ -42,6 +44,7 @@ namespace SistemaPedidosReact.Server.Controllers
 
         [HttpPut]
         [Route("orders_update")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<OrderReadPOS>>> OrdersUpdate([FromQuery] string storeid,
                         [FromQuery] string orderId, [FromQuery] string state, [FromQuery] string delay)
         {
@@ -76,6 +79,7 @@ namespace SistemaPedidosReact.Server.Controllers
 
         [HttpPost]
         [Route("orders_cancel/{orderId}")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<OrderReadPOS>>> OrdersCancel(string orderId, [FromBody] OrderCancelDTO pOrderCancel)
         {
             try
