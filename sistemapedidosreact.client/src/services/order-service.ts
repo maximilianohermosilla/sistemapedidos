@@ -7,6 +7,7 @@ export async function GetOrders(storeId: string) {
             'Content-Type': 'application/json',
         }
     });
+    
     if (response.ok) {
         const data = await response.json();
         return data;
@@ -21,7 +22,7 @@ export async function CreateOrder(order: Order) {
         },
         body: JSON.stringify(order)
     });
-    console.log(response)
+    
     if (response.ok) {
         const data = await response.json();
         return data;

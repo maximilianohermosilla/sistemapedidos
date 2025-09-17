@@ -32,8 +32,8 @@ const Header: React.FC = () => {
     };
 
     return (
-        <nav className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
+            <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
                     <a href="/" className="flex-shrink-0 hover:cursor-pointer hover:opacity-75 active:ring-2 active:ring-blue-400">
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
 
                     {/* Links desktop */}
                     <div className="hidden md:flex space-x-6">
-                        <a href="/search" className="header__link text-gray-600 hover:text-blue-400">
+                        <a href="/contact" className="header__link text-gray-600 hover:text-blue-400">
                             <FaMapMarkerAlt />
                         </a>
                         <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400">
@@ -77,11 +77,11 @@ const Header: React.FC = () => {
                         </button>
                     </div>
                 </div>
-            </div>
+            </nav>
 
             {/* Menú desplegable en mobile */}
             {menuOpen && (
-                <div className="md:hidden bg-white shadow-md">
+                <nav className="md:hidden bg-white shadow-md">
                     <div className="px-4 pt-2 pb-3 space-y-2">
                         {/* Search en mobile */}
                         <div className="search-input-container relative w-full">
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
                         </div>
 
                         {/* Links */}
-                        <a href="/search" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
+                        <a href="/contact" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
                             <FaMapMarkerAlt /> Ubicación
                         </a>
                         <a href="/shopping-cart" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
@@ -105,9 +105,9 @@ const Header: React.FC = () => {
                             {cartItems.length > 0 && <span className="bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
                         </a>
                     </div>
-                </div>
+                </nav>
             )}
-        </nav>
+        </header>
     );
 };
 

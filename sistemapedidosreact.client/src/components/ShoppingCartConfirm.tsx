@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { formatMoney } from "../utils/formatMoney";
+import { formatMoney } from "../utils/FormatMoney";
 import { FaCheck } from "react-icons/fa6";
 import type { Order } from "../interfaces/order";
 import { CreateOrder } from "../services/order-service";

@@ -1,6 +1,6 @@
+import { formatMoney } from "../utils/FormatMoney";
 import "./ProductInfoToppingItem.css"
 import { useEffect, useState } from "react";
-import { formatMoney } from "../utils/formatMoney";
 
 export default function ProductInfoToppingItem({ item, setSelectedOption, checked, productNumber }: any) {
     const [topping, setTopping] = useState<any>();

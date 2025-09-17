@@ -69,6 +69,10 @@ button:active, a:active{
     color: var(--secondary-color);
 }
 
+.text-danger{
+    color: var(--danger-color);
+}
+
 .bg-primary{
     background-color: var(--primary-color);
 }

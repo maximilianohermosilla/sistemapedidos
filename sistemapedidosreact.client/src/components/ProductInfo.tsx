@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import imgDefault from "../assets/logo/logo_gray_top.jpeg";
-import { formatMoney } from "../utils/formatMoney";
 import ProductInfoTopping from "./ProductInfoTopping";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { CartContext } from "../context/CartContext";
+import { formatMoney } from "../utils/FormatMoney.ts";
 
 export default function ProductInfo({ product, onConfirm }: any) {
     const [item, setItem] = useState<any>();

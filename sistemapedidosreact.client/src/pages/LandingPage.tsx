@@ -47,12 +47,12 @@ export default function LandingPage() {
 
     return (
         <div className="main__container h-full flex flex-col justify-between">
-            <div className="pt-3">
+            <section className="pt-3">
                 <Delay></Delay>
                 {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
                 {menuCombos?.length > 0 && <Menu items={menuCombos} title={"Combos"}></Menu>}                
                 {menuGrouped?.map((group: any, index: any) => <Menu key={index} items={group!.items} title={group!.category!.name}></Menu>)}
-            </div>
+            </section>
             <Footer menu={menu}></Footer>
             <ViewCartButton></ViewCartButton>
         </div>

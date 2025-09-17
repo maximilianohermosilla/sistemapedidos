@@ -4,7 +4,7 @@ import { CartContext } from "../context/CartContext";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import CardProductCart from "../components/CardProductCart";
-import { formatMoney } from "../utils/formatMoney";
+import { formatMoney } from "../utils/FormatMoney";
 import { BsCartXFill } from "react-icons/bs";
 import DialogConfirm from "../components/DialogConfirm";
 import Dialog from "../components/Dialog";
@@ -37,7 +37,7 @@ export default function ShoppingCart() {
     }
 
     return (
-        <main className="w-full flex flex-col justify-between h-full p-2">
+        <div className="w-full flex flex-col justify-between h-full p-2">
             <section className="products">
                 <h1 className="text-primary text-2xl font-semibold w-full text-center mb-3">Carrito de compras</h1>
                 {cartItems && cartItems!.length > 0 ?
@@ -65,6 +65,6 @@ export default function ShoppingCart() {
                     isOpen={isModalOpenClear} onClose={closeModalClear} onConfirm={handleConfirmClear}>
                 </DialogConfirm>
             }
-        </main>
+        </div>
     )
 }

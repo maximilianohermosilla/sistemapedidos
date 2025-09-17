@@ -1,11 +1,11 @@
 import "./CardProduct.css";
 import { useContext, useEffect, useState } from "react";
 import imgDefault from "../assets/logo/logo_gray_top.jpeg";
-import { formatMoney } from '../utils/formatMoney.ts';
 import { FaPlus } from "react-icons/fa6";
 import { CartContext } from "../context/CartContext.tsx";
 import Dialog from "./Dialog.tsx";
 import ProductInfo from "./ProductInfo.tsx";
+import { formatMoney } from "../utils/FormatMoney.ts";
 
 export default function CardProduct({ product }: any) {
     const [item, setItem] = useState<any>();
@@ -33,8 +33,8 @@ export default function CardProduct({ product }: any) {
     return (
         <>
             {item !== undefined &&
-                <div className="card__product relative bg-white text-left rounded-md shadow-md hover:shadow-lg 
-                    shadow-gray-500/40 hover:cursor-pointer mx-auto md:mx-2" onClick={openModal}>
+                <article className="card__product relative bg-white text-left rounded-md shadow-md hover:shadow-lg 
+                    shadow-gray-500/40 hover:cursor-pointer mx-auto md:mx-2 hover:opacity-80" onClick={openModal}>
                     <img src={item.imageUrl && item.imageUrl != '' ? item.imageUrl : imgDefault} alt={item.name} onError={addDefaultImg}
                         className="w-full h-48 object-cover rounded-t-md" />
                     <footer className="flex p-4 justify-between">
@@ -51,7 +51,7 @@ export default function CardProduct({ product }: any) {
                             </button>
                         </div>
                     </footer>
-                </div>
+                </article>
             }
             {item !== undefined && isModalOpen &&
                 <Dialog title={item.name} isOpen={isModalOpen || false} onClose={closeModal}>

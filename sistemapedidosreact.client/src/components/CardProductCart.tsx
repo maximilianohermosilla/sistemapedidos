@@ -1,7 +1,7 @@
 import "./CardProductCart.css";
 import { useContext, useEffect, useState } from "react";
 import imgDefault from "../assets/logo/logo_gray_top.jpeg";
-import { formatMoney } from '../utils/formatMoney.ts';
+import { formatMoney } from '../utils/FormatMoney.ts';
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { CartContext } from "../context/CartContext.tsx";
 import { FaRegTrashAlt } from "react-icons/fa";
