@@ -1,7 +1,7 @@
 import type { Order } from "../interfaces/order";
 
 export async function GetOrders(storeId: string) {
-    const response = await fetch(`https://localhost:7011/api/orders?storeid=${storeId}`, {
+    const response = await fetch(`/api/orders?storeid=${storeId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -15,7 +15,7 @@ export async function GetOrders(storeId: string) {
 }
 
 export async function CreateOrder(order: Order) {
-    const response = await fetch(`https://localhost:7011/api/order/Create`, {
+    const response = await fetch(`/api/order/Create`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
