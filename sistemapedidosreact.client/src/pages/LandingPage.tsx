@@ -18,10 +18,10 @@ export default function LandingPage() {
     async function getLastMenu() {
         const data = await GetLastMenu();
         const productsGrouped = groupProducts(data?.items);
-        data!.items!.push(...data.items);
-        data!.items!.push(...data.items);
-        console.log(data);
-        console.log(productsGrouped);
+        //data!.items!.push(...data.items);
+        //data!.items!.push(...data.items);
+        //console.log(data);
+        //console.log(productsGrouped);
 
         setMenu(data);
         setMenuFavs(data.items);
