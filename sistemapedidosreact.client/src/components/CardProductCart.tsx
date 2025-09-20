@@ -38,7 +38,7 @@ export default function CardProductCart({ product }: any) {
             {item !== undefined &&
                 <div className="card__product__cart flex relative bg-white text-left rounded-md shadow-md shadow-gray-500/40 mb-5 m-auto ">
                     <img src={item.imageUrl && item.imageUrl != '' ? item.imageUrl : imgDefault} alt={item.name} onError={addDefaultImg}
-                        className="w-25 md:w-40 object-cover bg-black rounded-l-md" />
+                        className="w-25 md:w-40 object-fill bg-black rounded-l-md" />
                     <section className="md:flex w-full px-3 py-2 md:p-4 justify-between">
                         <div className="w-full">
                             <h3 className="font-bold">{item.name}</h3>
