@@ -1,7 +1,9 @@
 import type { Order } from "../interfaces/order";
 
+const apiUrl = import.meta.env.DEV ? import.meta.env.VITE_API_URL: '';
+
 export async function GetOrders(storeId: string) {
-    const response = await fetch(`/api/orders?storeid=${storeId}`, {
+    const response = await fetch(`${apiUrl}/api/orders?storeid=${storeId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -15,7 +17,7 @@ export async function GetOrders(storeId: string) {
 }
 
 export async function CreateOrder(order: Order) {
-    const response = await fetch(`/api/order/Create`, {
+    const response = await fetch(`${apiUrl}/api/order/Create`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
