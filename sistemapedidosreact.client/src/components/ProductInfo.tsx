@@ -11,6 +11,7 @@ export default function ProductInfo({ product, onConfirm }: any) {
     const [toppings, setToppings] = useState<any>();
     const [selectedToppings, setSelectedToppings] = useState<any[]>([]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
+    const [requiredToppings, setRequiredToppings] = useState<boolean>(false);
     // const [cartItemQuantity, setCartItemQuantity] = useState<number>(0);
     const cartContext = useContext<any>(CartContext);
 
@@ -26,6 +27,7 @@ export default function ProductInfo({ product, onConfirm }: any) {
     useEffect(() => {
         const sumToppings = selectedToppings.reduce((accumulator: any, topping: any) => accumulator + topping?.price, 0);
         setTotalPrice((item?.price * itemQuantity) + sumToppings);
+        validateToppings();
     }, [selectedToppings, item?.price, itemQuantity]);
 
     useEffect(() => {
@@ -54,35 +56,45 @@ export default function ProductInfo({ product, onConfirm }: any) {
     }
 
     const handleTopping = (topping: any) => {
+        if (topping?.multiple) {
+            updateToppingMultiple(topping);
+        }
+        else {
+            updateToppingUnique(topping);
+        }
+    }
+
+    const updateToppingMultiple = (topping: any) => {
         const selectedToppingsTemp = [...selectedToppings];
 
-        if (topping?.multiple) {
-            if(topping?.checked){
-                setSelectedToppings([...selectedToppingsTemp, topping]);
-            }
-            else{
-                const index = selectedToppingsTemp.findIndex((selectedTopping: any) =>
-                    selectedTopping.categoryId === topping.categoryId 
-                    && selectedTopping.productNumber === topping.productNumber 
-                    && selectedTopping.id === topping.id);
-
-                selectedToppingsTemp.splice(index, 1);
-                if (index >= 0) {
-                    setSelectedToppings([...selectedToppingsTemp]);
-                }
-            }
+        if (topping?.checked) {
+            setSelectedToppings([...selectedToppingsTemp, topping]);
         }
         else {
             const index = selectedToppingsTemp.findIndex((selectedTopping: any) =>
-                selectedTopping.categoryId === topping.categoryId && selectedTopping.productNumber === topping.productNumber);
+                selectedTopping.categoryId === topping.categoryId
+                && selectedTopping.productNumber === topping.productNumber
+                && selectedTopping.id === topping.id);
 
+            selectedToppingsTemp.splice(index, 1);
             if (index >= 0) {
-                selectedToppingsTemp[index] = topping;
                 setSelectedToppings([...selectedToppingsTemp]);
             }
-            else {
-                setSelectedToppings([...selectedToppings, topping]);
-            }
+        }
+    }
+
+    const updateToppingUnique = (topping: any) => {
+        const selectedToppingsTemp = [...selectedToppings];
+
+        const index = selectedToppingsTemp.findIndex((selectedTopping: any) =>
+            selectedTopping.categoryId === topping.categoryId && selectedTopping.productNumber === topping.productNumber);
+
+        if (index >= 0) {
+            selectedToppingsTemp[index] = topping;
+            setSelectedToppings([...selectedToppingsTemp]);
+        }
+        else {
+            setSelectedToppings([...selectedToppings, topping]);
         }
     }
 
@@ -99,12 +111,27 @@ export default function ProductInfo({ product, onConfirm }: any) {
         onConfirm();
     }
 
+    const validateToppings = () => {
+        let toppingIncomplete: boolean = false;
+        for (let index = 0; index <= itemQuantity-1; index++) {
+            toppings?.forEach((topping: any) => {
+                if (topping?.category?.maxQty > 0) {
+                    const toppingChecked = selectedToppings.find((t: any) => t.categoryId === topping?.category?.id && t.productNumber === index);                    
+                    if (!toppingChecked) {
+                        toppingIncomplete = true;
+                    }
+                }
+            })
+        }
+        setRequiredToppings(toppingIncomplete);
+    }
+
     const renderToppings = (_item: any, index: number) => {
         if (toppings) {
             return toppings.map((topping: any) =>
                 <ProductInfoTopping key={`${topping.category.id}_${itemQuantity}`} toppingProp={topping} productNumber={index} setSelectedTopping={handleTopping}
-                    checked={selectedToppings.find((t: any) => t.categoryId === topping.category.id && t.productNumber === index)} 
-                    multipleChecked={selectedToppings.filter((t: any) => t.categoryId === topping.category.id && t.productNumber === index)} 
+                    checked={selectedToppings.find((t: any) => t.categoryId === topping.category.id && t.productNumber === index)}
+                    multipleChecked={selectedToppings.filter((t: any) => t.categoryId === topping.category.id && t.productNumber === index)}
                 />);
         }
     }
@@ -139,7 +166,9 @@ export default function ProductInfo({ product, onConfirm }: any) {
                                 <FaPlus />
                             </button>
                         </div>
-                        <button tabIndex={0} className="button__primary flex items-center gap-1" onClick={handleConfirm}>Agregar {formatMoney(totalPrice || 0)}</button>
+                        <button tabIndex={0} className="button__primary flex items-center gap-1" onClick={handleConfirm} disabled={requiredToppings}>
+                            Agregar {formatMoney(totalPrice || 0)}
+                        </button>
                     </footer>
                 </div>
             }
