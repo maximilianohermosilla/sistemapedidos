@@ -12,7 +12,7 @@ function App() {
     return (
         <div className="main__height w-full bg-gray-100">
             <Header></Header>
-            <main className="w-full h-full mb-0" style={{ paddingTop: "64px" }}>
+            <main className="w-full main__height mb-0" style={{ paddingTop: "64px" }}>
                 <AuthProvider>
                     <Routes>
                         <Route index element={<LandingPage />} />

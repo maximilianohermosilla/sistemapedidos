@@ -50,7 +50,6 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any
         if (validate()) {
             await createOrder();
             setFormData({ name: '', email: '', phone: '' });
-            onConfirm();
         }
     }
 
@@ -130,7 +129,11 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any
         console.log(order);
 
         let response = await CreateOrder(order);
+
         console.log(response);
+        if(response){
+            onConfirm();
+        }
     }
 
 

@@ -329,7 +329,7 @@ namespace SistemaPedidosReact.Server.Migrations
                     Delay = table.Column<int>(type: "int", nullable: true),
                     CustomerName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    OrderStateId = table.Column<int>(type: "int", nullable: false),
+                    OrderStateId = table.Column<int>(type: "int", nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

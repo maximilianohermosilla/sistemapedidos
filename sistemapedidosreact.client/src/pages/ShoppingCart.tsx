@@ -34,10 +34,11 @@ export default function ShoppingCart() {
     const handleConfirmClear = () => {
         cartContext.clearCart.bind(null)();
         closeModalClear();
+        closeModal();
     }
 
     return (
-        <div className="w-full flex flex-col justify-between h-full p-2">
+        <div className="main__container w-full flex flex-col justify-between p-2">
             <section className="products">
                 <h1 className="text-primary text-2xl font-semibold w-full text-center mb-3">Carrito de compras</h1>
                 {cartItems && cartItems!.length > 0 ?
@@ -57,7 +58,7 @@ export default function ShoppingCart() {
             </footer>
             {cartItems!.length > 0 !== undefined && isModalOpen &&
                 <Dialog title="Confirmación" isOpen={isModalOpen} onClose={closeModal}>
-                    <ShoppingCartConfirm prop={cartItems} totalPrice={totalPrice} onConfirm={closeModal}></ShoppingCartConfirm>
+                    <ShoppingCartConfirm prop={cartItems} totalPrice={totalPrice} onConfirm={handleConfirmClear}></ShoppingCartConfirm>
                 </Dialog>
             }
             {cartItems!.length > 0 !== undefined && isModalOpenClear &&

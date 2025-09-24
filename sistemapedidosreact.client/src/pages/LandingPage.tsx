@@ -46,7 +46,7 @@ export default function LandingPage() {
     }
 
     return (
-        <div className="main__container h-full flex flex-col justify-between">
+        <div className="main__container flex flex-col justify-between">
             <section className="pt-3">
                 <Delay></Delay>
                 {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}

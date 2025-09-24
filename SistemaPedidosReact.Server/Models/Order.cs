@@ -15,7 +15,7 @@ namespace SistemaPedidosReact.Server.Models
 
 
         public Store Store { get; set; } = null!;
-        public OrderState OrderState { get; set; } = null!;
+        public OrderState? OrderState { get; set; } = null;
         public Customer Customer { get; set; } = null!;
         public OrderDetail? OrderDetail { get; set; } = null;
     }
