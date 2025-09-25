@@ -3,11 +3,11 @@
     min-height: 100dvh;
 }
 
-input[type="text"] {
+input[type="text"], textarea {
     border: 2px solid rgba(100, 100, 100, 0.4);
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus, textarea:focus {
     outline: none;
     border: 2px solid var(--primary-color);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);

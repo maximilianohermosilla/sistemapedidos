@@ -1,9 +1,71 @@
+import "./Contact.css";
+import { useEffect, useState } from "react";
+import { GetParameterByKey } from "../services/parameter-service";
+import { ParameterEnum } from "../enums/parameter";
+import { FaInstagram, FaPhone, FaWhatsapp } from "react-icons/fa6";
+import { GrMail } from "react-icons/gr";
+import React from "react";
+
 export default function Contact() {
+    const [address, setAddress] = useState<string>('');
+    const [whatsapp, setWhatsapp] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [instagram, setInstagram] = useState<string>('');
+    const [phone, setPhone] = useState<string>('');
+    const [schedules, setSchedules] = useState<string>('');
+
+    useEffect(() => {
+        getParameters();
+    }, []);
+
+    const getParameters = async () => {
+        const addressParameter = await GetParameterByKey(ParameterEnum.ADDRESS);
+        if (addressParameter) setAddress(addressParameter?.value);
+
+        const whatsappParameter = await GetParameterByKey(ParameterEnum.WHATSAPP);
+        if (whatsappParameter) setWhatsapp(whatsappParameter?.value);
+
+        const emailParameter = await GetParameterByKey(ParameterEnum.EMAIL);
+        if (emailParameter) setEmail(emailParameter?.value);
+
+        const instagramParameter = await GetParameterByKey(ParameterEnum.INSTAGRAM);
+        if (instagramParameter) setInstagram(instagramParameter?.value);
+
+        const phoneParameter = await GetParameterByKey(ParameterEnum.PHONE);
+        if (phoneParameter) setPhone(phoneParameter?.value);
+
+        const schedulesParameter = await GetParameterByKey(ParameterEnum.SCHEDULES);
+        if (schedulesParameter) setSchedules(schedulesParameter?.value);
+    }
+
+    function formatTextWithBrTags(text: string) {
+        return text.replace(/\n/g, '<br />');
+    }
+
     return (
-        <div className="main__container w-full flex flex-col justify-start p-2">
-            <section className="products">
+        <div className="main__container w-full flex flex-col justify-start p-2 pt-5">
+            <section className="contact mx-auto">
                 <h1 className="text-primary text-2xl font-semibold w-full text-center mb-1">Contacto</h1>
-            </section>            
+
+                {address && address !== '' &&
+                    <div className="address mt-5">
+                        <h5 className="text-primary font-semibold">Dirección</h5>
+                        {address}
+                    </div>
+                }
+                {schedules && schedules !== '' &&
+                    <div className="schedules mt-5">
+                        <h5 className="text-primary font-semibold">Horarios</h5>
+                        <div className="whitespace-break-spaces" dangerouslySetInnerHTML={{ __html: formatTextWithBrTags(schedules) }}></div>
+                    </div>
+                }
+                <div className="contactos flex gap-2 mt-7 mx-auto justify-center">
+                    {phone && phone !== '' && <a href={`tel:${phone}`} target="_blank" rel="noreferrer"><FaPhone className="contact__icon" size={24}></FaPhone ></a>}
+                    {whatsapp && whatsapp !== '' && <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noreferrer"><FaWhatsapp className="contact__icon" size={24}></FaWhatsapp></a>}
+                    {email && email !== '' && <a href={`mailto:${email}`} target="_blank" rel="noreferrer"><GrMail className="contact__icon" size={24}></GrMail></a>}
+                    {instagram && instagram !== '' && <a href={instagram} target="_blank" rel="noreferrer"><FaInstagram className="contact__icon" size={24}></FaInstagram></a>}
+                </div>
+            </section>
         </div>
     )
 }

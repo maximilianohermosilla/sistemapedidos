@@ -38,7 +38,7 @@ export default function ShoppingCart() {
     }
 
     return (
-        <div className="main__container w-full flex flex-col justify-between p-2">
+        <div className="main__container w-full flex flex-col justify-between p-2 pt-5">
             <section className="products">
                 <h1 className="text-primary text-2xl font-semibold w-full text-center mb-3">Carrito de compras</h1>
                 {cartItems && cartItems!.length > 0 ?
