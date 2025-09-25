@@ -29,41 +29,6 @@ namespace SistemaPedidosReact.Server.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CategoryReadDTO>> GetById(int id)
-        {
-            try
-            {
-                var vCategory = await vGblService.GetById(id);
-
-                if (vCategory == null)
-                {
-                    return NotFound(new ResponseMessage() { Message = "Categoría no encontrada" });
-                }
-
-                return Ok(vCategory);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<CategoryReadDTO>> Create(CategoryCreateDTO pCategory)
-        {
-            try
-            {
-                var vCategory = await vGblService.Create(pCategory);
-
-                return Created("", vCategory);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        }    
     }
 }

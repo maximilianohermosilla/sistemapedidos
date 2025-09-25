@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Responses.Interfaces;
 
@@ -13,41 +14,6 @@ namespace SistemaPedidosReact.Server.Controllers
         public ParameterController(IParameterService pService)
         {
             vGblService = pService;
-        }
-
-        [HttpGet()]
-        public async Task<ActionResult<IEnumerable<ParameterReadDTO>>> GetAll()
-        {
-            try
-            {
-                var vParameters = await vGblService.GetAll();
-
-                return Ok(vParameters);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ParameterReadDTO>> GetById(int id)
-        {
-            try
-            {
-                var vParameter = await vGblService.GetById(id);
-
-                if (vParameter == null)
-                {
-                    return NotFound(new ResponseMessage() { Message = "Parámetro no encontrado" });
-                }
-
-                return Ok(vParameter);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
         [HttpGet("{key}")]
@@ -71,6 +37,7 @@ namespace SistemaPedidosReact.Server.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<ParameterReadDTO>> Create(ParameterCreateDTO pParameter)
         {
             try
@@ -86,6 +53,7 @@ namespace SistemaPedidosReact.Server.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<ActionResult<ParameterReadDTO>> Update(ParameterCreateDTO pParameter)
         {
             try

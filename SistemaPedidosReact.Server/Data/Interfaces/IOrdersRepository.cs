@@ -7,6 +7,7 @@ namespace SistemaPedidosReact.Server.Data.Interfaces
         bool SaveChanges();
         IEnumerable<Order> GetAll();
         IEnumerable<Order> GetAllPendingsByStore(int? pStoreId);
+        IEnumerable<Order> GetAllByCustomer(string pCustomer);
         Order GetById(int pId);
         Order Create(Order pOrder);
     }

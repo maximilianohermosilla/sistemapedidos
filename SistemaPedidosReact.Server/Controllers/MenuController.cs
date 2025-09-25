@@ -20,22 +20,6 @@ namespace SistemaPedidosReact.Server.Controllers
             vGblUserService = pUserService;
         }
 
-        [HttpGet]
-        [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<MenuReadDTO>>> GetAll()
-        {
-            try
-            {
-                var vMenus = await vGblService.GetAll();
-
-                return Ok(vMenus);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
         [HttpGet("{id}")]
         public async Task<ActionResult<MenuReadDTO>> GetById(int id)
         {
@@ -128,22 +112,6 @@ namespace SistemaPedidosReact.Server.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new UserLoginReadDTO() { Mensaje = ex.Message });
-            }
-        }
-
-        [HttpPost]
-        [Route("[action]")]
-        public async Task<ActionResult<MenuReadDTO>> Create(MenuCreateDTO pMenu)
-        {
-            try
-            {
-                var vMenu = await vGblService.Create(pMenu);
-
-                return Created("", vMenu);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
             }
         }
     }

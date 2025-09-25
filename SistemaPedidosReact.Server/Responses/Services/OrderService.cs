@@ -76,6 +76,20 @@ namespace SistemaPedidosReact.Server.Responses.Services
             }
         }
 
+        public async Task<IEnumerable<OrderReadDTO>> GetAllByCustomer(string pCustomer)
+        {
+            try
+            {
+                var vOrders = vGblRepository.GetAllByCustomer(pCustomer);
+
+                return vGblMapper.Map<IEnumerable<OrderReadDTO>>(vOrders);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        
         public async Task<OrderReadDTO?> GetById(int pId)
         {
             try

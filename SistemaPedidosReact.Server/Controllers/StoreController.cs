@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Models;
 using SistemaPedidosReact.Server.Responses.Interfaces;
@@ -14,21 +15,6 @@ namespace SistemaPedidosReact.Server.Controllers
         public StoreController(IStoreService pService)
         {
             vGblService = pService;
-        }
-
-        [HttpGet()]
-        public async Task<ActionResult<IEnumerable<StoreReadDTO>>> GetAll()
-        {
-            try
-            {
-                var vStores = await vGblService.GetAll();
-
-                return Ok(vStores);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
         [HttpGet("{id}")]
@@ -52,6 +38,7 @@ namespace SistemaPedidosReact.Server.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<StoreReadDTO>> Create(StoreCreateDTO pStore)
         {
             try

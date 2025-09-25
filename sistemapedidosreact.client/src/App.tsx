@@ -9,6 +9,7 @@ import Contact from './pages/Contact';
 import Administration from './pages/Administration';
 import { AuthProvider } from './context/AuthContext';
 import { Toaster } from 'sonner';
+import Orders from './pages/Orders';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                         <Route path="/search/:query" element={<Search />} />
                         <Route path="/shopping-cart" element={<ShoppingCart />} />
                         <Route path="/contact" element={<Contact />} />
+                        <Route path="/orders" element={<Orders />} />
                         <Route path="/admin" element={<Administration />} />
                         <Route path="*" element={<LandingPage />} />
                     </Routes>

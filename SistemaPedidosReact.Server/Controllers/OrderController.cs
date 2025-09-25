@@ -44,5 +44,25 @@ namespace SistemaPedidosReact.Server.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("{client}")]
+        public async Task<ActionResult<IEnumerable<OrderReadDTO>>> GetAllByCustomer(string client)
+        {
+            try
+            {
+                var vParameter = await vGblService.GetAllByCustomer(client);
+
+                if (vParameter == null)
+                {
+                    return NotFound(new ResponseMessage() { Message = "Ocurrió un error al obtener los pedidos." });
+                }
+
+                return Ok(vParameter);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

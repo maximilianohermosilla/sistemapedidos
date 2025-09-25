@@ -127,11 +127,11 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any
             }
         };
 
-        console.log(order);
+        //console.log(order);
 
         let response = await CreateOrder(order);
 
-        console.log(response);
+        //console.log(response);
         if (response) {
             showToast({ title: 'Carrito de compras', description: 'Pedido generado correctamente.' });
             onConfirm();

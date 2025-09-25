@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Models;
 using SistemaPedidosReact.Server.Responses.Interfaces;
@@ -16,42 +17,8 @@ namespace SistemaPedidosReact.Server.Controllers
             vGblService = pService;
         }
 
-        [HttpGet()]
-        public async Task<ActionResult<IEnumerable<UserReadDTO>>> GetAll()
-        {
-            try
-            {
-                var vUsers = await vGblService.GetAll();
-
-                return Ok(vUsers);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserReadDTO>> GetById(int id)
-        {
-            try
-            {
-                var vUser = await vGblService.GetById(id);
-
-                if (vUser == null)
-                {
-                    return NotFound(new ResponseMessage() { Message = "Usuario no encontrado" });
-                }
-
-                return Ok(vUser);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<UserReadDTO>> Create(UserCreateDTO pUser)
         {
             try

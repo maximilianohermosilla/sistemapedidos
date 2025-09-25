@@ -6,6 +6,7 @@ import { FaMapMarkerAlt, FaSearch } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { BsPersonVcardFill } from "react-icons/bs";
 
 const Header: React.FC = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -60,6 +61,9 @@ const Header: React.FC = () => {
                         <a href="/contact" className="header__link text-gray-600 hover:text-blue-400">
                             <FaMapMarkerAlt />
                         </a>
+                        <a href="/orders" className="header__link text-gray-600 hover:text-blue-400">
+                            <BsPersonVcardFill />
+                        </a>
                         <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400">
                             <FaCartShopping />
                             {cartItems.length > 0 && <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
@@ -99,6 +103,9 @@ const Header: React.FC = () => {
                         {/* Links */}
                         <a href="/contact" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
                             <FaMapMarkerAlt /> Ubicación
+                        </a>
+                        <a href="/orders" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
+                            <BsPersonVcardFill /> Pedidos
                         </a>
                         <a href="/shopping-cart" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
                             <FaCartShopping /> Carrito

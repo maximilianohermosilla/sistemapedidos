@@ -50,6 +50,26 @@ namespace SistemaPedidosReact.Server.Data.Repositories
             return vOrders;
         }
 
+        public IEnumerable<Order> GetAllByCustomer(string pCustomer)
+        {
+            var vOrders = vGblContext.Orders
+                .Include(o => o.Customer).Include(o => o.Store).Include(o => o.OrderState)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.Mesa)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.PaymentMethod)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.Totals)!.ThenInclude(t => t!.Charges)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.Totals)!.ThenInclude(t => t!.OtherTotals)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.DeliveryInformation)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.BillingInformation)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.DeliveryDiscount)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.Discounts)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.OrderItems).ThenInclude(i => i!.Item)
+                .Include(o => o.OrderDetail).ThenInclude(d => d!.OrderItems).ThenInclude(i => i.OrderSubItems).ThenInclude(s => s.Item)
+                .Where(o => o.Customer.Email == pCustomer || o.Customer.PhoneNumber == pCustomer)
+                .OrderByDescending(o => o.Id).ToList();
+
+            return vOrders;
+        }
+
         public Order GetById(int pId)
         {
             return vGblContext.Orders.FirstOrDefault(e => e.Id == pId)!;

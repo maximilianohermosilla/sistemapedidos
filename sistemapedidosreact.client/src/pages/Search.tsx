@@ -21,7 +21,7 @@ export default function Search() {
         <> {items?.map((item: any, index: any) => <CardProduct key={index} product={item}></CardProduct>)} </>;
 
     return (
-        <div className="main__container w-full flex flex-col justify-start p-2">
+        <div className="main__container w-full flex flex-col justify-start p-2 pt-5">
             <section className="products">
                 <h1 className="text-primary text-2xl font-semibold w-full text-center mb-1">Resultados de búsqueda</h1>
                 <p className="text-gray-500 text-center mb-2">Buscar: {query}</p>
