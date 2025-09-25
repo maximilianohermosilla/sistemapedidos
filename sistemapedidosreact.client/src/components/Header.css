@@ -1,0 +1,28 @@
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center; /* Vertically align items */
+}
+
+.search-input-field {
+  width: 100%;
+  color: #555;
+  padding: 10px 10px 10px 40px; /* Adjust padding-left for icon */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px; /* Position icon to the left */
+  color: #888;
+  font-size: 18px;
+}
+
+.header__link{
+    color: var(--primary-color)
+}
+
+.header__link:hover{
+    color: var(--secondary-color)
+}

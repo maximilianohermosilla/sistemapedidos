@@ -1,58 +1,38 @@
-import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-
-interface Forecast {
-    date: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
-}
+import "leaflet/dist/leaflet.css";
+import Header from './components/Header';
+import LandingPage from './pages/LandingPage';
+import Search from './pages/Search';
+import ShoppingCart from './pages/ShoppingCart';
+import Contact from './pages/Contact';
+import Administration from './pages/Administration';
+import { AuthProvider } from './context/AuthContext';
+import { Toaster } from 'sonner';
+import Orders from './pages/Orders';
 
 function App() {
-    const [forecasts, setForecasts] = useState<Forecast[]>();
-
-    useEffect(() => {
-        populateWeatherData();
-    }, []);
-
-    const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <table className="table table-striped" aria-labelledby="tableLabel">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
-                </tr>
-            </thead>
-            <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>;
-
     return (
-        <div>
-            <h1 id="tableLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
-            {contents}
+        <div className="main__height w-full bg-gray-100">
+            <Header></Header>
+            <main className="w-full main__height mb-0" style={{ paddingTop: "64px" }}>
+                <AuthProvider>
+                    <Routes>
+                        <Route index element={<LandingPage />} />
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/search/:query" element={<Search />} />
+                        <Route path="/shopping-cart" element={<ShoppingCart />} />
+                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/orders" element={<Orders />} />
+                        <Route path="/admin" element={<Administration />} />
+                        <Route path="*" element={<LandingPage />} />
+                    </Routes>
+                </AuthProvider>
+            </main>
+            <Toaster duration={2000} position="top-right" />
         </div>
     );
 
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        if (response.ok) {
-            const data = await response.json();
-            setForecasts(data);
-        }
-    }
 }
 
 export default App;
