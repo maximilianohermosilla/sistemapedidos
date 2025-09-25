@@ -4,7 +4,8 @@ import { GetParameterByKey } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
 import { FaInstagram, FaPhone, FaWhatsapp } from "react-icons/fa6";
 import { GrMail } from "react-icons/gr";
-import React from "react";
+import { LuMapPin } from "react-icons/lu";
+import { HiOutlineClock } from "react-icons/hi";
 
 export default function Contact() {
     const [address, setAddress] = useState<string>('');
@@ -49,13 +50,13 @@ export default function Contact() {
 
                 {address && address !== '' &&
                     <div className="address mt-5">
-                        <h5 className="text-primary font-semibold">Dirección</h5>
+                        <h5 className="text-primary font-semibold flex items-center gap-2"><LuMapPin />Dirección</h5>
                         {address}
                     </div>
                 }
                 {schedules && schedules !== '' &&
                     <div className="schedules mt-5">
-                        <h5 className="text-primary font-semibold">Horarios</h5>
+                        <h5 className="text-primary font-semibold flex items-center gap-2"><HiOutlineClock />Horarios</h5>
                         <div className="whitespace-break-spaces" dangerouslySetInnerHTML={{ __html: formatTextWithBrTags(schedules) }}></div>
                     </div>
                 }
