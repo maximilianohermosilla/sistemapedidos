@@ -4,6 +4,7 @@ import ProductInfoTopping from "./ProductInfoTopping";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { CartContext } from "../context/CartContext";
 import { formatMoney } from "../utils/FormatMoney.ts";
+import showToast from "../services/toast-service.ts";
 
 export default function ProductInfo({ product, onConfirm }: any) {
     const [item, setItem] = useState<any>();
@@ -108,6 +109,7 @@ export default function ProductInfo({ product, onConfirm }: any) {
     const handleConfirm = () => {
         const product = { ...item, quantity: itemQuantity, toppings: selectedToppings, totalPrice: totalPrice }
         cartContext.addToCart.bind(null, product)();
+        showToast({title: 'Producto', description:  `${product?.name} agregado correctamente.`});
         onConfirm();
     }
 

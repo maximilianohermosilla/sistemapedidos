@@ -3,6 +3,7 @@ import { formatMoney } from "../utils/FormatMoney";
 import { FaCheck } from "react-icons/fa6";
 import type { Order } from "../interfaces/order";
 import { CreateOrder } from "../services/order-service";
+import showToast from "../services/toast-service";
 
 export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any) {
     const [shoppingCart, setShoppingCart] = useState([]);
@@ -70,7 +71,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any
                 price: topping.price,
                 quantity: topping.quantity || 1,
                 maxLimit: topping.maxLimit || 0,
-                sortingPosition: 0 
+                sortingPosition: 0
             }))
         }));
 
@@ -131,7 +132,8 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any
         let response = await CreateOrder(order);
 
         console.log(response);
-        if(response){
+        if (response) {
+            showToast({ title: 'Carrito de compras', description: 'Pedido generado correctamente.' });
             onConfirm();
         }
     }

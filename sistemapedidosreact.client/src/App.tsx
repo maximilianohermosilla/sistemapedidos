@@ -8,6 +8,7 @@ import ShoppingCart from './pages/ShoppingCart';
 import Contact from './pages/Contact';
 import Administration from './pages/Administration';
 import { AuthProvider } from './context/AuthContext';
+import { Toaster } from 'sonner';
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                     </Routes>
                 </AuthProvider>
             </main>
+            <Toaster duration={2000} position="top-right" />
         </div>
     );
 

@@ -1,6 +1,7 @@
 import type { Order } from "../interfaces/order";
+import showToast from "./toast-service";
 
-const apiUrl = import.meta.env.DEV ? import.meta.env.VITE_API_URL: '';
+const apiUrl = import.meta.env.DEV ? import.meta.env.VITE_API_URL : '';
 
 export async function GetOrders(storeId: string) {
     const response = await fetch(`${apiUrl}/api/orders?storeid=${storeId}`, {
@@ -9,10 +10,13 @@ export async function GetOrders(storeId: string) {
             'Content-Type': 'application/json',
         }
     });
-    
+
     if (response.ok) {
-        const data = await response.json();
+        const data = await response.json().catch((err: any) => showToast({title: 'Error', description: err.message, error: true}));
         return data;
+    }
+    else {
+        showToast({ title: 'Error', description: response.statusText != '' ? response.statusText : "Ocurrió un error al obtener los pedidos.", error: true });
     }
 }
 
@@ -24,9 +28,12 @@ export async function CreateOrder(order: Order) {
         },
         body: JSON.stringify(order)
     });
-    
+
     if (response.ok) {
-        const data = await response.json();
+        const data = await response.json().catch((err: any) => showToast({title: 'Error', description: err.message, error: true}));
         return data;
+    }
+    else {
+        showToast({ title: 'Error', description: response.statusText != '' ? response.statusText : "Ocurrió un error al crear el pedido.", error: true });
     }
 }

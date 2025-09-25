@@ -7,6 +7,7 @@ import Login from "../components/Login";
 import { MdLogout } from "react-icons/md";
 import { FaRegSave } from "react-icons/fa";
 import { ParameterEnum } from "../enums/parameter";
+import showToast from "../services/toast-service";
 
 export default function Administration() {
     const [formData, setFormData] = useState<any>({ delay: '', address: '', phone: '', email: '', whatsapp: '', instagram: '', schedules: '' });
@@ -19,10 +20,12 @@ export default function Administration() {
 
     const handleLoginSuccess = (userName?: any, token?: any) => {
         login(userName, token);
+        showToast({title: 'Login', description: 'Bienvenido al panel de administración.'});
     };
 
     const handleLogout = () => {
         logout();
+        showToast({title: 'Login', description: 'Se ha cerrado la sesión.'});
     };
 
     const getParameters = async () => {
@@ -66,6 +69,8 @@ export default function Administration() {
         await UpdateParameter({ key: ParameterEnum.WHATSAPP, value: formData?.whatsapp });
         await UpdateParameter({ key: ParameterEnum.INSTAGRAM, value: formData?.instagram });
         await UpdateParameter({ key: ParameterEnum.SCHEDULES, value: formData?.schedules });
+
+        showToast({title: 'Administración', description: 'Parámetros actualizados correctamente.'});
     }
 
     return (
@@ -113,8 +118,8 @@ export default function Administration() {
                                 <label htmlFor="schedules" className="text-gray-600 text-sm mr-2">Horarios:</label>
                                 {/* <input type="text" id="schedules" name="schedules" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.schedules} onChange={handleChange} /> */}
-                                <textarea id="schedules" name="schedules" 
-                                    className="border-1 border-gray-400 rounded-sm px-2 text-sm"                                    
+                                <textarea id="schedules" name="schedules"
+                                    className="border-1 border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.schedules}
                                     onChange={handleChange}
                                     rows={5}
