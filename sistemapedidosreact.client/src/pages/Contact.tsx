@@ -6,6 +6,7 @@ import { FaInstagram, FaPhone, FaWhatsapp } from "react-icons/fa6";
 import { GrMail } from "react-icons/gr";
 import { LuMapPin } from "react-icons/lu";
 import { HiOutlineClock } from "react-icons/hi";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 
 export default function Contact() {
     const [address, setAddress] = useState<string>('');
@@ -14,9 +15,11 @@ export default function Contact() {
     const [instagram, setInstagram] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
     const [schedules, setSchedules] = useState<string>('');
+    const [position, setPosition] = useState<any>([-34.92057857658673, -57.95523023639817]);
 
     useEffect(() => {
         getParameters();
+        setPosition([-34.92057857658673, -57.95523023639817]);
     }, []);
 
     const getParameters = async () => {
@@ -66,6 +69,23 @@ export default function Contact() {
                     {email && email !== '' && <a href={`mailto:${email}`} target="_blank" rel="noreferrer"><GrMail className="contact__icon" size={24}></GrMail></a>}
                     {instagram && instagram !== '' && <a href={instagram} target="_blank" rel="noreferrer"><FaInstagram className="contact__icon" size={24}></FaInstagram></a>}
                 </div>
+            </section>
+            <section className="h-full p-2 mt-5">
+                <MapContainer
+                    style={{
+                        height: "40vh",
+                        width: "100%",
+                    }}
+                    center={position}
+                    zoom={15}
+                >
+                    <TileLayer
+                        attribution="Google Maps"
+                        url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
+                    />
+
+                    <Marker position={position} />
+                </MapContainer>
             </section>
         </div>
     )

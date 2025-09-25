@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import "leaflet/dist/leaflet.css";
 import Header from './components/Header';
 import LandingPage from './pages/LandingPage';
 import Search from './pages/Search';
