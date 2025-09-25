@@ -13,6 +13,7 @@ export default function ProductInfoToppings({ toppingProp, checked, multipleChec
         setTopping(toppingProp);
         setCategoryRequired(toppingProp?.category?.maxQty === 1);
         setCategoryMultiple(toppingProp?.category?.maxQty > 1);
+        setCategoryMultiple(true);
     }, [toppingProp]);
 
     const toggleDetails = () => {

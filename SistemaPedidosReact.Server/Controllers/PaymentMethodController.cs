@@ -37,6 +37,11 @@ namespace SistemaPedidosReact.Server.Controllers
             {
                 var vPaymentMethod = await vGblService.GetById(id);
 
+                if (vPaymentMethod == null)
+                {
+                    return NotFound(new ResponseMessage() { Message = "Método de pago no encontrado" });
+                }
+
                 return Ok(vPaymentMethod);
             }
             catch (Exception ex)

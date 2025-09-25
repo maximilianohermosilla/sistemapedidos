@@ -4,8 +4,10 @@ import Menu from "../components/Menu";
 import ViewCartButton from "../components/ViewCartButton";
 import Delay from "../components/Delay";
 import Footer from "../components/Footer";
+import { GetParameterByKey } from "../services/parameter-service";
 
 export default function LandingPage() {
+    const [delay, setDelay] = useState<string>('10-15 min');
     const [menu, setMenu] = useState<any>();
     const [menuFavs, setMenuFavs] = useState<any>();
     const [menuCombos, setMenuCombos] = useState<any>();
@@ -18,15 +20,12 @@ export default function LandingPage() {
     async function getLastMenu() {
         const data = await GetLastMenu();
         const productsGrouped = groupProducts(data?.items);
-        //data!.items!.push(...data.items);
-        //data!.items!.push(...data.items);
-        //console.log(data);
-        //console.log(productsGrouped);
 
         setMenu(data);
         setMenuFavs(data.items);
         setMenuCombos(data.items.filter((item: any) => item.combo));
         setMenuGrouped(productsGrouped);
+        getParameterByKey();
     }
 
     const groupProducts = (items: any[]) => {
@@ -45,10 +44,15 @@ export default function LandingPage() {
         return Array.from(map.values());
     }
 
+    const getParameterByKey = async () => {
+        const delayParameter = await GetParameterByKey('DELAY');
+        if(delayParameter) setDelay(delayParameter?.value);
+    }
+
     return (
         <div className="main__container flex flex-col justify-between">
             <section className="pt-3">
-                <Delay></Delay>
+                <Delay delay={delay}></Delay>
                 {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
                 {menuCombos?.length > 0 && <Menu items={menuCombos} title={"Combos"}></Menu>}                
                 {menuGrouped?.map((group: any, index: any) => <Menu key={index} items={group!.items} title={group!.category!.name}></Menu>)}

@@ -43,6 +43,11 @@ namespace SistemaPedidosReact.Server.Controllers
             {
                 var vMenu = await vGblService.GetById(id);
 
+                if (vMenu == null)
+                {
+                    return NotFound(new ResponseMessage() { Message = "Menú no encontrado" });
+                }
+
                 return Ok(vMenu);
             }
             catch (Exception ex)
@@ -58,6 +63,11 @@ namespace SistemaPedidosReact.Server.Controllers
             try
             {
                 var vMenu = await vGblService.GetLastMenu();
+
+                if (vMenu == null)
+                {
+                    return NotFound(new ResponseMessage() { Message = "No existe ningún menú disponible" });
+                }
 
                 return Ok(vMenu);
             }

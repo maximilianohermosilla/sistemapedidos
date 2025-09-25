@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
+using SistemaPedidosReact.Server.Models;
 using SistemaPedidosReact.Server.Responses.Interfaces;
 
 namespace SistemaPedidosReact.Server.Controllers
@@ -36,6 +37,11 @@ namespace SistemaPedidosReact.Server.Controllers
             try
             {
                 var vCategory = await vGblService.GetById(id);
+
+                if (vCategory == null)
+                {
+                    return NotFound(new ResponseMessage() { Message = "Categoría no encontrada" });
+                }
 
                 return Ok(vCategory);
             }
