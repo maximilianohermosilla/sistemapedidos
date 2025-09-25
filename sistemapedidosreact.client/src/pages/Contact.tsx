@@ -8,6 +8,17 @@ import { LuMapPin } from "react-icons/lu";
 import { HiOutlineClock } from "react-icons/hi";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 
+import L from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
+
 export default function Contact() {
     const [address, setAddress] = useState<string>('');
     const [whatsapp, setWhatsapp] = useState<string>('');
@@ -84,7 +95,7 @@ export default function Contact() {
                         url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
                     />
 
-                    <Marker position={position} />
+                    <Marker position={position}/>
                 </MapContainer>
             </section>
         </div>
