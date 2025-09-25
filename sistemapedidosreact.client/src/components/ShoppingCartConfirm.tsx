@@ -133,7 +133,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any
 
         //console.log(response);
         if (response) {
-            showToast({ title: 'Carrito de compras', description: 'Pedido generado correctamente.' });
+            showToast({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso.` });
             onConfirm();
         }
     }

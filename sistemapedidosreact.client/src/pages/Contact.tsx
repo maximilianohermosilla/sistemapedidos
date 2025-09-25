@@ -26,11 +26,11 @@ export default function Contact() {
     const [instagram, setInstagram] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
     const [schedules, setSchedules] = useState<string>('');
-    const [position, setPosition] = useState<any>([-34.92057857658673, -57.95523023639817]);
+    const [position, setPosition] = useState<any>([-34.92057857658673, -57.95523024039817]);
 
     useEffect(() => {
         getParameters();
-        setPosition([-34.92057857658673, -57.95523023639817]);
+        setPosition([-34.92057857658673, -57.95523024039817]);
     }, []);
 
     const getParameters = async () => {
@@ -74,11 +74,11 @@ export default function Contact() {
                         <div className="whitespace-break-spaces" dangerouslySetInnerHTML={{ __html: formatTextWithBrTags(schedules) }}></div>
                     </div>
                 }
-                <div className="contactos flex gap-2 mt-7 mx-auto justify-center">
-                    {phone && phone !== '' && <a href={`tel:${phone}`} target="_blank" rel="noreferrer"><FaPhone className="contact__icon" size={24}></FaPhone ></a>}
-                    {whatsapp && whatsapp !== '' && <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noreferrer"><FaWhatsapp className="contact__icon" size={24}></FaWhatsapp></a>}
-                    {email && email !== '' && <a href={`mailto:${email}`} target="_blank" rel="noreferrer"><GrMail className="contact__icon" size={24}></GrMail></a>}
-                    {instagram && instagram !== '' && <a href={instagram} target="_blank" rel="noreferrer"><FaInstagram className="contact__icon" size={24}></FaInstagram></a>}
+                <div className="contactos flex gap-4 mt-7 mx-auto justify-center">
+                    {phone && phone !== '' && <a href={`tel:${phone}`} target="_blank" rel="noreferrer"><FaPhone className="contact__icon" size={40}></FaPhone ></a>}
+                    {whatsapp && whatsapp !== '' && <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noreferrer"><FaWhatsapp className="contact__icon" size={40}></FaWhatsapp></a>}
+                    {email && email !== '' && <a href={`mailto:${email}`} target="_blank" rel="noreferrer"><GrMail className="contact__icon" size={40}></GrMail></a>}
+                    {instagram && instagram !== '' && <a href={instagram} target="_blank" rel="noreferrer"><FaInstagram className="contact__icon" size={40}></FaInstagram></a>}
                 </div>
             </section>
             <section className="h-full p-2 mt-5">

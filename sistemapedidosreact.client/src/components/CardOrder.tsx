@@ -56,9 +56,12 @@ export default function CardOrder({ order }: any) {
                     {item !== undefined && isModalOpen &&
                         <Dialog title={item.name} isOpen={isModalOpen || false} onClose={closeModal}>
                             <>
-                            <h3 className="text-primary font-semibold text-lg border-1 px-2 py-1 mb-5">Detalle de pedido N°{item?.id}</h3>
-                            {item && isModalOpen && renderOrderDetail()}
-                            <h3 className="mt-5 mb-3 flex justify-between font-semibold text-primary border-1 px-2 py-1 border-top">Total: <span className="text-green-600">{formatMoney(item?.orderDetail?.totals?.totalToPay)}</span></h3>
+                                <h3 className="text-primary font-semibold text-lg border-1 px-2 py-1">Detalle de pedido N°{item?.id}</h3>
+                                <p className="mt-1 text-xs">Estado: {item?.orderState?.name ?? 'PENDIENTE'}</p>
+                                <p className="mt-1 text-xs">Fecha: {formatDate(item?.orderDetail?.createdAt!)}</p>
+                                <p className="mt-1 mb-5 text-xs">Cliente: {item?.customer?.firstName}</p>
+                                {item && isModalOpen && renderOrderDetail()}
+                                <h3 className="mt-5 mb-3 flex justify-between font-semibold text-primary border-1 px-2 py-1 border-top">Total: <span className="text-green-600">{formatMoney(item?.orderDetail?.totals?.totalToPay)}</span></h3>
                             </>
                         </Dialog>
                     }
