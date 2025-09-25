@@ -1,0 +1,374 @@
+{
+  "Version": 1,
+  "Hash": "mcvDsJ2W74tcJF73j0A2dtOiGS6P39f/uT0BrcEGW/g=",
+  "Source": "SistemaPedidosReact.Server",
+  "BasePath": "_content/SistemaPedidosReact.Server",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\sistemapedidosreact.client.esproj",
+      "Version": 2,
+      "Source": "sistemapedidosreact.client",
+      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Release;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Release;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": [
+    {
+      "Identity": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\index-6aoqgk0q.js",
+      "SourceId": "sistemapedidosreact.client",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\",
+      "BasePath": "/",
+      "RelativePath": "assets/index-6aoqgk0q.js",
+      "AssetKind": "Publish",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "h3k8juu942",
+      "Integrity": "vWJssXv3AgMw7rktdRWaezyw/47gwcA/qVD53Fr0k78=",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\index-6aoqgk0q.js"
+    },
+    {
+      "Identity": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\index-YkCs1Yvn.css",
+      "SourceId": "sistemapedidosreact.client",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\",
+      "BasePath": "/",
+      "RelativePath": "assets/index-YkCs1Yvn.css",
+      "AssetKind": "Publish",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "505ry7elpe",
+      "Integrity": "66/7aqSncoHdXZVmXSwLyi3oL2UWrZf6z4JmnZL3wZo=",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\index-YkCs1Yvn.css"
+    },
+    {
+      "Identity": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\logo_black_bottom-COMSTAjB.jpeg",
+      "SourceId": "sistemapedidosreact.client",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\",
+      "BasePath": "/",
+      "RelativePath": "assets/logo_black_bottom-COMSTAjB.jpeg",
+      "AssetKind": "Publish",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "c8re1kjpee",
+      "Integrity": "XGJBlWeattsDgk9ro3DVH/lgrYsct3Oy4AHTatqqKm0=",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\logo_black_bottom-COMSTAjB.jpeg"
+    },
+    {
+      "Identity": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\logo_gray_top-BDBcbdzo.jpeg",
+      "SourceId": "sistemapedidosreact.client",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\",
+      "BasePath": "/",
+      "RelativePath": "assets/logo_gray_top-BDBcbdzo.jpeg",
+      "AssetKind": "Publish",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "91rkadgcq8",
+      "Integrity": "I5wg+iQYdrTN58/zDD48i2kqM2Yh8h5HGe9vua8QaWE=",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\logo_gray_top-BDBcbdzo.jpeg"
+    },
+    {
+      "Identity": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\index.html",
+      "SourceId": "sistemapedidosreact.client",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\",
+      "BasePath": "/",
+      "RelativePath": "index.html",
+      "AssetKind": "Publish",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "n3i8flwnuw",
+      "Integrity": "o7AtHLwrN9M+Be+J1hfGYyekjEz3YDMFhTkjXH5BMr0=",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\index.html"
+    },
+    {
+      "Identity": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\vite.svg",
+      "SourceId": "sistemapedidosreact.client",
+      "SourceType": "Discovered",
+      "ContentRoot": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\",
+      "BasePath": "/",
+      "RelativePath": "vite.svg",
+      "AssetKind": "Publish",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "69kjnsiwqx",
+      "Integrity": "SnSK/UQ5GLsWWRyDTEAdrjPoeGGrXbrQgRw6O0qSFPs=",
+      "CopyToOutputDirectory": "PreserveNewest",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\vite.svg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "assets/index-6aoqgk0q.js",
+      "AssetFile": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\index-6aoqgk0q.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "463360"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vWJssXv3AgMw7rktdRWaezyw/47gwcA/qVD53Fr0k78=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 25 Sep 2025 19:20:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-vWJssXv3AgMw7rktdRWaezyw/47gwcA/qVD53Fr0k78="
+        }
+      ]
+    },
+    {
+      "Route": "assets/index-YkCs1Yvn.css",
+      "AssetFile": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\index-YkCs1Yvn.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "39044"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"66/7aqSncoHdXZVmXSwLyi3oL2UWrZf6z4JmnZL3wZo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 25 Sep 2025 19:20:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-66/7aqSncoHdXZVmXSwLyi3oL2UWrZf6z4JmnZL3wZo="
+        }
+      ]
+    },
+    {
+      "Route": "assets/logo_black_bottom-COMSTAjB.jpeg",
+      "AssetFile": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\logo_black_bottom-COMSTAjB.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "62599"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XGJBlWeattsDgk9ro3DVH/lgrYsct3Oy4AHTatqqKm0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 25 Sep 2025 19:20:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-XGJBlWeattsDgk9ro3DVH/lgrYsct3Oy4AHTatqqKm0="
+        }
+      ]
+    },
+    {
+      "Route": "assets/logo_gray_top-BDBcbdzo.jpeg",
+      "AssetFile": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\assets\\logo_gray_top-BDBcbdzo.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "43238"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"I5wg+iQYdrTN58/zDD48i2kqM2Yh8h5HGe9vua8QaWE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 25 Sep 2025 19:20:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-I5wg+iQYdrTN58/zDD48i2kqM2Yh8h5HGe9vua8QaWE="
+        }
+      ]
+    },
+    {
+      "Route": "index.html",
+      "AssetFile": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\index.html",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "566"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/html"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"o7AtHLwrN9M+Be+J1hfGYyekjEz3YDMFhTkjXH5BMr0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 25 Sep 2025 19:20:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-o7AtHLwrN9M+Be+J1hfGYyekjEz3YDMFhTkjXH5BMr0="
+        }
+      ]
+    },
+    {
+      "Route": "vite.svg",
+      "AssetFile": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\dist\\vite.svg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1497"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SnSK/UQ5GLsWWRyDTEAdrjPoeGGrXbrQgRw6O0qSFPs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 28 Aug 2025 02:15:55 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SnSK/UQ5GLsWWRyDTEAdrjPoeGGrXbrQgRw6O0qSFPs="
+        }
+      ]
+    }
+  ]
+}

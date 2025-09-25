@@ -1,0 +1,789 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\GitHub\\DigitalProject\\sistemapedidos\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\repositories\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\repositories\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\storecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\storecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\parametercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\parametercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\menucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\services\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\interfaces\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\interfaces\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\interfaces\\iordersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\interfaces\\iordersrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\repositories\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\services\\parameterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\services\\parameterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\interfaces\\iparameterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\interfaces\\iparameterservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\ordersposcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\ordersposcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\paymentmethodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\paymentmethodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\controllers\\itemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\controllers\\itemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\interfaces\\iparameterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\interfaces\\iparameterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\repositories\\parameterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\repositories\\parameterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\sistemapedidosreact.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\sistemapedidosreact.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\migrations\\20250918023519_initialmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\migrations\\20250918023519_initialmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\models\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\models\\orderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\maxim\\AppData\\Local\\Temp\\.vsdbgsrc\\e74546acb13978d049cf5f6ff3168c3c3b0049b71ca9c411fbbfd1c31ff4df52\\ServerSession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\maxim\\AppData\\Local\\SourceServer\\c39db12c811e30c5c567b9bd7d1c27036e1068e571394629b7ceb93ad40006c1\\src\\MySqlConnector\\Core\\ServerSession.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.client\\src\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|solutionrelative:sistemapedidosreact.client\\src\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.client\\src\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|solutionrelative:sistemapedidosreact.client\\src\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.client\\src\\components\\cardproductcart.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|solutionrelative:sistemapedidosreact.client\\src\\components\\cardproductcart.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.client\\src\\pages\\landingpage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|solutionrelative:sistemapedidosreact.client\\src\\pages\\landingpage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\order-service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|solutionrelative:sistemapedidosreact.client\\src\\services\\order-service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\item-service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|solutionrelative:sistemapedidosreact.client\\src\\services\\item-service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\menu-service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|solutionrelative:sistemapedidosreact.client\\src\\services\\menu-service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\login-service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{25126DA1-F2F5-4DC9-A4A5-8C215255636C}|sistemapedidosreact.client\\sistemapedidosreact.client.esproj|solutionrelative:sistemapedidosreact.client\\src\\services\\login-service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\repositories\\itemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\repositories\\itemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\interfaces\\iitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\interfaces\\iitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\interfaces\\iitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\interfaces\\iitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\services\\itemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\services\\itemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\data\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\data\\interfaces\\icustomerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\responses\\services\\menuservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\responses\\services\\menuservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\orderdetailcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\orderdetailcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\dtos\\ordercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\dtos\\ordercreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|f:\\github\\digitalproject\\sistemapedidos\\sistemapedidosreact.server\\models\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B27AFAD-C524-4221-A13A-F95576581F2A}|SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj|solutionrelative:sistemapedidosreact.server\\models\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.100\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IOrdersRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\IOrdersRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Interfaces\\IOrdersRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\IOrdersRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Interfaces\\IOrdersRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T19:05:42.246Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrderRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\OrderRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Repositories\\OrderRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\OrderRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Repositories\\OrderRepository.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAIAywDMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T19:16:16.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IOrderService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Interfaces\\IOrderService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Interfaces\\IOrderService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Interfaces\\IOrderService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Interfaces\\IOrderService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T19:27:05.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\appsettings.json",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\appsettings.json",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\appsettings.json",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-24T19:59:37.732Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Program.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Program.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Program.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Program.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAswBcAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-17T20:23:18.144Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\UserRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Repositories\\UserRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\UserRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Repositories\\UserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-17T22:05:40.316Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\UserController.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\UserController.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\UserController.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T23:20:26.015Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\OrderController.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\OrderController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T23:20:01.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MenuController.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\MenuController.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\MenuController.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\MenuController.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\MenuController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAwwD8AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T16:01:29.284Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ParameterController.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\ParameterController.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\ParameterController.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\ParameterController.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\ParameterController.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAqwDIAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T16:03:44.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StoreController.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\StoreController.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\StoreController.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\StoreController.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\StoreController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAowCQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-25T16:04:26.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "OrderService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\OrderService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Services\\OrderService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\OrderService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\OrderService.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAwwFIAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T19:27:25.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ItemController.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\ItemController.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\ItemController.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\ItemController.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\ItemController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-16T23:40:26.704Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\CategoryController.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\CategoryController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwB8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T23:18:47.557Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "OrdersPOSController.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\OrdersPOSController.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\OrdersPOSController.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\OrdersPOSController.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\OrdersPOSController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwCIAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T19:49:38.315Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ParameterService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\ParameterService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Services\\ParameterService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\ParameterService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\ParameterService.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAIwC0AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T23:11:57.214Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\appsettings.Development.json",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\appsettings.Development.json",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-09-25T00:18:01.273Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "IParameterService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Interfaces\\IParameterService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Interfaces\\IParameterService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Interfaces\\IParameterService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Interfaces\\IParameterService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T23:11:24.109Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "PaymentMethodController.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\PaymentMethodController.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Controllers\\PaymentMethodController.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Controllers\\PaymentMethodController.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Controllers\\PaymentMethodController.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAwwCkAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T23:13:54.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "login-service.ts",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\login-service.ts",
+              "RelativeDocumentMoniker": "sistemapedidosreact.client\\src\\services\\login-service.ts",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\login-service.ts",
+              "RelativeToolTip": "sistemapedidosreact.client\\src\\services\\login-service.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-09-18T02:42:20.19Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "IParameterRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\IParameterRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Interfaces\\IParameterRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\IParameterRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Interfaces\\IParameterRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T23:09:41.518Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ParameterRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\ParameterRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Repositories\\ParameterRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\ParameterRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Repositories\\ParameterRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T23:10:27.109Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Order.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Models\\Order.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Models\\Order.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Models\\Order.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T19:37:57.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SistemaPedidosReact.Server.csproj",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\SistemaPedidosReact.Server.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-09-17T22:16:44.726Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "20250918023519_InitialMigration.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Migrations\\20250918023519_InitialMigration.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Migrations\\20250918023519_InitialMigration.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Migrations\\20250918023519_InitialMigration.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Migrations\\20250918023519_InitialMigration.cs",
+              "ViewState": "AgIAAK8CAAAAAAAAAAAWwLwCAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T19:38:34.032Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "OrderDetail.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Models\\OrderDetail.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Models\\OrderDetail.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Models\\OrderDetail.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Models\\OrderDetail.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T19:45:38.512Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "item-service.ts",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\item-service.ts",
+              "RelativeDocumentMoniker": "sistemapedidosreact.client\\src\\services\\item-service.ts",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\item-service.ts",
+              "RelativeToolTip": "sistemapedidosreact.client\\src\\services\\item-service.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-09-18T02:47:26.729Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ServerSession.cs",
+              "DocumentMoniker": "C:\\Users\\maxim\\AppData\\Local\\SourceServer\\c39db12c811e30c5c567b9bd7d1c27036e1068e571394629b7ceb93ad40006c1\\src\\MySqlConnector\\Core\\ServerSession.cs",
+              "ToolTip": "C:\\Users\\maxim\\AppData\\Local\\SourceServer\\c39db12c811e30c5c567b9bd7d1c27036e1068e571394629b7ceb93ad40006c1\\src\\MySqlConnector\\Core\\ServerSession.cs [Solo lectura]",
+              "ViewState": "AgIAAJcBAAAAAAAAAAAWwKoBAAAFAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-20T00:11:48.124Z",
+              "EditorCaption": " [Solo lectura]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Services\\UserService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\UserService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\UserService.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAIAywEsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-16T22:22:35.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "App.css",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\App.css",
+              "RelativeDocumentMoniker": "sistemapedidosreact.client\\src\\App.css",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\App.css",
+              "RelativeToolTip": "sistemapedidosreact.client\\src\\App.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-09-20T01:37:38.765Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "LandingPage.tsx",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\pages\\LandingPage.tsx",
+              "RelativeDocumentMoniker": "sistemapedidosreact.client\\src\\pages\\LandingPage.tsx",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\pages\\LandingPage.tsx",
+              "RelativeToolTip": "sistemapedidosreact.client\\src\\pages\\LandingPage.tsx",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABYAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-09-20T01:38:02.718Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "CardProductCart.tsx",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\components\\CardProductCart.tsx",
+              "RelativeDocumentMoniker": "sistemapedidosreact.client\\src\\components\\CardProductCart.tsx",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\components\\CardProductCart.tsx",
+              "RelativeToolTip": "sistemapedidosreact.client\\src\\components\\CardProductCart.tsx",
+              "ViewState": "AgIAABYAAAAAAAAAAAAiwCoAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-09-20T01:45:00.165Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "index.css",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\index.css",
+              "RelativeDocumentMoniker": "sistemapedidosreact.client\\src\\index.css",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\index.css",
+              "RelativeToolTip": "sistemapedidosreact.client\\src\\index.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-09-20T03:12:34.347Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "ServerSession.cs",
+              "DocumentMoniker": "C:\\Users\\maxim\\AppData\\Local\\Temp\\.vsdbgsrc\\e74546acb13978d049cf5f6ff3168c3c3b0049b71ca9c411fbbfd1c31ff4df52\\ServerSession.cs",
+              "ToolTip": "C:\\Users\\maxim\\AppData\\Local\\Temp\\.vsdbgsrc\\e74546acb13978d049cf5f6ff3168c3c3b0049b71ca9c411fbbfd1c31ff4df52\\ServerSession.cs [Solo lectura]",
+              "ViewState": "AgIAAAoCAAAAAAAAAAAWwB0CAAAEAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-23T22:26:33.943Z",
+              "EditorCaption": " [Solo lectura]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "menu-service.ts",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\menu-service.ts",
+              "RelativeDocumentMoniker": "sistemapedidosreact.client\\src\\services\\menu-service.ts",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\menu-service.ts",
+              "RelativeToolTip": "sistemapedidosreact.client\\src\\services\\menu-service.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-09-18T02:42:12.296Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "order-service.ts",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\order-service.ts",
+              "RelativeDocumentMoniker": "sistemapedidosreact.client\\src\\services\\order-service.ts",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\sistemapedidosreact.client\\src\\services\\order-service.ts",
+              "RelativeToolTip": "sistemapedidosreact.client\\src\\services\\order-service.ts",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-09-18T02:47:31.656Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "IItemService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Interfaces\\IItemService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Interfaces\\IItemService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Interfaces\\IItemService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Interfaces\\IItemService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-16T23:39:41.617Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "ItemRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\ItemRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Repositories\\ItemRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Repositories\\ItemRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Repositories\\ItemRepository.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAwwCEAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-16T23:34:04.266Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "IItemRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\IItemRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Interfaces\\IItemRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\IItemRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Interfaces\\IItemRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-16T23:32:37.524Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "MenuService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\MenuService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Services\\MenuService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\MenuService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\MenuService.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAWwHYAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-12T22:54:10.206Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "OrderItem.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Models\\OrderItem.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Models\\OrderItem.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Models\\OrderItem.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Models\\OrderItem.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAmwBIAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T19:33:22.788Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\AppDbContext.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAALwAAAAAAAAAAAAmwNMAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-17T22:04:00.686Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "ItemService.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\ItemService.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Responses\\Services\\ItemService.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Responses\\Services\\ItemService.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Responses\\Services\\ItemService.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAwwD0AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-16T23:39:54.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "ICustomerRepository.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\ICustomerRepository.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\Data\\Interfaces\\ICustomerRepository.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\Data\\Interfaces\\ICustomerRepository.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\Data\\Interfaces\\ICustomerRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-16T02:38:00.115Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "OrderDetailCreateDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderDetailCreateDTO.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\OrderDetailCreateDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderDetailCreateDTO.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\OrderDetailCreateDTO.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwA8AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T19:06:21.904Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "OrderCreateDTO.cs",
+              "DocumentMoniker": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderCreateDTO.cs",
+              "RelativeDocumentMoniker": "SistemaPedidosReact.Server\\DTOs\\OrderCreateDTO.cs",
+              "ToolTip": "F:\\GitHub\\DigitalProject\\sistemapedidos\\SistemaPedidosReact.Server\\DTOs\\OrderCreateDTO.cs",
+              "RelativeToolTip": "SistemaPedidosReact.Server\\DTOs\\OrderCreateDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-11T19:05:56.017Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "Microsoft.PackageDependencyResolution.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.100\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
+              "ViewState": "AgIAAPYAAAAAAAAAAAAYwAkBAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-09-12T20:15:32.858Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
