@@ -19,7 +19,7 @@ namespace SistemaPedidosReact.Server.Controllers
             vGblStoreService = pStoreService;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("orders")]
         [Authorize]
         public async Task<ActionResult<IEnumerable<OrderReadPOS>>> GetAllOrdersPOS([FromQuery] string storeid)

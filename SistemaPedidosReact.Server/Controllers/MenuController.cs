@@ -100,6 +100,44 @@ namespace SistemaPedidosReact.Server.Controllers
             }
         }
 
+        [HttpPost]
+        [Authorize]
+        [Route("[action]")]
+        public async Task<ActionResult<MenuReadDTO>> Save(MenuCreatePOS pMenu)
+        {
+            try
+            {
+                var vStore = await vGblStoreService.GetByExternalId(pMenu.StoreId);
+
+                if (vStore == null)
+                {
+                    return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
+                }
+                else
+                {
+                    pMenu.StoreId = vStore.Id.ToString();
+                }
+
+                Console.WriteLine("Crear Menú");
+                Console.WriteLine(JsonSerializer.Serialize(pMenu));
+
+                var vMenu = await vGblService.CreateMenuPOS(pMenu);
+
+                if (vMenu == null)
+                {
+                    Console.WriteLine("La estructura del menú es inválida");
+                    return BadRequest(new ResponseMessage() { Message = "La estructura del menú es inválida" });
+                }
+
+                Console.WriteLine("Menú actualizado y listo para ser validado");
+                return Ok(new ResponseMessage() { Message = "Menú actualizado y listo para ser validado" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost]
         [Route("[action]")]

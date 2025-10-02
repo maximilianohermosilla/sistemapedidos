@@ -29,7 +29,7 @@
                 }
 
                 // Esperar 5 minutos antes del próximo keep-alive
-                await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(3), stoppingToken);
             }
         }
     }

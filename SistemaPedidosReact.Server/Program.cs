@@ -75,15 +75,19 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IParameterService, ParameterService>();
 
-builder.Services.AddHttpClient();
-builder.Services.AddHostedService<KeepAliveService>();
+//builder.Services.AddHttpClient();
+//builder.Services.AddHostedService<KeepAliveService>();
 
 //ADD CORS
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp",
     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 //AUTHENTICATION JWT
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -99,6 +103,46 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
         options.Events = new JwtBearerEvents
         {
+            // Este se encarga de interceptar el token desde "Authorization" o "x-authorization"
+            OnMessageReceived = context =>
+            {
+                var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+
+                StringBuilder headers = new StringBuilder();
+                foreach (var header in context.Request.Headers)
+                {
+                    headers.AppendLine($"{header.Key}: {header.Value}");
+                }
+
+                Console.WriteLine(headers + "\n");
+
+                if (string.IsNullOrEmpty(authHeader))
+                {
+                    authHeader = context.Request.Headers["x-authorization"].FirstOrDefault();
+                }
+
+                if (string.IsNullOrEmpty(authHeader))
+                {
+                    authHeader = context.Request.Headers["authorization"].FirstOrDefault();
+                }
+
+                if (string.IsNullOrEmpty(authHeader))
+                {
+                    authHeader = context.Request.Headers["auth-token"].FirstOrDefault();
+                    if (!string.IsNullOrEmpty(authHeader) && !authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        authHeader = $"Bearer {authHeader.Trim()}";
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                {
+                    context.Token = authHeader.Substring("Bearer ".Length).Trim();
+                }
+
+                return Task.CompletedTask;
+            },
+
             OnChallenge = async context =>
             {
                 context.HandleResponse();
@@ -156,7 +200,7 @@ app.UseCors(policy => policy.AllowAnyHeader()
 //app.UseHttpsRedirection();
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
-	ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
 
 app.UseAuthentication();

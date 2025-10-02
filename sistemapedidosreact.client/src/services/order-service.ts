@@ -7,7 +7,7 @@ export async function GetOrders(storeId: string) {
     const token = localStorage.getItem('authToken');
 
     const response = await fetch(`${apiUrl}/api/orders?storeid=${storeId}`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
