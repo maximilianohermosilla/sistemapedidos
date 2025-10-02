@@ -42,6 +42,7 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
             //Errors = errors,
             //Timestamp = DateTime.UtcNow
         };
+        Console.WriteLine($"Error de parámetros: \n {context!.ActionDescriptor!.DisplayName!.Split(' ')!.First()} -> {customErrorResponse.Message}");
         return new BadRequestObjectResult(customErrorResponse);
     };
 });
@@ -72,6 +73,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IParameterService, ParameterService>();
+
+builder.Services.AddHttpClient();
+builder.Services.AddHostedService<KeepAliveService>();
 
 //ADD CORS
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp",
@@ -111,6 +115,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorization();
+
+// Configurar para evitar el shutdown por inactividad
+builder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(0));
+
+// O mantener un timeout más largo
+//builder.WebHost.UseShutdownTimeout(TimeSpan.FromMinutes(10));
+
+builder.Services.Configure<HostOptions>(opts =>
+{
+    opts.ShutdownTimeout = TimeSpan.FromMinutes(600);
+});
 
 var app = builder.Build();
 

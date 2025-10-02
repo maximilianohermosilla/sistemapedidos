@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Responses.Interfaces;
+using System.Text.Json;
+using System;
 
 namespace SistemaPedidosReact.Server.Controllers
 {
@@ -78,13 +80,18 @@ namespace SistemaPedidosReact.Server.Controllers
                     pMenu.StoreId = vStore.Id.ToString();
                 }
 
+                Console.WriteLine("Crear Menú");
+                Console.WriteLine(JsonSerializer.Serialize(pMenu));
+
                 var vMenu = await vGblService.CreateMenuPOS(pMenu);
 
                 if (vMenu == null)
                 {
+                    Console.WriteLine("La estructura del menú es inválida");
                     return BadRequest(new ResponseMessage() { Message = "La estructura del menú es inválida" });
                 }
 
+                Console.WriteLine("Menú actualizado y listo para ser validado");
                 return Ok(new ResponseMessage() { Message = "Menú actualizado y listo para ser validado" });
             }
             catch (Exception ex)
@@ -102,11 +109,15 @@ namespace SistemaPedidosReact.Server.Controllers
             {
                 var vUser = await vGblUserService.GetByUserNamePassword(pUserLogin.UserName, pUserLogin.Password);
 
+                Console.WriteLine($"Login {pUserLogin.UserName}: {DateTime.Now.ToLongTimeString()}");
+
                 if (vUser == null)
                 {
+                    Console.WriteLine("Credenciales incorrectas");
                     return NotFound(new UserLoginReadDTO() { Mensaje = "Credenciales incorrectas" });
                 }
 
+                Console.WriteLine("Usuario registrado correctamente");
                 return Ok(new UserLoginReadDTO() { Mensaje = "Usuario registrado correctamente", Token = vUser.Token });
             }
             catch (Exception ex)
