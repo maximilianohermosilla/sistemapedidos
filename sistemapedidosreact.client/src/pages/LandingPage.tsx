@@ -5,8 +5,10 @@ import ViewCartButton from "../components/ViewCartButton";
 import Delay from "../components/Delay";
 import Footer from "../components/Footer";
 import { GetParameterByKey } from "../services/parameter-service";
+import Spinner from "../components/Spinner";
 
 export default function LandingPage() {
+    const [loading, setLoading] = useState(true);
     const [delay, setDelay] = useState<string>('10-15 min');
     const [menu, setMenu] = useState<any>();
     const [menuFavs, setMenuFavs] = useState<any>();
@@ -20,6 +22,7 @@ export default function LandingPage() {
     async function getLastMenu() {
         const data = await GetLastMenu();
         const productsGrouped = groupProducts(data?.items);
+        setLoading(false);
 
         setMenu(data);
         setMenuFavs(data.items);
@@ -51,12 +54,15 @@ export default function LandingPage() {
 
     return (
         <div className="main__container flex flex-col justify-between">
-            <section className="pt-3">
-                <Delay delay={delay}></Delay>
-                {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
-                {menuCombos?.length > 0 && <Menu items={menuCombos} title={"Combos"}></Menu>}                
-                {menuGrouped?.map((group: any, index: any) => <Menu key={index} items={group!.items} title={group!.category!.name}></Menu>)}
-            </section>
+            {loading 
+                ? <Spinner text={"Cargando productos..."} /> 
+                : <section className="pt-3">
+                        <Delay delay={delay}></Delay>
+                        {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
+                        {menuCombos?.length > 0 && <Menu items={menuCombos} title={"Combos"}></Menu>}                
+                        {menuGrouped?.map((group: any, index: any) => <Menu key={index} items={group!.items} title={group!.category!.name}></Menu>)}
+                </section>
+            }
             <Footer menu={menu}></Footer>
             <ViewCartButton></ViewCartButton>
         </div>
