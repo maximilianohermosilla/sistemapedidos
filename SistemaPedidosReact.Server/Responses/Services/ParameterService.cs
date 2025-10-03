@@ -40,7 +40,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
 
                 if (vParameter == null)
                 {
-                    return null;
+                    vGblRepository.Create(vGblMapper.Map<Parameter>(pParameter));
                 }
                 else
                 {

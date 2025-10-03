@@ -36,6 +36,7 @@ export default function Administration() {
         const instagramParameter = await GetParameterByKey(ParameterEnum.INSTAGRAM);
         const phoneParameter = await GetParameterByKey(ParameterEnum.PHONE);
         const schedulesParameter = await GetParameterByKey(ParameterEnum.SCHEDULES);
+        const updateMenuParameter = await GetParameterByKey(ParameterEnum.UPDATE_MENU);
 
         setFormData({
             ...formData,
@@ -45,12 +46,17 @@ export default function Administration() {
             email: emailParameter?.value || '',
             instagram: instagramParameter?.value || '',
             phone: phoneParameter?.value || '',
-            schedules: schedulesParameter?.value || ''
+            schedules: schedulesParameter?.value || '',
+            updateMenu: updateMenuParameter?.value === "SI" || false
         })
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+    
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.checked });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -69,6 +75,7 @@ export default function Administration() {
         await UpdateParameter({ key: ParameterEnum.WHATSAPP, value: formData?.whatsapp });
         await UpdateParameter({ key: ParameterEnum.INSTAGRAM, value: formData?.instagram });
         await UpdateParameter({ key: ParameterEnum.SCHEDULES, value: formData?.schedules });
+        await UpdateParameter({ key: ParameterEnum.UPDATE_MENU, value: formData?.updateMenu ? "SI" : "NO" });
 
         showToast({title: 'Administración', description: 'Parámetros actualizados correctamente.'});
     }
@@ -113,6 +120,11 @@ export default function Administration() {
                                 <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Whatsapp:</label>
                                 <input type="text" id="whatsapp" name="whatsapp" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.whatsapp} onChange={handleChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="updateMenu" className="text-gray-600 text-sm mr-2">Actualizar Menú:</label>
+                                <input type="checkbox" id="updateMenu" name="updateMenu" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.updateMenu ?? false} onChange={handleCheckboxChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="schedules" className="text-gray-600 text-sm mr-2">Horarios:</label>

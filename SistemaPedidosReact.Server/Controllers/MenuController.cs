@@ -14,12 +14,18 @@ namespace SistemaPedidosReact.Server.Controllers
         private readonly IMenuService vGblService;
         private readonly IStoreService vGblStoreService;
         private readonly IUserService vGblUserService;
+        private readonly IParameterService vGblParameterService;
 
-        public MenuController(IMenuService pService, IStoreService pStoreService, IUserService pUserService)
+        public readonly string UPDATE_MENU = "UPDATE MENU";
+        public readonly string SI = "SI";
+        public readonly string NO = "NO";
+
+        public MenuController(IMenuService pService, IStoreService pStoreService, IUserService pUserService, IParameterService pParameterService)
         {
             vGblService = pService;
             vGblStoreService = pStoreService;
             vGblUserService = pUserService;
+            vGblParameterService = pParameterService;
         }
 
         [HttpGet("{id}")]
@@ -75,24 +81,31 @@ namespace SistemaPedidosReact.Server.Controllers
                 {
                     return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
                 }
-                else
-                {
-                    pMenu.StoreId = vStore.Id.ToString();
-                }
 
                 Console.WriteLine("Crear Menú");
                 Console.WriteLine(JsonSerializer.Serialize(pMenu));
 
-                var vMenu = await vGblService.CreateMenuPOS(pMenu);
-
-                if (vMenu == null)
+                var vParameterUpdateMenu = await vGblParameterService.GetByKey(UPDATE_MENU);
+                if (vParameterUpdateMenu != null && vParameterUpdateMenu.Value == SI)
                 {
-                    Console.WriteLine("La estructura del menú es inválida");
-                    return BadRequest(new ResponseMessage() { Message = "La estructura del menú es inválida" });
-                }
+                    pMenu.StoreId = vStore.Id.ToString();
+                    var vMenu = await vGblService.CreateMenuPOS(pMenu);
 
-                Console.WriteLine("Menú actualizado y listo para ser validado");
-                return Ok(new ResponseMessage() { Message = "Menú actualizado y listo para ser validado" });
+                    if (vMenu == null)
+                    {
+                        Console.WriteLine("La estructura del menú es inválida");
+                        return BadRequest(new ResponseMessage() { Message = "La estructura del menú es inválida" });
+                    }
+
+                    await vGblParameterService.Update(new ParameterCreateDTO() { Id = 0, Key = UPDATE_MENU, Value = NO });
+                    Console.WriteLine("Menú actualizado y listo para ser validado");
+                    return Ok(new ResponseMessage() { Message = "Menú actualizado y listo para ser validado" });
+                }
+                else
+                {
+                    Console.WriteLine("Menú sin cambios");
+                    return Ok(new ResponseMessage() { Message = "Menú sin cambios" });
+                }
             }
             catch (Exception ex)
             {
@@ -107,30 +120,7 @@ namespace SistemaPedidosReact.Server.Controllers
         {
             try
             {
-                var vStore = await vGblStoreService.GetByExternalId(pMenu.StoreId);
-
-                if (vStore == null)
-                {
-                    return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
-                }
-                else
-                {
-                    pMenu.StoreId = vStore.Id.ToString();
-                }
-
-                Console.WriteLine("Crear Menú");
-                Console.WriteLine(JsonSerializer.Serialize(pMenu));
-
-                var vMenu = await vGblService.CreateMenuPOS(pMenu);
-
-                if (vMenu == null)
-                {
-                    Console.WriteLine("La estructura del menú es inválida");
-                    return BadRequest(new ResponseMessage() { Message = "La estructura del menú es inválida" });
-                }
-
-                Console.WriteLine("Menú actualizado y listo para ser validado");
-                return Ok(new ResponseMessage() { Message = "Menú actualizado y listo para ser validado" });
+                return await CreateMenuPOS(pMenu);
             }
             catch (Exception ex)
             {

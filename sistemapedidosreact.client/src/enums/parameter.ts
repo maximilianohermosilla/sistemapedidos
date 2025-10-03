@@ -5,5 +5,6 @@ export enum ParameterEnum {
     EMAIL = "EMAIL",
     PHONE = "PHONE",
     INSTAGRAM = "INSTAGRAM",
-    SCHEDULES = "SCHEDULES"
+    SCHEDULES = "SCHEDULES",
+    UPDATE_MENU = "UPDATE MENU"
 }
