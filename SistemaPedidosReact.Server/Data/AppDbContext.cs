@@ -215,6 +215,20 @@ namespace SistemaPedidosReact.Server.Data
                 new Store { Id = 1, Name = "El Refugio", InternalId = "1", ExternalId = "1" }
             );
 
+            modelBuilder.Entity<Parameter>().HasData(
+                new Parameter { Id = 1, Key = "DELAY", Value= ""},
+                new Parameter { Id = 2, Key = "ADDRESS", Value = "" },
+                new Parameter { Id = 3, Key = "WHATSAPP", Value = "" },
+                new Parameter { Id = 4, Key = "EMAIL", Value = "" },
+                new Parameter { Id = 5, Key = "PHONE", Value = "" },
+                new Parameter { Id = 6, Key = "INSTAGRAM", Value = "" },
+                new Parameter { Id = 7, Key = "SCHEDULES", Value = "" },
+                new Parameter { Id = 8, Key = "UPDATE MENU", Value = "SI" },
+                new Parameter { Id = 9, Key = "UPDATE MENU ALWAYS", Value = "NO" },
+                new Parameter { Id = 10, Key = "LATITUDE", Value = "-34.91940352019461" },
+                new Parameter { Id = 11, Key = "LONGITUDE", Value = "-57.9503059387207" }
+            );
+
             #endregion
 
             base.OnModelCreating(modelBuilder);

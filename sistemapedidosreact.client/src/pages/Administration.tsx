@@ -41,6 +41,7 @@ export default function Administration() {
         const phoneParameter = await GetParameterByKey(ParameterEnum.PHONE);
         const schedulesParameter = await GetParameterByKey(ParameterEnum.SCHEDULES);
         const updateMenuParameter = await GetParameterByKey(ParameterEnum.UPDATE_MENU);
+        const updateMenuAlwaysParameter = await GetParameterByKey(ParameterEnum.UPDATE_MENU_ALWAYS);
         const latitudeParameter = await GetParameterByKey(ParameterEnum.LATITUDE);
         const longitudeParameter = await GetParameterByKey(ParameterEnum.LONGITUDE);
 
@@ -55,7 +56,8 @@ export default function Administration() {
             schedules: schedulesParameter?.value || '',
             latitude: latitudeParameter?.value || '-34.92057857658673',
             longitude: longitudeParameter?.value || '-57.95523024039817',
-            updateMenu: updateMenuParameter?.value === "SI" || false
+            updateMenu: updateMenuParameter?.value === "SI" || false,
+            updateMenuAlways: updateMenuAlwaysParameter?.value === "SI" || false
         })
     }
 
@@ -86,6 +88,7 @@ export default function Administration() {
         await UpdateParameter({ key: ParameterEnum.LATITUDE, value: formData?.latitude });
         await UpdateParameter({ key: ParameterEnum.LONGITUDE, value: formData?.longitude });
         await UpdateParameter({ key: ParameterEnum.UPDATE_MENU, value: formData?.updateMenu ? "SI" : "NO" });
+        await UpdateParameter({ key: ParameterEnum.UPDATE_MENU_ALWAYS, value: formData?.updateMenuAlways ? "SI" : "NO" });
 
         showToast({ title: 'Administración', description: 'Parámetros actualizados correctamente.' });
     }
@@ -116,10 +119,15 @@ export default function Administration() {
                                 id="delay" name="delay" type="text" value={formData?.delay} onChange={handleChange} />
                         </div>
                         <div className="parameters__container m-auto">
-                            <div className="flex justify-between items-center my-3 mb-5">
+                            <div className="flex justify-between items-center my-3">
                                 <label htmlFor="updateMenu" className="text-gray-600 text-sm mr-2">Actualizar Menú:</label>
                                 <input type="checkbox" id="updateMenu" name="updateMenu" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
                                     checked={formData?.updateMenu ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3 mb-5">
+                                <label htmlFor="updateMenuAlways" className="text-gray-600 text-sm mr-2">Actualizar Menú cada 5 minutos:</label>
+                                <input type="checkbox" id="updateMenuAlways" name="updateMenuAlways" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.updateMenuAlways ?? false} onChange={handleCheckboxChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="address" className="text-gray-600 text-sm mr-2">Dirección:</label>

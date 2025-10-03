@@ -19,11 +19,18 @@ export default function ProductInfoToppings({ toppingProp, checked, multipleChec
         setIsOpen(!isOpen);
     };
 
+    const handleToppingCheckbox = (topping: any) => { 
+        if(!topping.multiple) {
+            toppingProp = {...toppingProp}
+        }
+        setSelectedTopping(topping);
+    }
+
     const renderToppings = () => {
         if (categoryMultiple) {
             const checkedIds = multipleChecked?.map((item: any) => item.id);
             return topping?.items?.map((item: any) =>
-                <ProductInfoToppingItemCheckbox key={`${item.id}_${productNumber}`} item={item} setSelectedOption={setSelectedTopping} productNumber={productNumber}
+                <ProductInfoToppingItemCheckbox key={`${item.id}_${productNumber}`} item={item} setSelectedOption={handleToppingCheckbox} productNumber={productNumber}
                     checked={checkedIds?.includes(item.id)}></ProductInfoToppingItemCheckbox>
             )
         }

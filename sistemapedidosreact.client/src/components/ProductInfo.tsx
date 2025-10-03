@@ -91,7 +91,7 @@ export default function ProductInfo({ product, onConfirm }: any) {
             selectedTopping.categoryId === topping.categoryId && selectedTopping.productNumber === topping.productNumber);
 
         if (index >= 0) {
-            selectedToppingsTemp[index] = topping;
+            topping?.checked == false ? selectedToppingsTemp.splice(index, 1) : selectedToppingsTemp[index] = topping;
             setSelectedToppings([...selectedToppingsTemp]);
         }
         else {
@@ -117,7 +117,7 @@ export default function ProductInfo({ product, onConfirm }: any) {
         let toppingIncomplete: boolean = false;
         for (let index = 0; index <= itemQuantity-1; index++) {
             toppings?.forEach((topping: any) => {
-                if (topping?.category?.maxQty > 0) {
+                if (topping?.category?.maxQty == 1) {
                     const toppingChecked = selectedToppings.find((t: any) => t.categoryId === topping?.category?.id && t.productNumber === index);                    
                     if (!toppingChecked) {
                         toppingIncomplete = true;

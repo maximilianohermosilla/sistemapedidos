@@ -17,6 +17,7 @@ namespace SistemaPedidosReact.Server.Controllers
         private readonly IParameterService vGblParameterService;
 
         public readonly string UPDATE_MENU = "UPDATE MENU";
+        public readonly string UPDATE_MENU_ALWAYS = "UPDATE MENU ALWAYS";
         public readonly string SI = "SI";
         public readonly string NO = "NO";
 
@@ -86,7 +87,9 @@ namespace SistemaPedidosReact.Server.Controllers
                 Console.WriteLine(JsonSerializer.Serialize(pMenu));
 
                 var vParameterUpdateMenu = await vGblParameterService.GetByKey(UPDATE_MENU);
-                if (vParameterUpdateMenu != null && vParameterUpdateMenu.Value == SI)
+                var vParameterUpdateMenuAlways = await vGblParameterService.GetByKey(UPDATE_MENU_ALWAYS);
+                if ((vParameterUpdateMenu != null && vParameterUpdateMenu.Value == SI) 
+                    || (vParameterUpdateMenuAlways != null && vParameterUpdateMenuAlways.Value == SI))
                 {
                     pMenu.StoreId = vStore.Id.ToString();
                     var vMenu = await vGblService.CreateMenuPOS(pMenu);
@@ -97,7 +100,11 @@ namespace SistemaPedidosReact.Server.Controllers
                         return BadRequest(new ResponseMessage() { Message = "La estructura del menú es inválida" });
                     }
 
-                    await vGblParameterService.Update(new ParameterCreateDTO() { Id = 0, Key = UPDATE_MENU, Value = NO });
+                    if (vParameterUpdateMenuAlways == null || vParameterUpdateMenu?.Value == NO)
+                    {
+                        await vGblParameterService.Update(new ParameterCreateDTO() { Id = 0, Key = UPDATE_MENU, Value = NO });
+                    }
+
                     Console.WriteLine("Menú actualizado y listo para ser validado");
                     return Ok(new ResponseMessage() { Message = "Menú actualizado y listo para ser validado" });
                 }
