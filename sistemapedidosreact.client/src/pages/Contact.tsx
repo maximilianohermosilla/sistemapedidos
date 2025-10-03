@@ -18,6 +18,8 @@ let DefaultIcon = L.icon({
     shadowUrl: iconShadow
 });
 
+const positionDefault = [-34.92057857658673, -57.95523024039817];
+
 L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function Contact() {
@@ -28,11 +30,11 @@ export default function Contact() {
     const [instagram, setInstagram] = useState<string>('');
     const [phone, setPhone] = useState<string>('');
     const [schedules, setSchedules] = useState<string>('');
-    const [position, setPosition] = useState<any>([-34.92057857658673, -57.95523024039817]);
+    const [position, setPosition] = useState<any>(positionDefault);
 
     useEffect(() => {
         getParameters();
-        setPosition([-34.92057857658673, -57.95523024039817]);
+        setPosition(positionDefault);
     }, []);
 
     const getParameters = async () => {
@@ -53,6 +55,10 @@ export default function Contact() {
 
         const schedulesParameter = await GetParameterByKey(ParameterEnum.SCHEDULES);
         if (schedulesParameter) setSchedules(schedulesParameter?.value);
+        
+        const latitudeParameter = await GetParameterByKey(ParameterEnum.LATITUDE);
+        const longitudeParameter = await GetParameterByKey(ParameterEnum.LONGITUDE);
+        if (latitudeParameter && longitudeParameter) setPosition([Number(latitudeParameter?.value!), Number(longitudeParameter?.value)]);
 
         setLoading(false);
     }
@@ -65,45 +71,47 @@ export default function Contact() {
         <div className="main__container w-full flex flex-col justify-start p-2 pt-5">
             {loading
                 ? <Spinner text={"Cargando..."} />
-                : <section className="contact mx-auto">
-                    <h1 className="text-primary text-2xl font-semibold w-full text-center mb-1">Contacto</h1>
+                : <>
+                    <section className="contact mx-auto">
+                        <h1 className="text-primary text-2xl font-semibold w-full text-center mb-1">Contacto</h1>
 
-                    {address && address !== '' &&
-                        <div className="address mt-5">
-                            <h5 className="text-primary font-semibold flex items-center gap-2"><LuMapPin />Dirección</h5>
-                            {address}
+                        {address && address !== '' &&
+                            <div className="address mt-5">
+                                <h5 className="text-primary font-semibold flex items-center gap-2"><LuMapPin />Dirección</h5>
+                                {address}
+                            </div>
+                        }
+                        {schedules && schedules !== '' &&
+                            <div className="schedules mt-5">
+                                <h5 className="text-primary font-semibold flex items-center gap-2"><HiOutlineClock />Horarios</h5>
+                                <div className="whitespace-break-spaces" dangerouslySetInnerHTML={{ __html: formatTextWithBrTags(schedules) }}></div>
+                            </div>
+                        }
+                        <div className="contactos flex gap-4 mt-7 mx-auto justify-center">
+                            {phone && phone !== '' && <a href={`tel:${phone}`} target="_blank" rel="noreferrer"><FaPhone className="contact__icon" size={40}></FaPhone ></a>}
+                            {whatsapp && whatsapp !== '' && <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noreferrer"><FaWhatsapp className="contact__icon" size={40}></FaWhatsapp></a>}
+                            {email && email !== '' && <a href={`mailto:${email}`} target="_blank" rel="noreferrer"><GrMail className="contact__icon" size={40}></GrMail></a>}
+                            {instagram && instagram !== '' && <a href={instagram} target="_blank" rel="noreferrer"><FaInstagram className="contact__icon" size={40}></FaInstagram></a>}
                         </div>
-                    }
-                    {schedules && schedules !== '' &&
-                        <div className="schedules mt-5">
-                            <h5 className="text-primary font-semibold flex items-center gap-2"><HiOutlineClock />Horarios</h5>
-                            <div className="whitespace-break-spaces" dangerouslySetInnerHTML={{ __html: formatTextWithBrTags(schedules) }}></div>
-                        </div>
-                    }
-                    <div className="contactos flex gap-4 mt-7 mx-auto justify-center">
-                        {phone && phone !== '' && <a href={`tel:${phone}`} target="_blank" rel="noreferrer"><FaPhone className="contact__icon" size={40}></FaPhone ></a>}
-                        {whatsapp && whatsapp !== '' && <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noreferrer"><FaWhatsapp className="contact__icon" size={40}></FaWhatsapp></a>}
-                        {email && email !== '' && <a href={`mailto:${email}`} target="_blank" rel="noreferrer"><GrMail className="contact__icon" size={40}></GrMail></a>}
-                        {instagram && instagram !== '' && <a href={instagram} target="_blank" rel="noreferrer"><FaInstagram className="contact__icon" size={40}></FaInstagram></a>}
-                    </div>
-                </section>}
-            <section className="h-full p-2 mt-5">
-                <MapContainer
-                    style={{
-                        height: "40vh",
-                        width: "100%",
-                    }}
-                    center={position}
-                    zoom={15}
-                >
-                    <TileLayer
-                        attribution="Google Maps"
-                        url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
-                    />
+                    </section>
+                    <section className="h-full p-2 mt-5">
+                        <MapContainer
+                            style={{
+                                height: "40vh",
+                                width: "100%",
+                            }}
+                            center={position}
+                            zoom={15}
+                        >
+                            <TileLayer
+                                attribution="Google Maps"
+                                url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
+                            />
 
-                    <Marker position={position} />
-                </MapContainer>
-            </section>
+                            <Marker position={position} />
+                        </MapContainer>
+                    </section>
+                </>}
         </div>
     )
 }

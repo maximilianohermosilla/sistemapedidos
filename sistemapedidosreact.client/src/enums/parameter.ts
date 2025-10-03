@@ -6,5 +6,7 @@ export enum ParameterEnum {
     PHONE = "PHONE",
     INSTAGRAM = "INSTAGRAM",
     SCHEDULES = "SCHEDULES",
-    UPDATE_MENU = "UPDATE MENU"
+    UPDATE_MENU = "UPDATE MENU",
+    LATITUDE = "LATITUDE",
+    LONGITUDE = "LONGITUDE"
 }

@@ -63,8 +63,8 @@ export default function LandingPage() {
                         {menuGrouped?.map((group: any, index: any) => <Menu key={index} items={group!.items} title={group!.category!.name}></Menu>)}
                 </section>
             }
-            <Footer menu={menu}></Footer>
-            <ViewCartButton></ViewCartButton>
+            {!loading && <Footer menu={menu}></Footer>}
+            {!loading && <ViewCartButton></ViewCartButton>}
         </div>
     )
 }

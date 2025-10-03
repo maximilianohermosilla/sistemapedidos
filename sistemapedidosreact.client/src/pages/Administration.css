@@ -1,7 +1,13 @@
-.parameters__container{
+.parameters__container {
     max-width: 300px;
 }
 
-#schedules{
+#schedules {
     max-width: 183px;
+}
+
+@media screen and (min-width: 480px) {
+    .parameters__container {
+        max-width: 400px;
+    }
 }
