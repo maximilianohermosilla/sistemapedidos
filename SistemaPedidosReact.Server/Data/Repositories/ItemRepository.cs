@@ -38,8 +38,7 @@ namespace SistemaPedidosReact.Server.Data.Repositories
                 (i.Name!.ToLower().Contains(pSearch!.ToLower()) || i.Description!.ToLower().Contains(pSearch!.ToLower()) || i.Category!.Name!.ToLower().Contains(pSearch!.ToLower())))
                 .ToList();
             return vItems;
-        }
-        
+        }        
 
         public Item GetById(int pId)
         {
@@ -49,6 +48,11 @@ namespace SistemaPedidosReact.Server.Data.Repositories
         public Item GetBySku(string pSku)
         {
             return vGblContext.Items.FirstOrDefault(e => e.Sku == pSku)!;
+        }
+
+        public EntityState Detach(Item pItem)
+        {
+           return vGblContext.Entry(pItem).State = EntityState.Detached;
         }
     }
 }

@@ -82,46 +82,104 @@ namespace SistemaPedidosReact.Server.Responses.Services
         {
             try
             {
+                List<Item> vItemsList = new List<Item>();
                 var vMenu = vGblMapper.Map<Menu>(pMenu);
                 vMenu.Name = $"Menú {DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss")}";
                 //var vItems = vGblMapper.Map<ICollection<Item>>(pMenu.Items);
 
-                foreach (var vItem in vMenu.Items!)
+                foreach (var vItem in pMenu.Items!)
                 {
-                    var vCategory = vGblCategoryRepository.GetByExternalId(vItem.Category!.ExternalId!);
-
-                    if(vCategory == null)
+                    Item vItemProcessed = ProcessItemCreatePOS(vItem);
+                    if(vItemProcessed != null)
                     {
-                        vItem.Category.Id = 0;
-                        vCategory = vGblCategoryRepository.Create(vItem.Category);
-                    }
-
-                    vItem.CategoryId = vCategory!.Id;
-                    //vItem.Category!.Id = vCategory.Id;
-                    vItem.Category = null;
-
-                    foreach (var vChildren in vItem.Children)
-                    {
-                        var vCategoryChildren = vGblCategoryRepository.GetByExternalId(vChildren.Category!.ExternalId!);
-
-                        if (vCategoryChildren == null)
-                        {
-                            vChildren.Category.Id = 0;
-                            vCategoryChildren = vGblCategoryRepository.Create(vChildren.Category);
-                        }
-
-                        vChildren.CategoryId = vCategoryChildren!.Id;
-                        //vChildren.Category!.Id = vCategoryChildren.Id;
-                        vChildren.Category = null;
+                        vItemsList.Add(vItemProcessed);
                     }
                 }
 
+                vMenu.Items = vItemsList.Where(i => i.Id == 0).ToList();
                 var vMenuCreada = vGblRepository.Create(vMenu);
+
+                foreach (var vItem in vItemsList.Where(i => i.Id > 0).ToList())
+                {
+                    foreach (var vChildren in vItem.Children)
+                    {
+                        vChildren.MenuId = vMenuCreada.Id;
+                    }
+
+                    var vItemDTO = vGblMapper.Map<ItemCreateDTO>(vItem);
+                    var vItemDatabase = vGblItemRepository.GetBySku(vItem.Sku);
+                    vItemDatabase = vGblMapper.Map<ItemCreateDTO, Item>(vItemDTO, vItemDatabase!);
+                    vItemDatabase.MenuId = vMenuCreada.Id;
+                    vGblItemRepository.SaveChanges();
+                }
 
                 return vGblMapper.Map<MenuReadDTO>(vMenuCreada);
             }
             catch (Exception ex)
             {
+                return null;
+            }
+        }
+
+        public Item ProcessItemCreatePOS(ItemCreatePOS pItem)
+        {
+            try
+            {
+                var vItemDatabase = vGblItemRepository.GetBySku(pItem.Sku);
+                pItem.Id = vItemDatabase != null ? vItemDatabase.Id!.ToString() : "0";
+
+                if(vItemDatabase != null)
+                    vGblItemRepository.Detach(vItemDatabase!);
+                
+                var vCategory = vGblCategoryRepository.GetByExternalId(pItem.Category!.Id!);
+                if (vCategory == null)
+                {
+                    vCategory = vGblCategoryRepository.Create(vGblMapper.Map<Category>(pItem.Category));
+                }
+                else
+                {
+                    vCategory.Name = pItem.Category.Name;
+                    vCategory.MaxQty = (int)pItem.Category.MaxQty!;
+                    vCategory.MinQty = (int)pItem.Category.MinQty!;
+                    vCategory.SortingPosition = (int)pItem.Category.SortingPosition!;
+                    vGblCategoryRepository.SaveChanges();
+                }
+
+                pItem.CategoryId = vCategory!.Id;
+                pItem.Category = null;
+
+                foreach (var pChildren in pItem!.Children!)
+                {
+                    var vChildrenDatabase = vGblItemRepository.GetBySku(pChildren!.Sku!);
+                    pChildren.Id = vChildrenDatabase != null ? vChildrenDatabase.Id!.ToString() : "0";
+                    if (vChildrenDatabase != null)
+                        vGblItemRepository.Detach(vChildrenDatabase!);
+
+                    var vCategoryChildren = vGblCategoryRepository.GetByExternalId(pChildren.Category!.Id!);
+                    if (vCategoryChildren == null)
+                    {
+                        vCategoryChildren = vGblCategoryRepository.Create(vGblMapper.Map<Category>(pChildren.Category));
+                    }
+                    else
+                    {
+                        vCategoryChildren.Name = pChildren.Category!.Name!;
+                        vCategoryChildren.MaxQty = (int)pChildren.Category.MaxQty!;
+                        vCategoryChildren.MinQty = (int)pChildren.Category.MinQty!;
+                        vCategoryChildren.SortingPosition = (int)pChildren.Category.SortingPosition!;
+                        vGblCategoryRepository.SaveChanges();
+                    }
+
+                    pChildren.CategoryId = vCategoryChildren!.Id;
+                    pChildren.Category = null;
+                }
+
+                vItemDatabase = vGblMapper.Map<ItemCreatePOS, Item>(pItem, vItemDatabase!);
+
+                return vItemDatabase;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error procesando item: {pItem.Name}.\n{ex.Message}");
                 return null;
             }
         }
