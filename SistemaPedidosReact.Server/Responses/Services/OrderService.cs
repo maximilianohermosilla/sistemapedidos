@@ -3,20 +3,22 @@ using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Models;
 using SistemaPedidosReact.Server.Responses.Interfaces;
+using System.Linq;
+using System.Text;
 
 namespace SistemaPedidosReact.Server.Responses.Services
 {
-    public class OrderService: IOrderService
+    public class OrderService : IOrderService
     {
         private readonly IOrderRepository vGblRepository;
-        private readonly IOrderRepository vGblOrderRepository;
+        private readonly IItemRepository vGblItemRepository;
         private readonly ICustomerRepository vGblCustomerRepository;
         private readonly IMapper vGblMapper;
 
-        public OrderService(IOrderRepository pRepository, IOrderRepository pOrderRepository, ICustomerRepository pCustomerRepository, IMapper pMapper)
+        public OrderService(IOrderRepository pRepository, IItemRepository pItemRepository, ICustomerRepository pCustomerRepository, IMapper pMapper)
         {
             vGblRepository = pRepository;
-            vGblOrderRepository = pOrderRepository;
+            vGblItemRepository = pItemRepository;
             vGblCustomerRepository = pCustomerRepository;
             vGblMapper = pMapper;
         }
@@ -26,7 +28,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
             try
             {
                 var vCustomer = vGblCustomerRepository.GetByEmailOrPhone(pOrder!.Customer!.Email!, pOrder!.Customer!.PhoneNumber!);
-                if(vCustomer != null)
+                if (vCustomer != null)
                 {
                     vCustomer.FirstName = pOrder!.Customer!.FirstName;
                     vCustomer.Email = vCustomer.Email == null || vCustomer.Email == "" ? pOrder!.Customer!.Email : vCustomer.Email;
@@ -89,14 +91,14 @@ namespace SistemaPedidosReact.Server.Responses.Services
                 return null;
             }
         }
-        
+
         public async Task<OrderReadDTO?> GetById(int pId)
         {
             try
             {
                 var vOrder = vGblRepository.GetById(pId);
 
-                return vGblMapper.Map<OrderReadDTO>(vOrder)!;                
+                return vGblMapper.Map<OrderReadDTO>(vOrder)!;
             }
             catch (Exception ex)
             {
@@ -104,14 +106,14 @@ namespace SistemaPedidosReact.Server.Responses.Services
             }
         }
 
-        
+
         public async Task<bool?> UpdateState(int? pOrderId, string pState, string pDelay)
         {
             try
             {
                 var vOrder = vGblRepository.GetById(Convert.ToInt32(pOrderId));
 
-                if(vOrder == null)
+                if (vOrder == null)
                 {
                     return null;
                 }
@@ -142,10 +144,10 @@ namespace SistemaPedidosReact.Server.Responses.Services
                 foreach (var vItem in vOrder.OrderDetail!.OrderItems)
                 {
                     var vItemCancel = pItems.Where(i => i.Sku == vItem.Item.Sku).FirstOrDefault();
-                    if(vItemCancel != null)
+                    if (vItemCancel != null)
                     {
                         var vCantidad = vItem.Quantity - vItemCancel.Cantidad;
-                        if(vCantidad > 0)
+                        if (vCantidad > 0)
                         {
                             vItem.Quantity = vCantidad;
                         }
@@ -165,5 +167,37 @@ namespace SistemaPedidosReact.Server.Responses.Services
                 return null;
             }
         }
+        public async Task<string> ValidateOrder(OrderCreateDTO pOrder)
+        {
+            try
+            {
+                string vMessage = string.Empty;
+                var vMenuItems = vGblItemRepository.GetAllByLastMenu()!.Select(i => i.Id).ToList();
+                var vOrderItems = pOrder.OrderDetail.OrderItems.ToList();
+
+                foreach (var vItem in vOrderItems)
+                {
+                    if (!vMenuItems.Contains(vItem.Id))
+                    {
+                        vMessage += $"El producto {vItem.ItemName} ya no se encuentra disponible.\n";
+                    }
+
+                    foreach (var vSubItem in vItem.OrderSubItems)
+                    {
+                        if (!vMenuItems.Contains(vSubItem.Id))
+                        {
+                            vMessage += $"El subproducto {vSubItem.ItemName} ya no se encuentra disponible.\n";
+                        }
+                    }
+                }
+
+                return vMessage;
+            }
+            catch (Exception ex)
+            {
+                return $"Ocurrió un error al validar el pedido: {ex.Message}";
+            }
+        }
     }
 }
+

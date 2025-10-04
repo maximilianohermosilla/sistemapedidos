@@ -3,7 +3,8 @@
     public class OrderSubItemCreateDTO
     {
         public int Id { get; set; }
-        public int ItemId { get; set; }       
+        public int ItemId { get; set; }
+        public string? ItemName { get; set; } = string.Empty;
         public int OrderItemId { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }

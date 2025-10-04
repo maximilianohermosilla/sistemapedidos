@@ -5,7 +5,7 @@ import type { Order } from "../interfaces/order";
 import { CreateOrder } from "../services/order-service";
 import showToast from "../services/toast-service";
 
-export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any) {
+export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose }: any) {
     const [shoppingCart, setShoppingCart] = useState([]);
     const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
     const [errors, setErrors] = useState<any>({});
@@ -58,6 +58,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any
         const orderDetail = shoppingCart.map((item: any) => ({
             id: 0,
             itemId: item.id,
+            itemName: item.name,
             orderDetailId: 0,
             comments: "",
             price: item.totalPrice,
@@ -67,6 +68,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any
             orderSubItems: item.toppings?.map((topping: any) => ({
                 id: 0,
                 itemId: topping.id,
+                itemName: topping.name,
                 orderItemId: 0,
                 price: topping.price,
                 quantity: topping.quantity || 1,
@@ -127,14 +129,14 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm }: any
             }
         };
 
-        //console.log(order);
-
         let response = await CreateOrder(order);
 
-        //console.log(response);
         if (response) {
             showToast({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso.` });
             onConfirm();
+        }
+        else{
+            onClose();
         }
     }
 

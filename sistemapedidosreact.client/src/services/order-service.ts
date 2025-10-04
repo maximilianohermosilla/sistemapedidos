@@ -37,7 +37,8 @@ export async function CreateOrder(order: Order) {
         return data;
     }
     else {
-        showToast({ title: 'Error', description: response.statusText != '' ? response.statusText : "Ocurrió un error al crear el pedido.", error: true });
+        const data = await response.json().catch((err: any) => showToast({title: 'Error', description: err.message, error: true}));
+        showToast({ title: 'Error', description: data ? data?.message : "Ocurrió un error al crear el pedido.", error: true });
     }
 }
 

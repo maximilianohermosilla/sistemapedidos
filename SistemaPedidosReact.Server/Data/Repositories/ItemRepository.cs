@@ -45,6 +45,17 @@ namespace SistemaPedidosReact.Server.Data.Repositories
             return vGblContext.Items.FirstOrDefault(e => e.Id == pId)!;
         }
 
+        public IEnumerable<Item> GetAllByMenuId(int pMenuId)
+        {
+            return vGblContext.Items.Where(e => e.MenuId == pMenuId)!.ToList();
+        }
+
+        public IEnumerable<Item> GetAllByLastMenu()
+        {
+            var vMenuId = vGblContext.Menus.Max(c => c.Id);
+            return vGblContext.Items.Where(e => e.MenuId == vMenuId)!.ToList();
+        }
+
         public Item GetBySku(string pSku)
         {
             return vGblContext.Items.FirstOrDefault(e => e.Sku == pSku)!;

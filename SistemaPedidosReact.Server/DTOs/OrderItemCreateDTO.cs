@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public int ItemId { get; set; }
+        public string? ItemName { get; set; } = string.Empty;
         public int OrderDetailId { get; set; }
         public string? Comments { get; set; }
         public decimal Price { get; set; }
