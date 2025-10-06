@@ -6,7 +6,7 @@ using SistemaPedidosReact.Server.Models;
 
 namespace SistemaPedidosReact.Server.Responses.Services
 {
-    public class MenuService: IMenuService
+    public class MenuService : IMenuService
     {
         private readonly IMenuRepository vGblRepository;
         private readonly IItemRepository vGblItemRepository;
@@ -56,7 +56,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
             {
                 var vMenu = vGblRepository.GetById(pId);
 
-                return vGblMapper.Map<MenuReadDTO>(vMenu)!;                
+                return vGblMapper.Map<MenuReadDTO>(vMenu)!;
             }
             catch (Exception ex)
             {
@@ -78,6 +78,54 @@ namespace SistemaPedidosReact.Server.Responses.Services
             }
         }
 
+        public async Task<MenuReadDTO> CreateOriginalMenuPOS(MenuCreatePOS pMenu)
+        {
+            try
+            {
+                var vMenu = vGblMapper.Map<Menu>(pMenu);
+                vMenu.Name = $"Menú {DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss")}";
+                //var vItems = vGblMapper.Map<ICollection<Item>>(pMenu.Items);
+
+                foreach (var vItem in vMenu.Items!)
+                {
+                    var vCategory = vGblCategoryRepository.GetByExternalId(vItem.Category!.ExternalId!);
+
+                    if (vCategory == null)
+                    {
+                        vItem.Category.Id = 0;
+                        vCategory = vGblCategoryRepository.Create(vItem.Category);
+                    }
+
+                    vItem.CategoryId = vCategory!.Id;
+                    //vItem.Category!.Id = vCategory.Id;
+                    vItem.Category = null;
+
+                    foreach (var vChildren in vItem.Children)
+                    {
+                        var vCategoryChildren = vGblCategoryRepository.GetByExternalId(vChildren.Category!.ExternalId!);
+
+                        if (vCategoryChildren == null)
+                        {
+                            vChildren.Category.Id = 0;
+                            vCategoryChildren = vGblCategoryRepository.Create(vChildren.Category);
+                        }
+
+                        vChildren.CategoryId = vCategoryChildren!.Id;
+                        //vChildren.Category!.Id = vCategoryChildren.Id;
+                        vChildren.Category = null;
+                    }
+                }
+
+                var vMenuCreada = vGblRepository.Create(vMenu);
+
+                return vGblMapper.Map<MenuReadDTO>(vMenuCreada);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<MenuReadDTO> CreateMenuPOS(MenuCreatePOS pMenu)
         {
             try
@@ -90,7 +138,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
                 foreach (var vItem in pMenu.Items!)
                 {
                     Item vItemProcessed = ProcessItemCreatePOS(vItem);
-                    if(vItemProcessed != null)
+                    if (vItemProcessed != null)
                     {
                         vItemsList.Add(vItemProcessed);
                     }
@@ -128,9 +176,9 @@ namespace SistemaPedidosReact.Server.Responses.Services
                 var vItemDatabase = vGblItemRepository.GetBySku(pItem.Sku);
                 pItem.Id = vItemDatabase != null ? vItemDatabase.Id!.ToString() : "0";
 
-                if(vItemDatabase != null)
+                if (vItemDatabase != null)
                     vGblItemRepository.Detach(vItemDatabase!);
-                
+
                 var vCategory = vGblCategoryRepository.GetByExternalId(pItem.Category!.Id!);
                 if (vCategory == null)
                 {

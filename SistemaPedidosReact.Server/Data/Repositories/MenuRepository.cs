@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Features;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.Models;
 
@@ -49,6 +48,12 @@ namespace SistemaPedidosReact.Server.Data.Repositories
                 vItem.Children = vItem.Children.Where(c => c.MenuId == vMenu.Id).ToList();
             }
             return vMenu;
+        }
+
+        public Menu GetLastOriginalMenu()
+        {
+            return vGblContext.Menus.OrderByDescending(e => e.Id)!.Include(m => m.Items)!.ThenInclude(i => i.Category)
+                .Include(m => m.Items!).ThenInclude(i => i.Children!).ThenInclude(i => i.Category).FirstOrDefault()!;
         }
     }
 }
