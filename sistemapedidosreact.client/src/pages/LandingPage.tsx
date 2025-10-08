@@ -41,7 +41,7 @@ export default function LandingPage() {
                 map.set(category.id, { category, items: [] });
             }
 
-            map.get(category.id)!.items.push(rest);
+            map.get(category.id)!.items.push({ ...rest, category: category});
         });
 
         return Array.from(map.values());

@@ -45,13 +45,17 @@ namespace SistemaPedidosReact.Server.Profiles
             config.CreateMap<OrderDetail, OrderDetailCreateDTO>().ReverseMap();
 
             config.CreateMap<OrderItem, OrderItemReadDTO>().ReverseMap();
-            config.CreateMap<OrderItem, OrderItemCreateDTO>().ReverseMap();
+            config.CreateMap<OrderItem, OrderItemCreateDTO>();
+            config.CreateMap<OrderItemCreateDTO, OrderItem>()
+                .ForMember(dest => dest.Item, opt => opt.Ignore());
 
             config.CreateMap<OrderState, OrderStateReadDTO>().ReverseMap();
             config.CreateMap<OrderState, OrderStateCreateDTO>().ReverseMap();
 
             config.CreateMap<OrderSubItem, OrderSubItemReadDTO>().ReverseMap();
-            config.CreateMap<OrderSubItem, OrderSubItemCreateDTO>().ReverseMap();
+            config.CreateMap<OrderSubItem, OrderSubItemCreateDTO>();
+            config.CreateMap<OrderSubItemCreateDTO, OrderSubItem>()
+                .ForMember(dest => dest.Item, opt => opt.Ignore());
 
             config.CreateMap<OtherTotals, OtherTotalsReadDTO>().ReverseMap();
             config.CreateMap<OtherTotals, OtherTotalsCreateDTO>().ReverseMap();

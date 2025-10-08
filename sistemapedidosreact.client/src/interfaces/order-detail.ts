@@ -10,6 +10,7 @@ export interface OrderDetail {
   orderId: number;
   deliveryOperationType: string;
   createdAt: string; // ISO date string
+  cookingTime?: number; // minutes
   deliveryMethod: string;
   mesaId?: number;
   cantidadCubiertos?: string;

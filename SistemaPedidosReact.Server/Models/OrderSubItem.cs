@@ -13,7 +13,7 @@ namespace SistemaPedidosReact.Server.Models
         public int? MaxLimit { get; set; } = null;
         public int SortingPosition { get; set; } = 0;
 
-        public Item Item { get; set; } = null!;
+        public Item? Item { get; set; } = null!;
         public OrderItem OrderItem { get; set; } = null!;
     }
 }

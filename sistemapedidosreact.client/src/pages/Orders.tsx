@@ -47,7 +47,7 @@ export default function Orders() {
                 </div>
             </section>
             {orders && 
-            <section className="mt-5 px-3">
+            <section className="mt-5 px-1">
                 {orders && orders.length > 0 
                 ? orders.map((order: any, index: any) => <CardOrder key={index} order={order}></CardOrder>) 
                 : <p className="text-lg font-semibold text-center text-primary w-full my-3">No hay pedidos para mostrar</p>}

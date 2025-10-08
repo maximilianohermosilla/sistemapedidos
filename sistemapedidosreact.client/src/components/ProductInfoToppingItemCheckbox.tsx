@@ -1,5 +1,5 @@
 import "./ProductInfoToppingItemCheckbox.css"
-import { formatMoney } from "../utils/FormatMoney";
+import { formatMoney } from "../utils/FormatMoneyUtil";
 import { useEffect, useState } from "react";
 
 export default function ProductInfoToppingItemCheckbox({ item, setSelectedOption, checked, productNumber }: any) {

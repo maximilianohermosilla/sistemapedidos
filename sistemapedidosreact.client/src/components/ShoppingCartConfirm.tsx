@@ -1,17 +1,30 @@
 import { useEffect, useState } from "react";
-import { formatMoney } from "../utils/FormatMoney";
+import { formatMoney } from "../utils/FormatMoneyUtil";
 import { FaCheck } from "react-icons/fa6";
 import type { Order } from "../interfaces/order";
 import { CreateOrder } from "../services/order-service";
 import showToast from "../services/toast-service";
+import DatePicker from "./DatePicker";
+import { calculateMinutesBetweenDates, dateToString } from "../utils/ParseDateUtil";
 
 export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose }: any) {
     const [shoppingCart, setShoppingCart] = useState([]);
     const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
     const [errors, setErrors] = useState<any>({});
+    const [scheduledOrder, setScheduledOrder] = useState<boolean>(false);
+    const [minutes, setMinutes] = useState(0);
 
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
 
     useEffect(() => {
+        prop.forEach((item: any) => {
+            if(item?.category?.name?.toUpperCase() === 'PICADAS' || item?.category?.name?.toUpperCase() === 'PICADA'){
+                setScheduledOrder(true);
+            }
+        });
+
         setShoppingCart(prop);
     }, [prop])
 
@@ -54,6 +67,11 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         }
     }
 
+    const handleDate = (event?: any) => {
+        const minutes = calculateMinutesBetweenDates(new Date(), event);
+        setMinutes(minutes);
+    }
+
     const createOrder = async () => {
         const orderDetail = shoppingCart.map((item: any) => ({
             id: 0,
@@ -89,7 +107,8 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                 id: 0,
                 orderId: 0,
                 deliveryOperationType: "Regular",
-                createdAt: new Date().toISOString(),
+                createdAt: dateToString(new Date()),
+                cookingTime: scheduledOrder ? minutes : undefined,
                 deliveryMethod: "Pickup",
                 mesaId: undefined,
                 cantidadCubiertos: "1",
@@ -168,7 +187,10 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                     {errors.email && <span className="text-red-700">* {errors.email}</span>}
                     {errors.phone && <span className="text-red-700">* {errors.phone}</span>}
                 </section>
-                {/* <p className="text-gray-500 text-center text-sm">* Debe ingresar al menos un método de contacto.</p> */}
+                {scheduledOrder && <section className="">
+                    <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
+                    <DatePicker date={tomorrow} emitDate={handleDate}></DatePicker>
+                </section>}
                 <footer>
                     <button className="button__primary m-auto my-3 flex items-center gap-2" type="submit">
                         <FaCheck />Confirmar <div></div>

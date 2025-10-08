@@ -1,0 +1,26 @@
+.rdp-selected {
+    color: #FFF;
+    font-size: .8rem;
+}
+
+.rdp-selected .rdp-day_button {
+    border: 2px solid var(--primary-color) !important;
+    background: var(--primary-color);
+    /* background: radial-gradient(circle, rgba(255, 255, 255, 1) 40%, rgba(94, 131, 166, 1) 80%); */
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: hue-rotate(180deg) brightness(0.5);
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator:hover{
+  cursor: pointer;
+}
+
+.rdp-chevron{
+  fill: var(--primary-color) !important;
+}
+
+.rdp-month_caption{
+  font-size: 1rem;
+}

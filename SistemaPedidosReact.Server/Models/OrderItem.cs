@@ -14,7 +14,7 @@ namespace SistemaPedidosReact.Server.Models
         public int? MaxLimit { get; set; } = null;
         public int SortingPosition { get; set; } = 0;
 
-        public Item Item { get; set; } = null!;
+        public Item? Item { get; set; } = null!;
         public OrderDetail OrderDetail { get; set; } = null!;
         public virtual ICollection<OrderSubItem> OrderSubItems { get; set; } = new List<OrderSubItem>();
     }

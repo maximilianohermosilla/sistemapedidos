@@ -177,14 +177,14 @@ namespace SistemaPedidosReact.Server.Responses.Services
 
                 foreach (var vItem in vOrderItems)
                 {
-                    if (!vMenuItems.Contains(vItem.Id))
+                    if (!vMenuItems.Contains(vItem.ItemId))
                     {
                         vMessage += $"El producto {vItem.ItemName} ya no se encuentra disponible.\n";
                     }
 
                     foreach (var vSubItem in vItem.OrderSubItems)
                     {
-                        if (!vMenuItems.Contains(vSubItem.Id))
+                        if (!vMenuItems.Contains(vSubItem.ItemId))
                         {
                             vMessage += $"El subproducto {vSubItem.ItemName} ya no se encuentra disponible.\n";
                         }

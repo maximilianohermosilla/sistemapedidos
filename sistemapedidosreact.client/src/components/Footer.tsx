@@ -1,5 +1,5 @@
 import { FaSync } from "react-icons/fa";
-import { formatDate } from "../utils/FormatMoney copy";
+import { formatDate } from "../utils/FormatDateUtil";
 import { useEffect, useState } from "react";
 import { GetParameterByKey } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";

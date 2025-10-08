@@ -4,7 +4,7 @@ import { CartContext } from "../context/CartContext";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import CardProductCart from "../components/CardProductCart";
-import { formatMoney } from "../utils/FormatMoney";
+import { formatMoney } from "../utils/FormatMoneyUtil";
 import { BsCartXFill } from "react-icons/bs";
 import DialogConfirm from "../components/DialogConfirm";
 import Dialog from "../components/Dialog";

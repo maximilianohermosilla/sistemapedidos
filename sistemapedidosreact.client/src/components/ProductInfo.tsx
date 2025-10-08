@@ -3,7 +3,7 @@ import imgDefault from "../assets/logo/logo_gray_top.jpeg";
 import ProductInfoTopping from "./ProductInfoTopping";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { CartContext } from "../context/CartContext";
-import { formatMoney } from "../utils/FormatMoney.ts";
+import { formatMoney } from "../utils/FormatMoneyUtil.ts";
 import showToast from "../services/toast-service.ts";
 
 export default function ProductInfo({ product, onConfirm }: any) {

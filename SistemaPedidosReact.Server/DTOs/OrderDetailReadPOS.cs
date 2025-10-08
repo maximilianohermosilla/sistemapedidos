@@ -10,6 +10,8 @@ namespace SistemaPedidosReact.Server.DTOs
         public string? DeliveryOperationType { get; set; } = "Regular"; //Turbo || Regular
         [JsonPropertyName("created_at")]
         public DateTime CreatedAt { get; set; }
+        [JsonPropertyName("cooking_time")]
+        public int? CookingTime { get; set; } = 0;
         [JsonPropertyName("delivery_method")]
         public string? DeliveryMethod { get; set; } = "Pickup"; //Mesa || Delivery || Pickup
         [JsonIgnore]

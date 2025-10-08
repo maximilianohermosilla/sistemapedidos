@@ -10,5 +10,7 @@
         public int Quantity { get; set; }
         public int? MaxLimit { get; set; } = null;
         public int SortingPosition { get; set; } = 0;
+
+        public ItemCreateDTO? Item { get; set; } = null;
     }
 }

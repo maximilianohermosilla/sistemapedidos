@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Dialog from "./Dialog.tsx";
 import { FaRegListAlt } from "react-icons/fa";
-import { formatDate } from "../utils/FormatMoney copy.ts";
-import { formatMoney } from "../utils/FormatMoney.ts";
+import { formatDate, formatDateHHMM } from "../utils/FormatDateUtil.ts";
+import { formatMoney } from "../utils/FormatMoneyUtil.ts";
 import imgDefault from "../assets/logo/logo_gray_top.jpeg";
+import { sumMinutesToDate } from "../utils/ParseDateUtil.ts";
 
 export default function CardOrder({ order }: any) {
     const [item, setItem] = useState<any>();
@@ -42,7 +43,10 @@ export default function CardOrder({ order }: any) {
                             className="w-25 object-fill rounded-l-md" />
                         <div className="data">
                             <h3 className={item?.orderStateId ? 'text-gray-400' : 'text-primary font-semibold'}>{item?.orderState?.name ?? 'PENDIENTE'}</h3>
-                            <p className="text-xs w-30">{formatDate(item?.orderDetail?.createdAt!)}</p>
+                            <p className="text-xs w-40">Fecha: {formatDateHHMM(item?.orderDetail?.createdAt!)}</p>
+                            {item?.orderDetail?.cookingTime ? <p className="text-xs w-40 my-1 text-blue-600">
+                                Retiro: {formatDateHHMM(sumMinutesToDate(item?.orderDetail?.createdAt!, item?.orderDetail?.cookingTime))}
+                            </p>: ''}
                             <p className="text-green-600">{formatMoney(item?.orderDetail?.totals?.totalToPay)}</p>
                         </div>
                         <aside className="w-full flex flex-col justify-start gap-1 items-end mt-1">

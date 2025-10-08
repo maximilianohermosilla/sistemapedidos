@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { FaCartShopping } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import { formatMoney } from "../utils/FormatMoney";
+import { formatMoney } from "../utils/FormatMoneyUtil";
 
 export default function ViewCartButton() {
     const cartContext = useContext<any>(CartContext);
