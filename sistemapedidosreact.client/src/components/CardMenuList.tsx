@@ -7,7 +7,7 @@ import Dialog from "./Dialog.tsx";
 import ProductInfo from "./ProductInfo.tsx";
 import { formatMoney } from "../utils/FormatMoneyUtil.ts";
 
-export default function CardProduct({ product }: any) {
+export default function CardMenuList({ product }: any) {
     const [item, setItem] = useState<any>();
     const [cartItemQuantity, setCartItemQuantity] = useState<number>(0);
     const [isModalOpen, setIsModalOpen] = useState<boolean>();

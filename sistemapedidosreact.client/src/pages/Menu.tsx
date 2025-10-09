@@ -1,0 +1,57 @@
+import "./Menu.css";
+import { useEffect, useState } from "react";
+import { GetLastMenu } from "../services/menu-service";
+import Spinner from "../components/Spinner";
+import MenuList from "../components/MenuList";
+import logo from '../assets/logo/logo_black_bottom.jpeg';
+
+export default function MenuPage() {
+    const [loading, setLoading] = useState(true);
+    const [menuGrouped, setMenuGrouped] = useState<any>();
+
+    useEffect(() => {
+        getLastMenu();
+    }, []);
+
+    async function getLastMenu() {
+        const data = await GetLastMenu();
+        const productsGrouped = groupProducts(data?.items);
+        setMenuGrouped(productsGrouped);
+        setLoading(false);
+    }
+
+    const groupProducts = (items: any[]) => {
+        const map = new Map<string, { category: any; items: Omit<any, "category" | "children">[] }>();
+
+        items?.forEach((item: any) => {
+            const { category, ...rest } = item;
+
+            if (!map.has(category.id)) {
+                map.set(category.id, { category, items: [] });
+            }
+
+            map.get(category.id)!.items.push({ ...rest, category: category });
+        });
+
+        return Array.from(map.values());
+    }
+
+
+    return (
+        <div className="main__menu bg-primary min-h-screen w-screen z-60 absolute" style={{ marginTop: "-64px" }}>
+            {loading
+                ? <div className="bg-white flex flex-col m-auto h-screen text-white"><Spinner text={"Cargando menú..."} /></div>
+                : <div className="w-full">
+                    <img src={logo} alt="Logo Header" width={200} height={50} className="m-auto mt-3 mb-5" />
+
+                    <section className="flex flex-col pt-3 mx-0 px-5 px-md-0 w-full mt-5">
+                        {menuGrouped?.map((group: any, index: any) => <MenuList key={index} items={group!.items} title={group!.category!.name}></MenuList>)}
+                        <h2 className="w-full text-center text-xl font-bold text-white my-3 mb-5">(CONSULTAR PLATOS DEL DÍA)</h2>
+                    </section>
+
+                </div>
+            }
+        </div>
+    )
+}
+
