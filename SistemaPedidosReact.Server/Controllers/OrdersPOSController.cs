@@ -37,6 +37,7 @@ namespace SistemaPedidosReact.Server.Controllers
                 Console.WriteLine($"*** Get Orders Store : {storeid}");
                 var vOrders = await vGblService.GetAllPendingsByStore(vStore.Id);
 
+                Console.WriteLine(JsonSerializer.Serialize(vOrders));
                 return Ok(vOrders);
             }
             catch (Exception ex)
