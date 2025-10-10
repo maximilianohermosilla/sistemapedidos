@@ -7,7 +7,7 @@ export default function Menu({ items, title }: any) {
         ? <p className="text-lg font-semibold text-center text-cyan-700 w-full my-5">No hay productos para mostrar</p> 
         : <> {items?.map((item: any, index: any) => 
         <li key={index} className="flex justify-between text-white w-full mb-3 gap-5">
-            <p className="text-shadow-gray-700 text-shadow-sm">{item.name}</p><p className="text-secondary text-end font-bold">{formatMoney(item.price)}</p>
+            <p className="text-shadow-gray-700 text-shadow-sm">{item.name}</p><p className="text-secondary text-end font-extrabold text-shadow-gray-500 text-shadow-sm">{formatMoney(item.price)}</p>
         </li>)} </>;
 
     return (
