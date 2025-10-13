@@ -42,7 +42,7 @@ export default function CardOrder({ order }: any) {
                         <img src={item.imageUrl && item.imageUrl != '' ? item.imageUrl : imgDefault} alt={item.name} onError={addDefaultImg}
                             className="w-25 object-fill rounded-l-md" />
                         <div className="data">
-                            <h3 className={item?.orderStateId ? 'text-gray-400' : 'text-primary font-semibold'}>{item?.orderState?.name ?? 'PENDIENTE'}</h3>
+                            <h3 className={item?.orderStateId ? 'text-gray-400' : 'text-primary font-semibold'}>{item?.state ?? 'PENDIENTE'}</h3>
                             <p className="text-xs w-40">Fecha: {formatDateHHMM(item?.orderDetail?.createdAt!)}</p>
                             {item?.orderDetail?.cookingTime ? <p className="text-xs w-40 my-1 text-blue-600">
                                 Retiro: {formatDateHHMM(sumMinutesToDate(item?.orderDetail?.createdAt!, item?.orderDetail?.cookingTime))}

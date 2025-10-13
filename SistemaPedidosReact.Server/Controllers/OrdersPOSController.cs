@@ -50,7 +50,7 @@ namespace SistemaPedidosReact.Server.Controllers
         [Route("orders_update")]
         [Authorize]
         public async Task<ActionResult<IEnumerable<OrderReadPOS>>> OrdersUpdate([FromQuery] string storeid,
-                        [FromQuery] string orderId, [FromQuery] string state, [FromQuery] string delay)
+                        [FromQuery] string orderId, [FromQuery] string state, [FromQuery] string? delay)
         {
             try
             {

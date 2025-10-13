@@ -19,11 +19,11 @@
 
         public MesaReadDTO? Mesa { get; set; } = null!;
         public PaymentMethodReadDTO? PaymentMethod { get; set; } = null!;
-        public DeliveryInformationReadDTO? DeliveryInformation { get; set; }
-        public BillingInformationReadDTO? BillingInformation { get; set; }
-        public DeliveryDiscountReadDTO? DeliveryDiscount { get; set; } = null!;
+        //public DeliveryInformationReadDTO? DeliveryInformation { get; set; }
+        //public BillingInformationReadDTO? BillingInformation { get; set; }
+        //public DeliveryDiscountReadDTO? DeliveryDiscount { get; set; } = null!;
         public TotalsReadDTO? Totals { get; set; } = null!;
         public virtual ICollection<OrderItemReadDTO> OrderItems { get; set; } = new List<OrderItemReadDTO>();
-        public virtual ICollection<DiscountReadDTO> Discounts { get; set; } = new List<DiscountReadDTO>(); 
+        //public virtual ICollection<DiscountReadDTO> Discounts { get; set; } = new List<DiscountReadDTO>(); 
     }
 }

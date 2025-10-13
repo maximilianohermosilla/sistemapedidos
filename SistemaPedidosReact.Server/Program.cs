@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +52,11 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
 
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(config => new MappingProfile(config));
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 // Configurar servicios de infraestructura
 builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();

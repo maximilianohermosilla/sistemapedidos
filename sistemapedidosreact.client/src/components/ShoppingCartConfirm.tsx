@@ -114,9 +114,9 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                 cantidadCubiertos: "1",
                 paymentMethodId: 1,
                 tip: 0,
-                deliveryInformationId: undefined,
-                billingInformationId: undefined,
-                deliveryDiscountId: undefined,
+                deliveryInformationId: 1,
+                billingInformationId: 1,
+                deliveryDiscountId: 1,
                 totalsId: undefined,
                 totals: {
                     id: 0,
@@ -136,7 +136,27 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                         tip: 0
                     }
                 },
-                orderItems: orderDetail
+                orderItems: orderDetail,
+                discounts: [ {
+                    id: 0,
+                    title: "",
+                    value: 0,
+                    description: "",
+                    orderDetailId: 0,
+                    itemId: undefined,
+                    sku: "",
+                    type: "",
+                    rawValue: 0,
+                    typeValue: "",
+                    maxValue: 0,
+                    includesToppings: false,
+                    percentageBySystem: 0,
+                    percentageByPartners: 0,
+                    ammountBySystem: 0,
+                    ammountByPartners: 0,
+                    discountProductUnits: 0,
+                    discountProductUnitValue: 0
+                } ],
             },
             customer: {
                 firstName: formData?.name,

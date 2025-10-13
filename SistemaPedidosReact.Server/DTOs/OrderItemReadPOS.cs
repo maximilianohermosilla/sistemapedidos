@@ -14,7 +14,11 @@ namespace SistemaPedidosReact.Server.DTOs
         public int OrderDetailId { get; set; }
         [JsonPropertyName("comments")]
         public string? Comments { get; set; } = null;
+        [JsonPropertyName("description")]
+        public string? Description { get; set; } = null;
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
+        [JsonPropertyName("quantity")]
         public int Quantity { get; set; }
         [JsonIgnore]
         public int SortingPosition { get; set; } = 0;
