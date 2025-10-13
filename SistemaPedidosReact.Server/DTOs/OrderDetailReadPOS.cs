@@ -15,14 +15,14 @@ namespace SistemaPedidosReact.Server.DTOs
         [JsonPropertyName("delivery_method")]
         public string? DeliveryMethod { get; set; } = "Pickup"; //Mesa || Delivery || Pickup
         [JsonIgnore]
-        public int? MesaId { get; set; } = null; 
-        [JsonPropertyName("mesa_id")]
-        public string? MesaCode { get; set; } = string.Empty;
+        public int? MesaId { get; set; } = null;
+        [JsonIgnore]
+        public string? MesaCode { get; set; } = "";
         [JsonPropertyName("cantidad_cubiertos")]
         public string? CantidadCubiertos { get; set; } = null;
         [JsonIgnore]
         public int PaymentMethodId { get; set; }
-        [JsonPropertyName("payment_method")]
+        [JsonIgnore]
         public string? PaymentMethodCode { get; set; } = string.Empty;
         [JsonIgnore]
         public int? DeliveryInformationId { get; set; } = null;
@@ -32,6 +32,9 @@ namespace SistemaPedidosReact.Server.DTOs
         public int? DeliveryDiscountId { get; set; } = null;
         [JsonIgnore]
         public int? TotalsId { get; set; } = null;
+
+        public string mesa_id = "";
+        public string payment_method = "EF";
 
         [JsonIgnore]
         public MesaReadDTO? Mesa { get; set; } = null!;

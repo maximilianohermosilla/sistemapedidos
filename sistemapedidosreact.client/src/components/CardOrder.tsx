@@ -65,7 +65,7 @@ export default function CardOrder({ order }: any) {
                                 <p className="mt-1 text-xs"><strong>Fecha:</strong> {formatDate(item?.orderDetail?.createdAt!)}</p>
                                 <p className="mt-1 mb-5 text-xs"><strong>Cliente:</strong> {item?.customer?.firstName}</p>
                                 {item && isModalOpen && renderOrderDetail()}
-                                <h3 className="mt-5 mb-3 flex justify-between font-semibold text-primary border-2 px-2 py-1 border-top text-shadow-sm text-gray-900">Total: <span className="text-green-600 text-shadow-sm text-gray-900">{formatMoney(item?.orderDetail?.totals?.totalToPay)}</span></h3>
+                                <h3 className="mt-5 mb-3 flex justify-between font-semibold text-primary border-2 px-2 py-1 border-top text-shadow-sm text-gray-900">Total: <span className="text-green-600 text-shadow-sm shadow-gray-900">{formatMoney(item?.orderDetail?.totals?.totalToPay)}</span></h3>
                             </>
                         </Dialog>
                     }

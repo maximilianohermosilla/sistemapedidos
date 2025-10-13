@@ -14,7 +14,7 @@ namespace SistemaPedidosReact.Server.DTOs
         public int? OrderStateId { get; set; } = null;
         [JsonIgnore]
         public int? CustomerId { get; set; } = null;
-
+        [JsonPropertyName("store")]
         public StoreReadPOS Store { get; set; } = null!;
         [JsonIgnore]
         public OrderStateReadDTO OrderState { get; set; } = null!;

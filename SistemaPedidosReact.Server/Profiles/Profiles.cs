@@ -86,7 +86,11 @@ namespace SistemaPedidosReact.Server.Profiles
 
             config.CreateMap<OrderReadPOS, Order>().ReverseMap();
             config.CreateMap<OrderDetailReadPOS, OrderDetail>().ReverseMap();
-            config.CreateMap<OrderItemReadPOS, OrderItem>().ReverseMap();
+
+            config.CreateMap<OrderItem, OrderItemReadPOS>()
+                            .ForMember(dest => dest.IdString, opt => opt.MapFrom(src => src.ItemId.ToString()));
+            config.CreateMap<OrderItemReadPOS, OrderItem>();
+
             config.CreateMap<OrderSubItemReadPOS, OrderSubItem>().ReverseMap();
             config.CreateMap<BillingInformationReadPOS, BillingInformation>().ReverseMap();
             config.CreateMap<ChargesReadPOS, Charges>().ReverseMap();
