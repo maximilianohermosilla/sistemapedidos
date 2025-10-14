@@ -9,6 +9,7 @@ import { BsCartXFill } from "react-icons/bs";
 import DialogConfirm from "../components/DialogConfirm";
 import Dialog from "../components/Dialog";
 import ShoppingCartConfirm from "../components/ShoppingCartConfirm";
+import { isTimeBetweenHours } from "../utils/TimeValidation";
 
 export default function ShoppingCart() {
     const cartContext = useContext<any>(CartContext);
@@ -17,6 +18,7 @@ export default function ShoppingCart() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [inProcess, setInProcess] = useState(false);
     const [isModalOpenClear, setIsModalOpenClear] = useState(false);
+    const [validationError, setValidationError] = useState('');
 
     useEffect(() => {
         setCartItems(cartContext.cartItems);
@@ -24,6 +26,7 @@ export default function ShoppingCart() {
             return accumulator + product.totalPrice;
         }, 0);
         setTotalPrice(total);
+        handleTimeChange();
     }, [cartContext.cartItems, cartContext.cartItems.quantity]);
 
     const openModal = () => setIsModalOpen(true);
@@ -42,6 +45,24 @@ export default function ShoppingCart() {
         setInProcess(status);
     }
 
+    const handleTimeChange = () => {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const timeValue = `${hours}:${minutes}`;
+        console.log("Current time:", timeValue);
+        
+        const startHour = "20:00";
+        const endHour = "22:30";
+        const isValid = isTimeBetweenHours(timeValue, startHour, endHour);
+
+        if (!isValid) {
+            setValidationError(`Los pedidos solo pueden realizarse entre las ${startHour} y las ${endHour} hs.`);
+        } else {
+            setValidationError('');
+        }
+    };
+
     return (
         <div className="main__container w-full flex flex-col justify-between p-2 pt-5">
             <section className="products">
@@ -52,18 +73,22 @@ export default function ShoppingCart() {
             </section>
             <footer>
                 {cartItems && cartItems!.length > 0 && <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPrice)}</p>}
+
                 <div className="flex justify-center gap-5">
                     <button className="button__primary__outlined my-3 flex items-center gap-1" onClick={openModalClear} disabled={cartItems!.length == 0}>
                         <FaRegTrashAlt /> Vaciar carrito
                     </button>
-                    <button className="button__primary my-3 flex items-center gap-2" onClick={openModal} disabled={cartItems!.length == 0 || inProcess}>
+                    <button className="button__primary my-3 flex items-center gap-2" onClick={openModal} 
+                        disabled={cartItems!.length == 0 || inProcess || validationError !== ''}>
                         <FaCartShopping />Confirmar <div></div>
                     </button>
                 </div>
+                
+                {validationError && <p className="text-center text-red-600 font-semibold">{validationError}</p>}
             </footer>
             {cartItems!.length > 0 !== undefined && isModalOpen &&
                 <Dialog title="Confirmación" isOpen={isModalOpen} onClose={closeModal}>
-                    <ShoppingCartConfirm prop={cartItems} totalPrice={totalPrice} 
+                    <ShoppingCartConfirm prop={cartItems} totalPrice={totalPrice}
                         onConfirm={handleConfirmClear} onClose={closeModal} onProcess={handleInProcess}></ShoppingCartConfirm>
                 </Dialog>
             }
