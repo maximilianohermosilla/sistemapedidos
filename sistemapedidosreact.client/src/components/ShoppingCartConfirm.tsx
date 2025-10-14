@@ -6,8 +6,10 @@ import { CreateOrder } from "../services/order-service";
 import showToast from "../services/toast-service";
 import DatePicker from "./DatePicker";
 import { calculateMinutesBetweenDates, dateToString } from "../utils/ParseDateUtil";
+import Spinner from "./Spinner";
 
-export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose }: any) {
+export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess }: any) {
+    const [loading, setLoading] = useState(false);
     const [shoppingCart, setShoppingCart] = useState([]);
     const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
     const [errors, setErrors] = useState<any>({});
@@ -20,7 +22,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
 
     useEffect(() => {
         prop.forEach((item: any) => {
-            if(item?.category?.name?.toUpperCase() === 'PICADAS' || item?.category?.name?.toUpperCase() === 'PICADA'){
+            if (item?.category?.name?.toUpperCase() === 'PICADAS' || item?.category?.name?.toUpperCase() === 'PICADA') {
                 setScheduledOrder(true);
             }
         });
@@ -73,6 +75,8 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     }
 
     const createOrder = async () => {
+        setLoading(true);
+        onProcess(true);
         const orderDetail = shoppingCart.map((item: any) => ({
             id: 0,
             itemId: item.id,
@@ -137,7 +141,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                     }
                 },
                 orderItems: orderDetail,
-                discounts: [ {
+                discounts: [{
                     id: 0,
                     title: "",
                     value: 0,
@@ -156,7 +160,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                     ammountByPartners: 0,
                     discountProductUnits: 0,
                     discountProductUnitValue: 0
-                } ],
+                }],
             },
             customer: {
                 firstName: formData?.name,
@@ -169,54 +173,60 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         };
 
         let response = await CreateOrder(order);
-
+        
         if (response) {
+            setLoading(false);
+            onProcess(false);
             showToast({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso.` });
             onConfirm();
         }
-        else{
+        else {
+            setLoading(false);
+            onProcess(false);
             onClose();
         }
     }
 
 
 
-    return (
-        <div>
-            <h3 className="text-primary font-semibold">Resumen de compra</h3>
-            <ul>{renderCartDetail()}</ul>
-            <form className="mt-5 mb-3" onSubmit={handleConfirm}>
-                <h3 className="text-primary font-semibold">Datos de contacto</h3>
-                <div className="flex justify-between my-3">
-                    <label htmlFor="name" className="text-secondary text-sm font-semibold mr-2">Nombre:</label>
-                    <input type="text" id="name" name="name" className="border-1 border-gray-400 rounded-sm px-2"
-                        value={formData?.name} onChange={handleChange} />
-                </div>
-                <div className="flex justify-between my-3">
-                    <label htmlFor="email" className="text-secondary text-sm font-semibold mr-2">Correo:</label>
-                    <input type="text" id="email" name="email" className="border-1 border-gray-400 rounded-sm px-2"
-                        value={formData?.email} onChange={handleChange} />
-                </div>
-                <div className="flex justify-between my-3">
-                    <label htmlFor="phone" className="text-secondary text-sm font-semibold mr-2">Teléfono:</label>
-                    <input type="text" id="phone" name="phone" className="border-1 border-gray-400 rounded-sm px-2"
-                        value={formData?.phone} onChange={handleChange} />
-                </div>
-                <section className="flex flex-col">
-                    {errors.name && <span className="text-red-700">* {errors.name}</span>}
-                    {errors.email && <span className="text-red-700">* {errors.email}</span>}
-                    {errors.phone && <span className="text-red-700">* {errors.phone}</span>}
-                </section>
-                {scheduledOrder && <section className="">
-                    <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
-                    <DatePicker date={tomorrow} emitDate={handleDate}></DatePicker>
-                </section>}
-                <footer>
-                    <button className="button__primary m-auto my-3 flex items-center gap-2" type="submit">
-                        <FaCheck />Confirmar <div></div>
-                    </button>
-                </footer>
-            </form>
-        </div>
-    )
+    return (<>
+        {loading
+            ? <Spinner text={"Generando pedido..."} />
+            : <div>
+                <h3 className="text-primary font-semibold">Resumen de compra</h3>
+                <ul>{renderCartDetail()}</ul>
+                <form className="mt-5 mb-3" onSubmit={handleConfirm}>
+                    <h3 className="text-primary font-semibold">Datos de contacto</h3>
+                    <div className="flex justify-between my-3">
+                        <label htmlFor="name" className="text-secondary text-sm font-semibold mr-2">Nombre:</label>
+                        <input type="text" id="name" name="name" className="border-1 border-gray-400 rounded-sm px-2"
+                            value={formData?.name} onChange={handleChange} />
+                    </div>
+                    <div className="flex justify-between my-3">
+                        <label htmlFor="email" className="text-secondary text-sm font-semibold mr-2">Correo:</label>
+                        <input type="text" id="email" name="email" className="border-1 border-gray-400 rounded-sm px-2"
+                            value={formData?.email} onChange={handleChange} />
+                    </div>
+                    <div className="flex justify-between my-3">
+                        <label htmlFor="phone" className="text-secondary text-sm font-semibold mr-2">Teléfono:</label>
+                        <input type="text" id="phone" name="phone" className="border-1 border-gray-400 rounded-sm px-2"
+                            value={formData?.phone} onChange={handleChange} />
+                    </div>
+                    <section className="flex flex-col">
+                        {errors.name && <span className="text-red-700">* {errors.name}</span>}
+                        {errors.email && <span className="text-red-700">* {errors.email}</span>}
+                        {errors.phone && <span className="text-red-700">* {errors.phone}</span>}
+                    </section>
+                    {scheduledOrder && <section className="">
+                        <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
+                        <DatePicker date={tomorrow} emitDate={handleDate}></DatePicker>
+                    </section>}
+                    <footer>
+                        <button className="button__primary m-auto my-3 flex items-center gap-2" type="submit">
+                            <FaCheck />Confirmar <div></div>
+                        </button>
+                    </footer>
+                </form>
+            </div>}
+    </>)
 }

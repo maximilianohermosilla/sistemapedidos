@@ -15,6 +15,7 @@ export default function ShoppingCart() {
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [inProcess, setInProcess] = useState(false);
     const [isModalOpenClear, setIsModalOpenClear] = useState(false);
 
     useEffect(() => {
@@ -37,6 +38,10 @@ export default function ShoppingCart() {
         closeModal();
     }
 
+    const handleInProcess = (status: boolean) => {
+        setInProcess(status);
+    }
+
     return (
         <div className="main__container w-full flex flex-col justify-between p-2 pt-5">
             <section className="products">
@@ -51,14 +56,15 @@ export default function ShoppingCart() {
                     <button className="button__primary__outlined my-3 flex items-center gap-1" onClick={openModalClear} disabled={cartItems!.length == 0}>
                         <FaRegTrashAlt /> Vaciar carrito
                     </button>
-                    <button className="button__primary my-3 flex items-center gap-2" onClick={openModal} disabled={cartItems!.length == 0}>
+                    <button className="button__primary my-3 flex items-center gap-2" onClick={openModal} disabled={cartItems!.length == 0 || inProcess}>
                         <FaCartShopping />Confirmar <div></div>
                     </button>
                 </div>
             </footer>
             {cartItems!.length > 0 !== undefined && isModalOpen &&
                 <Dialog title="Confirmación" isOpen={isModalOpen} onClose={closeModal}>
-                    <ShoppingCartConfirm prop={cartItems} totalPrice={totalPrice} onConfirm={handleConfirmClear} onClose={closeModal}></ShoppingCartConfirm>
+                    <ShoppingCartConfirm prop={cartItems} totalPrice={totalPrice} 
+                        onConfirm={handleConfirmClear} onClose={closeModal} onProcess={handleInProcess}></ShoppingCartConfirm>
                 </Dialog>
             }
             {cartItems!.length > 0 !== undefined && isModalOpenClear &&
