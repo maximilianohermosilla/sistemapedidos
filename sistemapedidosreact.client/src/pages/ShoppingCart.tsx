@@ -32,8 +32,6 @@ export default function ShoppingCart() {
         const totalStandard = itemsStandard.reduce((accumulator: any, product: any) => { return accumulator + product.totalPrice; }, 0);
         const totalScheduled = itemsScheduled.reduce((accumulator: any, product: any) => { return accumulator + product.totalPrice; }, 0);
         
-        console.log(itemsStandard);
-        console.log(itemsScheduled);
         setCartItems(itemsStandard);
         setCartItemsScheduled(itemsScheduled);
         setTotalPrice(total);
@@ -52,8 +50,28 @@ export default function ShoppingCart() {
     const closeModalClear = () => setIsModalOpenClear(false);
 
     const handleConfirmClear = () => {
-        cartContext.clearCart.bind(null)();
+        if(cartItemsScheduled.length === 0){
+            cartContext.clearCart.bind(null)();
+        }
+        else{
+            cartItems.forEach((item: any) => {
+                cartContext.removeFromCart.bind(item, item!.id)();
+            });
+        }
         closeModalClear();
+        closeModal();
+    }
+    
+    const handleConfirmClearScheduled = () => {
+        if(cartItems.length === 0){
+            cartContext.clearCart.bind(null)();
+        }
+        else{
+            cartItemsScheduled.forEach((item: any) => {
+                cartContext.removeFromCart.bind(item, item!.id)();
+            });
+        }
+        closeModalScheduled();
         closeModal();
     }
 
@@ -128,7 +146,7 @@ export default function ShoppingCart() {
             {cartItemsScheduled!.length > 0 !== undefined && isModalOpenScheduled &&
                 <Dialog title="Confirmación" isOpen={isModalOpenScheduled} onClose={closeModalScheduled}>
                     <ShoppingCartConfirm prop={cartItemsScheduled} totalPrice={totalPriceScheduled}
-                        onConfirm={handleConfirmClear} onClose={closeModalScheduled} onProcess={handleInProcess}></ShoppingCartConfirm>
+                        onConfirm={handleConfirmClearScheduled} onClose={closeModalScheduled} onProcess={handleInProcess}></ShoppingCartConfirm>
                 </Dialog>
             }
 

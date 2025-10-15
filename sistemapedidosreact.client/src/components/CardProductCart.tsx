@@ -36,9 +36,9 @@ export default function CardProductCart({ product }: any) {
     return (
         <>
             {item !== undefined &&
-                <div className="card__product__cart flex relative bg-white text-left rounded-md shadow-md shadow-gray-500/40 mb-5 m-auto">
+                <div className="card__product__cart flex relative bg-white text-left rounded-md shadow-md shadow-gray-500/40 mb-5 m-auto items-center">
                     <img src={item.imageUrl && item.imageUrl != '' ? item.imageUrl : imgDefault} alt={item.name} onError={addDefaultImg}
-                        className="max-w-25 md:max-w-40 object-fill bg-black rounded-l-md my-top md:max-h-30 max-h-40" />
+                        className="w-25 md:w-30 object-fill md:object-fill rounded-l-md md:max-h-full max-h-full p-1 md:p-0" />
                     <section className="md:flex w-full px-3 py-2 md:p-4 justify-between">
                         <div className="w-full">
                             <h3 className="font-normal md:font-semibold leading-5">{item.name}</h3>

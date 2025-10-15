@@ -31,7 +31,7 @@ export default function Search() {
             </section>
             {loading
                 ? <Spinner text={"Cargando productos..."} />
-                : <section className="m-auto">
+                : <section className="flex flex-wrap w-full mx-auto justify-center max-w-300 mt-3">
                     {items?.length > 0
                         ? contents
                         : <p className="text-lg font-semibold text-center text-cyan-700 w-full my-3">No hay productos para mostrar</p>

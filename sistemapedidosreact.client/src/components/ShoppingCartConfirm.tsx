@@ -83,7 +83,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             itemName: item.name,
             orderDetailId: 0,
             comments: "",
-            price: item.totalPrice,
+            price: item.price,
             quantity: item.quantity,
             maxLimit: 0,
             sortingPosition: 0,
