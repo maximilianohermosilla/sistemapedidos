@@ -7,6 +7,8 @@ import { FiMenu } from "react-icons/fi";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { BsPersonVcardFill } from "react-icons/bs";
+import { TbMeat } from "react-icons/tb";
+import CustomTooltip from "./Tooltip";
 
 const Header: React.FC = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -23,7 +25,7 @@ const Header: React.FC = () => {
         if (inputSearch) {
             setMenuOpen(false);
             navigate(`/search/${inputSearch}`);
-        }        
+        }
     }
 
     const handleKeyDown = (event: any) => {
@@ -58,16 +60,30 @@ const Header: React.FC = () => {
 
                     {/* Links desktop */}
                     <div className="hidden md:flex space-x-6">
-                        <a href="/contact" className="header__link text-gray-600 hover:text-blue-400">
-                            <FaMapMarkerAlt />
-                        </a>
-                        <a href="/orders" className="header__link text-gray-600 hover:text-blue-400">
-                            <BsPersonVcardFill />
-                        </a>
-                        <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400">
-                            <FaCartShopping />
-                            {cartItems.length > 0 && <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
-                        </a>
+                        <CustomTooltip content="Contacto">
+                            <a href="/contact" className="header__link text-gray-600 hover:text-blue-400">
+                                <FaMapMarkerAlt />
+                            </a>
+                        </CustomTooltip>
+
+                        <CustomTooltip content="Picadas">
+                            <a href="/picadas" className="header__link text-gray-600 hover:text-blue-400">
+                                <TbMeat />
+                            </a>
+                        </CustomTooltip>
+
+                        <CustomTooltip content="Pedidos">
+                            <a href="/orders" className="header__link text-gray-600 hover:text-blue-400">
+                                <BsPersonVcardFill />
+                            </a>
+                        </CustomTooltip>
+
+                        <CustomTooltip content="Carrito">
+                            <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400">
+                                <FaCartShopping />
+                                {cartItems.length > 0 && <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
+                            </a>
+                        </CustomTooltip>
                     </div>
 
                     {/* Hamburguesa mobile */}
@@ -104,6 +120,11 @@ const Header: React.FC = () => {
                         <a href="/contact" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
                             <FaMapMarkerAlt /> Ubicación
                         </a>
+
+                        <a href="/picadas" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
+                            <TbMeat /> Picadas
+                        </a>
+
                         <a href="/orders" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
                             <BsPersonVcardFill /> Pedidos
                         </a>

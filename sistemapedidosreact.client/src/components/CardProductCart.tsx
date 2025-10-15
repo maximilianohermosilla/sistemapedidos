@@ -36,23 +36,23 @@ export default function CardProductCart({ product }: any) {
     return (
         <>
             {item !== undefined &&
-                <div className="card__product__cart flex relative bg-white text-left rounded-md shadow-md shadow-gray-500/40 mb-5 m-auto ">
+                <div className="card__product__cart flex relative bg-white text-left rounded-md shadow-md shadow-gray-500/40 mb-5 m-auto">
                     <img src={item.imageUrl && item.imageUrl != '' ? item.imageUrl : imgDefault} alt={item.name} onError={addDefaultImg}
-                        className="w-25 md:w-40 object-fill bg-black rounded-l-md" />
+                        className="max-w-25 md:max-w-40 object-fill bg-black rounded-l-md my-top md:max-h-30 max-h-40" />
                     <section className="md:flex w-full px-3 py-2 md:p-4 justify-between">
                         <div className="w-full">
-                            <h3 className="font-bold">{item.name}</h3>
+                            <h3 className="font-normal md:font-semibold leading-5">{item.name}</h3>
                             {/* <p className="text-cyan-500">{item.category?.name}</p> */}
                             <p className="text-cyan-700 font-bold">{formatMoney(totalPrice)}</p>
-                            <footer className="w-full flex justify-between items-center mt-1">
+                            <footer className="w-full flex justify-between items-center">
                                 <div className="flex justify-between items-center w-25">
-                                    <button className="button__add__outlined mx-0 rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                    <button className="button__add__outlined mx-0 rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40 text-xs"
                                         // onClick={cartContext.updateQuantity.bind(null, item!.id, item!.quantity - 1)}>
                                         onClick={openModal}>
                                         <FaMinus />
                                     </button>
-                                    <span className="font-semibold text-gray-400 md:mx-1">{cartItemQuantity}</span>
-                                    <button className="button__add__outlined mx-0 rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                    <span className="font-semibold text-gray-400 md:mx-1 text-xs">{cartItemQuantity}</span>
+                                    <button className="button__add__outlined mx-0 rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40 text-xs"
                                         // onClick={cartContext.addToCart.bind(null, item)}>
                                         onClick={openModal}>
                                         <FaPlus />

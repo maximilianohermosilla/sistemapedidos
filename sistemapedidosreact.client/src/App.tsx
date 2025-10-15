@@ -11,6 +11,7 @@ import { AuthProvider } from './context/AuthContext';
 import { Toaster } from 'sonner';
 import Orders from './pages/Orders';
 import MenuPage from './pages/Menu';
+import PicadasPage from './pages/Picadas';
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/orders" element={<Orders />} />
                         <Route path="/menu" element={<MenuPage />} />
+                        <Route path="/picadas" element={<PicadasPage />} />
                         <Route path="/admin" element={<Administration />} />
                         <Route path="*" element={<LandingPage />} />
                     </Routes>

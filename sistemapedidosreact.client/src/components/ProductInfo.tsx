@@ -162,7 +162,7 @@ export default function ProductInfo({ product, onConfirm }: any) {
                                 onClick={handleDiscount}>
                                 <FaMinus />
                             </button>
-                            <span className="font-semibold text-gray-400 md:mx-2">{itemQuantity}</span>
+                            <span className="font-semibold text-gray-400 mx-1">{itemQuantity}</span>
                             <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
                                 onClick={() => setItemQuantity(itemQuantity + 1)}>
                                 <FaPlus />

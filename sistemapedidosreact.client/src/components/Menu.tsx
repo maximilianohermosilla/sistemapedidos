@@ -27,7 +27,7 @@ export default function Menu({items, title}: any) {
 
     return (
         <section className="menu__carrousel mt-5">
-            <h2 className="w-full text-center text-2xl font-bold text-primary mt-3">{title?.toUpperCase()}</h2>
+            <h2 className="w-full text-center md:text-2xl text-xl font-bold text-primary mt-3">{title?.toUpperCase()}</h2>
             <div className="menu__container relative">
                 {items?.length > 1 && <BsArrowLeftCircleFill className="hidden lg:block arrow arrow-left z-10" onClick={scrollLeft}></BsArrowLeftCircleFill>}
                 <div ref={scrollContainerRef} className="horizontal__scrol__wrapper menu__section flex gap-5 overflow-x-auto mb-3 w-75">

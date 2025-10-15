@@ -12,7 +12,6 @@ export default function LandingPage() {
     const [delay, setDelay] = useState<string>('10-15 min');
     const [menu, setMenu] = useState<any>();
     const [menuFavs, setMenuFavs] = useState<any>();
-    const [menuCombos, setMenuCombos] = useState<any>();
     const [menuGrouped, setMenuGrouped] = useState<any>();
 
     useEffect(() => {
@@ -21,13 +20,15 @@ export default function LandingPage() {
 
     async function getLastMenu() {
         const data = await GetLastMenu();
-        const productsGrouped = groupProducts(data?.items);
+        const productsWithoutPicadas = data.items.filter((item: any) => item?.category?.name?.toUpperCase() !== 'PICADAS');
+        const productsGrouped = groupProducts(productsWithoutPicadas);
         setLoading(false);
 
         setMenu(data);
-        setMenuFavs(data.items);
-        setMenuCombos(data.items.filter((item: any) => item.combo));
-        setMenuGrouped(productsGrouped);
+        setMenuFavs(productsWithoutPicadas);
+        setTimeout(() => {
+            setMenuGrouped(productsGrouped);            
+        }, 200);        
         getParameterByKey();
     }
 
@@ -43,8 +44,10 @@ export default function LandingPage() {
 
             map.get(category.id)!.items.push({ ...rest, category: category});
         });
-
-        return Array.from(map.values());
+        const productsGrouped = Array.from(map.values());
+        productsGrouped.sort((a: any, b: any) => a.category?.sortingPosition - b.category?.sortingPosition);
+        
+        return productsGrouped;
     }
 
     const getParameterByKey = async () => {
@@ -58,8 +61,7 @@ export default function LandingPage() {
                 ? <Spinner text={"Cargando productos..."} /> 
                 : <section className="pt-3">
                         <Delay delay={delay}></Delay>
-                        {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
-                        {menuCombos?.length > 0 && <Menu items={menuCombos} title={"Combos"}></Menu>}                
+                        {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}            
                         {menuGrouped?.map((group: any, index: any) => <Menu key={index} items={group!.items} title={group!.category!.name}></Menu>)}
                 </section>
             }

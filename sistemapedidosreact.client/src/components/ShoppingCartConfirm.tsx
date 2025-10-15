@@ -124,7 +124,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                 totalsId: undefined,
                 totals: {
                     id: 0,
-                    totalProducts: shoppingCart.length,
+                    totalProducts: totalPrice,
                     totalDiscounts: 0,
                     totalOrder: totalPrice,
                     totalToPay: totalPrice,
