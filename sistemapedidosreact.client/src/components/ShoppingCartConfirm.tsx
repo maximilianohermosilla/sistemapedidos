@@ -8,7 +8,7 @@ import DatePicker from "./DatePicker";
 import { calculateMinutesBetweenDates, dateToString } from "../utils/ParseDateUtil";
 import Spinner from "./Spinner";
 
-export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess }: any) {
+export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess, validationError }: any) {
     const [loading, setLoading] = useState(false);
     const [shoppingCart, setShoppingCart] = useState([]);
     const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
@@ -173,7 +173,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         };
 
         let response = await CreateOrder(order);
-        
+
         if (response) {
             setLoading(false);
             onProcess(false);
@@ -221,8 +221,10 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                         <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
                         <DatePicker date={tomorrow} emitDate={handleDate}></DatePicker>
                     </section>}
+
+                    {validationError && <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2">{validationError}</p>}
                     <footer>
-                        <button className="button__primary m-auto my-3 flex items-center gap-2" type="submit">
+                        <button className="button__primary m-auto my-3 flex items-center gap-2" type="submit" disabled={validationError && validationError !== ''}>
                             <FaCheck />Confirmar <div></div>
                         </button>
                     </footer>

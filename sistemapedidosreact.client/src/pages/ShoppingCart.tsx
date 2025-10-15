@@ -51,8 +51,8 @@ export default function ShoppingCart() {
     const openModalClear = () => setIsModalOpenClear(true);
     const closeModalClear = () => setIsModalOpenClear(false);
 
-    const handleConfirmClear = () => {
-        if(cartItemsScheduled.length === 0){
+    const handleConfirmClear = (clear: boolean = false) => {
+        if(cartItemsScheduled.length === 0 || clear){
             cartContext.clearCart.bind(null)();
         }
         else{
@@ -121,11 +121,12 @@ export default function ShoppingCart() {
                 {cartItems && cartItems!.length > 0 && <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPrice)}</p>}
 
                 <div className="flex justify-center gap-2 my-3 px-2">
-                    <button className="button__primary__outlined flex items-center gap-1" onClick={openModalClear} disabled={cartItems!.length == 0}>
+                    <button className="button__primary__outlined flex items-center gap-1" onClick={openModalClear} 
+                        disabled={cartItems!.length == 0 && cartItemsScheduled!.length == 0}>
                         <FaRegTrashAlt /> {!cartItemsScheduled || cartItemsScheduled!.length === 0 && <span>Vaciar</span>}
                     </button>
                     <button className="button__primary flex items-center gap-2" onClick={openModal}
-                        disabled={cartItems!.length == 0 || inProcess || validationError !== ''}>
+                        disabled={cartItems!.length == 0 || inProcess}>
                         <FaCartShopping />Confirmar <div></div>
                     </button>
                     {cartItemsScheduled && cartItemsScheduled!.length > 0 && 
@@ -134,13 +135,11 @@ export default function ShoppingCart() {
                         <FaRegClock />Confirmar <div></div>
                     </button>}
                 </div>
-
-                {validationError && <p className="text-center text-red-600 font-semibold mb-2">{validationError}</p>}
             </footer>
 
             {cartItems!.length > 0 !== undefined && isModalOpen &&
                 <Dialog title="Confirmación" isOpen={isModalOpen} onClose={closeModal}>
-                    <ShoppingCartConfirm prop={cartItems} totalPrice={totalPriceStandard}
+                    <ShoppingCartConfirm prop={cartItems} totalPrice={totalPriceStandard} validationError={validationError}
                         onConfirm={handleConfirmClear} onClose={closeModal} onProcess={handleInProcess}></ShoppingCartConfirm>
                 </Dialog>
             }
@@ -154,7 +153,7 @@ export default function ShoppingCart() {
 
             {cartItems!.length > 0 !== undefined && isModalOpenClear &&
                 <DialogConfirm title="Confirmación" message="¿Desea vaciar el carrito?"
-                    isOpen={isModalOpenClear} onClose={closeModalClear} onConfirm={handleConfirmClear}>
+                    isOpen={isModalOpenClear} onClose={closeModalClear} onConfirm={() => handleConfirmClear(true)}>
                 </DialogConfirm>
             }
         </div>

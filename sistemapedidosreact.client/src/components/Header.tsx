@@ -1,14 +1,16 @@
 import "./Header.css";
 import React, { useContext, useEffect, useState } from "react";
 import logo from '../assets/logo/logo_black_bottom.jpeg';
-import { FaCartShopping } from "react-icons/fa6";
-import { FaMapMarkerAlt, FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
-import { BsPersonVcardFill } from "react-icons/bs";
+import { BsPersonVcard } from "react-icons/bs";
 import { TbMeat } from "react-icons/tb";
 import CustomTooltip from "./Tooltip";
+import { BiFoodMenu } from "react-icons/bi";
+import { LuMapPin } from "react-icons/lu";
+import { IoCartOutline } from "react-icons/io5";
 
 const Header: React.FC = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -62,7 +64,7 @@ const Header: React.FC = () => {
                     <div className="hidden md:flex space-x-6">
                         <CustomTooltip content="Contacto">
                             <a href="/contact" className="header__link text-gray-600 hover:text-blue-400">
-                                <FaMapMarkerAlt />
+                                <LuMapPin />
                             </a>
                         </CustomTooltip>
 
@@ -74,13 +76,13 @@ const Header: React.FC = () => {
 
                         <CustomTooltip content="Pedidos">
                             <a href="/orders" className="header__link text-gray-600 hover:text-blue-400">
-                                <BsPersonVcardFill />
+                                <BsPersonVcard />
                             </a>
                         </CustomTooltip>
 
                         <CustomTooltip content="Carrito">
                             <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400">
-                                <FaCartShopping />
+                                <IoCartOutline  />
                                 {cartItems.length > 0 && <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
                             </a>
                         </CustomTooltip>
@@ -89,7 +91,7 @@ const Header: React.FC = () => {
                     {/* Hamburguesa mobile */}
                     <div className="md:hidden flex items-center">
                         {cartItems.length > 0 && <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400 mr-5">
-                            <FaCartShopping />
+                            <IoCartOutline  />
                             <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>
                         </a>}
                         <button onClick={() => setMenuOpen(!menuOpen)} className="header__link hover:cursor-pointer">
@@ -117,19 +119,26 @@ const Header: React.FC = () => {
                         </div>
 
                         {/* Links */}
-                        <a href="/contact" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                            <FaMapMarkerAlt /> Ubicación
+
+                        
+                        <a href="/" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
+                            <BiFoodMenu /> Menú
                         </a>
 
                         <a href="/picadas" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                            <TbMeat /> Picadas
+                            <TbMeat/> Picadas
                         </a>
 
+                        <a href="/contact" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
+                            <LuMapPin /> Ubicación
+                        </a>
+
+
                         <a href="/orders" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                            <BsPersonVcardFill /> Pedidos
+                            <BsPersonVcard /> Pedidos
                         </a>
                         <a href="/shopping-cart" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                            <FaCartShopping /> Carrito
+                            <IoCartOutline  /> Carrito
                             {cartItems.length > 0 && <span className="bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
                         </a>
                     </div>

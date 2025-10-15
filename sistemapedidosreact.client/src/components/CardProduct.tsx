@@ -36,7 +36,7 @@ export default function CardProduct({ product }: any) {
                 <article className="card__product relative bg-white text-left rounded-md shadow-md hover:shadow-lg 
                     shadow-gray-500/40 hover:cursor-pointer mx-auto md:mx-2 hover:opacity-80" onClick={openModal}>
                     <img src={item.imageUrl && item.imageUrl != '' ? item.imageUrl : imgDefault} alt={item.name} onError={addDefaultImg}
-                        className="w-full h-56 object-fill rounded-t-md" />
+                        className="w-full h-48 object-cover rounded-t-md" />
                     <footer className="flex p-4 justify-between">
                         <div>
                             <h3 className="font-bold">{item.name}</h3>
