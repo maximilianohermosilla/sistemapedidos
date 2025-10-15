@@ -13,7 +13,12 @@ import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 const positionDefault = [-34.92057857658673, -57.95523024039817];
 
 export default function Administration() {
-    const [formData, setFormData] = useState<any>({ delay: '', address: '', phone: '', email: '', whatsapp: '', instagram: '', schedules: '' });
+    const [formData, setFormData] = useState<any>({
+        delay: '', address: '', phone: '', email: ''
+        , whatsapp: '', instagram: '', schedules: ''
+        , latitude: '', longitude: '', opening: '', closing: ''
+        , updateMenu: false, updateMenuAlways: false
+    });
     const [error, setError] = useState<string | null>(null);
     const [position, setPosition] = useState<any>(positionDefault);
     const { isLoggedIn, login, logout } = useAuth();
@@ -44,6 +49,8 @@ export default function Administration() {
         const updateMenuAlwaysParameter = await GetParameterByKey(ParameterEnum.UPDATE_MENU_ALWAYS);
         const latitudeParameter = await GetParameterByKey(ParameterEnum.LATITUDE);
         const longitudeParameter = await GetParameterByKey(ParameterEnum.LONGITUDE);
+        const openingParameter = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
+        const closingParameter = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
 
         setFormData({
             ...formData,
@@ -56,6 +63,8 @@ export default function Administration() {
             schedules: schedulesParameter?.value || '',
             latitude: latitudeParameter?.value || '-34.92057857658673',
             longitude: longitudeParameter?.value || '-57.95523024039817',
+            opening: openingParameter?.value || '20:00',
+            closing: closingParameter?.value || '23:00',
             updateMenu: updateMenuParameter?.value === "SI" || false,
             updateMenuAlways: updateMenuAlwaysParameter?.value === "SI" || false
         })
@@ -87,6 +96,8 @@ export default function Administration() {
         await UpdateParameter({ key: ParameterEnum.SCHEDULES, value: formData?.schedules });
         await UpdateParameter({ key: ParameterEnum.LATITUDE, value: formData?.latitude });
         await UpdateParameter({ key: ParameterEnum.LONGITUDE, value: formData?.longitude });
+        await UpdateParameter({ key: ParameterEnum.OPENING_HOURS, value: formData?.opening });
+        await UpdateParameter({ key: ParameterEnum.CLOSING_HOURS, value: formData?.closing });
         await UpdateParameter({ key: ParameterEnum.UPDATE_MENU, value: formData?.updateMenu ? "SI" : "NO" });
         await UpdateParameter({ key: ParameterEnum.UPDATE_MENU_ALWAYS, value: formData?.updateMenuAlways ? "SI" : "NO" });
 
@@ -102,6 +113,14 @@ export default function Administration() {
         });
         return null;
     }
+
+    const handleOpening = (e: any) => {
+        setFormData({ ...formData, opening: e.target.value });
+    };
+
+    const handleClosing = (e: any) => {
+        setFormData({ ...formData, closing: e.target.value });
+    };
 
     return (
         <div className="main__container w-full flex flex-col justify-between">
@@ -154,7 +173,28 @@ export default function Administration() {
                                 <input type="text" id="whatsapp" name="whatsapp" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.whatsapp} onChange={handleChange} />
                             </div>
+
                             <div className="flex justify-between items-center my-3">
+                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos desde:</label>
+                                <input
+                                    className="w-30 px-2 rounded-sm"
+                                    type="time"
+                                    value={formData?.opening}
+                                    onChange={handleOpening}
+                                />
+                            </div>
+                            
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos hasta:</label>
+                                <input
+                                    className="w-30 px-2 rounded-sm"
+                                    type="time"
+                                    value={formData?.closing}
+                                    onChange={handleClosing}
+                                />
+                            </div>
+
+                            <div className="flex justify-between items-start my-3">
                                 <label htmlFor="schedules" className="text-gray-600 text-sm mr-2">Horarios:</label>
                                 <textarea id="schedules" name="schedules"
                                     className="border-1 border-gray-400 rounded-sm px-2 text-sm"
@@ -164,6 +204,7 @@ export default function Administration() {
                                     cols={30}
                                 />
                             </div>
+
                             <section className="h-full p-2 mt-5">
                                 <MapContainer
                                     style={{
@@ -171,7 +212,7 @@ export default function Administration() {
                                         width: "100%",
                                     }}
                                     center={position}
-                                    zoom={15}                                    
+                                    zoom={15}
                                 >
                                     <ClickHandler />
                                     <TileLayer

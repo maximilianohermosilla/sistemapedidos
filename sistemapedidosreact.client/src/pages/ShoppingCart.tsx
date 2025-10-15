@@ -10,6 +10,8 @@ import DialogConfirm from "../components/DialogConfirm";
 import Dialog from "../components/Dialog";
 import ShoppingCartConfirm from "../components/ShoppingCartConfirm";
 import { isTimeBetweenHours } from "../utils/TimeValidation";
+import { GetParameterByKey } from "../services/parameter-service";
+import { ParameterEnum } from "../enums/parameter";
 
 export default function ShoppingCart() {
     const cartContext = useContext<any>(CartContext);
@@ -79,19 +81,19 @@ export default function ShoppingCart() {
         setInProcess(status);
     }
 
-    const handleTimeChange = () => {
+    const handleTimeChange = async () => {
         const now = new Date();
         const hours = now.getHours();
         const minutes = now.getMinutes();
         const timeValue = `${hours}:${minutes}`;
         console.log("Current time:", timeValue);
 
-        const startHour = "20:00";
-        const endHour = "22:30";
-        const isValid = isTimeBetweenHours(timeValue, startHour, endHour);
+        const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
+        const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
+        const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '23:00');
 
         if (!isValid) {
-            setValidationError(`Los pedidos solo pueden realizarse entre las ${startHour} y las ${endHour} hs.`);
+            setValidationError(`Los pedidos solo pueden realizarse entre las ${startHour?.value || '20:00'} y las ${endHour?.value || '23:00'} hs.`);
         } else {
             setValidationError('');
         }
