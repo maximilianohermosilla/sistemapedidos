@@ -45,7 +45,7 @@ namespace SistemaPedidosReact.Server.Data.Repositories
                 .Include(o => o.OrderDetail).ThenInclude(d => d!.Discounts)
                 .Include(o => o.OrderDetail).ThenInclude(d => d!.OrderItems).ThenInclude(i => i!.Item)
                 .Include(o => o.OrderDetail).ThenInclude(d => d!.OrderItems).ThenInclude(i => i.OrderSubItems).ThenInclude(s => s.Item)
-                .Where(o => o.StoreId == pStoreId && o.OrderStateId == null).ToList();
+                .Where(o => o.StoreId == pStoreId && string.IsNullOrEmpty(o.State)).ToList();
 
             return vOrders;
         }
