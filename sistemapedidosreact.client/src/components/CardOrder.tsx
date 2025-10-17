@@ -61,7 +61,7 @@ export default function CardOrder({ order }: any) {
                         <Dialog title={item.name} isOpen={isModalOpen || false} onClose={closeModal}>
                             <>
                                 <h3 className="text-primary font-semibold text-lg border-2 px-2 py-1 mb-2 text-shadow-sm text-gray-900">Detalle de pedido N°{item?.id}</h3>
-                                <p className="mt-1 text-xs"><strong>Estado:</strong> {item?.orderState?.name ?? 'PENDIENTE'}</p>
+                                <p className="mt-1 text-xs"><strong>Estado:</strong> {item?.state ?? 'PENDIENTE'}</p>
                                 <p className="mt-1 text-xs"><strong>Fecha:</strong> {formatDate(item?.orderDetail?.createdAt!)}</p>
                                 <p className="mt-1 mb-5 text-xs"><strong>Cliente:</strong> {item?.customer?.firstName}</p>
                                 {item && isModalOpen && renderOrderDetail()}

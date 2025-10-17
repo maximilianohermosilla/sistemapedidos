@@ -3,10 +3,12 @@ import { formatMoney } from "../utils/FormatMoneyUtil";
 import { FaCheck } from "react-icons/fa6";
 import type { Order } from "../interfaces/order";
 import { CreateOrder } from "../services/order-service";
-import showToast from "../services/toast-service";
 import DatePicker from "./DatePicker";
 import { calculateMinutesBetweenDates, dateToString } from "../utils/ParseDateUtil";
 import Spinner from "./Spinner";
+import { GetParameterByKey } from "../services/parameter-service";
+import { ParameterEnum } from "../enums/parameter";
+import { formatDateHHMM } from "../utils/FormatDateUtil";
 
 export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess, validationError }: any) {
     const [loading, setLoading] = useState(false);
@@ -15,6 +17,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     const [errors, setErrors] = useState<any>({});
     const [scheduledOrder, setScheduledOrder] = useState<boolean>(false);
     const [minutes, setMinutes] = useState(0);
+    const [dateOrderScheduled, setDateOrderScheduled] = useState('');
 
     const today = new Date();
     const tomorrow = new Date(today);
@@ -70,6 +73,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     }
 
     const handleDate = (event?: any) => {
+        setDateOrderScheduled(formatDateHHMM(event.toISOString()));
         const minutes = calculateMinutesBetweenDates(new Date(), event);
         setMinutes(minutes);
     }
@@ -118,7 +122,17 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                 cantidadCubiertos: "1",
                 paymentMethodId: 1,
                 tip: 0,
-                deliveryInformationId: 1,
+                deliveryInformationId: undefined,
+                deliveryInformation: {
+                        id: 0,
+                        city: '',
+                        completeAdress: '',
+                        streetNumber: '',
+                        neighborhood: '',
+                        complement: formData!.name,
+                        postalCode: '',
+                        streetName: '',
+                },
                 billingInformationId: 1,
                 deliveryDiscountId: 1,
                 totalsId: undefined,
@@ -175,10 +189,16 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         let response = await CreateOrder(order);
 
         if (response) {
+            console.log(response)
+            const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
+            let messageDelay = delayParameter?.value ? `\nPuede retirarlo dentro de ${delayParameter?.value}.` : '';
+            messageDelay = response?.orderDetail?.cookingTime > 0 && dateOrderScheduled != '' ? `\nPuede retirarlo a partir de ${dateOrderScheduled}hs.` : messageDelay;
+
+            console.log(messageDelay);
             setLoading(false);
             onProcess(false);
-            showToast({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso.` });
-            onConfirm();
+            //showToast({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso.` });
+            onConfirm({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso. ${messageDelay}` });
         }
         else {
             setLoading(false);

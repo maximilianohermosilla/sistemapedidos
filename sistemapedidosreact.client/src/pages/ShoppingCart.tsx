@@ -22,9 +22,11 @@ export default function ShoppingCart() {
     const [totalPriceScheduled, setTotalPriceScheduled] = useState<number>(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpenScheduled, setIsModalOpenScheduled] = useState(false);
-    const [inProcess, setInProcess] = useState(false);
     const [isModalOpenClear, setIsModalOpenClear] = useState(false);
+    const [isModalOpenConfirmation, setIsModalOpenConfirmation] = useState(false);
+    const [inProcess, setInProcess] = useState(false);
     const [validationError, setValidationError] = useState('');
+    const [order, setOrder] = useState<any>(undefined);
 
     useEffect(() => {
         const itemsStandard = cartContext.cartItems.filter((item: any) => item?.category?.name?.toUpperCase() !== 'PICADAS');
@@ -50,6 +52,22 @@ export default function ShoppingCart() {
 
     const openModalClear = () => setIsModalOpenClear(true);
     const closeModalClear = () => setIsModalOpenClear(false);
+
+    const handleConfirm = (element: any) => {
+        console.log(element);
+        setOrder(element);
+        setIsModalOpenConfirmation(true);
+
+        handleConfirmClear();
+    }
+    
+    const handleConfirmScheduled = (element: any) => {
+        console.log(element);
+        setOrder(element);
+        setIsModalOpenConfirmation(true);
+
+        handleConfirmClearScheduled();
+    }
 
     const handleConfirmClear = (clear: boolean = false) => {
         if(cartItemsScheduled.length === 0 || clear){
@@ -140,20 +158,26 @@ export default function ShoppingCart() {
             {cartItems!.length > 0 !== undefined && isModalOpen &&
                 <Dialog title="Confirmación" isOpen={isModalOpen} onClose={closeModal}>
                     <ShoppingCartConfirm prop={cartItems} totalPrice={totalPriceStandard} validationError={validationError}
-                        onConfirm={handleConfirmClear} onClose={closeModal} onProcess={handleInProcess}></ShoppingCartConfirm>
+                        onConfirm={handleConfirm} onClose={closeModal} onProcess={handleInProcess}></ShoppingCartConfirm>
                 </Dialog>
             }
 
             {cartItemsScheduled!.length > 0 !== undefined && isModalOpenScheduled &&
                 <Dialog title="Confirmación" isOpen={isModalOpenScheduled} onClose={closeModalScheduled}>
                     <ShoppingCartConfirm prop={cartItemsScheduled} totalPrice={totalPriceScheduled}
-                        onConfirm={handleConfirmClearScheduled} onClose={closeModalScheduled} onProcess={handleInProcess}></ShoppingCartConfirm>
+                        onConfirm={handleConfirmScheduled} onClose={closeModalScheduled} onProcess={handleInProcess}></ShoppingCartConfirm>
                 </Dialog>
             }
 
             {cartItems!.length > 0 !== undefined && isModalOpenClear &&
                 <DialogConfirm title="Confirmación" message="¿Desea vaciar el carrito?"
                     isOpen={isModalOpenClear} onClose={closeModalClear} onConfirm={() => handleConfirmClear(true)}>
+                </DialogConfirm>
+            }
+
+            {isModalOpenConfirmation && order &&
+                <DialogConfirm title={order?.title} message={order?.description} hiddenCancelButton={true}
+                    isOpen={isModalOpenConfirmation} onClose={() => setIsModalOpenConfirmation(false)} onConfirm={() => setIsModalOpenConfirmation(false)}>
                 </DialogConfirm>
             }
         </div>

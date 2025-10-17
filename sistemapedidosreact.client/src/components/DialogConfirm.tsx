@@ -5,11 +5,12 @@ interface DialogConfirmProps {
     title: string;
     message: string;
     isOpen: boolean;
+    hiddenCancelButton?: boolean;
     onClose: () => void;
     onConfirm: () => void;
 }
 
-export default function DialogConfirm({ title, message, isOpen, onClose, onConfirm }: DialogConfirmProps) {
+export default function DialogConfirm({ title, message, isOpen, hiddenCancelButton, onClose, onConfirm }: DialogConfirmProps) {
     const dialogRef = useRef<HTMLDialogElement | null>(null);
 
     useEffect(() => {
@@ -39,9 +40,9 @@ export default function DialogConfirm({ title, message, isOpen, onClose, onConfi
                     <h3 className="font-semibold my-2 overflow-x-auto">{title}</h3>
                     <button className="btn-close p-0" onClick={handleClose}><IoClose /></button>
                 </div>
-                <p className="my-2 overflow-x-auto">{message}</p>
+                <p className="my-2 overflow-x-auto whitespace-break-spaces text-sm">{message}</p>
                 <div className="flex justify-center gap-3">
-                    <button className="button__primary__outlined mt-3 flex items-center gap-1" onClick={handleClose}>Cancelar</button>
+                    {!hiddenCancelButton && <button className="button__primary__outlined mt-3 flex items-center gap-1" onClick={handleClose}>Cancelar</button>}
                     <button className="button__primary mt-3 flex items-center gap-1" onClick={handleConfirm}>Confirmar</button>
                 </div>
             </div>

@@ -54,7 +54,7 @@ export default function LandingPage() {
     }
 
     const getParameterByKey = async () => {
-        const delayParameter = await GetParameterByKey('DELAY');
+        const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
         if (delayParameter) setDelay(delayParameter?.value);
     }
     
