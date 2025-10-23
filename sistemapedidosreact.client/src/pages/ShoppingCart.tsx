@@ -106,12 +106,12 @@ export default function ShoppingCart() {
         const timeValue = `${hours}:${minutes}`;
         console.log("Current time:", timeValue);
 
-        const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
+        const startHour = await GetParameterByKey(ParameterEnum.OPENING_SCHEDULES_HOURS);
         const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
         const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '23:00');
 
         if (!isValid) {
-            setValidationError(`Los pedidos solo pueden realizarse entre las ${startHour?.value || '20:00'} y las ${endHour?.value || '23:00'} hs.`);
+            setValidationError(`Los pedidos solo pueden realizarse de martes a domingos entre las ${startHour?.value || '20:00'} y las ${endHour?.value || '23:00'} hs.`);
         } else {
             setValidationError('');
         }

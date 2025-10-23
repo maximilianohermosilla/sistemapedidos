@@ -37,7 +37,7 @@ namespace SistemaPedidosReact.Server.Data.Repositories
 
         public Customer GetByEmailOrPhone(string pEmail, string pPhone)
         {
-            return vGblContext.Customers.FirstOrDefault(e => e.Email == pEmail || e.PhoneNumber == pPhone)!;
+            return vGblContext.Customers.FirstOrDefault(e => (!string.IsNullOrEmpty(pEmail) && e.Email == pEmail) || (!string.IsNullOrEmpty(pPhone) && e.PhoneNumber == pPhone))!;
         }
     }
 }

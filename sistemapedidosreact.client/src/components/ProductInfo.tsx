@@ -141,14 +141,14 @@ export default function ProductInfo({ product, onConfirm }: any) {
     return (
         <>
             {item &&
-                <div className="product__container">
+                <div className="product__container max-w-[300px] md:max-w-[45vw] lg:max-w-[30vw]">
                     <img src={item?.imageUrl && item?.imageUrl != '' ? item?.imageUrl : imgDefault} alt={item?.name} onError={addDefaultImg}
-                        className="w-full h-50 md:h-80 object-fill rounded-t-md" />
+                        className="w-full h-50 md:h-75 object-fill rounded-t-md" />
                     <section className="mt-2">
                         <div className="product__info">
                             <p className="text-cyan-700 font-bold">{formatMoney(item?.price || 0)}</p>
                             <p className="text-cyan-500">{item?.category?.name}</p>
-                            <p className="text-gray-500">{item?.description}</p>
+                            <p className="text-gray-500 whitespace-break-spaces">{item?.observaciones || item?.description}</p>
                         </div>
                         <div className="product__toppings my-3">
                             {Array.from({ length: itemQuantity }).map((item, index) => (

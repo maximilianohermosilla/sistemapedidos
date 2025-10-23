@@ -31,7 +31,7 @@ export default function PicadasPage() {
                         {products?.length > 0 && <Menu items={products} title={"Picadas"}></Menu>}    
                     </section>
             }
-            <p className="text-center text-gray-500 text-sm px-2">* Las picadas deben encargarse para una fecha y hora determinadas luego de su confirmación.</p>
+            <p className="text-center text-gray-500 text-sm px-2 mt-auto">* Las picadas deben encargarse para una fecha y hora determinadas luego de su confirmación.</p>
             {!loading && <Footer menu={menu}></Footer>}
             {!loading && <ViewCartButton></ViewCartButton>}
         </div>

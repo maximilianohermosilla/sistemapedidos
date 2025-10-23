@@ -9,6 +9,7 @@ import Spinner from "./Spinner";
 import { GetParameterByKey } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
 import { formatDateHHMM } from "../utils/FormatDateUtil";
+import { isTimeBetweenHours } from "../utils/TimeValidation";
 
 export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess, validationError }: any) {
     const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
     const [errors, setErrors] = useState<any>({});
     const [scheduledOrder, setScheduledOrder] = useState<boolean>(false);
+    const [scheduledSpecialOrder, setScheduledSpecialOrder] = useState<boolean>(false);
     const [minutes, setMinutes] = useState(0);
     const [dateOrderScheduled, setDateOrderScheduled] = useState('');
 
@@ -31,14 +33,31 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         });
 
         setShoppingCart(prop);
+        handleTimeChange();
     }, [prop])
+
+    const handleTimeChange = async () => {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const timeValue = `${hours}:${minutes}`;
+        console.log("Current time:", timeValue);
+
+        const startHour = await GetParameterByKey(ParameterEnum.OPENING_SCHEDULES_HOURS);
+        const endHour = await GetParameterByKey(ParameterEnum.CLOSING_SCHEDULES_HOURS);
+        const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '23:00');
+
+        if (isValid) {
+            setScheduledSpecialOrder(true);
+        }
+    };
 
 
     const renderCartDetail = () => {
         return shoppingCart.map((item: any) => {
             return (
                 <li key={item.id} className="flex flex-col justify-between my-1 decoration-0">
-                    <div className="w-full flex justify-between">
+                    <div className="w-full flex justify-between gap-1">
                         <p className="font-semibold">{item.quantity} x {item.name}</p>
                         <span className="text-green-600">{formatMoney(item.totalPrice)}</span>
                     </div>
@@ -52,21 +71,41 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         setFormData({ ...formData, [event?.target.name]: event?.target.value });
     };
 
-    const validate = () => {
+    const validate = async () => {
         const newErrors: any = {};
         if (!formData.name) {
             newErrors!.name = 'Nombre es requerido';
         }
-        if ((!formData.email || !/\S+@\S+\.\S+/.test(formData.email) && !formData.phone) && !formData.phone) {
-            newErrors!.email = 'Debe ingresar al menos un método válido de contacto';
+
+        if (!formData.phone) {
+            newErrors!.phone = 'Teléfono es requerido';
         }
+
+        if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
+            newErrors!.email = 'Formato de mail es incorrecto';
+        }
+
+        if (scheduledSpecialOrder) {
+            console.log("Special order")
+            const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
+            const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
+
+            const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1] || '20:00', startHour?.value || '20:00', endHour?.value || '23:00');
+            console.log(isValid)
+
+            if (!isValid) {
+                newErrors!.hours = `Horario de retiro: ${startHour?.value || '20:00'} - ${endHour?.value || '23:00'}hs.`;
+            }
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
+
     const handleConfirm = async (event?: any) => {
         event?.preventDefault();
-        if (validate()) {
+        if (await validate()) {
             await createOrder();
             setFormData({ name: '', email: '', phone: '' });
         }
@@ -74,6 +113,14 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
 
     const handleDate = (event?: any) => {
         setDateOrderScheduled(formatDateHHMM(event.toISOString()));
+        const minutes = calculateMinutesBetweenDates(new Date(), event);
+        setMinutes(minutes);
+    }
+
+    const handleDateScheduledOnDay = (event?: any) => {
+        console.log(event);
+        setDateOrderScheduled(formatDateHHMM(event.toISOString()));
+        console.log(formatDateHHMM(event.toISOString()));
         const minutes = calculateMinutesBetweenDates(new Date(), event);
         setMinutes(minutes);
     }
@@ -124,14 +171,14 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                 tip: 0,
                 deliveryInformationId: undefined,
                 deliveryInformation: {
-                        id: 0,
-                        city: '',
-                        completeAdress: '',
-                        streetNumber: '',
-                        neighborhood: '',
-                        complement: formData!.name,
-                        postalCode: '',
-                        streetName: '',
+                    id: 0,
+                    city: '',
+                    completeAdress: '',
+                    streetNumber: '',
+                    neighborhood: '',
+                    complement: scheduledSpecialOrder ? `${formData!.name} - (${dateOrderScheduled})` : formData!.name,
+                    postalCode: '',
+                    streetName: '',
                 },
                 billingInformationId: 1,
                 deliveryDiscountId: 1,
@@ -180,7 +227,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                 firstName: formData?.name,
                 lastName: "",
                 phoneNumber: formData?.phone,
-                documentNumber: "",
+                documentNumber: formData?.phone,
                 userType: "",
                 email: formData?.email
             }
@@ -189,12 +236,10 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         let response = await CreateOrder(order);
 
         if (response) {
-            console.log(response)
             const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
             let messageDelay = delayParameter?.value ? `\nPuede retirarlo dentro de ${delayParameter?.value}.` : '';
             messageDelay = response?.orderDetail?.cookingTime > 0 && dateOrderScheduled != '' ? `\nPuede retirarlo a partir de ${dateOrderScheduled}hs.` : messageDelay;
 
-            console.log(messageDelay);
             setLoading(false);
             onProcess(false);
             //showToast({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso.` });
@@ -223,24 +268,33 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                             value={formData?.name} onChange={handleChange} />
                     </div>
                     <div className="flex justify-between my-3">
-                        <label htmlFor="email" className="text-secondary text-sm font-semibold mr-2">Correo:</label>
-                        <input type="text" id="email" name="email" className="border-1 border-gray-400 rounded-sm px-2"
-                            value={formData?.email} onChange={handleChange} />
-                    </div>
-                    <div className="flex justify-between my-3">
                         <label htmlFor="phone" className="text-secondary text-sm font-semibold mr-2">Teléfono:</label>
                         <input type="text" id="phone" name="phone" className="border-1 border-gray-400 rounded-sm px-2"
                             value={formData?.phone} onChange={handleChange} />
                     </div>
+                    <div className="flex justify-between my-3">
+                        <label htmlFor="email" className="text-secondary text-sm font-semibold mr-2">Correo:</label>
+                        <input type="text" id="email" name="email" className="border-1 border-gray-400 rounded-sm px-2"
+                            value={formData?.email} onChange={handleChange} />
+                    </div>
                     <section className="flex flex-col">
-                        {errors.name && <span className="text-red-700">* {errors.name}</span>}
-                        {errors.email && <span className="text-red-700">* {errors.email}</span>}
-                        {errors.phone && <span className="text-red-700">* {errors.phone}</span>}
+                        {errors.name && <span className="text-red-600">* {errors.name}</span>}
+                        {errors.email && <span className="text-red-600">* {errors.email}</span>}
+                        {errors.phone && <span className="text-red-600">* {errors.phone}</span>}
                     </section>
                     {scheduledOrder && <section className="">
                         <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
                         <DatePicker date={tomorrow} emitDate={handleDate}></DatePicker>
                     </section>}
+
+                    {scheduledSpecialOrder && <section className="mt-3">
+                        <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
+                        <DatePicker date={today} emitDate={handleDateScheduledOnDay}></DatePicker>
+                    </section>}
+
+                    <section className="flex flex-col">
+                        {errors.hours && <span className="text-red-600 text-center w-full">* {errors.hours}</span>}
+                    </section>
 
                     {validationError && <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2">{validationError}</p>}
                     <footer>

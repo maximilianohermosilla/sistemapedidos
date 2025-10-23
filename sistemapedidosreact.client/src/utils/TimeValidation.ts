@@ -13,8 +13,8 @@ export const isTimeBetweenHours = (timeString: any, startHour: any, endHour: any
     endTime.setHours(hoursEnd, minutesEnd, 0, 0);
 
     if (startHour > endHour) {
-        return currentTime >= startTime || currentTime <= endTime;
+        return (currentTime >= startTime || currentTime <= endTime) && currentTime.getDay() !== 1;
     } else {
-        return currentTime >= startTime && currentTime <= endTime;
+        return (currentTime >= startTime && currentTime <= endTime) && currentTime.getDay() !== 1;
     }
 };

@@ -33,6 +33,7 @@ namespace SistemaPedidosReact.Server.Responses.Services
                     vCustomer.FirstName = pOrder!.Customer!.FirstName;
                     vCustomer.Email = vCustomer.Email == null || vCustomer.Email == "" ? pOrder!.Customer!.Email : vCustomer.Email;
                     vCustomer.PhoneNumber = vCustomer.PhoneNumber == null || vCustomer.PhoneNumber == "" ? pOrder!.Customer!.PhoneNumber : vCustomer.PhoneNumber;
+                    vCustomer.DocumentNumber = pOrder!.Customer!.PhoneNumber;
                     pOrder.CustomerId = vCustomer.Id;
                     pOrder.Customer = null;
 

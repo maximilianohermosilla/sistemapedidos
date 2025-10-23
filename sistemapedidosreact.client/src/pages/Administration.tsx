@@ -17,6 +17,7 @@ export default function Administration() {
         delay: '', address: '', phone: '', email: ''
         , whatsapp: '', instagram: '', schedules: ''
         , latitude: '', longitude: '', opening: '', closing: ''
+        , openingSchedules: '', closingSchedules: ''
         , updateMenu: false, updateMenuAlways: false
     });
     const [error, setError] = useState<string | null>(null);
@@ -51,6 +52,8 @@ export default function Administration() {
         const longitudeParameter = await GetParameterByKey(ParameterEnum.LONGITUDE);
         const openingParameter = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
         const closingParameter = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
+        const openingSchedulesParameter = await GetParameterByKey(ParameterEnum.OPENING_SCHEDULES_HOURS);
+        const closingSchedulesParameter = await GetParameterByKey(ParameterEnum.CLOSING_SCHEDULES_HOURS);
 
         setFormData({
             ...formData,
@@ -65,6 +68,8 @@ export default function Administration() {
             longitude: longitudeParameter?.value || '-57.95523024039817',
             opening: openingParameter?.value || '20:00',
             closing: closingParameter?.value || '23:00',
+            openingSchedules: openingSchedulesParameter?.value || '20:00',
+            closingSchedules: closingSchedulesParameter?.value || '23:00',
             updateMenu: updateMenuParameter?.value === "SI" || false,
             updateMenuAlways: updateMenuAlwaysParameter?.value === "SI" || false
         })
@@ -98,6 +103,8 @@ export default function Administration() {
         await UpdateParameter({ key: ParameterEnum.LONGITUDE, value: formData?.longitude });
         await UpdateParameter({ key: ParameterEnum.OPENING_HOURS, value: formData?.opening });
         await UpdateParameter({ key: ParameterEnum.CLOSING_HOURS, value: formData?.closing });
+        await UpdateParameter({ key: ParameterEnum.OPENING_SCHEDULES_HOURS, value: formData?.openingSchedules });
+        await UpdateParameter({ key: ParameterEnum.CLOSING_SCHEDULES_HOURS, value: formData?.closingSchedules });
         await UpdateParameter({ key: ParameterEnum.UPDATE_MENU, value: formData?.updateMenu ? "SI" : "NO" });
         await UpdateParameter({ key: ParameterEnum.UPDATE_MENU_ALWAYS, value: formData?.updateMenuAlways ? "SI" : "NO" });
 
@@ -120,6 +127,14 @@ export default function Administration() {
 
     const handleClosing = (e: any) => {
         setFormData({ ...formData, closing: e.target.value });
+    };
+    
+    const handleOpeningSchedules = (e: any) => {
+        setFormData({ ...formData, openingSchedules: e.target.value });
+    };
+
+    const handleClosingSchedules = (e: any) => {
+        setFormData({ ...formData, closingSchedules: e.target.value });
     };
 
     return (
@@ -173,9 +188,20 @@ export default function Administration() {
                                 <input type="text" id="whatsapp" name="whatsapp" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.whatsapp} onChange={handleChange} />
                             </div>
+                            <div className="flex justify-between items-start my-3">
+                                <label htmlFor="schedules" className="text-gray-600 text-sm mr-2">Horarios:</label>
+                                <textarea id="schedules" name="schedules"
+                                    className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                    value={formData?.schedules}
+                                    onChange={handleChange}
+                                    rows={5}
+                                    cols={30}
+                                />
+                            </div>
 
+                            <h3 className="text-primary text-lg font-semibold">Horarios</h3>
                             <div className="flex justify-between items-center my-3">
-                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos desde:</label>
+                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Apertura:</label>
                                 <input
                                     className="w-30 px-2 rounded-sm"
                                     type="time"
@@ -185,7 +211,7 @@ export default function Administration() {
                             </div>
                             
                             <div className="flex justify-between items-center my-3">
-                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos hasta:</label>
+                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Cierre:</label>
                                 <input
                                     className="w-30 px-2 rounded-sm"
                                     type="time"
@@ -193,15 +219,24 @@ export default function Administration() {
                                     onChange={handleClosing}
                                 />
                             </div>
-
-                            <div className="flex justify-between items-start my-3">
-                                <label htmlFor="schedules" className="text-gray-600 text-sm mr-2">Horarios:</label>
-                                <textarea id="schedules" name="schedules"
-                                    className="border-1 border-gray-400 rounded-sm px-2 text-sm"
-                                    value={formData?.schedules}
-                                    onChange={handleChange}
-                                    rows={5}
-                                    cols={30}
+                            
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados desde:</label>
+                                <input
+                                    className="w-30 px-2 rounded-sm"
+                                    type="time"
+                                    value={formData?.openingSchedules}
+                                    onChange={handleOpeningSchedules}
+                                />
+                            </div>
+                            
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados hasta:</label>
+                                <input
+                                    className="w-30 px-2 rounded-sm"
+                                    type="time"
+                                    value={formData?.closingSchedules}
+                                    onChange={handleClosingSchedules}
                                 />
                             </div>
 
