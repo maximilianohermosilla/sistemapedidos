@@ -86,13 +86,11 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         }
 
         if (scheduledSpecialOrder) {
-            console.log("Special order")
             const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
             const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
 
             const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1] || '20:00', startHour?.value || '20:00', endHour?.value || '23:00');
-            console.log(isValid)
-
+            
             if (!isValid) {
                 newErrors!.hours = `Horario de retiro: ${startHour?.value || '20:00'} - ${endHour?.value || '23:00'}hs.`;
             }
@@ -176,7 +174,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                     completeAdress: '',
                     streetNumber: '',
                     neighborhood: '',
-                    complement: scheduledSpecialOrder ? `${formData!.name} - (${dateOrderScheduled})` : formData!.name,
+                    complement: scheduledSpecialOrder ? `${formData!.name} - ( ${dateOrderScheduled.split(' ')[1] || '20:00'}hs )` : formData!.name,
                     postalCode: '',
                     streetName: '',
                 },
@@ -238,7 +236,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         if (response) {
             const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
             let messageDelay = delayParameter?.value ? `\nPuede retirarlo dentro de ${delayParameter?.value}.` : '';
-            messageDelay = response?.orderDetail?.cookingTime > 0 && dateOrderScheduled != '' ? `\nPuede retirarlo a partir de ${dateOrderScheduled}hs.` : messageDelay;
+            messageDelay = (response?.orderDetail?.cookingTime > 0 || scheduledSpecialOrder) && dateOrderScheduled != '' ? `\nPuede retirarlo a partir de ${dateOrderScheduled}hs.` : messageDelay;
 
             setLoading(false);
             onProcess(false);
