@@ -6,7 +6,7 @@ import { parseDMYHM } from '../utils/ParseDateUtil';
 
 export default function DatePicker({date, emitDate}: any) {
     const [selectedDate, setSelectedDate] = useState(date);
-    const [selectedTime, setSelectedTime] = useState('12:00');
+    const [selectedTime, setSelectedTime] = useState('20:00');
 
     useEffect(() => {
         const dateString = parseDMYHM(`${selectedDate?.toLocaleDateString()} ${selectedTime}`);
@@ -14,7 +14,7 @@ export default function DatePicker({date, emitDate}: any) {
     }, [selectedDate, selectedTime]);
 
     const handleDateSelect = (date: any) => {
-        setSelectedDate(date);
+        setSelectedDate(date ?? selectedDate);
     };
 
     const handleTimeChange = (e: any) => {
@@ -23,11 +23,11 @@ export default function DatePicker({date, emitDate}: any) {
 
     return (
         <>
-            <div className="text-xs">
+            <div className="text-xs w-full mx-auto">
                 <DayPicker
                     navLayout='after'
                     mode="single"
-                    selected={selectedDate}
+                    selected={selectedDate || new Date()}
                     onSelect={handleDateSelect}
                     disabled={{ before: date }}
                 />

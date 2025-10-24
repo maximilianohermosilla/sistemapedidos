@@ -25,3 +25,14 @@ export const sumMinutesToDate = (dateInitial: any, minutes: number) => {
 
     return date.toISOString();
 }
+
+export const parseDDMMYYYYHHMM = (dateString: string) => {
+    const parts = dateString.split(/[\/\s:]/);
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+    const hours = parseInt(parts[3], 10);
+    const minutes = parseInt(parts[4], 10);
+
+    return new Date(year+2000, month, day, hours, minutes);
+}

@@ -2,7 +2,7 @@ import "./ShoppingCart.css"
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { FaCartShopping, FaRegClock } from "react-icons/fa6";
+import { FaCartShopping } from "react-icons/fa6";
 import CardProductCart from "../components/CardProductCart";
 import { formatMoney } from "../utils/FormatMoneyUtil";
 import { BsCartXFill } from "react-icons/bs";
@@ -12,6 +12,7 @@ import ShoppingCartConfirm from "../components/ShoppingCartConfirm";
 import { isTimeBetweenHours } from "../utils/TimeValidation";
 import { GetParameterByKey } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
+import { TbMeat } from "react-icons/tb";
 
 export default function ShoppingCart() {
     const cartContext = useContext<any>(CartContext);
@@ -106,12 +107,12 @@ export default function ShoppingCart() {
         const timeValue = `${hours}:${minutes}`;
         console.log("Current time:", timeValue);
 
-        const startHour = await GetParameterByKey(ParameterEnum.OPENING_SCHEDULES_HOURS);
+        const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
         const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
         const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '23:00');
 
         if (!isValid) {
-            setValidationError(`Los pedidos solo pueden realizarse de martes a domingos entre las ${startHour?.value || '20:00'} y las ${endHour?.value || '23:00'} hs.`);
+            setValidationError(`Los pedidos pueden retirarse de martes a domingos entre las ${startHour?.value || '20:00'} y las ${endHour?.value || '23:00'} hs.`);
         } else {
             setValidationError('');
         }
@@ -150,7 +151,7 @@ export default function ShoppingCart() {
                     {cartItemsScheduled && cartItemsScheduled!.length > 0 && 
                     <button className="button__primary flex items-center gap-2" onClick={openModalScheduled}
                         disabled={cartItemsScheduled!.length == 0 || inProcess}>
-                        <FaRegClock />Confirmar <div></div>
+                        <TbMeat />Confirmar <div></div>
                     </button>}
                 </div>
             </footer>
