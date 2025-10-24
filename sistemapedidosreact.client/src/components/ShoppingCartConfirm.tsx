@@ -4,15 +4,17 @@ import { FaCheck } from "react-icons/fa6";
 import type { Order } from "../interfaces/order";
 import { CreateOrder } from "../services/order-service";
 import DatePicker from "./DatePicker";
-import { calculateMinutesBetweenDates, dateToString } from "../utils/ParseDateUtil";
+import { calculateMinutesBetweenDates, dateToString, parseDDMMYYYYHHMM } from "../utils/ParseDateUtil";
 import Spinner from "./Spinner";
 import { GetParameterByKey } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
 import { formatDateHHMM } from "../utils/FormatDateUtil";
 import { isTimeBetweenHours } from "../utils/TimeValidation";
+import Delay from "./Delay";
 
 export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess, validationError }: any) {
     const [loading, setLoading] = useState(false);
+    const [verifying, setVerifying] = useState(false);
     const [shoppingCart, setShoppingCart] = useState([]);
     const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
     const [errors, setErrors] = useState<any>({});
@@ -20,6 +22,8 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     const [scheduledSpecialOrder, setScheduledSpecialOrder] = useState<boolean>(false);
     const [minutes, setMinutes] = useState(0);
     const [dateOrderScheduled, setDateOrderScheduled] = useState('');
+    const [messageValidation, setMessageValidation] = useState(validationError);
+    const [delay, setDelay] = useState<string>('10-15 min');
 
     const today = new Date();
     const tomorrow = new Date(today);
@@ -32,9 +36,15 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             }
         });
 
+        getDelayParameterByKey();
         setShoppingCart(prop);
         handleTimeChange();
     }, [prop])
+
+    const getDelayParameterByKey = async () => {
+        const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
+        if (delayParameter) setDelay(delayParameter?.value);
+    }
 
     const handleTimeChange = async () => {
         const now = new Date();
@@ -43,13 +53,9 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         const timeValue = `${hours}:${minutes}`;
         console.log("Current time:", timeValue);
 
-        const startHour = await GetParameterByKey(ParameterEnum.OPENING_SCHEDULES_HOURS);
-        const endHour = await GetParameterByKey(ParameterEnum.CLOSING_SCHEDULES_HOURS);
-        const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '23:00');
-
-        if (isValid) {
-            setScheduledSpecialOrder(true);
-        }
+        // const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
+        // const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
+        // const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '22:00');
     };
 
 
@@ -85,24 +91,39 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             newErrors!.email = 'Formato de mail es incorrecto';
         }
 
+        if (scheduledOrder) {
+            const threeHoursInMilliseconds = 3 * 60 * 60 * 1000;
+
+            const now = new Date();
+            const dateSelected = parseDDMMYYYYHHMM(dateOrderScheduled);
+
+            const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1], '10:30', '21:00');
+
+            if ((dateSelected.getTime() < (now.getTime() + threeHoursInMilliseconds)) || !isValid) {
+                newErrors.hours = `Horario de retiro: ${'10:30'} - ${'21:00'}hs. Mínimo 3 horas de anticipación.`;
+            }
+        }
+
         if (scheduledSpecialOrder) {
             const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
             const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
 
             const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1] || '20:00', startHour?.value || '20:00', endHour?.value || '23:00');
-            
+
             if (!isValid) {
                 newErrors!.hours = `Horario de retiro: ${startHour?.value || '20:00'} - ${endHour?.value || '23:00'}hs.`;
             }
         }
 
         setErrors(newErrors);
+        setVerifying(false);
         return Object.keys(newErrors).length === 0;
     };
 
 
     const handleConfirm = async (event?: any) => {
         event?.preventDefault();
+        setVerifying(true);
         if (await validate()) {
             await createOrder();
             setFormData({ name: '', email: '', phone: '' });
@@ -110,17 +131,12 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     }
 
     const handleDate = (event?: any) => {
-        setDateOrderScheduled(formatDateHHMM(event.toISOString()));
-        const minutes = calculateMinutesBetweenDates(new Date(), event);
-        setMinutes(minutes);
-    }
-
-    const handleDateScheduledOnDay = (event?: any) => {
-        console.log(event);
-        setDateOrderScheduled(formatDateHHMM(event.toISOString()));
-        console.log(formatDateHHMM(event.toISOString()));
-        const minutes = calculateMinutesBetweenDates(new Date(), event);
-        setMinutes(minutes);
+        const date = new Date(event);
+        if (!isNaN(date.getTime())) {
+            setDateOrderScheduled(formatDateHHMM(event.toISOString()));
+            const minutes = calculateMinutesBetweenDates(new Date(), event);
+            setMinutes(minutes);
+        }
     }
 
     const createOrder = async () => {
@@ -250,6 +266,11 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         }
     }
 
+    const handleCheckboxScheduled = () => {
+        setMessageValidation(scheduledSpecialOrder ? validationError : "");
+        setScheduledSpecialOrder(!scheduledSpecialOrder);
+    }
+
 
 
     return (<>
@@ -258,7 +279,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             : <div>
                 <h3 className="text-primary font-semibold">Resumen de compra</h3>
                 <ul>{renderCartDetail()}</ul>
-                <form className="mt-5 mb-3" onSubmit={handleConfirm}>
+                <form className="mt-5 mb-3">
                     <h3 className="text-primary font-semibold">Datos de contacto</h3>
                     <div className="flex justify-between my-3">
                         <label htmlFor="name" className="text-secondary text-sm font-semibold mr-2">Nombre:</label>
@@ -282,23 +303,35 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                     </section>
                     {scheduledOrder && <section className="">
                         <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
-                        <DatePicker date={tomorrow} emitDate={handleDate}></DatePicker>
+                        <DatePicker date={today} emitDate={handleDate}></DatePicker>
                     </section>}
 
-                    {scheduledSpecialOrder && <section className="mt-3">
+                    {!scheduledOrder && <section className="flex flex-col mt-3">
+                        <Delay delay={delay} />
+                    </section>}
+
+                    {!scheduledOrder && <div className="flex justify-between items-center my-3">
+                        <label htmlFor="updateMenu" className="text-gray-600 text-sm mr-2">Seleccionar horario de retiro:</label>
+                        <input type="checkbox" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                            onChange={handleCheckboxScheduled} checked={scheduledSpecialOrder} />
+                    </div>}
+
+                    {scheduledSpecialOrder && !scheduledOrder && <section className="mt-3">
                         <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
-                        <DatePicker date={today} emitDate={handleDateScheduledOnDay}></DatePicker>
+                        <DatePicker date={today} emitDate={handleDate}></DatePicker>
                     </section>}
 
                     <section className="flex flex-col">
-                        {errors.hours && <span className="text-red-600 text-center w-full">* {errors.hours}</span>}
+                        {errors.hours && <span className="text-red-600 text-center">* {errors.hours}</span>}
                     </section>
 
-                    {validationError && <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2">{validationError}</p>}
+                    {messageValidation && <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2" style={{ maxWidth: '360px' }}>{messageValidation}</p>}
                     <footer>
-                        <button className="button__primary m-auto my-3 flex items-center gap-2" type="submit" disabled={validationError && validationError !== ''}>
+                        {verifying ? <Spinner text={"Generando pedido..."} /> 
+                            : <button className="button__primary m-auto my-3 flex items-center gap-2" onClick={handleConfirm}
+                            disabled={messageValidation && messageValidation !== ''}>
                             <FaCheck />Confirmar <div></div>
-                        </button>
+                        </button>}
                     </footer>
                 </form>
             </div>}
