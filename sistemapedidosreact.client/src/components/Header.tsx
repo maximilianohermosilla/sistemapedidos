@@ -6,11 +6,11 @@ import { FiMenu } from "react-icons/fi";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { BsPersonVcard } from "react-icons/bs";
-import { TbMeat } from "react-icons/tb";
 import CustomTooltip from "./Tooltip";
 import { BiFoodMenu } from "react-icons/bi";
 import { LuMapPin } from "react-icons/lu";
 import { IoCartOutline } from "react-icons/io5";
+import { PiCheese } from "react-icons/pi";
 
 const Header: React.FC = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -70,7 +70,7 @@ const Header: React.FC = () => {
 
                         <CustomTooltip content="Picadas">
                             <a href="/picadas" className="header__link text-gray-600 hover:text-blue-400">
-                                <TbMeat />
+                                <PiCheese />
                             </a>
                         </CustomTooltip>
 
@@ -126,7 +126,7 @@ const Header: React.FC = () => {
                         </a>
 
                         <a href="/picadas" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                            <TbMeat/> Picadas
+                            <PiCheese/> Picadas
                         </a>
 
                         <a href="/contact" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">

@@ -81,8 +81,8 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IParameterService, ParameterService>();
 
-//builder.Services.AddHttpClient();
-//builder.Services.AddHostedService<KeepAliveService>();
+builder.Services.AddHttpClient();
+builder.Services.AddHostedService<KeepAliveService>();
 
 //ADD CORS
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp",
@@ -168,7 +168,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 // Configurar para evitar el shutdown por inactividad
-builder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(0));
+builder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(30));
 
 // O mantener un timeout más largo
 //builder.WebHost.UseShutdownTimeout(TimeSpan.FromMinutes(10));

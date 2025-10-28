@@ -28,8 +28,8 @@
                     _logger.LogWarning(ex, "Keep-alive failed");
                 }
 
-                // Esperar 5 minutos antes del próximo keep-alive
-                await Task.Delay(TimeSpan.FromMinutes(3), stoppingToken);
+                // Esperar x minutos/segundos antes del próximo keep-alive
+                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
             }
         }
     }

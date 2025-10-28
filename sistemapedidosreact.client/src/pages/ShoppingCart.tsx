@@ -12,7 +12,7 @@ import ShoppingCartConfirm from "../components/ShoppingCartConfirm";
 import { isTimeBetweenHours } from "../utils/TimeValidation";
 import { GetParameterByKey } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
-import { TbMeat } from "react-icons/tb";
+import { PiCheese } from "react-icons/pi";
 
 export default function ShoppingCart() {
     const cartContext = useContext<any>(CartContext);
@@ -151,7 +151,7 @@ export default function ShoppingCart() {
                     {cartItemsScheduled && cartItemsScheduled!.length > 0 && 
                     <button className="button__primary flex items-center gap-2" onClick={openModalScheduled}
                         disabled={cartItemsScheduled!.length == 0 || inProcess}>
-                        <TbMeat />Confirmar <div></div>
+                        <PiCheese />Confirmar <div></div>
                     </button>}
                 </div>
             </footer>

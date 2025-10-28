@@ -64,7 +64,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             return (
                 <li key={item.id} className="flex flex-col justify-between my-1 decoration-0">
                     <div className="w-full flex justify-between gap-1">
-                        <p className="font-semibold">{item.quantity} x {item.name}</p>
+                        <p className="font-semibold w-fit leading-5" style={{ maxWidth: '200px' }}>{item.quantity} x {item.name}</p>
                         <span className="text-green-600">{formatMoney(item.totalPrice)}</span>
                     </div>
                     <p className="text-gray-500">{item.toppings.map((topping: any) => topping.name).join(', ')}</p>
