@@ -19,11 +19,14 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
     const [errors, setErrors] = useState<any>({});
     const [scheduledOrder, setScheduledOrder] = useState<boolean>(false);
+    const [scheduledOrderSpecial, setScheduledOrderSpecial] = useState<boolean>(false);
     const [scheduledSpecialOrder, setScheduledSpecialOrder] = useState<boolean>(false);
     const [minutes, setMinutes] = useState(0);
     const [dateOrderScheduled, setDateOrderScheduled] = useState('');
     const [messageValidation, setMessageValidation] = useState(validationError);
     const [delay, setDelay] = useState<string>('10-15 min');
+    const [selectedDate, setSelectedDate] = useState('2025-12-24');
+    const [selectedTime, setSelectedTime] = useState('12:00');
 
     const today = new Date();
     const tomorrow = new Date(today);
@@ -34,11 +37,14 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             if (item?.category?.name?.toUpperCase() === 'PICADAS' || item?.category?.name?.toUpperCase() === 'PICADA') {
                 setScheduledOrder(true);
             }
+
+            if (item?.category?.name?.toUpperCase() === 'MENU FIESTAS') {
+                setScheduledOrderSpecial(true);
+            }
         });
 
         getDelayParameterByKey();
         setShoppingCart(prop);
-        handleTimeChange();
     }, [prop])
 
     const getDelayParameterByKey = async () => {
@@ -46,18 +52,19 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         if (delayParameter) setDelay(delayParameter?.value);
     }
 
-    const handleTimeChange = async () => {
-        const now = new Date();
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        const timeValue = `${hours}:${minutes}`;
-        console.log("Current time:", timeValue);
-
-        // const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
-        // const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
-        // const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '22:00');
+    const handleSelectedDateChange = (e: any) => {
+        setSelectedDate(e.target.value);
+        setDateOrderScheduled(formatDateHHMM(`${e.target.value}T${selectedTime}:00.000`));
+        const minutes = calculateMinutesBetweenDates(new Date(), new Date(`${e.target.value}T${selectedTime}:00.000`));
+        setMinutes(minutes);
     };
 
+    const handleSelectedTimeChange = (e: any) => {
+        setSelectedTime(e.target.value);
+        setDateOrderScheduled(formatDateHHMM(`${selectedDate}T${e.target.value}:00.000`));
+        const minutes = calculateMinutesBetweenDates(new Date(), new Date((`${selectedDate}T${e.target.value}:00.000`)));
+        setMinutes(minutes);
+    };
 
     const renderCartDetail = () => {
         return shoppingCart.map((item: any) => {
@@ -109,9 +116,18 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
 
             const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1] || '20:00', startHour?.value || '20:00', endHour?.value || '23:00');
-
+            
             if (!isValid) {
                 newErrors!.hours = `Horario de retiro: ${startHour?.value || '20:00'} - ${endHour?.value || '23:00'}hs.`;
+            }
+        }
+
+        //MENU FIESTAS
+        if (scheduledOrderSpecial) {
+            const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1] || '20:00', '09:00', '15:00');
+
+            if (!isValid) {
+                newErrors!.hours = `Horario de retiro: 09 - 15hs.`;
             }
         }
 
@@ -133,6 +149,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     const handleDate = (event?: any) => {
         const date = new Date(event);
         if (!isNaN(date.getTime())) {
+            //console.log(event.toISOString())
             setDateOrderScheduled(formatDateHHMM(event.toISOString()));
             const minutes = calculateMinutesBetweenDates(new Date(), event);
             setMinutes(minutes);
@@ -177,7 +194,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                 orderId: 0,
                 deliveryOperationType: "Regular",
                 createdAt: dateToString(new Date()),
-                cookingTime: scheduledOrder ? minutes : undefined,
+                cookingTime: scheduledOrder || scheduledOrderSpecial ? minutes : undefined,
                 deliveryMethod: "Pickup",
                 mesaId: 1,
                 cantidadCubiertos: "1",
@@ -247,6 +264,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             }
         };
 
+        //console.log(order);
         let response = await CreateOrder(order);
 
         if (response) {
@@ -306,11 +324,11 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                         <DatePicker date={today} emitDate={handleDate}></DatePicker>
                     </section>}
 
-                    {!scheduledOrder && <section className="flex flex-col mt-3">
+                    {!scheduledOrder && !scheduledOrderSpecial && <section className="flex flex-col mt-3">
                         <Delay delay={delay} />
                     </section>}
 
-                    {!scheduledOrder && <div className="flex justify-between items-center my-3">
+                    {!scheduledOrder && !scheduledOrderSpecial && <div className="flex justify-between items-center my-3">
                         <label htmlFor="updateMenu" className="text-gray-600 text-sm mr-2">Seleccionar horario de retiro:</label>
                         <input type="checkbox" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
                             onChange={handleCheckboxScheduled} checked={scheduledSpecialOrder} />
@@ -321,17 +339,42 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                         <DatePicker date={today} emitDate={handleDate}></DatePicker>
                     </section>}
 
+                    {/* MENU FIESTAS */}
+                    {scheduledOrderSpecial && <section className="flex flex-col mt-3">
+                        <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
+                        <div className="flex gap-3 justify-between my-2">
+                            <p className="text-md mt-1">Seleccione Día:</p>
+                            <select className="w-30 px-1 rounded-sm text-sm" onChange={handleSelectedDateChange}>
+                                <option value="2025-12-24">24/12/2025</option>
+                                <option value="2025-12-31">31/12/2025</option>
+                            </select>
+                        </div>
+
+                        <div className="flex gap-3 justify-between mt-2 mb-4">
+                            <p className="text-md mt-1">Seleccione Horario:</p>
+                            <input className="w-30 px-2 rounded-sm text-sm"
+                                type="time"
+                                value={selectedTime}
+                                onChange={handleSelectedTimeChange}
+                            />
+                        </div>
+                        <p className="text-center text-primary text-shadow-sm font-light leading-6 my-2 whitespace-break-spaces" style={{ maxWidth: '360px' }}>
+                            El pedido debe ser reservado abonando el 50% del valor total. 
+                            Comuníquese a través de nuestro whatsapp o instagram luego de confirmar el pedido.
+                        </p>
+                    </section>}
+
                     <section className="flex flex-col">
                         {errors.hours && <span className="text-red-600 text-center">* {errors.hours}</span>}
                     </section>
 
                     {messageValidation && <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2" style={{ maxWidth: '360px' }}>{messageValidation}</p>}
                     <footer>
-                        {verifying ? <Spinner text={"Generando pedido..."} /> 
+                        {verifying ? <Spinner text={"Generando pedido..."} />
                             : <button className="button__primary m-auto my-3 flex items-center gap-2" onClick={handleConfirm}
-                            disabled={messageValidation && messageValidation !== ''}>
-                            <FaCheck />Confirmar <div></div>
-                        </button>}
+                                disabled={messageValidation && messageValidation !== ''}>
+                                <FaCheck />Confirmar <div></div>
+                            </button>}
                     </footer>
                 </form>
             </div>}

@@ -11,6 +11,7 @@ export const dateToString = (date: any) => {
 }
 
 export const calculateMinutesBetweenDates = (dateInitial: any, dateEnd: any) => {
+    console.log(dateEnd)
     const timestampInitial = dateInitial.getTime();
     const timestampEnd = dateEnd.getTime();
 

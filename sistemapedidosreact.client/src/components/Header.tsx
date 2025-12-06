@@ -82,7 +82,7 @@ const Header: React.FC = () => {
 
                         <CustomTooltip content="Carrito">
                             <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400">
-                                <IoCartOutline  />
+                                <IoCartOutline />
                                 {cartItems.length > 0 && <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
                             </a>
                         </CustomTooltip>
@@ -90,8 +90,11 @@ const Header: React.FC = () => {
 
                     {/* Hamburguesa mobile */}
                     <div className="md:hidden flex items-center">
+                        <a href="/picadas" className="header__link flex flex-col justify-center align-center text-gray-600 hover:text-blue-400 mr-5">
+                            <PiCheese className="mx-auto mt-3 mb-0"/> <span className="leading-3 text-xs">Picadas</span>
+                        </a>
                         {cartItems.length > 0 && <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400 mr-5">
-                            <IoCartOutline  />
+                            <IoCartOutline />
                             <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>
                         </a>}
                         <button onClick={() => setMenuOpen(!menuOpen)} className="header__link hover:cursor-pointer">
@@ -120,13 +123,13 @@ const Header: React.FC = () => {
 
                         {/* Links */}
 
-                        
+
                         <a href="/" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
                             <BiFoodMenu /> Menú
                         </a>
 
                         <a href="/picadas" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                            <PiCheese/> Picadas
+                            <PiCheese /> Picadas
                         </a>
 
                         <a href="/contact" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
@@ -138,7 +141,7 @@ const Header: React.FC = () => {
                             <BsPersonVcard /> Pedidos
                         </a>
                         <a href="/shopping-cart" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                            <IoCartOutline  /> Carrito
+                            <IoCartOutline /> Carrito
                             {cartItems.length > 0 && <span className="bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
                         </a>
                     </div>

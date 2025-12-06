@@ -88,6 +88,10 @@ export default function LandingPage() {
                     }
                     {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
                     {menuGrouped?.map((group: any, index: any) => <Menu key={index} items={group!.items} title={group!.category!.name}></Menu>)}
+                    <a href="/picadas" className="w-full flex flex-col m-auto md:w-300 justify-center border-b-3 border-white p-3 rounded-md hover:cursor-pointer hover:opacity-60">
+                        <img src="https://ayresit.ar/ayrespop_imagenes/00461/00004970_2025_10_15_12_19_08.jpg" alt="Picadas" className="w-full mb-3 relative opacity-90 rounded-md" />
+                        <h2 className="w-full md:w-300 text-center font-semibold text-4xl text-white my-3 text-shadow-gray-700 text-shadow-sm absolute mb-5">Picadas</h2>
+                    </a>
                 </section>
             }
             {!loading && <Footer menu={menu}></Footer>}

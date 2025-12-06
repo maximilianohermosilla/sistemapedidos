@@ -109,16 +109,16 @@ export default function ProductInfo({ product, onConfirm }: any) {
     const handleConfirm = () => {
         const product = { ...item, quantity: itemQuantity, toppings: selectedToppings, totalPrice: totalPrice }
         cartContext.addToCart.bind(null, product)();
-        showToast({title: 'Producto', description:  `${product?.name} agregado correctamente.`});
+        showToast({ title: 'Producto', description: `${product?.name} agregado correctamente.` });
         onConfirm();
     }
 
     const validateToppings = () => {
         let toppingIncomplete: boolean = false;
-        for (let index = 0; index <= itemQuantity-1; index++) {
+        for (let index = 0; index <= itemQuantity - 1; index++) {
             toppings?.forEach((topping: any) => {
                 if (topping?.category?.maxQty == 1) {
-                    const toppingChecked = selectedToppings.find((t: any) => t.categoryId === topping?.category?.id && t.productNumber === index);                    
+                    const toppingChecked = selectedToppings.find((t: any) => t.categoryId === topping?.category?.id && t.productNumber === index);
                     if (!toppingChecked) {
                         toppingIncomplete = true;
                     }
@@ -156,21 +156,48 @@ export default function ProductInfo({ product, onConfirm }: any) {
                             ))}
                         </div>
                     </section>
-                    <footer className="flex justify-between items-center mt-5">
-                        <div className="flex justify-between items-center w-20">
-                            <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
-                                onClick={handleDiscount}>
-                                <FaMinus />
-                            </button>
-                            <span className="font-semibold text-gray-400 mx-1">{itemQuantity}</span>
-                            <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
-                                onClick={() => setItemQuantity(itemQuantity + 1)}>
-                                <FaPlus />
-                            </button>
-                        </div>
+
+                    {/* {item?.category?.name?.toUpperCase() == 'MENU FIESTAS' &&
+                        <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2" style={{ maxWidth: '360px' }}>
+                            El pedido debe ser reservado abonando el 50% del valor total. 
+                            Comuníquese a través de nuestro whatsapp o instagram luego de confirmar el pedido.
+                        </p>                        
+                    } */}
+
+                    <footer className="flex justify-between items-end mt-5">
+                        {item?.category?.name?.toUpperCase() == 'MENU FIESTAS' ?
+                            <div className="">
+                                <p className="w-full text-center text-gray-500 text-sm font-semibold">Comen </p>
+                                <div className="flex justify-between items-center w-20">
+                                    <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                        onClick={handleDiscount}>
+                                        <FaMinus />
+                                    </button>
+                                    <span className="font-semibold text-gray-400 mx-1">{itemQuantity * 5}</span>
+                                    <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                        onClick={() => setItemQuantity(itemQuantity + 1)}>
+                                        <FaPlus />
+                                    </button>
+                                </div>
+                            </div>
+                            :
+                            <div className="flex justify-between items-center w-20">
+                                <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                    onClick={handleDiscount}>
+                                    <FaMinus />
+                                </button>
+                                <span className="font-semibold text-gray-400 mx-1">{itemQuantity}</span>
+                                <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                    onClick={() => setItemQuantity(itemQuantity + 1)}>
+                                    <FaPlus />
+                                </button>
+                            </div>
+                        }
+
                         <button tabIndex={0} className="button__primary flex items-center gap-1" onClick={handleConfirm} disabled={requiredToppings}>
                             Agregar {formatMoney(totalPrice || 0)}
                         </button>
+
                     </footer>
                 </div>
             }
