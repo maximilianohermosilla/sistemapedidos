@@ -14,6 +14,7 @@ export default function LandingPage() {
     const [delay, setDelay] = useState<string>('10-15 min');
     const [menu, setMenu] = useState<any>();
     const [menuFavs, setMenuFavs] = useState<any>();
+    const [menuSpecial, setMenuSpecial] = useState<any>();
     const [menuGrouped, setMenuGrouped] = useState<any>();
     const [validationError, setValidationError] = useState('');
 
@@ -23,12 +24,14 @@ export default function LandingPage() {
 
     async function getLastMenu() {
         const data = await GetLastMenu();
-        const productsWithoutPicadas = data.items.filter((item: any) => item?.category?.name?.toUpperCase() !== 'PICADAS');
+        const productsSpecial = data.items.filter((item: any) => item?.category?.name?.toUpperCase() === 'MENU FIESTAS');
+        const productsWithoutPicadas = data.items.filter((item: any) => item?.category?.name?.toUpperCase() !== 'PICADAS' && item?.category?.name?.toUpperCase() !== 'MENU FIESTAS');
         const productsGrouped = groupProducts(productsWithoutPicadas);
         setLoading(false);
 
         setMenu(data);
         setMenuFavs(productsWithoutPicadas);
+        setMenuSpecial(productsSpecial);
         setTimeout(() => {
             setMenuGrouped(productsGrouped);
         }, 200);
@@ -86,6 +89,7 @@ export default function LandingPage() {
                         ? <p className="bg-white text-center text-red-500 text-shadow-sm shadow-sm font-light leading-5 mt-2 border-2 border-red-300 mx-2 rounded-sm p-2">{validationError}</p>
                         : <Delay delay={delay}></Delay>
                     }
+                    {menuSpecial?.length > 0 && <Menu items={menuSpecial} title={"Menús Especiales"}></Menu>}
                     {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
                     {menuGrouped?.map((group: any, index: any) => <Menu key={index} items={group!.items} title={group!.category!.name}></Menu>)}
                     <a href="/picadas" className="w-full flex flex-col m-auto md:w-300 justify-center border-b-3 border-white p-3 rounded-md hover:cursor-pointer hover:opacity-60">

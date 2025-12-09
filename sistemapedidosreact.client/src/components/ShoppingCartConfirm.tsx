@@ -59,11 +59,12 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         setMinutes(minutes);
     };
 
-    const handleSelectedTimeChange = (e: any) => {
+    const handleSelectedTimeChange = async (e: any) => {
         setSelectedTime(e.target.value);
         setDateOrderScheduled(formatDateHHMM(`${selectedDate}T${e.target.value}:00.000`));
         const minutes = calculateMinutesBetweenDates(new Date(), new Date((`${selectedDate}T${e.target.value}:00.000`)));
         setMinutes(minutes);
+        await validate();
     };
 
     const renderCartDetail = () => {
@@ -355,6 +356,8 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                             <input className="w-30 px-2 rounded-sm text-sm"
                                 type="time"
                                 value={selectedTime}
+                                min="09:00"
+                                max="15:00"
                                 onChange={handleSelectedTimeChange}
                             />
                         </div>
@@ -364,18 +367,18 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                         </p>
                     </section>}
 
-                    <section className="flex flex-col">
-                        {errors.hours && <span className="text-red-600 text-center">* {errors.hours}</span>}
-                    </section>
-
                     {messageValidation && <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2" style={{ maxWidth: '360px' }}>{messageValidation}</p>}
                     <footer>
                         {verifying ? <Spinner text={"Generando pedido..."} />
                             : <button className="button__primary m-auto my-3 flex items-center gap-2" onClick={handleConfirm}
-                                disabled={messageValidation && messageValidation !== ''}>
+                                disabled={messageValidation && messageValidation !== '' && errors?.hours != ''}>
                                 <FaCheck />Confirmar <div></div>
                             </button>}
                     </footer>
+
+                    <section className="flex flex-col">
+                        {errors.hours && <span className="text-red-600 text-center">* {errors.hours}</span>}
+                    </section>
                 </form>
             </div>}
     </>)
