@@ -75,6 +75,12 @@ namespace SistemaPedidosReact.Server.Profiles
             config.CreateMap<User, UserReadDTO>().ReverseMap();
             config.CreateMap<User, UserCreateDTO>().ReverseMap();
 
+            config.CreateMap<SpecialSchedule, SpecialScheduleReadDTO>().ReverseMap();
+            config.CreateMap<SpecialSchedule, SpecialScheduleCreateDTO>().ReverseMap();
+
+            config.CreateMap<WeeklySchedule, WeeklyScheduleReadDTO>().ReverseMap();
+            config.CreateMap<WeeklySchedule, WeeklyScheduleCreateDTO>().ReverseMap();
+
             //POS
             config.CreateMap<MenuCreatePOS, Menu>().ReverseMap();
 

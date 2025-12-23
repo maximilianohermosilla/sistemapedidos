@@ -28,6 +28,8 @@ namespace SistemaPedidosReact.Server.Data
         public DbSet<Store> Stores { get; set; }
         public DbSet<Totals> Totals { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<SpecialSchedule> SpecialSchedules { get; set; }
+        public DbSet<WeeklySchedule> WeeklySchedules { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -229,6 +231,22 @@ namespace SistemaPedidosReact.Server.Data
                 new Parameter { Id = 11, Key = "LONGITUDE", Value = "-57.9503059387207" }
             );
 
+            modelBuilder.Entity<WeeklySchedule>().HasData(
+                new WeeklySchedule { Id = 1, DayCode = 0, DayWeek = "Domingo", OpeningTime = new TimeOnly(19, 45), ClosingTime = new TimeOnly(22, 30), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(20, 00), IsOpen = true },
+                new WeeklySchedule { Id = 2, DayCode = 1, DayWeek = "Lunes", OpeningTime = new TimeOnly(19, 45), ClosingTime = new TimeOnly(22, 30), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(20, 00), IsOpen = false },
+                new WeeklySchedule { Id = 3, DayCode = 2, DayWeek = "Martes", OpeningTime = new TimeOnly(19, 45), ClosingTime = new TimeOnly(22, 30), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(20, 00), IsOpen = true },
+                new WeeklySchedule { Id = 4, DayCode = 3, DayWeek = "Miércoles", OpeningTime = new TimeOnly(19, 45), ClosingTime = new TimeOnly(22, 30), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(20, 00), IsOpen = true },
+                new WeeklySchedule { Id = 5, DayCode = 4, DayWeek = "Jueves", OpeningTime = new TimeOnly(19, 45), ClosingTime = new TimeOnly(22, 30), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(20, 00), IsOpen = true },
+                new WeeklySchedule { Id = 6, DayCode = 5, DayWeek = "Viernes", OpeningTime = new TimeOnly(19, 45), ClosingTime = new TimeOnly(22, 30), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(20, 00), IsOpen = true },
+                new WeeklySchedule { Id = 7, DayCode = 6, DayWeek = "Sábado", OpeningTime = new TimeOnly(19, 45), ClosingTime = new TimeOnly(22, 30), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(20, 00), IsOpen = true }
+            );
+
+            modelBuilder.Entity<SpecialSchedule>().HasData(
+                new SpecialSchedule { Id = 1, Date = new DateTime(2025, 12, 25), Description = "Navidad", IsOpen = false, OpeningTime = new TimeOnly(00, 00), ClosingTime = new TimeOnly(22, 30), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(00, 00) },
+                new SpecialSchedule { Id = 2, Date = new DateTime(2026, 01, 01), Description = "Año Nuevo", IsOpen = false, OpeningTime = new TimeOnly(00, 00), ClosingTime = new TimeOnly(22, 30), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(00, 00) },
+                new SpecialSchedule { Id = 3, Date = new DateTime(2025, 12, 24), Description = "Nochebuena", IsOpen = true, OpeningTime = new TimeOnly(10, 00), ClosingTime = new TimeOnly(18, 00), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(18, 00) },
+                new SpecialSchedule { Id = 4, Date = new DateTime(2025, 12, 31), Description = "Fin de año", IsOpen = true, OpeningTime = new TimeOnly(10, 00), ClosingTime = new TimeOnly(18, 00), OpeningScheduleTime = new TimeOnly(10, 30), ClosingScheduleTime = new TimeOnly(18, 00) }
+            );
             #endregion
 
             base.OnModelCreating(modelBuilder);

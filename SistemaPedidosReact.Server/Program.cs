@@ -9,6 +9,7 @@ using Serilog;
 using SistemaPedidosReact.Server.Data;
 using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.Data.Repositories;
+using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Helpers;
 using SistemaPedidosReact.Server.Profiles;
 using SistemaPedidosReact.Server.Responses.Interfaces;
@@ -49,6 +50,12 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
     };
 });
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new TimeOnlyConverter());
+    // You might also want to add a DateOnlyConverter if you use DateOnly
+    // options.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
+});
 
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(config => new MappingProfile(config));
@@ -68,6 +75,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IParameterRepository, ParameterRepository>();
+builder.Services.AddScoped<ISpecialScheduleRepository, SpecialScheduleRepository>();
+builder.Services.AddScoped<IWeeklyScheduleRepository, WeeklyScheduleRepository>();
 
 
 // Configurar servicios de la aplicación 
@@ -80,6 +89,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IParameterService, ParameterService>();
+builder.Services.AddScoped<ISpecialScheduleService, SpecialScheduleService>();
+builder.Services.AddScoped<IWeeklyScheduleService, WeeklyScheduleService>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddHostedService<KeepAliveService>();
