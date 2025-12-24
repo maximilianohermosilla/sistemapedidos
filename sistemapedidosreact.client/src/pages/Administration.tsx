@@ -9,6 +9,9 @@ import { FaRegSave } from "react-icons/fa";
 import { ParameterEnum } from "../enums/parameter";
 import showToast from "../services/toast-service";
 import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+import { GetAllWeeklySchedules } from "../services/weekly-schedule-service";
+import { GetAllSpecialSchedules } from "../services/special-schedule-service";
+import CardException from "../components/CardException";
 
 const positionDefault = [-34.92057857658673, -57.95523024039817];
 
@@ -22,6 +25,7 @@ export default function Administration() {
     });
     const [error, setError] = useState<string | null>(null);
     const [position, setPosition] = useState<any>(positionDefault);
+    const [specialSchedules, setSpecialSchedules] = useState<any[] | undefined>(undefined);
     const { isLoggedIn, login, logout } = useAuth();
 
     useEffect(() => {
@@ -55,6 +59,10 @@ export default function Administration() {
         const openingSchedulesParameter = await GetParameterByKey(ParameterEnum.OPENING_SCHEDULES_HOURS);
         const closingSchedulesParameter = await GetParameterByKey(ParameterEnum.CLOSING_SCHEDULES_HOURS);
 
+        const weeklyDays = await GetAllWeeklySchedules();
+        const listSpecialSchedules = await GetAllSpecialSchedules();
+        if(listSpecialSchedules) setSpecialSchedules(listSpecialSchedules);
+
         setFormData({
             ...formData,
             delay: delayParameter?.value || '',
@@ -71,7 +79,14 @@ export default function Administration() {
             openingSchedules: openingSchedulesParameter?.value || '20:00',
             closingSchedules: closingSchedulesParameter?.value || '23:00',
             updateMenu: updateMenuParameter?.value === "SI" || false,
-            updateMenuAlways: updateMenuAlwaysParameter?.value === "SI" || false
+            updateMenuAlways: updateMenuAlwaysParameter?.value === "SI" || false,
+            monday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 1)?.isOpen || false,
+            thuesday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 2)?.isOpen || false,
+            wednesday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 3)?.isOpen || false,
+            thursday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 4)?.isOpen || false,
+            friday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 5)?.isOpen || false,
+            saturday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 6)?.isOpen || false,
+            sunday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 0)?.isOpen || false
         })
     }
 
@@ -128,7 +143,7 @@ export default function Administration() {
     const handleClosing = (e: any) => {
         setFormData({ ...formData, closing: e.target.value });
     };
-    
+
     const handleOpeningSchedules = (e: any) => {
         setFormData({ ...formData, openingSchedules: e.target.value });
     };
@@ -163,6 +178,8 @@ export default function Administration() {
                                 <input type="checkbox" id="updateMenuAlways" name="updateMenuAlways" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     checked={formData?.updateMenuAlways ?? false} onChange={handleCheckboxChange} />
                             </div>
+
+                            <h3 className="text-primary text-lg font-semibold">Contacto</h3>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="address" className="text-gray-600 text-sm mr-2">Dirección:</label>
                                 <input type="text" id="address" name="address" className="border border-gray-400 rounded-sm px-2 text-sm"
@@ -199,7 +216,7 @@ export default function Administration() {
                                 />
                             </div>
 
-                            <h3 className="text-primary text-lg font-semibold">Horarios</h3>
+                            <h3 className="text-primary text-lg font-semibold mt-4">Horarios</h3>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Apertura:</label>
                                 <input
@@ -209,7 +226,7 @@ export default function Administration() {
                                     onChange={handleOpening}
                                 />
                             </div>
-                            
+
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Cierre:</label>
                                 <input
@@ -219,7 +236,7 @@ export default function Administration() {
                                     onChange={handleClosing}
                                 />
                             </div>
-                            
+
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados desde:</label>
                                 <input
@@ -229,7 +246,7 @@ export default function Administration() {
                                     onChange={handleOpeningSchedules}
                                 />
                             </div>
-                            
+
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados hasta:</label>
                                 <input
@@ -239,6 +256,50 @@ export default function Administration() {
                                     onChange={handleClosingSchedules}
                                 />
                             </div>
+
+                            <h3 className="text-primary text-lg font-semibold mt-4">Días</h3>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="monday" className="text-gray-600 text-sm mr-2">Lunes</label>
+                                <input type="checkbox" id="monday" name="monday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.monday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="thuesday" className="text-gray-600 text-sm mr-2">Martes</label>
+                                <input type="checkbox" id="thuesday" name="thuesday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.thuesday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="wednesday" className="text-gray-600 text-sm mr-2">Miércoles</label>
+                                <input type="checkbox" id="wednesday" name="wednesday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.wednesday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="thursday" className="text-gray-600 text-sm mr-2">Jueves</label>
+                                <input type="checkbox" id="thursday" name="thursday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.thursday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="friday" className="text-gray-600 text-sm mr-2">Viernes</label>
+                                <input type="checkbox" id="friday" name="friday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.friday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="saturday" className="text-gray-600 text-sm mr-2">Sábado</label>
+                                <input type="checkbox" id="saturday" name="saturday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.saturday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="sunday" className="text-gray-600 text-sm mr-2">Domingo</label>
+                                <input type="checkbox" id="sunday" name="sunday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.sunday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+
+                            <h3 className="text-primary text-lg font-semibold mt-5">Excepciones</h3>
+                            <section className="mt-2 px-1">
+                                {specialSchedules && specialSchedules.length > 0
+                                    ? specialSchedules.map((specialSchedule: any, index: any) => <CardException key={index} exception={specialSchedule}></CardException>)
+                                    : <p className="text-lg font-semibold text-center text-primary w-full my-3">No hay excepciones</p>}
+                            </section>
 
                             <section className="h-full p-2 mt-5">
                                 <MapContainer

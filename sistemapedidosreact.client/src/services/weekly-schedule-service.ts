@@ -2,6 +2,17 @@ import showToast from "./toast-service";
 
 const apiUrl = import.meta.env.DEV ? import.meta.env.VITE_API_URL : '';
 
+export async function GetAllWeeklySchedules() {
+    const response = await fetch(`${apiUrl}/api/WeeklySchedule/GetAll`);
+    if (response.ok) {
+        const data = await response?.json().catch((err: any) => showToast({ title: 'Error', description: err.message, error: true }));
+        return data;
+    }
+    else {
+        showToast({ title: 'Error', description: response.statusText != '' ? response.statusText : `Ocurrió un error al obtener los días.`, error: true });
+    }
+}
+
 export async function GetWeeklyScheduleByDayWeek(dayWeek: number) {
     const response = await fetch(`${apiUrl}/api/WeeklySchedule/GetByDayWeek/${dayWeek}`);
     if (response.ok) {

@@ -42,7 +42,7 @@ export default function MenuPage() {
             {loading
                 ? <div className="bg-white flex flex-col m-auto h-screen text-white"><Spinner text={"Cargando menú..."} /></div>
                 : <article className="menu__body bg-primary w-full border-5 border-white">
-                    <a href="/" className="flex-shrink-0 hover:cursor-pointer hover:opacity-75 active:ring-2 active:ring-blue-400">
+                    <a href="/" className="shrink-0 hover:cursor-pointer hover:opacity-75 active:ring-2 active:ring-blue-400">
                         <img src={logo} alt="Logo Header" width={300} height={100} className="m-auto mt-3 mb-5 shadow-lg shadow-gray-800" />
                     </a>
                     <section className="flex flex-col pt-3 mx-0 px-5 px-md-0 w-full mt-5">
