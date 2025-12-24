@@ -6,8 +6,9 @@ import Delay from "../components/Delay";
 import Footer from "../components/Footer";
 import { GetParameterByKey } from "../services/parameter-service";
 import Spinner from "../components/Spinner";
-import { isTimeBetweenHours } from "../utils/TimeValidation";
 import { ParameterEnum } from "../enums/parameter";
+import { GetDaySchedule, IsOpen } from "../services/weekly-schedule-service";
+import { dateToString } from "../utils/ParseDateUtil";
 
 export default function LandingPage() {
     const [loading, setLoading] = useState(true);
@@ -63,17 +64,16 @@ export default function LandingPage() {
     
     const handleTimeChange = async () => {
         const now = new Date();
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        const timeValue = `${hours}:${minutes}`;
-        console.log("Current time:", timeValue);
 
         const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
         const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
-        const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '23:00');
+
+        const isValid = await IsOpen({ dayOfWeek: dateToString(now) }, false);
 
         if (!isValid) {
-            setValidationError(`Los pedidos pueden retirarse de martes a domingos entre las ${startHour?.value || '20:00'} y las ${endHour?.value || '23:00'} hs.`);
+            const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(now) });
+            setValidationError(`Los pedidos pueden retirarse de martes a domingos entre las ${dateSchedules?.openingTime || startHour?.value || '20:00'} 
+                                y las ${dateSchedules?.closingTime || endHour?.value || '23:00'} hs.`);
         } else {
             getParameterByKey();
             setValidationError('');

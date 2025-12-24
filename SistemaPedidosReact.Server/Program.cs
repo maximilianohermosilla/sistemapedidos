@@ -9,7 +9,6 @@ using Serilog;
 using SistemaPedidosReact.Server.Data;
 using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.Data.Repositories;
-using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Helpers;
 using SistemaPedidosReact.Server.Profiles;
 using SistemaPedidosReact.Server.Responses.Interfaces;
@@ -93,7 +92,7 @@ builder.Services.AddScoped<ISpecialScheduleService, SpecialScheduleService>();
 builder.Services.AddScoped<IWeeklyScheduleService, WeeklyScheduleService>();
 
 builder.Services.AddHttpClient();
-builder.Services.AddHostedService<KeepAliveService>();
+//builder.Services.AddHostedService<KeepAliveService>();
 
 //ADD CORS
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp",

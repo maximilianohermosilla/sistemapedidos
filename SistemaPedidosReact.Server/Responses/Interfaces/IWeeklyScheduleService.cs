@@ -10,5 +10,6 @@ namespace SistemaPedidosReact.Server.Responses.Interfaces
         Task<WeeklyScheduleReadDTO?> GetById(int pId);
         Task<WeeklyScheduleReadDTO?> GetByDayWeek(int pDayWeek);
         Task<bool> IsOpen(DateTime pDate, bool pIsScheduledOrder = false);
+        Task<DayScheduleReadDTO?> GetDaySchedule(DateTime pDate);
     }
 }

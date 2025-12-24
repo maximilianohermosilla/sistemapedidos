@@ -3,7 +3,6 @@ using SistemaPedidosReact.Server.Responses.Interfaces;
 using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace SistemaPedidosReact.Server.Responses.Services
 {
@@ -106,21 +105,21 @@ namespace SistemaPedidosReact.Server.Responses.Services
         {
             try
             {
-                var excepcion = vGblSpecialRepository.GetByDate(pDate);
+                var vException = vGblSpecialRepository.GetByDate(pDate);
 
-                if (excepcion != null)
+                if (vException != null)
                 {
-                    if (!excepcion.IsOpen) return false;
+                    if (!vException.IsOpen) return false;
 
                     if (pIsScheduledOrder)
                     {
-                        return TimeOnly.FromDateTime(pDate) >= excepcion.OpeningScheduleTime
-                        && TimeOnly.FromDateTime(pDate) <= excepcion.ClosingScheduleTime;
+                        return TimeOnly.FromDateTime(pDate) >= vException.OpeningScheduleTime
+                        && TimeOnly.FromDateTime(pDate) <= vException.ClosingScheduleTime;
                     }
                     else
                     {
-                        return TimeOnly.FromDateTime(pDate) >= excepcion.OpeningTime
-                        && TimeOnly.FromDateTime(pDate) <= excepcion.ClosingTime;
+                        return TimeOnly.FromDateTime(pDate) >= vException.OpeningTime
+                        && TimeOnly.FromDateTime(pDate) <= vException.ClosingTime;
                     }                    
                 }
 
@@ -144,6 +143,52 @@ namespace SistemaPedidosReact.Server.Responses.Services
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        public async Task<DayScheduleReadDTO?> GetDaySchedule(DateTime pDate)
+        {
+            try
+            {
+                var vException = vGblSpecialRepository.GetByDate(pDate);
+
+                if (vException != null)
+                {
+                    var vDaySchedule = new DayScheduleReadDTO()
+                    {
+                        IsException = true,
+                        Description = vException.Description,
+                        IsOpen = vException.IsOpen,
+                        OpeningTime = vException.OpeningTime,
+                        ClosingTime = vException.ClosingTime,
+                        OpeningScheduleTime = vException.OpeningScheduleTime,
+                        ClosingScheduleTime = vException.ClosingScheduleTime
+                    };
+
+                    return vDaySchedule;
+                }
+                else
+                {
+                    var vDayOfWeek = (int)pDate.DayOfWeek;
+                    var vWeeklySchedule = vGblRepository.GetByDayWeek(vDayOfWeek);
+
+                    var vDaySchedule = new DayScheduleReadDTO()
+                    {
+                        IsException = false,
+                        Description = vWeeklySchedule.DayWeek,
+                        IsOpen = vWeeklySchedule.IsOpen,
+                        OpeningTime = vWeeklySchedule.OpeningTime,
+                        ClosingTime = vWeeklySchedule.ClosingTime,
+                        OpeningScheduleTime = vWeeklySchedule.OpeningScheduleTime,
+                        ClosingScheduleTime = vWeeklySchedule.ClosingScheduleTime
+                    };
+
+                    return vDaySchedule;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

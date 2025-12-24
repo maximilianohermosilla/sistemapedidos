@@ -6,7 +6,7 @@ namespace SistemaPedidosReact.Server.Helpers
 {
     public class TimeOnlyConverter : JsonConverter<TimeOnly>
     {
-        private const string TimeFormat = "HH:mm:ss.FFFFFFF";
+        private const string TimeFormat = "HH:mm";
 
         public override TimeOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

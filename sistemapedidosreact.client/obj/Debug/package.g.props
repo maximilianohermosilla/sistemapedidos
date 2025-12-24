@@ -35,5 +35,6 @@
     <PackageJsonDevdependenciesTypescript Condition="$(PackageJsonDevdependenciesTypescript) == ''">~5.8.3</PackageJsonDevdependenciesTypescript>
     <PackageJsonDevdependenciesTypescriptEslint Condition="$(PackageJsonDevdependenciesTypescriptEslint) == ''">^8.39.1</PackageJsonDevdependenciesTypescriptEslint>
     <PackageJsonDevdependenciesVite Condition="$(PackageJsonDevdependenciesVite) == ''">^7.1.2</PackageJsonDevdependenciesVite>
+    <PackageJsonDevdependenciesVitePluginMkcert Condition="$(PackageJsonDevdependenciesVitePluginMkcert) == ''">^1.17.9</PackageJsonDevdependenciesVitePluginMkcert>
   </PropertyGroup>
 </Project>

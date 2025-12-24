@@ -11,6 +11,7 @@ import { ParameterEnum } from "../enums/parameter";
 import { formatDateHHMM } from "../utils/FormatDateUtil";
 import { isTimeBetweenHours } from "../utils/TimeValidation";
 import Delay from "./Delay";
+import { GetDaySchedule, IsOpen } from "../services/weekly-schedule-service";
 
 export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess, validationError }: any) {
     const [loading, setLoading] = useState(false);
@@ -55,16 +56,30 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     const handleSelectedDateChange = (e: any) => {
         setSelectedDate(e.target.value);
         setDateOrderScheduled(formatDateHHMM(`${e.target.value}T${selectedTime}:00.000`));
-        const minutes = calculateMinutesBetweenDates(new Date(), new Date(`${e.target.value}T${selectedTime}:00.000`));
-        setMinutes(minutes);
+        const calcMinutes = calculateMinutesBetweenDates(new Date(), new Date(`${e.target.value}T${selectedTime}:00.000`));
+
+        if (calcMinutes < 0) {
+            setMessageValidation('El horario de retiro no puede ser inferior al horario actual.');
+        }
+        else {
+            setMessageValidation('');
+            setMinutes(calcMinutes);
+        }
     };
 
     const handleSelectedTimeChange = async (e: any) => {
         setSelectedTime(e.target.value);
         setDateOrderScheduled(formatDateHHMM(`${selectedDate}T${e.target.value}:00.000`));
-        const minutes = calculateMinutesBetweenDates(new Date(), new Date((`${selectedDate}T${e.target.value}:00.000`)));
-        setMinutes(minutes);
-        await validate();
+        const calcMinutes = calculateMinutesBetweenDates(new Date(), new Date((`${selectedDate}T${e.target.value}:00.000`)));
+
+        if (calcMinutes < 0) {
+            setMessageValidation('El horario de retiro no puede ser inferior al horario actual.');
+        }
+        else {
+            setMessageValidation('');
+            setMinutes(calcMinutes);
+            await validate();
+        }
     };
 
     const renderCartDetail = () => {
@@ -99,27 +114,36 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             newErrors!.email = 'Formato de mail es incorrecto';
         }
 
+        // PICADAS
         if (scheduledOrder) {
             const threeHoursInMilliseconds = 3 * 60 * 60 * 1000;
 
             const now = new Date();
             const dateSelected = parseDDMMYYYYHHMM(dateOrderScheduled);
 
-            const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1], '10:30', '21:00');
+            //const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1], '10:30', '21:00');
+            const isValid = await IsOpen({ dayOfWeek: dateToString(dateSelected) }, true);
 
             if ((dateSelected.getTime() < (now.getTime() + threeHoursInMilliseconds)) || !isValid) {
-                newErrors.hours = `Horario de retiro: ${'10:30'} - ${'21:00'}hs. Mínimo 3 horas de anticipación.`;
+                const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(dateSelected) });
+                newErrors.hours = dateSchedules?.isOpen ? `Horario de retiro: ${dateSchedules?.openingScheduleTime || '10:30'} - ${dateSchedules?.closingScheduleTime || '21:00'}hs. Mínimo 3 horas de anticipación.`
+                : `El local se encontrará cerrado durante el día seleccionado. ${dateSchedules?.isException ? '(' + dateSchedules?.description + ')': ''}`;
             }
         }
 
+        // ESTANDAR HORARIO RETIRO
         if (scheduledSpecialOrder) {
-            const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
-            const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
+            // const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
+            // const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
 
-            const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1] || '20:00', startHour?.value || '20:00', endHour?.value || '23:00');
-            
+            //const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1] || '20:00', startHour?.value || '20:00', endHour?.value || '23:00');
+            const dateSelected = parseDDMMYYYYHHMM(dateOrderScheduled);
+            const isValid = await IsOpen({ dayOfWeek: dateToString(dateSelected) }, false);
             if (!isValid) {
-                newErrors!.hours = `Horario de retiro: ${startHour?.value || '20:00'} - ${endHour?.value || '23:00'}hs.`;
+                const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(dateSelected) });                
+                newErrors.hours = dateSchedules?.isOpen ? `Horario de retiro: ${dateSchedules?.openingTime || '10:30'} - ${dateSchedules?.closingTime || '21:00'}hs. Mínimo 3 horas de anticipación.`
+                : `El local se encontrará cerrado durante el día seleccionado. ${dateSchedules?.isException ? '(' + dateSchedules?.description + ')': ''}`;
+                //newErrors!.hours = `Horario de retiro: ${startHour?.value || '20:00'} - ${endHour?.value || '23:00'}hs.`;
             }
         }
 
@@ -150,10 +174,16 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     const handleDate = (event?: any) => {
         const date = new Date(event);
         if (!isNaN(date.getTime())) {
-            //console.log(event.toISOString())
             setDateOrderScheduled(formatDateHHMM(event.toISOString()));
-            const minutes = calculateMinutesBetweenDates(new Date(), event);
-            setMinutes(minutes);
+            const calcMinutes = calculateMinutesBetweenDates(new Date(), event);
+
+            if (calcMinutes < 0) {
+                setMessageValidation('El horario de retiro no puede ser inferior al horario actual.');
+            }
+            else {
+                setMessageValidation('');
+                setMinutes(calcMinutes);
+            }
         }
     }
 
@@ -302,17 +332,17 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                     <h3 className="text-primary font-semibold">Datos de contacto</h3>
                     <div className="flex justify-between my-3">
                         <label htmlFor="name" className="text-secondary text-sm font-semibold mr-2">Nombre:</label>
-                        <input type="text" id="name" name="name" className="border-1 border-gray-400 rounded-sm px-2"
+                        <input type="text" id="name" name="name" className="border border-gray-400 rounded-sm px-2"
                             value={formData?.name} onChange={handleChange} />
                     </div>
                     <div className="flex justify-between my-3">
                         <label htmlFor="phone" className="text-secondary text-sm font-semibold mr-2">Teléfono:</label>
-                        <input type="text" id="phone" name="phone" className="border-1 border-gray-400 rounded-sm px-2"
+                        <input type="text" id="phone" name="phone" className="border border-gray-400 rounded-sm px-2"
                             value={formData?.phone} onChange={handleChange} />
                     </div>
                     <div className="flex justify-between my-3">
                         <label htmlFor="email" className="text-secondary text-sm font-semibold mr-2">Correo:</label>
-                        <input type="text" id="email" name="email" className="border-1 border-gray-400 rounded-sm px-2"
+                        <input type="text" id="email" name="email" className="border border-gray-400 rounded-sm px-2"
                             value={formData?.email} onChange={handleChange} />
                     </div>
                     <section className="flex flex-col">
@@ -320,22 +350,27 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                         {errors.email && <span className="text-red-600">* {errors.email}</span>}
                         {errors.phone && <span className="text-red-600">* {errors.phone}</span>}
                     </section>
-                    {scheduledOrder && <section className="">
-                        <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
-                        <DatePicker date={today} emitDate={handleDate}></DatePicker>
-                    </section>}
 
+                    {/* ESTANDAR, NO PICADAS, NO MENU FIESTAS - DELAY */}
                     {!scheduledOrder && !scheduledOrderSpecial && <section className="flex flex-col mt-3">
                         <Delay delay={delay} />
                     </section>}
 
+                    {/* ESTANDAR, NO PICADAS, NO MENU FIESTAS - CHECKBOX */}
                     {!scheduledOrder && !scheduledOrderSpecial && <div className="flex justify-between items-center my-3">
                         <label htmlFor="updateMenu" className="text-gray-600 text-sm mr-2">Seleccionar horario de retiro:</label>
-                        <input type="checkbox" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                        <input type="checkbox" className="border border-gray-400 rounded-sm px-2 text-sm"
                             onChange={handleCheckboxScheduled} checked={scheduledSpecialOrder} />
                     </div>}
 
+                    {/* ESTANDAR, NO PICADAS, NO MENU - HORARIO RETIRO CHECKED*/}
                     {scheduledSpecialOrder && !scheduledOrder && <section className="mt-3">
+                        <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
+                        <DatePicker date={today} emitDate={handleDate}></DatePicker>
+                    </section>}                    
+
+                    {/* PICADAS */}
+                    {scheduledOrder && <section className="">
                         <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
                         <DatePicker date={today} emitDate={handleDate}></DatePicker>
                     </section>}
@@ -362,12 +397,13 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                             />
                         </div>
                         <p className="text-center text-primary text-shadow-sm font-light leading-6 my-2 whitespace-break-spaces" style={{ maxWidth: '360px' }}>
-                            El pedido debe ser reservado abonando el 50% del valor total. 
+                            El pedido debe ser reservado abonando el 50% del valor total.
                             Comuníquese a través de nuestro whatsapp o instagram luego de confirmar el pedido.
                         </p>
                     </section>}
 
                     {messageValidation && <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2" style={{ maxWidth: '360px' }}>{messageValidation}</p>}
+
                     <footer>
                         {verifying ? <Spinner text={"Generando pedido..."} />
                             : <button className="button__primary m-auto my-3 flex items-center gap-2" onClick={handleConfirm}
@@ -377,7 +413,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                     </footer>
 
                     <section className="flex flex-col">
-                        {errors.hours && <span className="text-red-600 text-center">* {errors.hours}</span>}
+                        {errors.hours && <span className="text-red-600 text-center">* {errors?.hours}</span>}
                     </section>
                 </form>
             </div>}

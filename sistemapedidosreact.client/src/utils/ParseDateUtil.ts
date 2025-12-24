@@ -11,11 +11,10 @@ export const dateToString = (date: any) => {
 }
 
 export const calculateMinutesBetweenDates = (dateInitial: any, dateEnd: any) => {
-    console.log(dateEnd)
     const timestampInitial = dateInitial.getTime();
     const timestampEnd = dateEnd.getTime();
 
-    const diffMilliseconds = Math.abs(timestampInitial - timestampEnd);
+    const diffMilliseconds = (timestampEnd - timestampInitial);
     const diffMinutes = diffMilliseconds / (1000 * 60);
     return Math.round(diffMinutes);
 }

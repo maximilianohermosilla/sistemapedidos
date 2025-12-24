@@ -67,6 +67,21 @@ namespace SistemaPedidosReact.Server.Controllers
         }
 
         [HttpPost]
+        public async Task<ActionResult<WeeklyScheduleReadDTO>> GetDaySchedule([FromBody] DateTime date)
+        {
+            try
+            {
+                var vWeeklySchedule = await vGblService.GetDaySchedule(date);
+
+                return Ok(vWeeklySchedule);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
         [Authorize]
         public async Task<ActionResult<WeeklyScheduleReadDTO>> Create(WeeklyScheduleCreateDTO pWeeklySchedule)
         {

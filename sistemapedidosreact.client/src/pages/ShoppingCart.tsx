@@ -7,11 +7,12 @@ import { BsCartXFill, BsGift } from "react-icons/bs";
 import DialogConfirm from "../components/DialogConfirm";
 import Dialog from "../components/Dialog";
 import ShoppingCartConfirm from "../components/ShoppingCartConfirm";
-import { isTimeBetweenHours } from "../utils/TimeValidation";
 import { GetParameterByKey } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
 import { IoCartOutline, IoTimeOutline } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { IsOpen } from "../services/weekly-schedule-service";
+import { dateToString } from "../utils/ParseDateUtil";
 
 export default function ShoppingCart() {
     const cartContext = useContext<any>(CartContext);
@@ -132,17 +133,16 @@ export default function ShoppingCart() {
 
     const handleTimeChange = async () => {
         const now = new Date();
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        const timeValue = `${hours}:${minutes}`;
-        console.log("Current time:", timeValue);
 
         const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
         const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
-        const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '23:00');
-
+        //const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '23:00');
+        const isValid = await IsOpen({ dayOfWeek: dateToString(now) }, false);
+        
         if (!isValid) {
-            setValidationError(`Los pedidos pueden retirarse de martes a domingos entre las ${startHour?.value || '20:00'} y las ${endHour?.value || '23:00'} hs.`);
+            //const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(now) });
+            setValidationError(`Los pedidos pueden retirarse de martes a domingos entre las ${startHour?.value || '20:00'} 
+                                    y las ${endHour?.value || '23:00'} hs.`);
         } else {
             setValidationError('');
         }
