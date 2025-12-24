@@ -41,7 +41,7 @@ export default function DatePicker({date, emitDate}: any) {
                     onChange={handleTimeChange}
                 />
             </div>
-            <p className="text-gray-500 mt-5 text-center">Seleccionado: {selectedDate?.toLocaleDateString()} {selectedTime}</p>
+            <p className="text-gray-500 my-4 text-center text-sm">Seleccionado: {selectedDate?.toLocaleDateString()} {selectedTime}</p>
         </>
     );
 }

@@ -149,49 +149,49 @@ export default function Administration() {
                         <div className="header__info flex w-full gap-3 justify-evenly items-center text-sm border-2 my-5 
                             border-gray-400 rounded-md mx-auto py-1 font-semibold mb-3 text-center text-gray-400">
                             <label htmlFor="delay" className="flex gap-1 text-xs items-center"><FaRegClock />Demora:</label>
-                            <input className="bg-white px-2 font-medium text-sm rounded-sm border-1 text-secondary"
+                            <input className="bg-white px-2 font-medium text-sm rounded-sm border text-secondary"
                                 id="delay" name="delay" type="text" value={formData?.delay} onChange={handleChange} />
                         </div>
                         <div className="parameters__container m-auto">
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="updateMenu" className="text-gray-600 text-sm mr-2">Actualizar Menú:</label>
-                                <input type="checkbox" id="updateMenu" name="updateMenu" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="checkbox" id="updateMenu" name="updateMenu" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     checked={formData?.updateMenu ?? false} onChange={handleCheckboxChange} />
                             </div>
                             <div className="flex justify-between items-center my-3 mb-5">
                                 <label htmlFor="updateMenuAlways" className="text-gray-600 text-sm mr-2">Actualizar Menú cada 5 minutos:</label>
-                                <input type="checkbox" id="updateMenuAlways" name="updateMenuAlways" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="checkbox" id="updateMenuAlways" name="updateMenuAlways" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     checked={formData?.updateMenuAlways ?? false} onChange={handleCheckboxChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="address" className="text-gray-600 text-sm mr-2">Dirección:</label>
-                                <input type="text" id="address" name="address" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="address" name="address" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.address} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="email" className="text-gray-600 text-sm mr-2">Correo:</label>
-                                <input type="text" id="email" name="email" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="email" name="email" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.email} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="phone" className="text-gray-600 text-sm mr-2">Teléfono:</label>
-                                <input type="text" id="phone" name="phone" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="phone" name="phone" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.phone} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="instagram" className="text-gray-600 text-sm mr-2">Instagram:</label>
-                                <input type="text" id="instagram" name="instagram" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="instagram" name="instagram" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.instagram} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Whatsapp:</label>
-                                <input type="text" id="whatsapp" name="whatsapp" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="whatsapp" name="whatsapp" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.whatsapp} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-start my-3">
                                 <label htmlFor="schedules" className="text-gray-600 text-sm mr-2">Horarios:</label>
                                 <textarea id="schedules" name="schedules"
-                                    className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                    className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.schedules}
                                     onChange={handleChange}
                                     rows={5}
@@ -260,12 +260,12 @@ export default function Administration() {
                             </section>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="latitude" className="text-gray-600 text-sm mr-2">Latitud:</label>
-                                <input type="text" id="latitude" name="latitude" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="latitude" name="latitude" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     disabled value={formData?.latitude || ''} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="longitude" className="text-gray-600 text-sm mr-2">Longitud:</label>
-                                <input type="text" id="longitude" name="longitude" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="longitude" name="longitude" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     disabled value={formData?.longitude || ''} onChange={handleChange} />
                             </div>
                         </div>
