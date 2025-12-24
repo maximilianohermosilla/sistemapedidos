@@ -9,5 +9,6 @@ namespace SistemaPedidosReact.Server.Responses.Interfaces
         Task<IEnumerable<SpecialScheduleReadDTO>> GetAll();
         Task<SpecialScheduleReadDTO?> GetById(int pId);
         Task<SpecialScheduleReadDTO?> GetByDate(DateTime pDate);
+        Task<bool?> Delete(int pId);
     }
 }

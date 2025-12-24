@@ -9,5 +9,6 @@ namespace SistemaPedidosReact.Server.Data.Interfaces
         SpecialSchedule GetById(int pId);
         SpecialSchedule GetByDate(DateTime pDate);
         SpecialSchedule Create(SpecialSchedule pParameter);
+        bool Delete(int pId);
     }
 }

@@ -98,5 +98,19 @@ namespace SistemaPedidosReact.Server.Responses.Services
                 return null;
             }
         }
+
+        public async Task<bool?> Delete(int pId)
+        {
+            try
+            {
+                var vSpecialScheduleDeleted = vGblRepository.Delete(pId);
+
+                return vSpecialScheduleDeleted;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

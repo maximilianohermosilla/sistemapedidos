@@ -60,8 +60,7 @@ export default function Administration() {
         const closingSchedulesParameter = await GetParameterByKey(ParameterEnum.CLOSING_SCHEDULES_HOURS);
 
         const weeklyDays = await GetAllWeeklySchedules();
-        const listSpecialSchedules = await GetAllSpecialSchedules();
-        if(listSpecialSchedules) setSpecialSchedules(listSpecialSchedules);
+        getAllSpecialSchedules();
 
         setFormData({
             ...formData,
@@ -152,6 +151,21 @@ export default function Administration() {
         setFormData({ ...formData, closingSchedules: e.target.value });
     };
 
+    const handleSaveSpecialSchedule = () => {
+        getAllSpecialSchedules();
+    }
+
+    const getAllSpecialSchedules = async () => {
+        setSpecialSchedules([]);
+        const listSpecialSchedules = await GetAllSpecialSchedules();
+        listSpecialSchedules.push({
+            id: 0, closingScheduleTime: "00:00", closingTime: "00:00", date: "2025-01-01", description: "",
+            isOpen: false, openingScheduleTime: "00:00", openingTime: "00:00",
+        });
+
+        setSpecialSchedules(listSpecialSchedules);
+    }
+
     return (
         <div className="main__container w-full flex flex-col justify-between">
             {!isLoggedIn
@@ -216,6 +230,79 @@ export default function Administration() {
                                 />
                             </div>
 
+
+                            <h3 className="text-primary text-lg font-semibold mt-5">Ubicación</h3>
+                            <section className="h-full p-2 mt-2">
+                                <MapContainer
+                                    style={{
+                                        height: "40vh",
+                                        width: "100%",
+                                    }}
+                                    center={position}
+                                    zoom={15}
+                                >
+                                    <ClickHandler />
+                                    <TileLayer
+                                        attribution="Google Maps"
+                                        url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
+                                    />
+
+                                    <Marker position={position} />
+                                </MapContainer>
+                            </section>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="latitude" className="text-gray-600 text-sm mr-2">Latitud:</label>
+                                <input type="text" id="latitude" name="latitude" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    disabled value={formData?.latitude || ''} onChange={handleChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="longitude" className="text-gray-600 text-sm mr-2">Longitud:</label>
+                                <input type="text" id="longitude" name="longitude" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    disabled value={formData?.longitude || ''} onChange={handleChange} />
+                            </div>
+                        </div>
+                        {error && <p className="text-danger text-center text-sm font-semibold px-2">{error}</p>}
+                    </form>
+
+                    <section>
+                        <div className="parameters__container m-auto">
+                            <h3 className="text-primary text-lg font-semibold mt-4">Días</h3>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="monday" className="text-gray-600 text-sm mr-2">Lunes</label>
+                                <input type="checkbox" id="monday" name="monday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.monday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="thuesday" className="text-gray-600 text-sm mr-2">Martes</label>
+                                <input type="checkbox" id="thuesday" name="thuesday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.thuesday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="wednesday" className="text-gray-600 text-sm mr-2">Miércoles</label>
+                                <input type="checkbox" id="wednesday" name="wednesday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.wednesday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="thursday" className="text-gray-600 text-sm mr-2">Jueves</label>
+                                <input type="checkbox" id="thursday" name="thursday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.thursday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="friday" className="text-gray-600 text-sm mr-2">Viernes</label>
+                                <input type="checkbox" id="friday" name="friday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.friday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="saturday" className="text-gray-600 text-sm mr-2">Sábado</label>
+                                <input type="checkbox" id="saturday" name="saturday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.saturday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="sunday" className="text-gray-600 text-sm mr-2">Domingo</label>
+                                <input type="checkbox" id="sunday" name="sunday" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.sunday ?? false} onChange={handleCheckboxChange} />
+                            </div>
+
                             <h3 className="text-primary text-lg font-semibold mt-4">Horarios</h3>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Apertura:</label>
@@ -257,81 +344,16 @@ export default function Administration() {
                                 />
                             </div>
 
-                            <h3 className="text-primary text-lg font-semibold mt-4">Días</h3>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="monday" className="text-gray-600 text-sm mr-2">Lunes</label>
-                                <input type="checkbox" id="monday" name="monday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.monday ?? false} onChange={handleCheckboxChange} />
-                            </div>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="thuesday" className="text-gray-600 text-sm mr-2">Martes</label>
-                                <input type="checkbox" id="thuesday" name="thuesday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.thuesday ?? false} onChange={handleCheckboxChange} />
-                            </div>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="wednesday" className="text-gray-600 text-sm mr-2">Miércoles</label>
-                                <input type="checkbox" id="wednesday" name="wednesday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.wednesday ?? false} onChange={handleCheckboxChange} />
-                            </div>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="thursday" className="text-gray-600 text-sm mr-2">Jueves</label>
-                                <input type="checkbox" id="thursday" name="thursday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.thursday ?? false} onChange={handleCheckboxChange} />
-                            </div>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="friday" className="text-gray-600 text-sm mr-2">Viernes</label>
-                                <input type="checkbox" id="friday" name="friday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.friday ?? false} onChange={handleCheckboxChange} />
-                            </div>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="saturday" className="text-gray-600 text-sm mr-2">Sábado</label>
-                                <input type="checkbox" id="saturday" name="saturday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.saturday ?? false} onChange={handleCheckboxChange} />
-                            </div>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="sunday" className="text-gray-600 text-sm mr-2">Domingo</label>
-                                <input type="checkbox" id="sunday" name="sunday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.sunday ?? false} onChange={handleCheckboxChange} />
-                            </div>
+                            <h3 className="text-primary text-lg font-semibold mt-5 mb-2">Excepciones</h3>
 
-                            <h3 className="text-primary text-lg font-semibold mt-5">Excepciones</h3>
-                            <section className="mt-2 px-1">
-                                {specialSchedules && specialSchedules.length > 0
-                                    ? specialSchedules.map((specialSchedule: any, index: any) => <CardException key={index} exception={specialSchedule}></CardException>)
-                                    : <p className="text-lg font-semibold text-center text-primary w-full my-3">No hay excepciones</p>}
-                            </section>
-
-                            <section className="h-full p-2 mt-5">
-                                <MapContainer
-                                    style={{
-                                        height: "40vh",
-                                        width: "100%",
-                                    }}
-                                    center={position}
-                                    zoom={15}
-                                >
-                                    <ClickHandler />
-                                    <TileLayer
-                                        attribution="Google Maps"
-                                        url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
-                                    />
-
-                                    <Marker position={position} />
-                                </MapContainer>
-                            </section>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="latitude" className="text-gray-600 text-sm mr-2">Latitud:</label>
-                                <input type="text" id="latitude" name="latitude" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    disabled value={formData?.latitude || ''} onChange={handleChange} />
-                            </div>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="longitude" className="text-gray-600 text-sm mr-2">Longitud:</label>
-                                <input type="text" id="longitude" name="longitude" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    disabled value={formData?.longitude || ''} onChange={handleChange} />
-                            </div>
+                            {specialSchedules && specialSchedules.length > 0
+                                ? specialSchedules.map((specialSchedule: any, index: any) => 
+                                <CardException key={index} exception={specialSchedule} onSave={handleSaveSpecialSchedule}>
+                                </CardException>)
+                                : <p className="text-lg font-semibold text-center text-primary w-full my-3">No hay excepciones</p>}
                         </div>
-                        {error && <p className="text-danger text-center text-sm font-semibold px-2">{error}</p>}
-                    </form>
+                    </section>
+
                     <footer className="flex gap-3">
                         <button className="button__danger__outlined flex items-center gap-1 my-5 mx-auto" onClick={handleLogout}><MdLogout />Cerrar sesión</button>
                         <button className="button__primary flex items-center gap-3 my-5 mx-auto" onClick={handleSubmit}><FaRegSave />Guardar</button>

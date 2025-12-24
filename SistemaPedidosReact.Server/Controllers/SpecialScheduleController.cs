@@ -87,5 +87,25 @@ namespace SistemaPedidosReact.Server.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<SpecialScheduleReadDTO>> Delete(int id)
+        {
+            try
+            {
+                var vSpecialScheduleDeleted = await vGblService.Delete(id);
+
+                if (vSpecialScheduleDeleted == false)
+                {
+                    return NotFound(new ResponseMessage() { Message = "Ocurrió un error al eliminar el registro." });
+                }
+
+                return Ok(vSpecialScheduleDeleted);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

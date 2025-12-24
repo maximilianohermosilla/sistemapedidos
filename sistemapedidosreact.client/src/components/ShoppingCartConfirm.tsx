@@ -141,7 +141,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             const isValid = await IsOpen({ dayOfWeek: dateToString(dateSelected) }, false);
             if (!isValid) {
                 const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(dateSelected) });                
-                newErrors.hours = dateSchedules?.isOpen ? `Horario de retiro: ${dateSchedules?.openingTime || '10:30'} - ${dateSchedules?.closingTime || '21:00'}hs. Mínimo 3 horas de anticipación.`
+                newErrors.hours = dateSchedules?.isOpen ? `Horario de retiro: ${dateSchedules?.openingTime || '10:30'} - ${dateSchedules?.closingTime || '21:00'}hs.`
                 : `El local se encontrará cerrado durante el día seleccionado. ${dateSchedules?.isException ? '(' + dateSchedules?.description + ')': ''}`;
                 //newErrors!.hours = `Horario de retiro: ${startHour?.value || '20:00'} - ${endHour?.value || '23:00'}hs.`;
             }
