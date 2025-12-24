@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
+using SistemaPedidosReact.Server.Models;
 using SistemaPedidosReact.Server.Responses.Interfaces;
 
 namespace SistemaPedidosReact.Server.Controllers
@@ -38,7 +39,7 @@ namespace SistemaPedidosReact.Server.Controllers
             {
                 var vWeeklySchedule = await vGblService.GetByDayWeek(dayWeek);
 
-                if(vWeeklySchedule == null)
+                if (vWeeklySchedule == null)
                 {
                     return NotFound(new ResponseMessage() { Message = "Parámetro no encontrado" });
                 }
@@ -111,6 +112,30 @@ namespace SistemaPedidosReact.Server.Controllers
                 }
 
                 return Ok(vWeeklySchedule);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<WeeklyScheduleReadDTO>>> UpdateAll(IEnumerable<WeeklyScheduleCreateDTO> pWeeklySchedules)
+        {
+            try
+            {
+                foreach (var pWeeklySchedule in pWeeklySchedules)
+                {
+                    var vWeeklySchedule = await vGblService.Update(pWeeklySchedule);
+
+                    if (vWeeklySchedule == null)
+                    {
+                        return NotFound(new ResponseMessage() { Message = "Parámetro no encontrado" });
+                    }
+                }
+
+                return Ok(pWeeklySchedules);
             }
             catch (Exception ex)
             {

@@ -9,7 +9,7 @@ import { FaRegSave } from "react-icons/fa";
 import { ParameterEnum } from "../enums/parameter";
 import showToast from "../services/toast-service";
 import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
-import { GetAllWeeklySchedules } from "../services/weekly-schedule-service";
+import { GetAllWeeklySchedules, UpdateAllWeeklySchedules } from "../services/weekly-schedule-service";
 import { GetAllSpecialSchedules } from "../services/special-schedule-service";
 import CardException from "../components/CardException";
 
@@ -25,6 +25,7 @@ export default function Administration() {
     });
     const [error, setError] = useState<string | null>(null);
     const [position, setPosition] = useState<any>(positionDefault);
+    const [weeklySchedules, setWeeklySchedules] = useState<any[] | undefined>(undefined);
     const [specialSchedules, setSpecialSchedules] = useState<any[] | undefined>(undefined);
     const { isLoggedIn, login, logout } = useAuth();
 
@@ -60,6 +61,7 @@ export default function Administration() {
         const closingSchedulesParameter = await GetParameterByKey(ParameterEnum.CLOSING_SCHEDULES_HOURS);
 
         const weeklyDays = await GetAllWeeklySchedules();
+        setWeeklySchedules(weeklyDays);
         getAllSpecialSchedules();
 
         setFormData({
@@ -79,13 +81,13 @@ export default function Administration() {
             closingSchedules: closingSchedulesParameter?.value || '23:00',
             updateMenu: updateMenuParameter?.value === "SI" || false,
             updateMenuAlways: updateMenuAlwaysParameter?.value === "SI" || false,
-            monday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 1)?.isOpen || false,
-            thuesday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 2)?.isOpen || false,
-            wednesday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 3)?.isOpen || false,
-            thursday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 4)?.isOpen || false,
-            friday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 5)?.isOpen || false,
-            saturday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 6)?.isOpen || false,
-            sunday: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 0)?.isOpen || false
+            _1: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 1)?.isOpen || false,
+            _2: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 2)?.isOpen || false,
+            _3: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 3)?.isOpen || false,
+            _4: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 4)?.isOpen || false,
+            _5: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 5)?.isOpen || false,
+            _6: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 6)?.isOpen || false,
+            _0: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 0)?.isOpen || false
         })
     }
 
@@ -105,6 +107,8 @@ export default function Administration() {
             setError('Por favor, ingresa tiempo de demora.');
             return;
         }
+
+        saveWeeklySchedules();
 
         await UpdateParameter({ key: ParameterEnum.DELAY, value: formData?.delay });
         await UpdateParameter({ key: ParameterEnum.ADDRESS, value: formData?.address });
@@ -164,6 +168,43 @@ export default function Administration() {
         });
 
         setSpecialSchedules(listSpecialSchedules);
+    }
+
+    const saveWeeklySchedules = async () => {
+        weeklySchedules?.forEach(async (weeklySchedule: any) => {
+            switch (weeklySchedule.dayCode) {
+                case 1:
+                    weeklySchedule.isOpen = formData._1;
+                    break;
+                case 2:
+                    weeklySchedule.isOpen = formData._2;
+                    break;
+                case 3:
+                    weeklySchedule.isOpen = formData._3;
+                    break;
+                case 4:
+                    weeklySchedule.isOpen = formData._4;
+                    break;
+                case 5:
+                    weeklySchedule.isOpen = formData._5;
+                    break;
+                case 6:
+                    weeklySchedule.isOpen = formData._6;
+                    break;
+                case 0:
+                    weeklySchedule.isOpen = formData._0;
+                    break;
+                default:
+                    break;                    
+            }
+
+            weeklySchedule.openingTime = formData.opening;
+            weeklySchedule.closingTime = formData.closing;
+            weeklySchedule.openingScheduleTime = formData.openingSchedules;
+            weeklySchedule.closingScheduleTime = formData.closingSchedules;
+        })
+
+        await UpdateAllWeeklySchedules(weeklySchedules);
     }
 
     return (
@@ -268,39 +309,39 @@ export default function Administration() {
                         <div className="parameters__container m-auto">
                             <h3 className="text-primary text-lg font-semibold mt-4">Días</h3>
                             <div className="flex justify-between items-center my-3">
-                                <label htmlFor="monday" className="text-gray-600 text-sm mr-2">Lunes</label>
-                                <input type="checkbox" id="monday" name="monday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.monday ?? false} onChange={handleCheckboxChange} />
+                                <label htmlFor="_1" className="text-gray-600 text-sm mr-2">Lunes</label>
+                                <input type="checkbox" id="_1" name="_1" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._1 ?? false} onChange={handleCheckboxChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
-                                <label htmlFor="thuesday" className="text-gray-600 text-sm mr-2">Martes</label>
-                                <input type="checkbox" id="thuesday" name="thuesday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.thuesday ?? false} onChange={handleCheckboxChange} />
+                                <label htmlFor="_2" className="text-gray-600 text-sm mr-2">Martes</label>
+                                <input type="checkbox" id="_2" name="_2" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._2 ?? false} onChange={handleCheckboxChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
-                                <label htmlFor="wednesday" className="text-gray-600 text-sm mr-2">Miércoles</label>
-                                <input type="checkbox" id="wednesday" name="wednesday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.wednesday ?? false} onChange={handleCheckboxChange} />
+                                <label htmlFor="_3" className="text-gray-600 text-sm mr-2">Miércoles</label>
+                                <input type="checkbox" id="_3" name="_3" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._3 ?? false} onChange={handleCheckboxChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
-                                <label htmlFor="thursday" className="text-gray-600 text-sm mr-2">Jueves</label>
-                                <input type="checkbox" id="thursday" name="thursday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.thursday ?? false} onChange={handleCheckboxChange} />
+                                <label htmlFor="_4" className="text-gray-600 text-sm mr-2">Jueves</label>
+                                <input type="checkbox" id="_4" name="_4" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._4 ?? false} onChange={handleCheckboxChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
-                                <label htmlFor="friday" className="text-gray-600 text-sm mr-2">Viernes</label>
-                                <input type="checkbox" id="friday" name="friday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.friday ?? false} onChange={handleCheckboxChange} />
+                                <label htmlFor="_5" className="text-gray-600 text-sm mr-2">Viernes</label>
+                                <input type="checkbox" id="_5" name="_5" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._5 ?? false} onChange={handleCheckboxChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
-                                <label htmlFor="saturday" className="text-gray-600 text-sm mr-2">Sábado</label>
-                                <input type="checkbox" id="saturday" name="saturday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.saturday ?? false} onChange={handleCheckboxChange} />
+                                <label htmlFor="_6" className="text-gray-600 text-sm mr-2">Sábado</label>
+                                <input type="checkbox" id="_6" name="_6" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._6 ?? false} onChange={handleCheckboxChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
-                                <label htmlFor="sunday" className="text-gray-600 text-sm mr-2">Domingo</label>
-                                <input type="checkbox" id="sunday" name="sunday" className="border border-gray-400 rounded-sm px-2 text-sm"
-                                    checked={formData?.sunday ?? false} onChange={handleCheckboxChange} />
+                                <label htmlFor="_0" className="text-gray-600 text-sm mr-2">Domingo</label>
+                                <input type="checkbox" id="_0" name="_0" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._0 ?? false} onChange={handleCheckboxChange} />
                             </div>
 
                             <h3 className="text-primary text-lg font-semibold mt-4">Horarios</h3>

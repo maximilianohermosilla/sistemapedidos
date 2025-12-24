@@ -92,7 +92,7 @@ builder.Services.AddScoped<ISpecialScheduleService, SpecialScheduleService>();
 builder.Services.AddScoped<IWeeklyScheduleService, WeeklyScheduleService>();
 
 builder.Services.AddHttpClient();
-//builder.Services.AddHostedService<KeepAliveService>();
+builder.Services.AddHostedService<KeepAliveService>();
 
 //ADD CORS
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp",
