@@ -3,7 +3,7 @@ import imgDefault from "../assets/logo/logo_gray_top.jpeg";
 import ProductInfoTopping from "./ProductInfoTopping";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { CartContext } from "../context/CartContext";
-import { formatMoney } from "../utils/FormatMoney.ts";
+import { formatMoney } from "../utils/FormatMoneyUtil.ts";
 import showToast from "../services/toast-service.ts";
 
 export default function ProductInfo({ product, onConfirm }: any) {
@@ -91,7 +91,7 @@ export default function ProductInfo({ product, onConfirm }: any) {
             selectedTopping.categoryId === topping.categoryId && selectedTopping.productNumber === topping.productNumber);
 
         if (index >= 0) {
-            selectedToppingsTemp[index] = topping;
+            topping?.checked == false ? selectedToppingsTemp.splice(index, 1) : selectedToppingsTemp[index] = topping;
             setSelectedToppings([...selectedToppingsTemp]);
         }
         else {
@@ -109,16 +109,16 @@ export default function ProductInfo({ product, onConfirm }: any) {
     const handleConfirm = () => {
         const product = { ...item, quantity: itemQuantity, toppings: selectedToppings, totalPrice: totalPrice }
         cartContext.addToCart.bind(null, product)();
-        showToast({title: 'Producto', description:  `${product?.name} agregado correctamente.`});
+        showToast({ title: 'Producto', description: `${product?.name} agregado correctamente.` });
         onConfirm();
     }
 
     const validateToppings = () => {
         let toppingIncomplete: boolean = false;
-        for (let index = 0; index <= itemQuantity-1; index++) {
+        for (let index = 0; index <= itemQuantity - 1; index++) {
             toppings?.forEach((topping: any) => {
-                if (topping?.category?.maxQty > 0) {
-                    const toppingChecked = selectedToppings.find((t: any) => t.categoryId === topping?.category?.id && t.productNumber === index);                    
+                if (topping?.category?.maxQty == 1) {
+                    const toppingChecked = selectedToppings.find((t: any) => t.categoryId === topping?.category?.id && t.productNumber === index);
                     if (!toppingChecked) {
                         toppingIncomplete = true;
                     }
@@ -141,14 +141,14 @@ export default function ProductInfo({ product, onConfirm }: any) {
     return (
         <>
             {item &&
-                <div className="product__container">
+                <div className="product__container max-w-75 md:max-w-[45vw] lg:max-w-[30vw]">
                     <img src={item?.imageUrl && item?.imageUrl != '' ? item?.imageUrl : imgDefault} alt={item?.name} onError={addDefaultImg}
-                        className="w-full h-50 md:h-80 object-fill rounded-t-md" />
+                        className="w-full h-50 md:h-75 object-fill rounded-t-md" />
                     <section className="mt-2">
                         <div className="product__info">
                             <p className="text-cyan-700 font-bold">{formatMoney(item?.price || 0)}</p>
                             <p className="text-cyan-500">{item?.category?.name}</p>
-                            <p className="text-gray-500">{item?.description}</p>
+                            <p className="text-gray-500 whitespace-break-spaces">{item?.observaciones || item?.description}</p>
                         </div>
                         <div className="product__toppings my-3">
                             {Array.from({ length: itemQuantity }).map((item, index) => (
@@ -156,21 +156,48 @@ export default function ProductInfo({ product, onConfirm }: any) {
                             ))}
                         </div>
                     </section>
-                    <footer className="flex justify-between items-center mt-5">
-                        <div className="flex justify-between items-center w-20">
-                            <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
-                                onClick={handleDiscount}>
-                                <FaMinus />
-                            </button>
-                            <span className="font-semibold text-gray-400 md:mx-2">{itemQuantity}</span>
-                            <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
-                                onClick={() => setItemQuantity(itemQuantity + 1)}>
-                                <FaPlus />
-                            </button>
-                        </div>
+
+                    {/* {item?.category?.name?.toUpperCase() == 'MENU FIESTAS' &&
+                        <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2" style={{ maxWidth: '360px' }}>
+                            El pedido debe ser reservado abonando el 50% del valor total. 
+                            Comuníquese a través de nuestro whatsapp o instagram luego de confirmar el pedido.
+                        </p>                        
+                    } */}
+
+                    <footer className="flex justify-between items-end mt-5">
+                        {item?.category?.name?.toUpperCase() == 'MENU FIESTAS' ?
+                            <div className="">
+                                <p className="w-full text-center text-gray-500 text-sm font-semibold">Comen </p>
+                                <div className="flex justify-between items-center w-20">
+                                    <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                        onClick={handleDiscount}>
+                                        <FaMinus />
+                                    </button>
+                                    <span className="font-semibold text-gray-400 mx-1">{itemQuantity * 5}</span>
+                                    <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                        onClick={() => setItemQuantity(itemQuantity + 1)}>
+                                        <FaPlus />
+                                    </button>
+                                </div>
+                            </div>
+                            :
+                            <div className="flex justify-between items-center w-20">
+                                <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                    onClick={handleDiscount}>
+                                    <FaMinus />
+                                </button>
+                                <span className="font-semibold text-gray-400 mx-1">{itemQuantity}</span>
+                                <button className="button__add__outlined rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
+                                    onClick={() => setItemQuantity(itemQuantity + 1)}>
+                                    <FaPlus />
+                                </button>
+                            </div>
+                        }
+
                         <button tabIndex={0} className="button__primary flex items-center gap-1" onClick={handleConfirm} disabled={requiredToppings}>
                             Agregar {formatMoney(totalPrice || 0)}
                         </button>
+
                     </footer>
                 </div>
             }

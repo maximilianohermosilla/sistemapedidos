@@ -617,6 +617,25 @@ namespace SistemaPedidosReact.Server.Migrations
                     { 2, new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Utc), "rodri.molinaf@gmail.com", true, "El Refugio", "Administrador", "LjliO6jJsinV8L1xpIj20g==", "adminRefugio" }
                 });
 
+
+            migrationBuilder.InsertData(
+                table: "Parameters",
+                columns: new[] { "Id", "Key", "Value" },
+                values: new object[,]
+                {
+                    { 1, "DELAY", ""},
+                    { 2, "ADDRESS",  "" },
+                    { 3, "WHATSAPP",  "" },
+                    { 4, "EMAIL",  "" },
+                    { 5, "PHONE",  "" },
+                    { 6, "INSTAGRAM",  "" },
+                    { 7, "SCHEDULES",  "" },
+                    { 8, "UPDATE MENU", "SI" },
+                    { 9, "UPDATE MENU ALWAYS", "NO" },
+                    { 10, "LATITUDE",  "-34.91940352019461" },
+                    { 11, "LONGITUDE",  "-57.9503059387207" },
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Discounts_ItemId",
                 table: "Discounts",

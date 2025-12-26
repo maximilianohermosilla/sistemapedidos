@@ -8,7 +8,9 @@ namespace SistemaPedidosReact.Server.DTOs
         public int ItemId { get; set; }
         [JsonIgnore]
         public int OrderItemId { get; set; }
+        [JsonPropertyName("price")]
         public decimal Price { get; set; }
+        [JsonPropertyName("quantity")]
         public int Quantity { get; set; }
         [JsonIgnore]
         public int SortingPosition { get; set; } = 0;

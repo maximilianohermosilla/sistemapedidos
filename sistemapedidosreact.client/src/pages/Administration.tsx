@@ -8,10 +8,25 @@ import { MdLogout } from "react-icons/md";
 import { FaRegSave } from "react-icons/fa";
 import { ParameterEnum } from "../enums/parameter";
 import showToast from "../services/toast-service";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
+import { GetAllWeeklySchedules, UpdateAllWeeklySchedules } from "../services/weekly-schedule-service";
+import { GetAllSpecialSchedules } from "../services/special-schedule-service";
+import CardException from "../components/CardException";
+
+const positionDefault = [-34.92057857658673, -57.95523024039817];
 
 export default function Administration() {
-    const [formData, setFormData] = useState<any>({ delay: '', address: '', phone: '', email: '', whatsapp: '', instagram: '', schedules: '' });
+    const [formData, setFormData] = useState<any>({
+        delay: '', address: '', phone: '', email: ''
+        , whatsapp: '', instagram: '', schedules: ''
+        , latitude: '', longitude: '', opening: '', closing: ''
+        , openingSchedules: '', closingSchedules: ''
+        , updateMenu: false, updateMenuAlways: false
+    });
     const [error, setError] = useState<string | null>(null);
+    const [position, setPosition] = useState<any>(positionDefault);
+    const [weeklySchedules, setWeeklySchedules] = useState<any[] | undefined>(undefined);
+    const [specialSchedules, setSpecialSchedules] = useState<any[] | undefined>(undefined);
     const { isLoggedIn, login, logout } = useAuth();
 
     useEffect(() => {
@@ -20,12 +35,12 @@ export default function Administration() {
 
     const handleLoginSuccess = (userName?: any, token?: any) => {
         login(userName, token);
-        showToast({title: 'Login', description: 'Bienvenido al panel de administración.'});
+        showToast({ title: 'Login', description: 'Bienvenido al panel de administración.' });
     };
 
     const handleLogout = () => {
         logout();
-        showToast({title: 'Login', description: 'Se ha cerrado la sesión.'});
+        showToast({ title: 'Login', description: 'Se ha cerrado la sesión.' });
     };
 
     const getParameters = async () => {
@@ -36,6 +51,18 @@ export default function Administration() {
         const instagramParameter = await GetParameterByKey(ParameterEnum.INSTAGRAM);
         const phoneParameter = await GetParameterByKey(ParameterEnum.PHONE);
         const schedulesParameter = await GetParameterByKey(ParameterEnum.SCHEDULES);
+        const updateMenuParameter = await GetParameterByKey(ParameterEnum.UPDATE_MENU);
+        const updateMenuAlwaysParameter = await GetParameterByKey(ParameterEnum.UPDATE_MENU_ALWAYS);
+        const latitudeParameter = await GetParameterByKey(ParameterEnum.LATITUDE);
+        const longitudeParameter = await GetParameterByKey(ParameterEnum.LONGITUDE);
+        const openingParameter = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
+        const closingParameter = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
+        const openingSchedulesParameter = await GetParameterByKey(ParameterEnum.OPENING_SCHEDULES_HOURS);
+        const closingSchedulesParameter = await GetParameterByKey(ParameterEnum.CLOSING_SCHEDULES_HOURS);
+
+        const weeklyDays = await GetAllWeeklySchedules();
+        setWeeklySchedules(weeklyDays);
+        getAllSpecialSchedules();
 
         setFormData({
             ...formData,
@@ -45,12 +72,31 @@ export default function Administration() {
             email: emailParameter?.value || '',
             instagram: instagramParameter?.value || '',
             phone: phoneParameter?.value || '',
-            schedules: schedulesParameter?.value || ''
+            schedules: schedulesParameter?.value || '',
+            latitude: latitudeParameter?.value || '-34.92057857658673',
+            longitude: longitudeParameter?.value || '-57.95523024039817',
+            opening: openingParameter?.value || '20:00',
+            closing: closingParameter?.value || '23:00',
+            openingSchedules: openingSchedulesParameter?.value || '20:00',
+            closingSchedules: closingSchedulesParameter?.value || '23:00',
+            updateMenu: updateMenuParameter?.value === "SI" || false,
+            updateMenuAlways: updateMenuAlwaysParameter?.value === "SI" || false,
+            _1: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 1)?.isOpen || false,
+            _2: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 2)?.isOpen || false,
+            _3: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 3)?.isOpen || false,
+            _4: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 4)?.isOpen || false,
+            _5: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 5)?.isOpen || false,
+            _6: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 6)?.isOpen || false,
+            _0: weeklyDays?.find((weeklyDay: any) => weeklyDay.dayCode === 0)?.isOpen || false
         })
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.checked });
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -62,6 +108,8 @@ export default function Administration() {
             return;
         }
 
+        saveWeeklySchedules();
+
         await UpdateParameter({ key: ParameterEnum.DELAY, value: formData?.delay });
         await UpdateParameter({ key: ParameterEnum.ADDRESS, value: formData?.address });
         await UpdateParameter({ key: ParameterEnum.EMAIL, value: formData?.email });
@@ -69,8 +117,94 @@ export default function Administration() {
         await UpdateParameter({ key: ParameterEnum.WHATSAPP, value: formData?.whatsapp });
         await UpdateParameter({ key: ParameterEnum.INSTAGRAM, value: formData?.instagram });
         await UpdateParameter({ key: ParameterEnum.SCHEDULES, value: formData?.schedules });
+        await UpdateParameter({ key: ParameterEnum.LATITUDE, value: formData?.latitude });
+        await UpdateParameter({ key: ParameterEnum.LONGITUDE, value: formData?.longitude });
+        await UpdateParameter({ key: ParameterEnum.OPENING_HOURS, value: formData?.opening });
+        await UpdateParameter({ key: ParameterEnum.CLOSING_HOURS, value: formData?.closing });
+        await UpdateParameter({ key: ParameterEnum.OPENING_SCHEDULES_HOURS, value: formData?.openingSchedules });
+        await UpdateParameter({ key: ParameterEnum.CLOSING_SCHEDULES_HOURS, value: formData?.closingSchedules });
+        await UpdateParameter({ key: ParameterEnum.UPDATE_MENU, value: formData?.updateMenu ? "SI" : "NO" });
+        await UpdateParameter({ key: ParameterEnum.UPDATE_MENU_ALWAYS, value: formData?.updateMenuAlways ? "SI" : "NO" });
 
-        showToast({title: 'Administración', description: 'Parámetros actualizados correctamente.'});
+        showToast({ title: 'Administración', description: 'Parámetros actualizados correctamente.' });
+    }
+
+    function ClickHandler() {
+        useMapEvents({
+            click(e) {
+                setPosition([e.latlng.lat, e.latlng.lng]);
+                setFormData({ ...formData, latitude: e.latlng.lat!.toString(), longitude: e.latlng.lng!.toString() });
+            },
+        });
+        return null;
+    }
+
+    const handleOpening = (e: any) => {
+        setFormData({ ...formData, opening: e.target.value });
+    };
+
+    const handleClosing = (e: any) => {
+        setFormData({ ...formData, closing: e.target.value });
+    };
+
+    const handleOpeningSchedules = (e: any) => {
+        setFormData({ ...formData, openingSchedules: e.target.value });
+    };
+
+    const handleClosingSchedules = (e: any) => {
+        setFormData({ ...formData, closingSchedules: e.target.value });
+    };
+
+    const handleSaveSpecialSchedule = () => {
+        getAllSpecialSchedules();
+    }
+
+    const getAllSpecialSchedules = async () => {
+        setSpecialSchedules([]);
+        const listSpecialSchedules = await GetAllSpecialSchedules();
+        listSpecialSchedules.push({
+            id: 0, closingScheduleTime: "00:00", closingTime: "00:00", date: "2025-01-01", description: "",
+            isOpen: false, openingScheduleTime: "00:00", openingTime: "00:00",
+        });
+
+        setSpecialSchedules(listSpecialSchedules);
+    }
+
+    const saveWeeklySchedules = async () => {
+        weeklySchedules?.forEach(async (weeklySchedule: any) => {
+            switch (weeklySchedule.dayCode) {
+                case 1:
+                    weeklySchedule.isOpen = formData._1;
+                    break;
+                case 2:
+                    weeklySchedule.isOpen = formData._2;
+                    break;
+                case 3:
+                    weeklySchedule.isOpen = formData._3;
+                    break;
+                case 4:
+                    weeklySchedule.isOpen = formData._4;
+                    break;
+                case 5:
+                    weeklySchedule.isOpen = formData._5;
+                    break;
+                case 6:
+                    weeklySchedule.isOpen = formData._6;
+                    break;
+                case 0:
+                    weeklySchedule.isOpen = formData._0;
+                    break;
+                default:
+                    break;                    
+            }
+
+            weeklySchedule.openingTime = formData.opening;
+            weeklySchedule.closingTime = formData.closing;
+            weeklySchedule.openingScheduleTime = formData.openingSchedules;
+            weeklySchedule.closingScheduleTime = formData.closingSchedules;
+        })
+
+        await UpdateAllWeeklySchedules(weeklySchedules);
     }
 
     return (
@@ -85,50 +219,182 @@ export default function Administration() {
                         <div className="header__info flex w-full gap-3 justify-evenly items-center text-sm border-2 my-5 
                             border-gray-400 rounded-md mx-auto py-1 font-semibold mb-3 text-center text-gray-400">
                             <label htmlFor="delay" className="flex gap-1 text-xs items-center"><FaRegClock />Demora:</label>
-                            <input className="bg-white px-2 font-medium text-sm rounded-sm border-1 text-secondary"
+                            <input className="bg-white px-2 font-medium text-sm rounded-sm border text-secondary"
                                 id="delay" name="delay" type="text" value={formData?.delay} onChange={handleChange} />
                         </div>
                         <div className="parameters__container m-auto">
                             <div className="flex justify-between items-center my-3">
+                                <label htmlFor="updateMenu" className="text-gray-600 text-sm mr-2">Actualizar Menú:</label>
+                                <input type="checkbox" id="updateMenu" name="updateMenu" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.updateMenu ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3 mb-5">
+                                <label htmlFor="updateMenuAlways" className="text-gray-600 text-sm mr-2">Actualizar Menú cada 5 minutos:</label>
+                                <input type="checkbox" id="updateMenuAlways" name="updateMenuAlways" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?.updateMenuAlways ?? false} onChange={handleCheckboxChange} />
+                            </div>
+
+                            <h3 className="text-primary text-lg font-semibold">Contacto</h3>
+                            <div className="flex justify-between items-center my-3">
                                 <label htmlFor="address" className="text-gray-600 text-sm mr-2">Dirección:</label>
-                                <input type="text" id="address" name="address" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="address" name="address" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.address} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="email" className="text-gray-600 text-sm mr-2">Correo:</label>
-                                <input type="text" id="email" name="email" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="email" name="email" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.email} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="phone" className="text-gray-600 text-sm mr-2">Teléfono:</label>
-                                <input type="text" id="phone" name="phone" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="phone" name="phone" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.phone} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="instagram" className="text-gray-600 text-sm mr-2">Instagram:</label>
-                                <input type="text" id="instagram" name="instagram" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="instagram" name="instagram" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.instagram} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Whatsapp:</label>
-                                <input type="text" id="whatsapp" name="whatsapp" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="whatsapp" name="whatsapp" className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.whatsapp} onChange={handleChange} />
                             </div>
-                            <div className="flex justify-between items-center my-3">
+                            <div className="flex justify-between items-start my-3">
                                 <label htmlFor="schedules" className="text-gray-600 text-sm mr-2">Horarios:</label>
-                                {/* <input type="text" id="schedules" name="schedules" className="border-1 border-gray-400 rounded-sm px-2 text-sm"
-                                    value={formData?.schedules} onChange={handleChange} /> */}
                                 <textarea id="schedules" name="schedules"
-                                    className="border-1 border-gray-400 rounded-sm px-2 text-sm"
+                                    className="border border-gray-400 rounded-sm px-2 text-sm"
                                     value={formData?.schedules}
                                     onChange={handleChange}
                                     rows={5}
                                     cols={30}
                                 />
                             </div>
+
+
+                            <h3 className="text-primary text-lg font-semibold mt-5">Ubicación</h3>
+                            <section className="h-full p-2 mt-2">
+                                <MapContainer
+                                    style={{
+                                        height: "40vh",
+                                        width: "100%",
+                                    }}
+                                    center={position}
+                                    zoom={15}
+                                >
+                                    <ClickHandler />
+                                    <TileLayer
+                                        attribution="Google Maps"
+                                        url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
+                                    />
+
+                                    <Marker position={position} />
+                                </MapContainer>
+                            </section>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="latitude" className="text-gray-600 text-sm mr-2">Latitud:</label>
+                                <input type="text" id="latitude" name="latitude" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    disabled value={formData?.latitude || ''} onChange={handleChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="longitude" className="text-gray-600 text-sm mr-2">Longitud:</label>
+                                <input type="text" id="longitude" name="longitude" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    disabled value={formData?.longitude || ''} onChange={handleChange} />
+                            </div>
                         </div>
                         {error && <p className="text-danger text-center text-sm font-semibold px-2">{error}</p>}
                     </form>
+
+                    <section>
+                        <div className="parameters__container m-auto">
+                            <h3 className="text-primary text-lg font-semibold mt-4">Días</h3>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="_1" className="text-gray-600 text-sm mr-2">Lunes</label>
+                                <input type="checkbox" id="_1" name="_1" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._1 ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="_2" className="text-gray-600 text-sm mr-2">Martes</label>
+                                <input type="checkbox" id="_2" name="_2" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._2 ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="_3" className="text-gray-600 text-sm mr-2">Miércoles</label>
+                                <input type="checkbox" id="_3" name="_3" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._3 ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="_4" className="text-gray-600 text-sm mr-2">Jueves</label>
+                                <input type="checkbox" id="_4" name="_4" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._4 ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="_5" className="text-gray-600 text-sm mr-2">Viernes</label>
+                                <input type="checkbox" id="_5" name="_5" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._5 ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="_6" className="text-gray-600 text-sm mr-2">Sábado</label>
+                                <input type="checkbox" id="_6" name="_6" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._6 ?? false} onChange={handleCheckboxChange} />
+                            </div>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="_0" className="text-gray-600 text-sm mr-2">Domingo</label>
+                                <input type="checkbox" id="_0" name="_0" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    checked={formData?._0 ?? false} onChange={handleCheckboxChange} />
+                            </div>
+
+                            <h3 className="text-primary text-lg font-semibold mt-4">Horarios</h3>
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Apertura:</label>
+                                <input
+                                    className="w-30 px-2 rounded-sm"
+                                    type="time"
+                                    value={formData?.opening}
+                                    onChange={handleOpening}
+                                />
+                            </div>
+
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Cierre:</label>
+                                <input
+                                    className="w-30 px-2 rounded-sm"
+                                    type="time"
+                                    value={formData?.closing}
+                                    onChange={handleClosing}
+                                />
+                            </div>
+
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados desde:</label>
+                                <input
+                                    className="w-30 px-2 rounded-sm"
+                                    type="time"
+                                    value={formData?.openingSchedules}
+                                    onChange={handleOpeningSchedules}
+                                />
+                            </div>
+
+                            <div className="flex justify-between items-center my-3">
+                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados hasta:</label>
+                                <input
+                                    className="w-30 px-2 rounded-sm"
+                                    type="time"
+                                    value={formData?.closingSchedules}
+                                    onChange={handleClosingSchedules}
+                                />
+                            </div>
+
+                            <h3 className="text-primary text-lg font-semibold mt-5 mb-2">Excepciones</h3>
+
+                            {specialSchedules && specialSchedules.length > 0
+                                ? specialSchedules.map((specialSchedule: any, index: any) => 
+                                <CardException key={index} exception={specialSchedule} onSave={handleSaveSpecialSchedule}>
+                                </CardException>)
+                                : <p className="text-lg font-semibold text-center text-primary w-full my-3">No hay excepciones</p>}
+                        </div>
+                    </section>
+
                     <footer className="flex gap-3">
                         <button className="button__danger__outlined flex items-center gap-1 my-5 mx-auto" onClick={handleLogout}><MdLogout />Cerrar sesión</button>
                         <button className="button__primary flex items-center gap-3 my-5 mx-auto" onClick={handleSubmit}><FaRegSave />Guardar</button>

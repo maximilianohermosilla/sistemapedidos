@@ -26,8 +26,8 @@ export default function Menu({items, title}: any) {
         <> {items?.map((item: any, index: any) => <CardProduct key={index} product={item}></CardProduct>)} </>;
 
     return (
-        <section className="menu__carrousel">
-            <h2 className="w-full text-center text-2xl font-bold text-primary mt-3">{title}</h2>
+        <section className="menu__carrousel my-3 mb-5">
+            <h2 className="w-full text-center md:text-2xl text-xl font-bold text-primary mt-3">{title?.toUpperCase()}</h2>
             <div className="menu__container relative">
                 {items?.length > 1 && <BsArrowLeftCircleFill className="hidden lg:block arrow arrow-left z-10" onClick={scrollLeft}></BsArrowLeftCircleFill>}
                 <div ref={scrollContainerRef} className="horizontal__scrol__wrapper menu__section flex gap-5 overflow-x-auto mb-3 w-75">

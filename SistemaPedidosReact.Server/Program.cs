@@ -1,9 +1,11 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using SistemaPedidosReact.Server.Data;
 using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.Data.Repositories;
@@ -42,13 +44,25 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
             //Errors = errors,
             //Timestamp = DateTime.UtcNow
         };
+        Console.WriteLine($"Error de parámetros: \n {context!.ActionDescriptor!.DisplayName!.Split(' ')!.First()} -> {customErrorResponse.Message}");
         return new BadRequestObjectResult(customErrorResponse);
     };
 });
 
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new TimeOnlyConverter());
+    // You might also want to add a DateOnlyConverter if you use DateOnly
+    // options.JsonSerializerOptions.Converters.Add(new DateOnlyConverter());
+});
 
 // Configurar AutoMapper
 builder.Services.AddAutoMapper(config => new MappingProfile(config));
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
 // Configurar servicios de infraestructura
 builder.Services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
@@ -60,6 +74,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IParameterRepository, ParameterRepository>();
+builder.Services.AddScoped<ISpecialScheduleRepository, SpecialScheduleRepository>();
+builder.Services.AddScoped<IWeeklyScheduleRepository, WeeklyScheduleRepository>();
 
 
 // Configurar servicios de la aplicación 
@@ -72,13 +88,22 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IParameterService, ParameterService>();
+builder.Services.AddScoped<ISpecialScheduleService, SpecialScheduleService>();
+builder.Services.AddScoped<IWeeklyScheduleService, WeeklyScheduleService>();
+
+builder.Services.AddHttpClient();
+builder.Services.AddHostedService<KeepAliveService>();
 
 //ADD CORS
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp",
     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 //AUTHENTICATION JWT
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -94,6 +119,46 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
         options.Events = new JwtBearerEvents
         {
+            // Este se encarga de interceptar el token desde "Authorization" o "x-authorization"
+            OnMessageReceived = context =>
+            {
+                var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+
+                StringBuilder headers = new StringBuilder();
+                foreach (var header in context.Request.Headers)
+                {
+                    headers.AppendLine($"{header.Key}: {header.Value}");
+                }
+
+                Console.WriteLine(headers + "\n");
+
+                if (string.IsNullOrEmpty(authHeader))
+                {
+                    authHeader = context.Request.Headers["x-authorization"].FirstOrDefault();
+                }
+
+                if (string.IsNullOrEmpty(authHeader))
+                {
+                    authHeader = context.Request.Headers["authorization"].FirstOrDefault();
+                }
+
+                if (string.IsNullOrEmpty(authHeader))
+                {
+                    authHeader = context.Request.Headers["auth-token"].FirstOrDefault();
+                    if (!string.IsNullOrEmpty(authHeader) && !authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        authHeader = $"Bearer {authHeader.Trim()}";
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                {
+                    context.Token = authHeader.Substring("Bearer ".Length).Trim();
+                }
+
+                return Task.CompletedTask;
+            },
+
             OnChallenge = async context =>
             {
                 context.HandleResponse();
@@ -111,6 +176,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorization();
+
+// Configurar para evitar el shutdown por inactividad
+builder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(30));
+
+// O mantener un timeout más largo
+//builder.WebHost.UseShutdownTimeout(TimeSpan.FromMinutes(10));
+
+builder.Services.Configure<HostOptions>(opts =>
+{
+    opts.ShutdownTimeout = TimeSpan.FromMinutes(600);
+});
+
+builder.Host.UseSerilog((context, services, configuration) => configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services)
+        .Enrich.FromLogContext()
+        .WriteTo.Console());
 
 var app = builder.Build();
 
@@ -134,7 +216,7 @@ app.UseCors(policy => policy.AllowAnyHeader()
 //app.UseHttpsRedirection();
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
-	ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 });
 
 app.UseAuthentication();

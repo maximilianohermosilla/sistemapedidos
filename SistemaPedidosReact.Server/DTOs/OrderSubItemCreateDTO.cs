@@ -3,11 +3,14 @@
     public class OrderSubItemCreateDTO
     {
         public int Id { get; set; }
-        public int ItemId { get; set; }       
+        public int ItemId { get; set; }
+        public string? ItemName { get; set; } = string.Empty;
         public int OrderItemId { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public int? MaxLimit { get; set; } = null;
         public int SortingPosition { get; set; } = 0;
+
+        public ItemCreateDTO? Item { get; set; } = null;
     }
 }

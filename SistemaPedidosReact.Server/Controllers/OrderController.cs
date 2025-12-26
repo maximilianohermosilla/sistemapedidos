@@ -30,6 +30,13 @@ namespace SistemaPedidosReact.Server.Controllers
                     return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
                 }
 
+                var vOrderValid = await vGblService.ValidateOrder(pOrder);
+
+                if (!string.IsNullOrEmpty(vOrderValid))
+                {
+                    return BadRequest(new ResponseMessage() { Message = vOrderValid });
+                }
+
                 var vOrderCreated = await vGblService.Create(pOrder);
 
                 if(vOrderCreated == null)

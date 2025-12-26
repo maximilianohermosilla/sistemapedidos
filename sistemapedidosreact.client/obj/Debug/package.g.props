@@ -11,8 +11,10 @@
     <PackageJsonScriptsPreview Condition="$(PackageJsonScriptsPreview) == ''">vite preview</PackageJsonScriptsPreview>
     <PackageJsonDependenciesTailwindcssVite Condition="$(PackageJsonDependenciesTailwindcssVite) == ''">^4.1.13</PackageJsonDependenciesTailwindcssVite>
     <PackageJsonDependenciesTypesLeaflet Condition="$(PackageJsonDependenciesTypesLeaflet) == ''">^1.9.20</PackageJsonDependenciesTypesLeaflet>
+    <PackageJsonDependenciesDateFns Condition="$(PackageJsonDependenciesDateFns) == ''">^4.1.0</PackageJsonDependenciesDateFns>
     <PackageJsonDependenciesLeaflet Condition="$(PackageJsonDependenciesLeaflet) == ''">^1.9.4</PackageJsonDependenciesLeaflet>
     <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^19.1.1</PackageJsonDependenciesReact>
+    <PackageJsonDependenciesReactDayPicker Condition="$(PackageJsonDependenciesReactDayPicker) == ''">^9.11.0</PackageJsonDependenciesReactDayPicker>
     <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^19.1.1</PackageJsonDependenciesReactDom>
     <PackageJsonDependenciesReactIcons Condition="$(PackageJsonDependenciesReactIcons) == ''">^5.5.0</PackageJsonDependenciesReactIcons>
     <PackageJsonDependenciesReactLeaflet Condition="$(PackageJsonDependenciesReactLeaflet) == ''">^5.0.0</PackageJsonDependenciesReactLeaflet>
@@ -33,5 +35,6 @@
     <PackageJsonDevdependenciesTypescript Condition="$(PackageJsonDevdependenciesTypescript) == ''">~5.8.3</PackageJsonDevdependenciesTypescript>
     <PackageJsonDevdependenciesTypescriptEslint Condition="$(PackageJsonDevdependenciesTypescriptEslint) == ''">^8.39.1</PackageJsonDevdependenciesTypescriptEslint>
     <PackageJsonDevdependenciesVite Condition="$(PackageJsonDevdependenciesVite) == ''">^7.1.2</PackageJsonDevdependenciesVite>
+    <PackageJsonDevdependenciesVitePluginMkcert Condition="$(PackageJsonDevdependenciesVitePluginMkcert) == ''">^1.17.9</PackageJsonDevdependenciesVitePluginMkcert>
   </PropertyGroup>
 </Project>

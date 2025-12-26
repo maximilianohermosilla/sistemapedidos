@@ -382,7 +382,6 @@ namespace SistemaPedidosReact.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("OrderStateId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("State")
@@ -414,6 +413,9 @@ namespace SistemaPedidosReact.Server.Migrations
 
                     b.Property<string>("CantidadCubiertos")
                         .HasColumnType("longtext");
+
+                    b.Property<int?>("CookingTime")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -611,6 +613,74 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Parameters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Key = "DELAY",
+                            Value = ""
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Key = "ADDRESS",
+                            Value = ""
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Key = "WHATSAPP",
+                            Value = ""
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Key = "EMAIL",
+                            Value = ""
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Key = "PHONE",
+                            Value = ""
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Key = "INSTAGRAM",
+                            Value = ""
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Key = "SCHEDULES",
+                            Value = ""
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Key = "UPDATE MENU",
+                            Value = "SI"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Key = "UPDATE MENU ALWAYS",
+                            Value = "NO"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Key = "LATITUDE",
+                            Value = "-34.91940352019461"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Key = "LONGITUDE",
+                            Value = "-57.9503059387207"
+                        });
                 });
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.PaymentMethod", b =>
@@ -672,6 +742,85 @@ namespace SistemaPedidosReact.Server.Migrations
                             Id = 7,
                             Code = "PN",
                             Name = "Pago Nube"
+                        });
+                });
+
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.SpecialSchedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<TimeOnly?>("ClosingScheduleTime")
+                        .HasColumnType("time(6)");
+
+                    b.Property<TimeOnly>("ClosingTime")
+                        .HasColumnType("time(6)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsOpen")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<TimeOnly?>("OpeningScheduleTime")
+                        .HasColumnType("time(6)");
+
+                    b.Property<TimeOnly>("OpeningTime")
+                        .HasColumnType("time(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SpecialSchedules");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClosingScheduleTime = new TimeOnly(0, 0, 0),
+                            ClosingTime = new TimeOnly(22, 30, 0),
+                            Date = new DateTime(2025, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Navidad",
+                            IsOpen = false,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClosingScheduleTime = new TimeOnly(0, 0, 0),
+                            ClosingTime = new TimeOnly(22, 30, 0),
+                            Date = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Año Nuevo",
+                            IsOpen = false,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(0, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClosingScheduleTime = new TimeOnly(18, 0, 0),
+                            ClosingTime = new TimeOnly(18, 0, 0),
+                            Date = new DateTime(2025, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Nochebuena",
+                            IsOpen = true,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClosingScheduleTime = new TimeOnly(18, 0, 0),
+                            ClosingTime = new TimeOnly(18, 0, 0),
+                            Date = new DateTime(2025, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Fin de año",
+                            IsOpen = true,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(10, 0, 0)
                         });
                 });
 
@@ -804,6 +953,118 @@ namespace SistemaPedidosReact.Server.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.WeeklySchedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<TimeOnly?>("ClosingScheduleTime")
+                        .HasColumnType("time(6)");
+
+                    b.Property<TimeOnly>("ClosingTime")
+                        .HasColumnType("time(6)");
+
+                    b.Property<int>("DayCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DayWeek")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsOpen")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<TimeOnly?>("OpeningScheduleTime")
+                        .HasColumnType("time(6)");
+
+                    b.Property<TimeOnly>("OpeningTime")
+                        .HasColumnType("time(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WeeklySchedules");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClosingScheduleTime = new TimeOnly(20, 0, 0),
+                            ClosingTime = new TimeOnly(22, 30, 0),
+                            DayCode = 0,
+                            DayWeek = "Domingo",
+                            IsOpen = true,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(19, 45, 0)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClosingScheduleTime = new TimeOnly(20, 0, 0),
+                            ClosingTime = new TimeOnly(22, 30, 0),
+                            DayCode = 1,
+                            DayWeek = "Lunes",
+                            IsOpen = false,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(19, 45, 0)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClosingScheduleTime = new TimeOnly(20, 0, 0),
+                            ClosingTime = new TimeOnly(22, 30, 0),
+                            DayCode = 2,
+                            DayWeek = "Martes",
+                            IsOpen = true,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(19, 45, 0)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClosingScheduleTime = new TimeOnly(20, 0, 0),
+                            ClosingTime = new TimeOnly(22, 30, 0),
+                            DayCode = 3,
+                            DayWeek = "Miércoles",
+                            IsOpen = true,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(19, 45, 0)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ClosingScheduleTime = new TimeOnly(20, 0, 0),
+                            ClosingTime = new TimeOnly(22, 30, 0),
+                            DayCode = 4,
+                            DayWeek = "Jueves",
+                            IsOpen = true,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(19, 45, 0)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClosingScheduleTime = new TimeOnly(20, 0, 0),
+                            ClosingTime = new TimeOnly(22, 30, 0),
+                            DayCode = 5,
+                            DayWeek = "Viernes",
+                            IsOpen = true,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(19, 45, 0)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ClosingScheduleTime = new TimeOnly(20, 0, 0),
+                            ClosingTime = new TimeOnly(22, 30, 0),
+                            DayCode = 6,
+                            DayWeek = "Sábado",
+                            IsOpen = true,
+                            OpeningScheduleTime = new TimeOnly(10, 30, 0),
+                            OpeningTime = new TimeOnly(19, 45, 0)
+                        });
+                });
+
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Discount", b =>
                 {
                     b.HasOne("SistemaPedidosReact.Server.Models.Item", "Item")
@@ -875,8 +1136,7 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.HasOne("SistemaPedidosReact.Server.Models.OrderState", "OrderState")
                         .WithMany("Orders")
                         .HasForeignKey("OrderStateId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("SistemaPedidosReact.Server.Models.Store", "Store")
                         .WithMany("Orders")

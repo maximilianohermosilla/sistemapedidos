@@ -7,7 +7,7 @@ export async function GetOrders(storeId: string) {
     const token = localStorage.getItem('authToken');
 
     const response = await fetch(`${apiUrl}/api/orders?storeid=${storeId}`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -37,7 +37,8 @@ export async function CreateOrder(order: Order) {
         return data;
     }
     else {
-        showToast({ title: 'Error', description: response.statusText != '' ? response.statusText : "Ocurrió un error al crear el pedido.", error: true });
+        const data = await response.json().catch((err: any) => showToast({title: 'Error', description: err.message, error: true}));
+        showToast({ title: 'Error', description: data ? data?.message : "Ocurrió un error al crear el pedido.", error: true });
     }
 }
 

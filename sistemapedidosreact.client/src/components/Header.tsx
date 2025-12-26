@@ -1,12 +1,16 @@
 import "./Header.css";
 import React, { useContext, useEffect, useState } from "react";
 import logo from '../assets/logo/logo_black_bottom.jpeg';
-import { FaCartShopping } from "react-icons/fa6";
-import { FaMapMarkerAlt, FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
-import { BsPersonVcardFill } from "react-icons/bs";
+import { BsPersonVcard } from "react-icons/bs";
+import CustomTooltip from "./Tooltip";
+import { BiFoodMenu } from "react-icons/bi";
+import { LuMapPin } from "react-icons/lu";
+import { IoCartOutline } from "react-icons/io5";
+import { PiCheese } from "react-icons/pi";
 
 const Header: React.FC = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -23,7 +27,7 @@ const Header: React.FC = () => {
         if (inputSearch) {
             setMenuOpen(false);
             navigate(`/search/${inputSearch}`);
-        }        
+        }
     }
 
     const handleKeyDown = (event: any) => {
@@ -58,22 +62,39 @@ const Header: React.FC = () => {
 
                     {/* Links desktop */}
                     <div className="hidden md:flex space-x-6">
-                        <a href="/contact" className="header__link text-gray-600 hover:text-blue-400">
-                            <FaMapMarkerAlt />
-                        </a>
-                        <a href="/orders" className="header__link text-gray-600 hover:text-blue-400">
-                            <BsPersonVcardFill />
-                        </a>
-                        <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400">
-                            <FaCartShopping />
-                            {cartItems.length > 0 && <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
-                        </a>
+                        <CustomTooltip content="Contacto">
+                            <a href="/contact" className="header__link text-gray-600 hover:text-blue-400">
+                                <LuMapPin />
+                            </a>
+                        </CustomTooltip>
+
+                        <CustomTooltip content="Picadas">
+                            <a href="/picadas" className="header__link text-gray-600 hover:text-blue-400">
+                                <PiCheese />
+                            </a>
+                        </CustomTooltip>
+
+                        <CustomTooltip content="Pedidos">
+                            <a href="/orders" className="header__link text-gray-600 hover:text-blue-400">
+                                <BsPersonVcard />
+                            </a>
+                        </CustomTooltip>
+
+                        <CustomTooltip content="Carrito">
+                            <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400">
+                                <IoCartOutline />
+                                {cartItems.length > 0 && <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
+                            </a>
+                        </CustomTooltip>
                     </div>
 
                     {/* Hamburguesa mobile */}
                     <div className="md:hidden flex items-center">
+                        <a href="/picadas" className="header__link flex flex-col justify-center align-center text-gray-600 hover:text-blue-400 mr-5">
+                            <PiCheese className="mx-auto mt-3 mb-0"/> <span className="leading-3 text-xs">Picadas</span>
+                        </a>
                         {cartItems.length > 0 && <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400 mr-5">
-                            <FaCartShopping />
+                            <IoCartOutline />
                             <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>
                         </a>}
                         <button onClick={() => setMenuOpen(!menuOpen)} className="header__link hover:cursor-pointer">
@@ -101,14 +122,26 @@ const Header: React.FC = () => {
                         </div>
 
                         {/* Links */}
-                        <a href="/contact" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                            <FaMapMarkerAlt /> Ubicación
+
+
+                        <a href="/" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
+                            <BiFoodMenu /> Menú
                         </a>
+
+                        <a href="/picadas" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
+                            <PiCheese /> Picadas
+                        </a>
+
+                        <a href="/contact" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
+                            <LuMapPin /> Ubicación
+                        </a>
+
+
                         <a href="/orders" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                            <BsPersonVcardFill /> Pedidos
+                            <BsPersonVcard /> Pedidos
                         </a>
                         <a href="/shopping-cart" className="flex text-gray-700 hover:text-gray-500 hover:bg-gray-100 w-full gap-3 justify-start items-center py-2 pl-1 rounded-md">
-                            <FaCartShopping /> Carrito
+                            <IoCartOutline /> Carrito
                             {cartItems.length > 0 && <span className="bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>}
                         </a>
                     </div>

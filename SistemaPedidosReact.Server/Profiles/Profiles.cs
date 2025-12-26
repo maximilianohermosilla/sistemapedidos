@@ -45,13 +45,17 @@ namespace SistemaPedidosReact.Server.Profiles
             config.CreateMap<OrderDetail, OrderDetailCreateDTO>().ReverseMap();
 
             config.CreateMap<OrderItem, OrderItemReadDTO>().ReverseMap();
-            config.CreateMap<OrderItem, OrderItemCreateDTO>().ReverseMap();
+            config.CreateMap<OrderItem, OrderItemCreateDTO>();
+            config.CreateMap<OrderItemCreateDTO, OrderItem>()
+                .ForMember(dest => dest.Item, opt => opt.Ignore());
 
             config.CreateMap<OrderState, OrderStateReadDTO>().ReverseMap();
             config.CreateMap<OrderState, OrderStateCreateDTO>().ReverseMap();
 
             config.CreateMap<OrderSubItem, OrderSubItemReadDTO>().ReverseMap();
-            config.CreateMap<OrderSubItem, OrderSubItemCreateDTO>().ReverseMap();
+            config.CreateMap<OrderSubItem, OrderSubItemCreateDTO>();
+            config.CreateMap<OrderSubItemCreateDTO, OrderSubItem>()
+                .ForMember(dest => dest.Item, opt => opt.Ignore());
 
             config.CreateMap<OtherTotals, OtherTotalsReadDTO>().ReverseMap();
             config.CreateMap<OtherTotals, OtherTotalsCreateDTO>().ReverseMap();
@@ -71,6 +75,12 @@ namespace SistemaPedidosReact.Server.Profiles
             config.CreateMap<User, UserReadDTO>().ReverseMap();
             config.CreateMap<User, UserCreateDTO>().ReverseMap();
 
+            config.CreateMap<SpecialSchedule, SpecialScheduleReadDTO>().ReverseMap();
+            config.CreateMap<SpecialSchedule, SpecialScheduleCreateDTO>().ReverseMap();
+
+            config.CreateMap<WeeklySchedule, WeeklyScheduleReadDTO>().ReverseMap();
+            config.CreateMap<WeeklySchedule, WeeklyScheduleCreateDTO>().ReverseMap();
+
             //POS
             config.CreateMap<MenuCreatePOS, Menu>().ReverseMap();
 
@@ -82,7 +92,11 @@ namespace SistemaPedidosReact.Server.Profiles
 
             config.CreateMap<OrderReadPOS, Order>().ReverseMap();
             config.CreateMap<OrderDetailReadPOS, OrderDetail>().ReverseMap();
-            config.CreateMap<OrderItemReadPOS, OrderItem>().ReverseMap();
+
+            config.CreateMap<OrderItem, OrderItemReadPOS>()
+                            .ForMember(dest => dest.IdString, opt => opt.MapFrom(src => src.ItemId.ToString()));
+            config.CreateMap<OrderItemReadPOS, OrderItem>();
+
             config.CreateMap<OrderSubItemReadPOS, OrderSubItem>().ReverseMap();
             config.CreateMap<BillingInformationReadPOS, BillingInformation>().ReverseMap();
             config.CreateMap<ChargesReadPOS, Charges>().ReverseMap();

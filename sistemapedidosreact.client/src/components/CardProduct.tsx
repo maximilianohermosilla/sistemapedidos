@@ -5,7 +5,7 @@ import { FaPlus } from "react-icons/fa6";
 import { CartContext } from "../context/CartContext.tsx";
 import Dialog from "./Dialog.tsx";
 import ProductInfo from "./ProductInfo.tsx";
-import { formatMoney } from "../utils/FormatMoney.ts";
+import { formatMoney } from "../utils/FormatMoneyUtil.ts";
 
 export default function CardProduct({ product }: any) {
     const [item, setItem] = useState<any>();

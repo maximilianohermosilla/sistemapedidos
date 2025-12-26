@@ -35,20 +35,36 @@ namespace SistemaPedidosReact.Server.Data.Repositories
         {
             var vMaxMenuId = vGblContext.Menus.Max(c => c.Id);
             var vItems = vGblContext.Items.Include(i => i.Category).Where(i => i.MenuId == vMaxMenuId && i.Type!.ToUpper() == "PRODUCT" &&
-                (i.Name!.ToLower().Contains(pSearch!.ToLower()) || i.Description!.ToLower().Contains(pSearch!.ToLower()) || i.Category!.Name!.ToLower().Contains(pSearch!.ToLower())))
+                (i.Name!.ToLower().Contains(pSearch!.ToLower()) || i.Description!.ToLower().Contains(pSearch!.ToLower())
+                 || i.Observaciones!.ToLower().Contains(pSearch!.ToLower()) || i.Category!.Name!.ToLower().Contains(pSearch!.ToLower())))
                 .ToList();
             return vItems;
-        }
-        
+        }        
 
         public Item GetById(int pId)
         {
             return vGblContext.Items.FirstOrDefault(e => e.Id == pId)!;
         }
 
+        public IEnumerable<Item> GetAllByMenuId(int pMenuId)
+        {
+            return vGblContext.Items.Where(e => e.MenuId == pMenuId)!.ToList();
+        }
+
+        public IEnumerable<Item> GetAllByLastMenu()
+        {
+            var vMenuId = vGblContext.Menus.Max(c => c.Id);
+            return vGblContext.Items.Where(e => e.MenuId == vMenuId)!.ToList();
+        }
+
         public Item GetBySku(string pSku)
         {
             return vGblContext.Items.FirstOrDefault(e => e.Sku == pSku)!;
+        }
+
+        public EntityState Detach(Item pItem)
+        {
+           return vGblContext.Entry(pItem).State = EntityState.Detached;
         }
     }
 }

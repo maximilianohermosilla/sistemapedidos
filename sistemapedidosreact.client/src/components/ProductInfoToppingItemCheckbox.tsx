@@ -1,5 +1,5 @@
 import "./ProductInfoToppingItemCheckbox.css"
-import { formatMoney } from "../utils/FormatMoney";
+import { formatMoney } from "../utils/FormatMoneyUtil";
 import { useEffect, useState } from "react";
 
 export default function ProductInfoToppingItemCheckbox({ item, setSelectedOption, checked, productNumber }: any) {
@@ -13,10 +13,14 @@ export default function ProductInfoToppingItemCheckbox({ item, setSelectedOption
 
     useEffect(() => {
         item.productNumber = productNumber;
-        item.multiple = true;
+        item.multiple = item.maxLimit > 1;
         setTopping(item);
         setToppingChecked(checked);
     }, [item, productNumber])
+
+    useEffect(() => {
+        setToppingChecked(checked);
+    }, [checked])
 
     return (
         <div className="flex justify-between mb-2 p-2 hover:opacity-70">

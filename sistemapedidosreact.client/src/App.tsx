@@ -10,13 +10,15 @@ import Administration from './pages/Administration';
 import { AuthProvider } from './context/AuthContext';
 import { Toaster } from 'sonner';
 import Orders from './pages/Orders';
+import MenuPage from './pages/Menu';
+import PicadasPage from './pages/Picadas';
 
 function App() {
     return (
         <div className="main__height w-full bg-gray-100">
-            <Header></Header>
-            <main className="w-full main__height mb-0" style={{ paddingTop: "64px" }}>
-                <AuthProvider>
+            <AuthProvider>
+                <Header></Header>
+                <main className="w-full main__height mb-0" style={{ paddingTop: "64px" }}>
                     <Routes>
                         <Route index element={<LandingPage />} />
                         <Route path="/" element={<LandingPage />} />
@@ -24,11 +26,13 @@ function App() {
                         <Route path="/shopping-cart" element={<ShoppingCart />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/orders" element={<Orders />} />
+                        <Route path="/menu" element={<MenuPage />} />
+                        <Route path="/picadas" element={<PicadasPage />} />
                         <Route path="/admin" element={<Administration />} />
                         <Route path="*" element={<LandingPage />} />
                     </Routes>
-                </AuthProvider>
-            </main>
+                </main>
+            </AuthProvider>
             <Toaster duration={2000} position="top-right" />
         </div>
     );

@@ -12,5 +12,6 @@ namespace SistemaPedidosReact.Server.Responses.Interfaces
         Task<OrderReadDTO?> GetById(int pId);
         Task<bool?> UpdateState(int? pOrderId, string pState, string pDelay);
         Task<bool?> CancelItems(int? pOrderId, IEnumerable<OrderCancelItemDTO> pItems);
+        Task<string> ValidateOrder(OrderCreateDTO pOrder);
     }
 }

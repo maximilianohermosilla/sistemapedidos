@@ -6,6 +6,7 @@
         public int OrderId { get; set; }
         public string? DeliveryOperationType { get; set; } = "Regular"; //Turbo || Regular
         public DateTime? CreatedAt { get; set; } = DateTime.Now;
+        public int? CookingTime { get; set; } = 0;
         public string? DeliveryMethod { get; set; } = "Pickup"; //Mesa || Delivery || Pickup
         public int? MesaId { get; set; }
         public string? CantidadCubiertos { get; set; } = null;

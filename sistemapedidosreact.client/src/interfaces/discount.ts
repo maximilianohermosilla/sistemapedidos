@@ -4,7 +4,7 @@ export interface Discount {
   value: number;
   description: string;
   orderDetailId: number;
-  itemId: number;
+  itemId?: number;
   sku: string;
   type: string;
   rawValue: number;

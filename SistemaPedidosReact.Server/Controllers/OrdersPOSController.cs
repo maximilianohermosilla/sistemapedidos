@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Responses.Interfaces;
+using System.Text.Json;
 
 namespace SistemaPedidosReact.Server.Controllers
 {
@@ -18,7 +19,7 @@ namespace SistemaPedidosReact.Server.Controllers
             vGblStoreService = pStoreService;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("orders")]
         [Authorize]
         public async Task<ActionResult<IEnumerable<OrderReadPOS>>> GetAllOrdersPOS([FromQuery] string storeid)
@@ -29,11 +30,14 @@ namespace SistemaPedidosReact.Server.Controllers
 
                 if (vStore == null)
                 {
+                    Console.WriteLine("Tienda no encontrada (GetAllOrdersPOS)");
                     return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
                 }
 
+                Console.WriteLine($"*** Get Orders Store : {storeid}");
                 var vOrders = await vGblService.GetAllPendingsByStore(vStore.Id);
 
+                Console.WriteLine(JsonSerializer.Serialize(vOrders));
                 return Ok(vOrders);
             }
             catch (Exception ex)
@@ -46,14 +50,17 @@ namespace SistemaPedidosReact.Server.Controllers
         [Route("orders_update")]
         [Authorize]
         public async Task<ActionResult<IEnumerable<OrderReadPOS>>> OrdersUpdate([FromQuery] string storeid,
-                        [FromQuery] string orderId, [FromQuery] string state, [FromQuery] string delay)
+                        [FromQuery] string orderId, [FromQuery] string state, [FromQuery] string? delay)
         {
             try
             {
                 var vStore = await vGblStoreService.GetByExternalId(storeid);
 
+                Console.WriteLine($"*** Update Orders Store : {storeid}");
+
                 if (vStore == null)
                 {
+                    Console.WriteLine("Tienda no encontrada (OrdersUpdate)");
                     return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
                 }
 
@@ -61,14 +68,17 @@ namespace SistemaPedidosReact.Server.Controllers
 
                 if(vOrderUpdated == null)
                 {
+                    Console.WriteLine($"Orden no encontrada: {orderId}");
                     return NotFound(new ResponseMessage() { Message = "Orden no encontrada" });
                 }
 
                 if (vOrderUpdated == false)
                 {
+                    Console.WriteLine($"Cambio de estado inválida. Order = {orderId}, State = {state}, Delay = {delay}");
                     return BadRequest(new ResponseMessage() { Message = "Cambio de estado inválido" });
                 }
 
+                Console.WriteLine($"Orden modificada. Order = {orderId}, State = {state}, Delay = {delay}");
                 return Ok(new ResponseMessage() { Message = "Orden modificada" });
             }
             catch (Exception ex)
@@ -88,6 +98,7 @@ namespace SistemaPedidosReact.Server.Controllers
 
                 if (vStore == null)
                 {
+                    Console.WriteLine("Tienda no encontrada (OrdersCancel)");
                     return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
                 }
 
@@ -95,9 +106,11 @@ namespace SistemaPedidosReact.Server.Controllers
 
                 if(vOrder == null)
                 {
+                    Console.WriteLine("La orden es inválida");
                     return BadRequest(new ResponseMessage() { Message = "La orden es inválida" });
                 }
 
+                Console.WriteLine($"Orden {orderId} actualizada. {JsonSerializer.Serialize(pOrderCancel)}");
                 return Ok(new ResponseMessage() { Message = "OK" });
             }
             catch (Exception ex)
