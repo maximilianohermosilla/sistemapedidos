@@ -190,7 +190,31 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     const createOrder = async () => {
         setLoading(true);
         onProcess(true);
-        const orderDetail = shoppingCart.map((item: any) => ({
+        console.log(shoppingCart);
+
+        const shoppingCartOrder: any[] = [];
+
+        shoppingCart.forEach((item: any) => {
+            const productNumbersToppings = item?.toppings?.map((topping: any) => topping.productNumber);
+            const uniqueProductNumbers = [...new Set(productNumbersToppings)];
+
+            if(item.quantity > 1 && uniqueProductNumbers.length > 1){
+                console.log("Debo dividir el producto ", item.name);
+                for(let i = 0; i < item.quantity; i++){
+
+                    shoppingCartOrder.push({ ...item, quantity: 1, toppings: item.toppings[i] ? [item.toppings[i]] : [] });
+                }
+                // item.toppings.forEach((topping: any) => {
+                //     shoppingCartOrder.push({ ...item, quantity: 1, toppings: [topping] });
+                // })
+            }
+            else{
+                console.log("Agrego producto ", item.name);
+                shoppingCartOrder.push(item);
+            }
+        })
+
+        const orderDetail = shoppingCartOrder.map((item: any) => ({
             id: 0,
             itemId: item.id,
             itemName: item.name,
@@ -295,24 +319,26 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             }
         };
 
+        console.log(order);
+
         //console.log(order);
-        let response = await CreateOrder(order);
+        // let response = await CreateOrder(order);
 
-        if (response) {
-            const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
-            let messageDelay = delayParameter?.value ? `\nPuede retirarlo dentro de ${delayParameter?.value}.` : '';
-            messageDelay = (response?.orderDetail?.cookingTime > 0 || scheduledSpecialOrder) && dateOrderScheduled != '' ? `\nPuede retirarlo a partir de ${dateOrderScheduled}hs.` : messageDelay;
+        // if (response) {
+        //     const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
+        //     let messageDelay = delayParameter?.value ? `\nPuede retirarlo dentro de ${delayParameter?.value}.` : '';
+        //     messageDelay = (response?.orderDetail?.cookingTime > 0 || scheduledSpecialOrder) && dateOrderScheduled != '' ? `\nPuede retirarlo a partir de ${dateOrderScheduled}hs.` : messageDelay;
 
-            setLoading(false);
-            onProcess(false);
-            //showToast({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso.` });
-            onConfirm({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso. ${messageDelay}` });
-        }
-        else {
-            setLoading(false);
-            onProcess(false);
-            onClose();
-        }
+        //     setLoading(false);
+        //     onProcess(false);
+        //     //showToast({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso.` });
+        //     onConfirm({ title: `Código: ${response?.id}`, description: `Su pedido está en proceso. ${messageDelay}` });
+        // }
+        // else {
+        //     setLoading(false);
+        //     onProcess(false);
+        //     onClose();
+        // }
     }
 
     const handleCheckboxScheduled = () => {
