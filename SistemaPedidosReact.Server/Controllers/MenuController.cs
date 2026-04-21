@@ -38,7 +38,7 @@ namespace SistemaPedidosReact.Server.Controllers
 
                 if (vMenu == null)
                 {
-                    return NotFound(new ResponseMessage() { Message = "Menú no encontrado" });
+                    return NotFound(new ResponseMessage() { Message = "Menú no encontrado" , Status = "error" });
                 }
 
                 return Ok(vMenu);
@@ -59,7 +59,7 @@ namespace SistemaPedidosReact.Server.Controllers
 
                 if (vMenu == null)
                 {
-                    return NotFound(new ResponseMessage() { Message = "No existe ningún menú disponible" });
+                    return NotFound(new ResponseMessage() { Message = "No existe ningún menú disponible" , Status = "error" });
                 }
 
                 return Ok(vMenu);
@@ -80,7 +80,7 @@ namespace SistemaPedidosReact.Server.Controllers
 
                 if (vStore == null)
                 {
-                    return NotFound(new ResponseMessage() { Message = "Tienda no encontrada" });
+                    return NotFound(new ResponseMessage() { Message = "Tienda no encontrada", Status = "error" });
                 }
 
                 Console.WriteLine("Crear Menú");
@@ -97,7 +97,7 @@ namespace SistemaPedidosReact.Server.Controllers
                     if (vMenu == null)
                     {
                         Console.WriteLine("La estructura del menú es inválida");
-                        return BadRequest(new ResponseMessage() { Message = "La estructura del menú es inválida" });
+                        return BadRequest(new ResponseMessage() { Message = "La estructura del menú es inválida", Status = "error" });
                     }
 
                     if (vParameterUpdateMenuAlways == null || vParameterUpdateMenu?.Value == NO)
@@ -106,12 +106,12 @@ namespace SistemaPedidosReact.Server.Controllers
                     }
 
                     Console.WriteLine("Menú actualizado y listo para ser validado");
-                    return Ok(new ResponseMessage() { Message = "Menú actualizado y listo para ser validado" });
+                    return Ok(new ResponseMessage() { Message = "Menú actualizado y listo para ser validado", Status = "success" });
                 }
                 else
                 {
                     Console.WriteLine("Menú sin cambios");
-                    return Ok(new ResponseMessage() { Message = "Menú sin cambios" });
+                    return Ok(new ResponseMessage() { Message = "Menú sin cambios", Status = "success" });
                 }
             }
             catch (Exception ex)
