@@ -195,7 +195,7 @@ export default function Administration() {
                     weeklySchedule.isOpen = formData._0;
                     break;
                 default:
-                    break;                    
+                    break;
             }
 
             weeklySchedule.openingTime = formData.opening;
@@ -237,33 +237,33 @@ export default function Administration() {
                             <h3 className="text-primary text-lg font-semibold">Contacto</h3>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="address" className="text-gray-600 text-sm mr-2">Dirección:</label>
-                                <input type="text" id="address" name="address" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="address" name="address" className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.address} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="email" className="text-gray-600 text-sm mr-2">Correo:</label>
-                                <input type="text" id="email" name="email" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="email" name="email" className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.email} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="phone" className="text-gray-600 text-sm mr-2">Teléfono:</label>
-                                <input type="text" id="phone" name="phone" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="phone" name="phone" className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.phone} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="instagram" className="text-gray-600 text-sm mr-2">Instagram:</label>
-                                <input type="text" id="instagram" name="instagram" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="instagram" name="instagram" className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.instagram} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Whatsapp:</label>
-                                <input type="text" id="whatsapp" name="whatsapp" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="whatsapp" name="whatsapp" className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.whatsapp} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-start my-3">
                                 <label htmlFor="schedules" className="text-gray-600 text-sm mr-2">Horarios:</label>
                                 <textarea id="schedules" name="schedules"
-                                    className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.schedules}
                                     onChange={handleChange}
                                     rows={5}
@@ -344,53 +344,59 @@ export default function Administration() {
                                     checked={formData?._0 ?? false} onChange={handleCheckboxChange} />
                             </div>
 
-                            <h3 className="text-primary text-lg font-semibold mt-4">Horarios</h3>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Apertura:</label>
-                                <input
-                                    className="w-30 px-2 rounded-sm"
-                                    type="time"
-                                    value={formData?.opening}
-                                    onChange={handleOpening}
-                                />
-                            </div>
+                            <h3 className="text-primary text-lg font-semibold mt-5">Horarios</h3>
+                            <h3 className="text-gray-600 text-md font-semibold mt-3">Casa de Comidas</h3>
 
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Cierre:</label>
-                                <input
-                                    className="w-30 px-2 rounded-sm"
-                                    type="time"
-                                    value={formData?.closing}
-                                    onChange={handleClosing}
-                                />
-                            </div>
+                            <section className="bg-white p-3 py-2 rounded-md shadow-md shadow-gray-500/40 ">
+                                <div className="flex justify-between items-center my-3">
+                                    <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Apertura:</label>
+                                    <input
+                                        className="w-30 px-2 rounded-sm"
+                                        type="time"
+                                        value={formData?.opening}
+                                        onChange={handleOpening}
+                                    />
+                                </div>
 
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados desde:</label>
-                                <input
-                                    className="w-30 px-2 rounded-sm"
-                                    type="time"
-                                    value={formData?.openingSchedules}
-                                    onChange={handleOpeningSchedules}
-                                />
-                            </div>
+                                <div className="flex justify-between items-center my-3">
+                                    <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Cierre:</label>
+                                    <input
+                                        className="w-30 px-2 rounded-sm"
+                                        type="time"
+                                        value={formData?.closing}
+                                        onChange={handleClosing}
+                                    />
+                                </div>
+                            </section>
 
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados hasta:</label>
-                                <input
-                                    className="w-30 px-2 rounded-sm"
-                                    type="time"
-                                    value={formData?.closingSchedules}
-                                    onChange={handleClosingSchedules}
-                                />
-                            </div>
+                            <h3 className="text-gray-600 text-md font-semibold mt-5">Picadas</h3>
+                            <section className="bg-white p-3 py-2 rounded-md shadow-md shadow-gray-500/40 ">
+                                <div className="flex justify-between items-center my-3">
+                                    <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados desde:</label>
+                                    <input
+                                        className="w-30 px-2 rounded-sm"
+                                        type="time"
+                                        value={formData?.openingSchedules}
+                                        onChange={handleOpeningSchedules}
+                                    />
+                                </div>
 
+                                <div className="flex justify-between items-center my-3">
+                                    <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados hasta:</label>
+                                    <input
+                                        className="w-30 px-2 rounded-sm"
+                                        type="time"
+                                        value={formData?.closingSchedules}
+                                        onChange={handleClosingSchedules}
+                                    />
+                                </div>
+                            </section>
                             <h3 className="text-primary text-lg font-semibold mt-5 mb-2">Excepciones</h3>
 
                             {specialSchedules && specialSchedules.length > 0
-                                ? specialSchedules.map((specialSchedule: any, index: any) => 
-                                <CardException key={index} exception={specialSchedule} onSave={handleSaveSpecialSchedule}>
-                                </CardException>)
+                                ? specialSchedules.map((specialSchedule: any, index: any) =>
+                                    <CardException key={index} exception={specialSchedule} onSave={handleSaveSpecialSchedule}>
+                                    </CardException>)
                                 : <p className="text-lg font-semibold text-center text-primary w-full my-3">No hay excepciones</p>}
                         </div>
                     </section>
