@@ -13,6 +13,17 @@ export async function GetParameterByKey(key: string) {
     }
 }
 
+export async function GetAllParameters() {
+    const response = await fetch(`${apiUrl}/api/parameter/getall`);
+    if (response.ok) {
+        const data = await response?.json().catch((err: any) => showToast({ title: 'Error', description: err.message, error: true }));
+        return data;
+    }
+    else {
+        showToast({ title: 'Error', description: response.statusText != '' ? response.statusText : `Ocurrió un error al obtener los parámetros.`, error: true });
+    }
+}
+
 export async function CreateParameter(parameter: any) {
     const token = localStorage.getItem('authToken');
 

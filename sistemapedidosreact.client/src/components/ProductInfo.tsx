@@ -129,7 +129,7 @@ export default function ProductInfo({ product, onConfirm }: any) {
     }
 
     const renderToppings = (_item: any, index: number) => {
-        if (toppings) {
+        if (toppings && toppings?.some((t: any) => t.price > 0)) {
             return toppings.map((topping: any) =>
                 <ProductInfoTopping key={`${topping.category.id}_${itemQuantity}`} toppingProp={topping} productNumber={index} setSelectedTopping={handleTopping}
                     checked={selectedToppings.find((t: any) => t.categoryId === topping.category.id && t.productNumber === index)}

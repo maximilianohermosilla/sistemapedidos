@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Responses.Interfaces;
@@ -14,6 +14,20 @@ namespace SistemaPedidosReact.Server.Controllers
         public ParameterController(IParameterService pService)
         {
             vGblService = pService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ParameterReadDTO>>> GetAll()
+        {
+            try
+            {
+                var vParameters = await vGblService.GetAll();
+                return Ok(vParameters);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{key}")]
