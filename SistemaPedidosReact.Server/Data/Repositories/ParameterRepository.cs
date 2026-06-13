@@ -1,4 +1,4 @@
-﻿using SistemaPedidosReact.Server.Data.Interfaces;
+using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.Models;
 
 namespace SistemaPedidosReact.Server.Data.Repositories
@@ -37,6 +37,17 @@ namespace SistemaPedidosReact.Server.Data.Repositories
         public Parameter GetByKey(string pKey)
         {
             return vGblContext.Parameters.FirstOrDefault(e => e.Key == pKey)!;
+        }
+
+        public bool Delete(int pId)
+        {
+            var parameter = GetById(pId);
+            if (parameter != null)
+            {
+                vGblContext.Parameters.Remove(parameter);
+                return SaveChanges();
+            }
+            return false;
         }
     }
 }

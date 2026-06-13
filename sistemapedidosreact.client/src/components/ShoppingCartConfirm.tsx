@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { formatMoney } from "../utils/FormatMoneyUtil";
-import { FaCheck } from "react-icons/fa6";
 import type { Order } from "../interfaces/order";
+import { FaCheck } from "react-icons/fa6";
 import { CreateOrder } from "../services/order-service";
-import DatePicker from "./DatePicker";
 import { calculateMinutesBetweenDates, dateToString, parseDDMMYYYYHHMM } from "../utils/ParseDateUtil";
-import Spinner from "./Spinner";
-import { GetParameterByKey, GetAllParameters } from "../services/parameter-service";
+import { GetAllParameters } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
 import { formatDateHHMM } from "../utils/FormatDateUtil";
 import { isTimeBetweenHours } from "../utils/TimeValidation";
-import Delay from "./Delay";
 import { GetDaySchedule, IsOpen } from "../services/weekly-schedule-service";
+import DatePicker from "./DatePicker";
+import Spinner from "./Spinner";
+import Delay from "./Delay";
 
 export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess, validationError }: any) {
     const [loading, setLoading] = useState(false);
@@ -150,17 +150,18 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
 
         // ESTANDAR HORARIO RETIRO
         if (scheduledSpecialOrder) {
-            // const startHour = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
-            // const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
-
-            //const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1] || '20:00', startHour?.value || '20:00', endHour?.value || '23:00');
             const dateSelected = parseDDMMYYYYHHMM(dateOrderScheduled);
             const isValid = await IsOpen({ dayOfWeek: dateToString(dateSelected) }, false);
             if (!isValid) {
                 const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(dateSelected) });
                 newErrors.hours = dateSchedules?.isOpen ? `Horario de retiro: ${dateSchedules?.openingTime || '10:30'} - ${dateSchedules?.closingTime || '21:00'}hs.`
                     : `El local se encontrará cerrado durante el día seleccionado. ${dateSchedules?.isException ? '(' + dateSchedules?.description + ')' : ''}`;
-                //newErrors!.hours = `Horario de retiro: ${startHour?.value || '20:00'} - ${endHour?.value || '23:00'}hs.`;
+            }
+
+            const calcMinutes = calculateMinutesBetweenDates(new Date(), dateSelected);
+            const minimumDelayMinutes = parseInt(delay) || 0;
+            if (calcMinutes < minimumDelayMinutes) {
+                newErrors.hours = `El horario de retiro debe respetar la demora actual de ${delay.includes('min') ? delay : delay + ' minutos'}.`;
             }
         }
 
@@ -193,9 +194,13 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         if (!isNaN(date.getTime())) {
             setDateOrderScheduled(formatDateHHMM(event.toISOString()));
             const calcMinutes = calculateMinutesBetweenDates(new Date(), event);
+            const minimumDelayMinutes = parseInt(delay) || 0;
 
             if (calcMinutes < 0) {
                 setMessageValidation('El horario de retiro no puede ser inferior al horario actual.');
+            }
+            else if (calcMinutes < minimumDelayMinutes) {
+                setMessageValidation(`El horario de retiro debe respetar la demora actual de ${delay.includes('min') ? delay : delay + ' minutos'}.`);
             }
             else {
                 setMessageValidation('');
@@ -456,7 +461,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                     <footer>
                         {verifying ? <Spinner text={"Generando pedido..."} />
                             : <button className="button__primary m-auto my-3 flex items-center gap-2" onClick={handleConfirm}
-                                disabled={messageValidation && messageValidation !== '' && errors?.hours != ''}>
+                                disabled={Boolean((messageValidation && messageValidation !== '') || (errors?.hours && errors?.hours !== ''))}>
                                 <FaCheck />Confirmar <div></div>
                             </button>}
                     </footer>

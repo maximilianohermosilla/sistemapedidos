@@ -65,3 +65,23 @@ export async function UpdateParameter(parameter: any) {
         showToast({ title: 'Error', description: response.statusText != '' ? response.statusText : `Ocurrió un error al actualizar el parámetro ${parameter?.key}.`, error: true });
     }
 }
+
+export async function DeleteParameter(id: number) {
+    const token = localStorage.getItem('authToken');
+
+    const response = await fetch(`${apiUrl}/api/parameter/Delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json().catch((err: any) => showToast({ title: 'Error', description: err.message, error: true }));
+        return data;
+    }
+    else {
+        showToast({ title: 'Error', description: response.statusText != '' ? response.statusText : `Ocurrió un error al eliminar el parámetro con id ${id}.`, error: true });
+    }
+}

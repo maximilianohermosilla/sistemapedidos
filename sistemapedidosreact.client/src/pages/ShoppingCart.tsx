@@ -10,7 +10,8 @@ import ShoppingCartConfirm from "../components/ShoppingCartConfirm";
 import { GetParameterByKey, GetAllParameters } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
 import { IoCartOutline, IoTimeOutline } from "react-icons/io5";
-import { FaRegTrashAlt } from "react-icons/fa";
+
+
 import { IsOpen } from "../services/weekly-schedule-service";
 import { dateToString } from "../utils/ParseDateUtil";
 
@@ -19,8 +20,9 @@ export default function ShoppingCart() {
     const [cartItems, setCartItems] = useState([]);
     const [cartItemsScheduled, setCartItemsScheduled] = useState([]);
     const [cartItemsScheduledSpecial, setCartItemsScheduledSpecial] = useState([]);
-    const [totalPrice, setTotalPrice] = useState<number>(0);
+    
     const [totalPriceStandard, setTotalPriceStandard] = useState<number>(0);
+
     const [totalPriceScheduled, setTotalPriceScheduled] = useState<number>(0);
     const [totalPriceScheduledSpecial, setTotalPriceScheduledSpecial] = useState<number>(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,7 +70,7 @@ export default function ShoppingCart() {
             return true;
         });
 
-        const total = cartContext?.cartItems.reduce((accumulator: any, product: any) => { return accumulator + product.totalPrice; }, 0);
+
         const totalStandard = itemsStandard.reduce((accumulator: any, product: any) => { return accumulator + product.totalPrice; }, 0);
         const totalScheduled = itemsScheduled.reduce((accumulator: any, product: any) => { return accumulator + product.totalPrice; }, 0);
         const totalScheduledSpecial = itemsScheduledSpecial.reduce((accumulator: any, product: any) => { return accumulator + product.totalPrice; }, 0);
@@ -78,7 +80,7 @@ export default function ShoppingCart() {
         setCartItemsScheduledSpecial(itemsScheduledSpecial);
         setDelayedSubcarts(subcarts);
 
-        setTotalPrice(total);
+
         setTotalPriceStandard(totalStandard);
         setTotalPriceScheduled(totalScheduled);
         setTotalPriceScheduledSpecial(totalScheduledSpecial);
@@ -94,7 +96,7 @@ export default function ShoppingCart() {
     const openModalScheduledSpecial = () => setIsModalOpenScheduledSpecial(true);
     const closeModalScheduledSpecial = () => setIsModalOpenScheduledSpecial(false);
 
-    const openModalClear = () => setIsModalOpenClear(true);
+    
     const closeModalClear = () => setIsModalOpenClear(false);
 
     const handleConfirm = (element: any) => {

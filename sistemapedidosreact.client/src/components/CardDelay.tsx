@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import Dialog from "./Dialog.tsx";
+import Dialog from "./Dialog";
 import { FaPencil } from "react-icons/fa6";
 import { FaPlus, FaRegSave } from "react-icons/fa";
 import { CreateParameter, UpdateParameter } from "../services/parameter-service.ts";
 import showToast from "../services/toast-service.ts";
+import { DeleteParameter } from "../services/parameter-service.ts";
 import { GetAllCategories } from "../services/category-service.ts";
+import { FaTrash } from "react-icons/fa6";
 
 export default function CardDelay({ delayItem, onSave }: any) {
     const [item, setItem] = useState<any>();
@@ -50,44 +52,50 @@ export default function CardDelay({ delayItem, onSave }: any) {
         });
     };
 
+    const handleDelete = async (event?: any) => {
+        event?.preventDefault();
+        if (!formData.id || formData.id === 0) {
+            showToast({ title: 'Error', description: 'No se puede eliminar una demora sin ID.', error: true });
+            return;
+        }
+        const confirmed = window.confirm('¿Está seguro de eliminar esta demora?');
+        if (!confirmed) return;
+        await DeleteParameter(formData.id);
+        showToast({ title: 'Éxito', description: 'Demora eliminada.' });
+        onSave();
+        closeModal();
+    };
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-
         if (!formData.category.trim()) {
             showToast({ title: 'Error', description: 'Por favor ingrese una categoría', error: true });
             return;
         }
-
         if (!formData.delayValue.trim()) {
             showToast({ title: 'Error', description: 'Por favor ingrese un valor de demora', error: true });
             return;
         }
-
         const parameterToSave = {
             id: formData.id,
             key: `DELAY ${formData.category.trim().toUpperCase()}`,
             value: formData.delayValue
         };
-
         if (formData.id > 0) {
             await UpdateParameter(parameterToSave);
             showToast({ title: 'Éxito', description: 'Demora actualizada correctamente.' });
-            onSave();
-            closeModal();
-        }
-        else {
+        } else {
             await CreateParameter(parameterToSave);
             showToast({ title: 'Éxito', description: 'Demora creada correctamente.' });
-            onSave();
-            closeModal();
         }
+        onSave();
+        closeModal();
     };
-
     return (
         <>
-            {item !== undefined &&
+            {item !== undefined && (
                 <div className={`flex w-full bg-white text-left rounded-md shadow-md shadow-gray-500/40 mb-4 m-auto`}>
-                    {item.id > 0 ?
+                    {item.id > 0 ? (
                         <section className="flex w-full p-3 justify-between">
                             <div className="data">
                                 <header className="flex gap-2 align-center">
@@ -96,19 +104,20 @@ export default function CardDelay({ delayItem, onSave }: any) {
                                 <p className="text-xs w-40 text-gray-600">Demora: {item?.value} minutos</p>
                             </div>
                             <aside className="flex flex-col justify-center gap-1 items-center mt-1">
-                                <button className="button__primary__outlined mx-0 rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40"
-                                    onClick={openModal}>
+                                <button className="button__primary__outlined mx-0 rounded-full hover:cursor-pointer hover:opacity-90 hover:shadow-lg shadow-gray-500/40" onClick={openModal}>
                                     <FaPencil />
                                 </button>
+                                {/* <button className="button__danger__outlined mx-0 rounded-full hover:opacity-80" onClick={handleDelete}>
+                                    <FaTrash />
+                                </button> */}
                             </aside>
                         </section>
-                        :
-                        <button className="button__primary__outlined rounded-full hover:cursor-pointer flex justify-center
-                            hover:opacity-90 hover:shadow-lg shadow-gray-500/40 w-full items-center gap-2 mx-auto" onClick={openModal}>
+                    ) : (
+                        <button className="button__primary__outlined rounded-full hover:cursor-pointer flex justify-center hover:opacity-90 hover:shadow-lg shadow-gray-500/40 w-full items-center gap-2 mx-auto" onClick={openModal}>
                             <FaPlus /> Agregar Demora por Categoría
                         </button>
-                    }
-                    {item !== undefined && isModalOpen &&
+                    )}
+                    {item !== undefined && isModalOpen && (
                         <Dialog title="Detalle Demora por Categoría" isOpen={isModalOpen || false} onClose={closeModal}>
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div className="grid grid-cols-1 gap-4 mt-2">
@@ -150,17 +159,21 @@ export default function CardDelay({ delayItem, onSave }: any) {
                                         />
                                     </div>
                                 </div>
-
                                 <div className="flex gap-2 py-1">
+                                    {formData.id > 0 && (
+                                        <button type="button" className="button__danger__outlined flex items-center gap-3 my-5 mx-auto" onClick={handleDelete}>
+                                            <FaTrash /> Eliminar
+                                        </button>
+                                    )}
                                     <button type="submit" className="button__primary flex items-center gap-3 my-5 mx-auto">
                                         <FaRegSave /> Guardar
                                     </button>
                                 </div>
                             </form>
                         </Dialog>
-                    }
+                    )}
                 </div>
-            }
+            )}
         </>
-    )
+    );
 }

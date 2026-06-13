@@ -37,7 +37,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
+        <header className="bg-white shadow-md fixed w-full top-0 left-0 z-1200">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
@@ -91,7 +91,7 @@ const Header: React.FC = () => {
                     {/* Hamburguesa mobile */}
                     <div className="md:hidden flex items-center">
                         <a href="/picadas" className="header__link flex flex-col justify-center align-center text-gray-600 hover:text-blue-400 mr-5">
-                            <PiCheese className="mx-auto mt-3 mb-0"/> <span className="leading-3 text-xs">Picadas</span>
+                            <PiCheese className="mx-auto mt-3 mb-0" /> <span className="leading-3 text-xs">Picadas</span>
                         </a>
                         {cartItems.length > 0 && <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400 mr-5">
                             <IoCartOutline />

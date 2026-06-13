@@ -86,5 +86,26 @@ namespace SistemaPedidosReact.Server.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                var vDeleted = await vGblService.Delete(id);
+
+                if (!vDeleted)
+                {
+                    return NotFound(new ResponseMessage() { Message = "Parámetro no encontrado" });
+                }
+
+                return Ok(vDeleted);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
