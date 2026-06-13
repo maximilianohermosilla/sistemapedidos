@@ -9,6 +9,7 @@ import Spinner from "../components/Spinner";
 import { ParameterEnum } from "../enums/parameter";
 import { GetDaySchedule, IsOpen } from "../services/weekly-schedule-service";
 import { dateToString } from "../utils/ParseDateUtil";
+import imgDefault from "../assets/bg-blue.png";
 
 export default function LandingPage() {
     const [loading, setLoading] = useState(true);
@@ -22,6 +23,10 @@ export default function LandingPage() {
     useEffect(() => {
         getLastMenu();
     }, []);
+
+    const addDefaultImg = (event: any) => {
+        event!.target!.src = imgDefault
+    }
 
     async function getLastMenu() {
         const data = await GetLastMenu();
@@ -61,7 +66,7 @@ export default function LandingPage() {
         const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
         if (delayParameter) setDelay(delayParameter?.value);
     }
-    
+
     const handleTimeChange = async () => {
         const now = new Date();
 
@@ -85,7 +90,7 @@ export default function LandingPage() {
             {loading
                 ? <Spinner text={"Cargando productos..."} />
                 : <section className="pt-3">
-                    {validationError 
+                    {validationError
                         ? <p className="bg-white text-center text-red-500 text-shadow-sm shadow-sm font-light leading-5 mt-2 border-2 border-red-300 mx-2 rounded-sm p-2">{validationError}</p>
                         : <Delay delay={delay}></Delay>
                     }
@@ -93,7 +98,7 @@ export default function LandingPage() {
                     {menuFavs?.length > 0 && <Menu items={menuFavs} title={"Favoritos"}></Menu>}
                     {menuGrouped?.map((group: any, index: any) => <Menu key={index} items={group!.items} title={group!.category!.name}></Menu>)}
                     <a href="/picadas" className="w-full flex flex-col m-auto md:w-300 justify-center border-b-3 border-white p-3 rounded-md hover:cursor-pointer hover:opacity-60">
-                        <img src="https://ayresit.ar/ayrespop_imagenes/00461/00004970_2025_10_15_12_19_08.jpg" alt="Picadas" className="w-full mb-3 relative opacity-90 rounded-md" />
+                        <img src="https://ayresit.ar/ayrespop_imagenes/00461/00004970_2025_10_15_12_19_08.jpg" alt="Picadas" className="w-full mb-3 relative opacity-90 rounded-md" onError={addDefaultImg} />
                         <h2 className="w-full md:w-300 text-center font-semibold text-4xl text-white my-3 text-shadow-gray-700 text-shadow-sm absolute mb-5">Picadas</h2>
                     </a>
                 </section>

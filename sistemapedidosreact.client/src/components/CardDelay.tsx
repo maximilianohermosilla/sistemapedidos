@@ -4,10 +4,12 @@ import { FaPencil } from "react-icons/fa6";
 import { FaPlus, FaRegSave } from "react-icons/fa";
 import { CreateParameter, UpdateParameter } from "../services/parameter-service.ts";
 import showToast from "../services/toast-service.ts";
+import { GetAllCategories } from "../services/category-service.ts";
 
 export default function CardDelay({ delayItem, onSave }: any) {
     const [item, setItem] = useState<any>();
     const [isModalOpen, setIsModalOpen] = useState<boolean>();
+    const [categories, setCategories] = useState<any[]>([]);
 
     const getCategoryName = (key: string) => {
         if (!key) return '';
@@ -28,6 +30,14 @@ export default function CardDelay({ delayItem, onSave }: any) {
             delayValue: delayItem?.value || ''
         });
     }, [delayItem]);
+
+    useEffect(() => {
+        if (isModalOpen && categories.length === 0) {
+            GetAllCategories().then(data => {
+                if (data) setCategories(data.filter((cat: any) => !cat.name.toUpperCase().includes('SALSA') && !cat.name.toUpperCase().includes('ITEM')));
+            });
+        }
+    }, [isModalOpen, categories.length]);
 
     const openModal = (event?: any) => { event?.preventDefault(); setIsModalOpen(true) };
     const closeModal = (event?: any) => { event?.preventDefault(); setIsModalOpen(false) };
@@ -104,16 +114,28 @@ export default function CardDelay({ delayItem, onSave }: any) {
                                 <div className="grid grid-cols-1 gap-4 mt-2">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Categoría</label>
-                                        <input
-                                            type="text"
-                                            name="category"
-                                            value={formData.category}
-                                            onChange={handleChange}
-                                            disabled={item.id > 0}
-                                            placeholder="Ej: Empanadas"
-                                            className={`w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none ${item.id > 0 ? 'bg-gray-100 text-gray-500' : ''}`}
-                                            required
-                                        />
+                                        {item.id > 0 ? (
+                                            <input
+                                                type="text"
+                                                name="category"
+                                                value={formData.category}
+                                                disabled
+                                                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-gray-100 text-gray-500"
+                                            />
+                                        ) : (
+                                            <select
+                                                name="category"
+                                                value={formData.category}
+                                                onChange={handleChange}
+                                                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                                                required
+                                            >
+                                                <option value="" disabled>Seleccione una categoría</option>
+                                                {categories.map((cat: any) => (
+                                                    <option key={cat.id} value={cat.name}>{cat.name}</option>
+                                                ))}
+                                            </select>
+                                        )}
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-1">Demora (minutos)</label>
