@@ -7,7 +7,7 @@ import { BsCartXFill, BsGift } from "react-icons/bs";
 import DialogConfirm from "../components/DialogConfirm";
 import Dialog from "../components/Dialog";
 import ShoppingCartConfirm from "../components/ShoppingCartConfirm";
-import { GetParameterByKey } from "../services/parameter-service";
+import { GetParameterByKey, GetAllParameters } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
 import { IoCartOutline, IoTimeOutline } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -31,14 +31,42 @@ export default function ShoppingCart() {
     const [inProcess, setInProcess] = useState(false);
     const [validationError, setValidationError] = useState('');
     const [order, setOrder] = useState<any>(undefined);
+    const [delayParameters, setDelayParameters] = useState<any[]>([]);
+    const [delayedSubcarts, setDelayedSubcarts] = useState<{ [category: string]: any[] }>({});
+    const [isModalOpenDelayed, setIsModalOpenDelayed] = useState<{ [category: string]: boolean }>({});
+    const [isModalOpenClearDelayed, setIsModalOpenClearDelayed] = useState<{ [category: string]: boolean }>({});
 
     useEffect(() => {
-        const itemsStandard = cartContext.cartItems.filter(
-            (item: any) => item?.category?.name?.toUpperCase() !== 'PICADAS' && item?.category?.name?.toUpperCase() !== 'MENU FIESTAS');
+        GetAllParameters().then((params) => {
+            if (params) {
+                const delayParams = params.filter((p: any) => p.key && p.key.startsWith('DELAY '));
+                setDelayParameters(delayParams);
+            }
+        });
+    }, []);
+
+    useEffect(() => {
         const itemsScheduled = cartContext.cartItems.filter(
             (item: any) => item?.category?.name?.toUpperCase() === 'PICADAS');
         const itemsScheduledSpecial = cartContext.cartItems.filter(
             (item: any) => item?.category?.name?.toUpperCase() === 'MENU FIESTAS');
+
+        const subcarts: { [category: string]: any[] } = {};
+        const itemsStandard = cartContext.cartItems.filter((item: any) => {
+            const catName = item?.category?.name?.toUpperCase();
+            if (catName === 'PICADAS' || catName === 'MENU FIESTAS') {
+                return false;
+            }
+
+            const hasCustomDelay = delayParameters.find(p => p.key === `DELAY ${catName}`);
+            if (hasCustomDelay) {
+                if (!subcarts[catName]) subcarts[catName] = [];
+                subcarts[catName].push(item);
+                return false;
+            }
+
+            return true;
+        });
 
         const total = cartContext?.cartItems.reduce((accumulator: any, product: any) => { return accumulator + product.totalPrice; }, 0);
         const totalStandard = itemsStandard.reduce((accumulator: any, product: any) => { return accumulator + product.totalPrice; }, 0);
@@ -48,12 +76,14 @@ export default function ShoppingCart() {
         setCartItems(itemsStandard);
         setCartItemsScheduled(itemsScheduled);
         setCartItemsScheduledSpecial(itemsScheduledSpecial);
+        setDelayedSubcarts(subcarts);
+
         setTotalPrice(total);
         setTotalPriceStandard(totalStandard);
         setTotalPriceScheduled(totalScheduled);
         setTotalPriceScheduledSpecial(totalScheduledSpecial);
         handleTimeChange();
-    }, [cartContext.cartItems, cartContext.cartItems.quantity]);
+    }, [cartContext.cartItems, cartContext.cartItems.quantity, delayParameters]);
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -80,7 +110,7 @@ export default function ShoppingCart() {
 
         handleConfirmClearScheduled();
     }
-    
+
     const handleConfirmScheduledSpecial = (element: any) => {
         setOrder(element);
         setIsModalOpenConfirmation(true);
@@ -113,7 +143,7 @@ export default function ShoppingCart() {
         closeModalScheduled();
         closeModal();
     }
-    
+
     const handleConfirmClearScheduledSpecial = () => {
         if (cartItems.length === 0) {
             cartContext.clearCart.bind(null)();
@@ -127,6 +157,25 @@ export default function ShoppingCart() {
         closeModal();
     }
 
+    const handleConfirmDelayed = (category: string, element: any) => {
+        setOrder(element);
+        setIsModalOpenConfirmation(true);
+        handleConfirmClearDelayed(category);
+    }
+
+    const handleConfirmClearDelayed = (category: string) => {
+        const itemsToClear = delayedSubcarts[category];
+        if (cartContext.cartItems.length === itemsToClear?.length) {
+            cartContext.clearCart.bind(null)();
+        } else {
+            itemsToClear?.forEach((item: any) => {
+                cartContext.removeFromCart.bind(item, item!.id)();
+            });
+        }
+        setIsModalOpenDelayed(prev => ({ ...prev, [category]: false }));
+        setIsModalOpenClearDelayed(prev => ({ ...prev, [category]: false }));
+    }
+
     const handleInProcess = (status: boolean) => {
         setInProcess(status);
     }
@@ -138,7 +187,7 @@ export default function ShoppingCart() {
         const endHour = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
         //const isValid = isTimeBetweenHours(timeValue, startHour?.value || '20:00', endHour?.value || '23:00');
         const isValid = await IsOpen({ dayOfWeek: dateToString(now) }, false);
-        
+
         if (!isValid) {
             //const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(now) });
             setValidationError(`Los pedidos pueden retirarse de martes a domingos entre las ${startHour?.value || '20:00'} 
@@ -151,15 +200,55 @@ export default function ShoppingCart() {
     return (
         <div className="main__container w-full flex flex-col justify-between p-2 pt-5">
             <section className="products">
-                <h1 className="flex text-primary text-2xl font-semibold w-full text-center mb-3 justify-center items-center gap-3"><span><IoCartOutline /></span>Carrito de compras</h1>
                 {cartItems && cartItems!.length > 0 &&
-                    cartItems.map((item: any) => <CardProductCart key={item.id} product={item} />)
+                    <>
+                        <h1 className="flex text-primary text-2xl font-semibold w-full text-center mb-3 justify-center items-center gap-3"><span><IoCartOutline /></span>Carrito de compras</h1>
+                        {cartItems.map((item: any) => <CardProductCart key={item.id} product={item} />)}
+                        <footer className="mt-4 mb-8">
+                            <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPriceStandard)}</p>
+                            <div className="flex justify-center gap-2 my-3 px-2">
+                                <button className="button__primary flex items-center gap-2" onClick={openModal} disabled={inProcess}>
+                                    <IoCartOutline />Confirmar<div></div>
+                                </button>
+                            </div>
+                        </footer>
+                    </>
                 }
+
+                {Object.keys(delayedSubcarts).map((categoryName: string) => {
+                    const items = delayedSubcarts[categoryName];
+                    const totalDelayed = items.reduce((acc: any, prod: any) => acc + prod.totalPrice, 0);
+                    if (items.length === 0) return null;
+                    return (
+                        <div key={categoryName}>
+                            <h3 className="flex text-primary text-lg font-semibold w-full text-center mb-3 justify-center items-center gap-3 mt-4">
+                                <span><IoTimeOutline /></span>{categoryName}
+                            </h3>
+                            {items.map((item: any) => <CardProductCart key={item.id} product={item} />)}
+                            <footer className="mt-4 mb-8">
+                                <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalDelayed)}</p>
+                                <div className="flex justify-center gap-2 my-3 px-2">
+                                    <button className="button__primary flex items-center gap-2" onClick={() => setIsModalOpenDelayed(prev => ({ ...prev, [categoryName]: true }))} disabled={inProcess}>
+                                        <IoCartOutline />Confirmar<div></div>
+                                    </button>
+                                </div>
+                            </footer>
+                        </div>
+                    );
+                })}
 
                 {cartItemsScheduled && cartItemsScheduled!.length > 0 &&
                     <>
                         <h1 className="flex text-primary text-2xl font-semibold w-full text-center mb-3 justify-center items-center gap-3"><span><IoTimeOutline /></span>Pedidos programados</h1>
                         {cartItemsScheduled.map((item: any) => <CardProductCart key={item.id} product={item} />)}
+                        <footer className="mt-4 mb-8">
+                            <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPriceScheduled)}</p>
+                            <div className="flex justify-center gap-2 my-3 px-2">
+                                <button className="button__primary flex items-center gap-2" onClick={openModalScheduled} disabled={inProcess}>
+                                    <IoTimeOutline />Confirmar<div></div>
+                                </button>
+                            </div>
+                        </footer>
                     </>
                 }
 
@@ -167,39 +256,21 @@ export default function ShoppingCart() {
                     <>
                         <h1 className="flex text-primary text-2xl font-semibold w-full text-center mb-3 justify-center items-center gap-3"><span><BsGift /></span>Pedidos especiales</h1>
                         {cartItemsScheduledSpecial.map((item: any) => <CardProductCart key={item.id} product={item} />)}
+                        <footer className="mt-4 mb-8">
+                            <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPriceScheduledSpecial)}</p>
+                            <div className="flex justify-center gap-2 my-3 px-2">
+                                <button className="button__primary flex items-center gap-2" onClick={openModalScheduledSpecial} disabled={inProcess}>
+                                    <BsGift />Confirmar<div></div>
+                                </button>
+                            </div>
+                        </footer>
                     </>
                 }
 
-                {cartItems.length == 0 && cartItemsScheduled.length == 0 && <p className="text-center m-auto mt-6 flex flex-col gap-4"><BsCartXFill size={64} className="text-gray-500 m-auto" /><span className="mt-3 font-semibold text-primary">Tu carrito se encuentra vacío</span></p>}
+                {cartItems.length == 0 && cartItemsScheduled.length == 0 && cartItemsScheduledSpecial.length == 0 && Object.keys(delayedSubcarts).length == 0 && <p className="text-center m-auto mt-6 flex flex-col gap-4"><BsCartXFill size={64} className="text-gray-500 m-auto" /><span className="mt-3 font-semibold text-primary">Tu carrito se encuentra vacío</span></p>}
             </section>
 
-            <footer>
-                {cartItems && cartItems!.length > 0 && <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPrice)}</p>}
 
-                <div className="flex justify-center gap-2 my-3 px-2">
-                    <button className="button__primary__outlined flex items-center gap-1" onClick={openModalClear}
-                        disabled={cartItems!.length == 0 && cartItemsScheduled!.length == 0}>
-                        <FaRegTrashAlt /> {!cartItemsScheduled || cartItemsScheduled!.length === 0 && <span>Vaciar</span>}
-                    </button>
-                    <button className="button__primary flex items-center gap-2" onClick={openModal}
-                        disabled={cartItems!.length == 0 || inProcess}>
-                        <IoCartOutline />Confirmar <div></div>
-                    </button>
-                    {cartItemsScheduled && cartItemsScheduled!.length > 0 &&
-                        <button className="button__primary flex items-center gap-2" onClick={openModalScheduled}
-                            disabled={cartItemsScheduled!.length == 0 || inProcess}>
-                            <IoTimeOutline />Confirmar <div></div>
-                        </button>}
-                </div>
-
-                {cartItemsScheduledSpecial && cartItemsScheduledSpecial!.length > 0 &&
-                    <div className="flex justify-center gap-2 my-3 px-2">
-                        <button className="button__primary flex items-center gap-2" onClick={openModalScheduledSpecial}
-                            disabled={cartItemsScheduledSpecial!.length == 0 || inProcess}>
-                            <BsGift />Confirmar <div></div>
-                        </button>
-                    </div>}
-            </footer>
 
 
             {/* DIALOGS */}
@@ -216,7 +287,7 @@ export default function ShoppingCart() {
                         onConfirm={handleConfirmScheduled} onClose={closeModalScheduled} onProcess={handleInProcess}></ShoppingCartConfirm>
                 </Dialog>
             }
-            
+
             {cartItemsScheduledSpecial!.length > 0 !== undefined && isModalOpenScheduledSpecial &&
                 <Dialog title="Confirmación" isOpen={isModalOpenScheduledSpecial} onClose={closeModalScheduledSpecial}>
                     <ShoppingCartConfirm prop={cartItemsScheduledSpecial} totalPrice={totalPriceScheduledSpecial}
@@ -229,6 +300,30 @@ export default function ShoppingCart() {
                     isOpen={isModalOpenClear} onClose={closeModalClear} onConfirm={() => handleConfirmClear(true)}>
                 </DialogConfirm>
             }
+
+            {Object.keys(delayedSubcarts).map((categoryName: string) => {
+                const items = delayedSubcarts[categoryName];
+                const totalDelayed = items.reduce((acc: any, prod: any) => acc + prod.totalPrice, 0);
+                const isModalDelayed = isModalOpenDelayed[categoryName] || false;
+                const isClearModalDelayed = isModalOpenClearDelayed[categoryName] || false;
+
+                return (
+                    <div key={`dialogs-${categoryName}`}>
+                        {items.length > 0 && isModalDelayed &&
+                            <Dialog title={`Confirmación ${categoryName}`} isOpen={isModalDelayed} onClose={() => setIsModalOpenDelayed(prev => ({ ...prev, [categoryName]: false }))}>
+                                <ShoppingCartConfirm prop={items} totalPrice={totalDelayed} validationError={validationError}
+                                    onConfirm={(element: any) => handleConfirmDelayed(categoryName, element)} onClose={() => setIsModalOpenDelayed(prev => ({ ...prev, [categoryName]: false }))} onProcess={handleInProcess}></ShoppingCartConfirm>
+                            </Dialog>
+                        }
+
+                        {items.length > 0 && isClearModalDelayed &&
+                            <DialogConfirm title="Confirmación" message={`¿Desea vaciar el carrito de ${categoryName}?`}
+                                isOpen={isClearModalDelayed} onClose={() => setIsModalOpenClearDelayed(prev => ({ ...prev, [categoryName]: false }))} onConfirm={() => handleConfirmClearDelayed(categoryName)}>
+                            </DialogConfirm>
+                        }
+                    </div>
+                );
+            })}
 
             {isModalOpenConfirmation && order &&
                 <DialogConfirm title={order?.title} message={order?.description} hiddenCancelButton={true}

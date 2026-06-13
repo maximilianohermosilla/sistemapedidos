@@ -6,7 +6,7 @@ import { CreateOrder } from "../services/order-service";
 import DatePicker from "./DatePicker";
 import { calculateMinutesBetweenDates, dateToString, parseDDMMYYYYHHMM } from "../utils/ParseDateUtil";
 import Spinner from "./Spinner";
-import { GetParameterByKey } from "../services/parameter-service";
+import { GetParameterByKey, GetAllParameters } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
 import { formatDateHHMM } from "../utils/FormatDateUtil";
 import { isTimeBetweenHours } from "../utils/TimeValidation";
@@ -16,7 +16,7 @@ import { GetDaySchedule, IsOpen } from "../services/weekly-schedule-service";
 export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess, validationError }: any) {
     const [loading, setLoading] = useState(false);
     const [verifying, setVerifying] = useState(false);
-    const [shoppingCart, setShoppingCart] = useState([]);
+    const [shoppingCart, setShoppingCart] = useState<any[]>([]);
     const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
     const [errors, setErrors] = useState<any>({});
     const [scheduledOrder, setScheduledOrder] = useState<boolean>(false);
@@ -49,8 +49,25 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     }, [prop])
 
     const getDelayParameterByKey = async () => {
-        const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
-        if (delayParameter) setDelay(delayParameter?.value);
+        const allParameters = await GetAllParameters() || [];
+        let categoryDelay = '';
+
+        const categoryName = prop[0]?.category?.name?.toUpperCase();
+        if (categoryName && categoryName !== 'PICADAS' && categoryName !== 'MENU FIESTAS') {
+            const customDelayParameter = allParameters.find((p: any) => p.key === `DELAY ${categoryName}`);
+            if (customDelayParameter && customDelayParameter.value) {
+                categoryDelay = `${customDelayParameter.value} minutos`;
+            }
+        }
+
+        if (!categoryDelay) {
+            const delayParameter = allParameters.find((p: any) => p.key === ParameterEnum.DELAY);
+            if (delayParameter) {
+                categoryDelay = delayParameter.value;
+            }
+        }
+
+        if (categoryDelay) setDelay(categoryDelay);
     }
 
     const handleSelectedDateChange = (e: any) => {
@@ -127,7 +144,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             if ((dateSelected.getTime() < (now.getTime() + threeHoursInMilliseconds)) || !isValid) {
                 const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(dateSelected) });
                 newErrors.hours = dateSchedules?.isOpen ? `Horario de retiro: ${dateSchedules?.openingScheduleTime || '10:30'} - ${dateSchedules?.closingScheduleTime || '21:00'}hs. Mínimo 3 horas de anticipación.`
-                : `El local se encontrará cerrado durante el día seleccionado. ${dateSchedules?.isException ? '(' + dateSchedules?.description + ')': ''}`;
+                    : `El local se encontrará cerrado durante el día seleccionado. ${dateSchedules?.isException ? '(' + dateSchedules?.description + ')' : ''}`;
             }
         }
 
@@ -140,9 +157,9 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             const dateSelected = parseDDMMYYYYHHMM(dateOrderScheduled);
             const isValid = await IsOpen({ dayOfWeek: dateToString(dateSelected) }, false);
             if (!isValid) {
-                const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(dateSelected) });                
+                const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(dateSelected) });
                 newErrors.hours = dateSchedules?.isOpen ? `Horario de retiro: ${dateSchedules?.openingTime || '10:30'} - ${dateSchedules?.closingTime || '21:00'}hs.`
-                : `El local se encontrará cerrado durante el día seleccionado. ${dateSchedules?.isException ? '(' + dateSchedules?.description + ')': ''}`;
+                    : `El local se encontrará cerrado durante el día seleccionado. ${dateSchedules?.isException ? '(' + dateSchedules?.description + ')' : ''}`;
                 //newErrors!.hours = `Horario de retiro: ${startHour?.value || '20:00'} - ${endHour?.value || '23:00'}hs.`;
             }
         }
@@ -198,12 +215,12 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             const productNumbersToppings = item?.toppings?.map((topping: any) => topping.productNumber);
             const uniqueProductNumbers = [...new Set(productNumbersToppings)];
 
-            if(item.quantity > 1 && uniqueProductNumbers.length > 1){                
-                for(let i = 0; i < item.quantity; i++){
+            if (item.quantity > 1 && uniqueProductNumbers.length > 1) {
+                for (let i = 0; i < item.quantity; i++) {
                     shoppingCartOrder.push({ ...item, quantity: 1, toppings: item.toppings.filter((topping: any) => topping.productNumber === i) });
                 }
             }
-            else{                
+            else {
                 shoppingCartOrder.push(item);
             }
         })
@@ -317,9 +334,23 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         let response = await CreateOrder(order);
 
         if (response) {
-            const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
-            let messageDelay = delayParameter?.value ? `\nPuede retirarlo dentro de ${delayParameter?.value}.` : '';
-            messageDelay = (response?.orderDetail?.cookingTime > 0 || scheduledSpecialOrder) && dateOrderScheduled != '' ? `\nPuede retirarlo a partir de ${dateOrderScheduled}hs.` : messageDelay;
+            const allParameters = await GetAllParameters() || [];
+            let messageDelay = '';
+
+            const categoryName = shoppingCart[0]?.category?.name?.toUpperCase();
+            if (categoryName && categoryName !== 'PICADAS' && categoryName !== 'MENU FIESTAS') {
+                const customDelayParameter = allParameters.find((p: any) => p.key === `DELAY ${categoryName}`);
+                if (customDelayParameter && customDelayParameter.value) {
+                    messageDelay = `\nPuede retirarlo dentro de ${customDelayParameter.value} minutos.`;
+                }
+            }
+
+            if (!messageDelay) {
+                const delayParameter = allParameters.find((p: any) => p.key === ParameterEnum.DELAY);
+                messageDelay = delayParameter?.value ? `\nPuede retirarlo dentro de ${delayParameter?.value}.` : '';
+            }
+
+            messageDelay = (response?.orderDetail?.cookingTime! > 0 || scheduledSpecialOrder) && dateOrderScheduled != '' ? `\nPuede retirarlo a partir de ${dateOrderScheduled}hs.` : messageDelay;
 
             setLoading(false);
             onProcess(false);
@@ -385,7 +416,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                     {scheduledSpecialOrder && !scheduledOrder && <section className="mt-3">
                         <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
                         <DatePicker date={today} emitDate={handleDate}></DatePicker>
-                    </section>}                    
+                    </section>}
 
                     {/* PICADAS */}
                     {scheduledOrder && <section className="">
