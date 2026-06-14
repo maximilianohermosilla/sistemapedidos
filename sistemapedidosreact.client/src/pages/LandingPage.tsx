@@ -13,7 +13,7 @@ import imgDefault from "../assets/bg-blue.png";
 
 export default function LandingPage() {
     const [loading, setLoading] = useState(true);
-    const [delay, setDelay] = useState<string>('10-15 min');
+    const [delay, setDelay] = useState<string>('0 min');
     const [menu, setMenu] = useState<any>();
     const [menuFavs, setMenuFavs] = useState<any>();
     const [menuSpecial, setMenuSpecial] = useState<any>();

@@ -25,7 +25,9 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     const [minutes, setMinutes] = useState(0);
     const [dateOrderScheduled, setDateOrderScheduled] = useState('');
     const [messageValidation, setMessageValidation] = useState(validationError);
-    const [delay, setDelay] = useState<string>('10-15 min');
+    const [delay, setDelay] = useState<string>('');
+    const [parameters, setParameters] = useState<any[]>([]);
+    const [loadingParameters, setLoadingParameters] = useState(true);
     const [selectedDate, setSelectedDate] = useState('2025-12-24');
     const [selectedTime, setSelectedTime] = useState('12:00');
 
@@ -49,25 +51,31 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     }, [prop])
 
     const getDelayParameterByKey = async () => {
-        const allParameters = await GetAllParameters() || [];
-        let categoryDelay = '';
+        try {
+            const allParameters = await GetAllParameters() || [];
+            setParameters(allParameters);
+            let categoryDelay = '';
 
-        const categoryName = prop[0]?.category?.name?.toUpperCase();
-        if (categoryName && categoryName !== 'PICADAS' && categoryName !== 'MENU FIESTAS') {
-            const customDelayParameter = allParameters.find((p: any) => p.key === `DELAY ${categoryName}`);
-            if (customDelayParameter && customDelayParameter.value) {
-                categoryDelay = `${customDelayParameter.value} minutos`;
+            const categoryName = prop[0]?.category?.name?.toUpperCase()?.trim();
+            if (categoryName && categoryName !== 'PICADAS' && categoryName !== 'MENU FIESTAS') {
+                const customDelayParameter = allParameters.find((p: any) => p.key === `DELAY ${categoryName}`);
+                if (customDelayParameter && customDelayParameter.value) {
+                    categoryDelay = `${customDelayParameter.value} minutos`;
+                }
             }
-        }
 
-        if (!categoryDelay) {
-            const delayParameter = allParameters.find((p: any) => p.key === ParameterEnum.DELAY);
-            if (delayParameter) {
-                categoryDelay = delayParameter.value;
+            if (!categoryDelay) {
+                const delayParameter = allParameters.find((p: any) => p.key === ParameterEnum.DELAY);
+                if (delayParameter) {
+                    categoryDelay = delayParameter.value;
+                }
             }
-        }
 
-        if (categoryDelay) setDelay(categoryDelay);
+            console.log(categoryDelay)
+            if (categoryDelay) setDelay(categoryDelay);
+        } finally {
+            setLoadingParameters(false);
+        }
     }
 
     const handleSelectedDateChange = (e: any) => {
@@ -339,10 +347,10 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
         let response = await CreateOrder(order);
 
         if (response) {
-            const allParameters = await GetAllParameters() || [];
+            const allParameters = parameters.length > 0 ? parameters : await GetAllParameters() || [];
             let messageDelay = '';
 
-            const categoryName = shoppingCart[0]?.category?.name?.toUpperCase();
+            const categoryName = shoppingCart[0]?.category?.name?.toUpperCase()?.trim();
             if (categoryName && categoryName !== 'PICADAS' && categoryName !== 'MENU FIESTAS') {
                 const customDelayParameter = allParameters.find((p: any) => p.key === `DELAY ${categoryName}`);
                 if (customDelayParameter && customDelayParameter.value) {
@@ -377,99 +385,100 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
 
 
     return (<>
-        {loading
-            ? <Spinner text={"Generando pedido..."} />
-            : <div>
-                <h3 className="text-primary font-semibold">Resumen de compra</h3>
-                <ul>{renderCartDetail()}</ul>
-                <form className="mt-5 mb-3">
-                    <h3 className="text-primary font-semibold">Datos de contacto</h3>
-                    <div className="flex justify-between my-3">
-                        <label htmlFor="name" className="text-secondary text-sm font-semibold mr-2">Nombre:</label>
-                        <input type="text" id="name" name="name" className="border border-gray-400 rounded-sm px-2"
-                            value={formData?.name} onChange={handleChange} />
-                    </div>
-                    <div className="flex justify-between my-3">
-                        <label htmlFor="phone" className="text-secondary text-sm font-semibold mr-2">Teléfono:</label>
-                        <input type="text" id="phone" name="phone" className="border border-gray-400 rounded-sm px-2"
-                            value={formData?.phone} onChange={handleChange} />
-                    </div>
-                    <div className="flex justify-between my-3">
-                        <label htmlFor="email" className="text-secondary text-sm font-semibold mr-2">Correo:</label>
-                        <input type="text" id="email" name="email" className="border border-gray-400 rounded-sm px-2"
-                            value={formData?.email} onChange={handleChange} />
-                    </div>
-                    <section className="flex flex-col">
-                        {errors.name && <span className="text-red-600">* {errors.name}</span>}
-                        {errors.email && <span className="text-red-600">* {errors.email}</span>}
-                        {errors.phone && <span className="text-red-600">* {errors.phone}</span>}
-                    </section>
-
-                    {/* ESTANDAR, NO PICADAS, NO MENU FIESTAS - DELAY */}
-                    {!scheduledOrder && !scheduledOrderSpecial && <section className="flex flex-col mt-3">
-                        <Delay delay={delay} />
-                    </section>}
-
-                    {/* ESTANDAR, NO PICADAS, NO MENU FIESTAS - CHECKBOX */}
-                    {!scheduledOrder && !scheduledOrderSpecial && <div className="flex justify-between items-center my-3">
-                        <label htmlFor="updateMenu" className="text-gray-600 text-sm mr-2">Seleccionar horario de retiro:</label>
-                        <input type="checkbox" className="border border-gray-400 rounded-sm px-2 text-sm"
-                            onChange={handleCheckboxScheduled} checked={scheduledSpecialOrder} />
-                    </div>}
-
-                    {/* ESTANDAR, NO PICADAS, NO MENU - HORARIO RETIRO CHECKED*/}
-                    {scheduledSpecialOrder && !scheduledOrder && <section className="mt-3">
-                        <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
-                        <DatePicker date={today} emitDate={handleDate}></DatePicker>
-                    </section>}
-
-                    {/* PICADAS */}
-                    {scheduledOrder && <section className="">
-                        <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
-                        <DatePicker date={today} emitDate={handleDate}></DatePicker>
-                    </section>}
-
-                    {/* MENU FIESTAS */}
-                    {scheduledOrderSpecial && <section className="flex flex-col mt-3">
-                        <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
-                        <div className="flex gap-3 justify-between my-2">
-                            <p className="text-md mt-1">Seleccione Día:</p>
-                            <select className="w-30 px-1 rounded-sm text-sm" onChange={handleSelectedDateChange}>
-                                <option value="2025-12-24">24/12/2025</option>
-                                <option value="2025-12-31">31/12/2025</option>
-                            </select>
+        {loadingParameters ? <Spinner text={"Cargando información..."} />
+            : loading
+                ? <Spinner text={"Generando pedido..."} />
+                : <div>
+                    <h3 className="text-primary font-semibold">Resumen de compra</h3>
+                    <ul>{renderCartDetail()}</ul>
+                    <form className="mt-5 mb-3">
+                        <h3 className="text-primary font-semibold">Datos de contacto</h3>
+                        <div className="flex justify-between my-3">
+                            <label htmlFor="name" className="text-secondary text-sm font-semibold mr-2">Nombre:</label>
+                            <input type="text" id="name" name="name" className="border border-gray-400 rounded-sm px-2"
+                                value={formData?.name} onChange={handleChange} />
                         </div>
-
-                        <div className="flex gap-3 justify-between mt-2 mb-4">
-                            <p className="text-md mt-1">Seleccione Horario:</p>
-                            <input className="w-30 px-2 rounded-sm text-sm"
-                                type="time"
-                                value={selectedTime}
-                                min="09:00"
-                                max="15:00"
-                                onChange={handleSelectedTimeChange}
-                            />
+                        <div className="flex justify-between my-3">
+                            <label htmlFor="phone" className="text-secondary text-sm font-semibold mr-2">Teléfono:</label>
+                            <input type="text" id="phone" name="phone" className="border border-gray-400 rounded-sm px-2"
+                                value={formData?.phone} onChange={handleChange} />
                         </div>
-                        <p className="text-center text-primary text-shadow-sm font-light leading-6 my-2 whitespace-break-spaces" style={{ maxWidth: '360px' }}>
-                            El pedido debe ser reservado abonando el 50% del valor total.
-                            Comuníquese a través de nuestro whatsapp o instagram luego de confirmar el pedido.
-                        </p>
-                    </section>}
+                        <div className="flex justify-between my-3">
+                            <label htmlFor="email" className="text-secondary text-sm font-semibold mr-2">Correo:</label>
+                            <input type="text" id="email" name="email" className="border border-gray-400 rounded-sm px-2"
+                                value={formData?.email} onChange={handleChange} />
+                        </div>
+                        <section className="flex flex-col">
+                            {errors.name && <span className="text-red-600">* {errors.name}</span>}
+                            {errors.email && <span className="text-red-600">* {errors.email}</span>}
+                            {errors.phone && <span className="text-red-600">* {errors.phone}</span>}
+                        </section>
 
-                    {messageValidation && <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2" style={{ maxWidth: '360px' }}>{messageValidation}</p>}
+                        {/* ESTANDAR, NO PICADAS, NO MENU FIESTAS - DELAY */}
+                        {!scheduledOrder && !scheduledOrderSpecial && <section className="flex flex-col mt-3">
+                            <Delay delay={delay} />
+                        </section>}
 
-                    <footer>
-                        {verifying ? <Spinner text={"Generando pedido..."} />
-                            : <button className="button__primary m-auto my-3 flex items-center gap-2" onClick={handleConfirm}
-                                disabled={Boolean((messageValidation && messageValidation !== '') || (errors?.hours && errors?.hours !== ''))}>
-                                <FaCheck />Confirmar <div></div>
-                            </button>}
-                    </footer>
+                        {/* ESTANDAR, NO PICADAS, NO MENU FIESTAS - CHECKBOX */}
+                        {!scheduledOrder && !scheduledOrderSpecial && <div className="flex justify-between items-center my-3">
+                            <label htmlFor="updateMenu" className="text-gray-600 text-sm mr-2">Seleccionar horario de retiro:</label>
+                            <input type="checkbox" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                onChange={handleCheckboxScheduled} checked={scheduledSpecialOrder} />
+                        </div>}
 
-                    <section className="flex flex-col">
-                        {errors.hours && <span className="text-red-600 text-center">* {errors?.hours}</span>}
-                    </section>
-                </form>
-            </div>}
+                        {/* ESTANDAR, NO PICADAS, NO MENU - HORARIO RETIRO CHECKED*/}
+                        {scheduledSpecialOrder && !scheduledOrder && <section className="mt-3">
+                            <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
+                            <DatePicker date={today} emitDate={handleDate}></DatePicker>
+                        </section>}
+
+                        {/* PICADAS */}
+                        {scheduledOrder && <section className="">
+                            <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
+                            <DatePicker date={today} emitDate={handleDate}></DatePicker>
+                        </section>}
+
+                        {/* MENU FIESTAS */}
+                        {scheduledOrderSpecial && <section className="flex flex-col mt-3">
+                            <h3 className="text-primary font-semibold mt-3">Horario de retiro</h3>
+                            <div className="flex gap-3 justify-between my-2">
+                                <p className="text-md mt-1">Seleccione Día:</p>
+                                <select className="w-30 px-1 rounded-sm text-sm" onChange={handleSelectedDateChange}>
+                                    <option value="2025-12-24">24/12/2025</option>
+                                    <option value="2025-12-31">31/12/2025</option>
+                                </select>
+                            </div>
+
+                            <div className="flex gap-3 justify-between mt-2 mb-4">
+                                <p className="text-md mt-1">Seleccione Horario:</p>
+                                <input className="w-30 px-2 rounded-sm text-sm"
+                                    type="time"
+                                    value={selectedTime}
+                                    min="09:00"
+                                    max="15:00"
+                                    onChange={handleSelectedTimeChange}
+                                />
+                            </div>
+                            <p className="text-center text-primary text-shadow-sm font-light leading-6 my-2 whitespace-break-spaces" style={{ maxWidth: '360px' }}>
+                                El pedido debe ser reservado abonando el 50% del valor total.
+                                Comuníquese a través de nuestro whatsapp o instagram luego de confirmar el pedido.
+                            </p>
+                        </section>}
+
+                        {messageValidation && <p className="text-center text-red-500 text-shadow-sm font-light leading-6 my-2" style={{ maxWidth: '360px' }}>{messageValidation}</p>}
+
+                        <footer>
+                            {verifying ? <Spinner text={"Generando pedido..."} />
+                                : <button className="button__primary m-auto my-3 flex items-center gap-2" onClick={handleConfirm}
+                                    disabled={Boolean((messageValidation && messageValidation !== '') || (errors?.hours && errors?.hours !== ''))}>
+                                    <FaCheck />Confirmar <div></div>
+                                </button>}
+                        </footer>
+
+                        <section className="flex flex-col">
+                            {errors.hours && <span className="text-red-600 text-center">* {errors?.hours}</span>}
+                        </section>
+                    </form>
+                </div>}
     </>)
 }

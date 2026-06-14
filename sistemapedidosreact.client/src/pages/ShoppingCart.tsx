@@ -7,6 +7,7 @@ import { BsCartXFill, BsGift } from "react-icons/bs";
 import DialogConfirm from "../components/DialogConfirm";
 import Dialog from "../components/Dialog";
 import ShoppingCartConfirm from "../components/ShoppingCartConfirm";
+import Spinner from "../components/Spinner";
 import { GetParameterByKey, GetAllParameters } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
 import { IoCartOutline, IoTimeOutline } from "react-icons/io5";
@@ -17,10 +18,11 @@ import { dateToString } from "../utils/ParseDateUtil";
 
 export default function ShoppingCart() {
     const cartContext = useContext<any>(CartContext);
+    const [loadingParameters, setLoadingParameters] = useState(true);
     const [cartItems, setCartItems] = useState([]);
     const [cartItemsScheduled, setCartItemsScheduled] = useState([]);
     const [cartItemsScheduledSpecial, setCartItemsScheduledSpecial] = useState([]);
-    
+
     const [totalPriceStandard, setTotalPriceStandard] = useState<number>(0);
 
     const [totalPriceScheduled, setTotalPriceScheduled] = useState<number>(0);
@@ -44,6 +46,9 @@ export default function ShoppingCart() {
                 const delayParams = params.filter((p: any) => p.key && p.key.startsWith('DELAY '));
                 setDelayParameters(delayParams);
             }
+            setLoadingParameters(false);
+        }).catch(() => {
+            setLoadingParameters(false);
         });
     }, []);
 
@@ -96,7 +101,7 @@ export default function ShoppingCart() {
     const openModalScheduledSpecial = () => setIsModalOpenScheduledSpecial(true);
     const closeModalScheduledSpecial = () => setIsModalOpenScheduledSpecial(false);
 
-    
+
     const closeModalClear = () => setIsModalOpenClear(false);
 
     const handleConfirm = (element: any) => {
@@ -201,76 +206,80 @@ export default function ShoppingCart() {
 
     return (
         <div className="main__container w-full flex flex-col justify-between p-2 pt-5">
-            <section className="products">
-                {cartItems && cartItems!.length > 0 &&
-                    <>
-                        <h1 className="flex text-primary text-2xl font-semibold w-full text-center mb-3 justify-center items-center gap-3"><span><IoCartOutline /></span>Carrito de compras</h1>
-                        {cartItems.map((item: any) => <CardProductCart key={item.id} product={item} />)}
-                        <footer className="mt-4 mb-8">
-                            <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPriceStandard)}</p>
-                            <div className="flex justify-center gap-2 my-3 px-2">
-                                <button className="button__primary flex items-center gap-2" onClick={openModal} disabled={inProcess}>
-                                    <IoCartOutline />Confirmar<div></div>
-                                </button>
-                            </div>
-                        </footer>
-                    </>
-                }
-
-                {Object.keys(delayedSubcarts).map((categoryName: string) => {
-                    const items = delayedSubcarts[categoryName];
-                    const totalDelayed = items.reduce((acc: any, prod: any) => acc + prod.totalPrice, 0);
-                    if (items.length === 0) return null;
-                    return (
-                        <div key={categoryName}>
-                            <h3 className="flex text-primary text-lg font-semibold w-full text-center mb-3 justify-center items-center gap-3 mt-4">
-                                <span><IoTimeOutline /></span>{categoryName}
-                            </h3>
-                            {items.map((item: any) => <CardProductCart key={item.id} product={item} />)}
+            {loadingParameters ? (
+                <div className="m-auto mt-10"><Spinner text="Cargando..." /></div>
+            ) : (
+                <section className="products">
+                    {cartItems && cartItems!.length > 0 &&
+                        <>
+                            <h1 className="flex text-primary text-2xl font-semibold w-full text-center mb-3 justify-center items-center gap-3"><span><IoCartOutline /></span>Carrito de compras</h1>
+                            {cartItems.map((item: any) => <CardProductCart key={item.id} product={item} />)}
                             <footer className="mt-4 mb-8">
-                                <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalDelayed)}</p>
+                                <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPriceStandard)}</p>
                                 <div className="flex justify-center gap-2 my-3 px-2">
-                                    <button className="button__primary flex items-center gap-2" onClick={() => setIsModalOpenDelayed(prev => ({ ...prev, [categoryName]: true }))} disabled={inProcess}>
+                                    <button className="button__primary flex items-center gap-2" onClick={openModal} disabled={inProcess}>
                                         <IoCartOutline />Confirmar<div></div>
                                     </button>
                                 </div>
                             </footer>
-                        </div>
-                    );
-                })}
+                        </>
+                    }
 
-                {cartItemsScheduled && cartItemsScheduled!.length > 0 &&
-                    <>
-                        <h1 className="flex text-primary text-2xl font-semibold w-full text-center mb-3 justify-center items-center gap-3"><span><IoTimeOutline /></span>Pedidos programados</h1>
-                        {cartItemsScheduled.map((item: any) => <CardProductCart key={item.id} product={item} />)}
-                        <footer className="mt-4 mb-8">
-                            <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPriceScheduled)}</p>
-                            <div className="flex justify-center gap-2 my-3 px-2">
-                                <button className="button__primary flex items-center gap-2" onClick={openModalScheduled} disabled={inProcess}>
-                                    <IoTimeOutline />Confirmar<div></div>
-                                </button>
+                    {Object.keys(delayedSubcarts).map((categoryName: string) => {
+                        const items = delayedSubcarts[categoryName];
+                        const totalDelayed = items.reduce((acc: any, prod: any) => acc + prod.totalPrice, 0);
+                        if (items.length === 0) return null;
+                        return (
+                            <div key={categoryName}>
+                                <h3 className="flex text-primary text-lg font-semibold w-full text-center mb-3 justify-center items-center gap-3 mt-4">
+                                    <span><IoTimeOutline /></span>{categoryName}
+                                </h3>
+                                {items.map((item: any) => <CardProductCart key={item.id} product={item} />)}
+                                <footer className="mt-4 mb-8">
+                                    <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalDelayed)}</p>
+                                    <div className="flex justify-center gap-2 my-3 px-2">
+                                        <button className="button__primary flex items-center gap-2" onClick={() => setIsModalOpenDelayed(prev => ({ ...prev, [categoryName]: true }))} disabled={inProcess}>
+                                            <IoCartOutline />Confirmar<div></div>
+                                        </button>
+                                    </div>
+                                </footer>
                             </div>
-                        </footer>
-                    </>
-                }
+                        );
+                    })}
 
-                {cartItemsScheduledSpecial && cartItemsScheduledSpecial!.length > 0 &&
-                    <>
-                        <h1 className="flex text-primary text-2xl font-semibold w-full text-center mb-3 justify-center items-center gap-3"><span><BsGift /></span>Pedidos especiales</h1>
-                        {cartItemsScheduledSpecial.map((item: any) => <CardProductCart key={item.id} product={item} />)}
-                        <footer className="mt-4 mb-8">
-                            <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPriceScheduledSpecial)}</p>
-                            <div className="flex justify-center gap-2 my-3 px-2">
-                                <button className="button__primary flex items-center gap-2" onClick={openModalScheduledSpecial} disabled={inProcess}>
-                                    <BsGift />Confirmar<div></div>
-                                </button>
-                            </div>
-                        </footer>
-                    </>
-                }
+                    {cartItemsScheduled && cartItemsScheduled!.length > 0 &&
+                        <>
+                            <h1 className="flex text-primary text-2xl font-semibold w-full text-center mb-3 justify-center items-center gap-3"><span><IoTimeOutline /></span>Pedidos programados</h1>
+                            {cartItemsScheduled.map((item: any) => <CardProductCart key={item.id} product={item} />)}
+                            <footer className="mt-4 mb-8">
+                                <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPriceScheduled)}</p>
+                                <div className="flex justify-center gap-2 my-3 px-2">
+                                    <button className="button__primary flex items-center gap-2" onClick={openModalScheduled} disabled={inProcess}>
+                                        <IoTimeOutline />Confirmar<div></div>
+                                    </button>
+                                </div>
+                            </footer>
+                        </>
+                    }
 
-                {cartItems.length == 0 && cartItemsScheduled.length == 0 && cartItemsScheduledSpecial.length == 0 && Object.keys(delayedSubcarts).length == 0 && <p className="text-center m-auto mt-6 flex flex-col gap-4"><BsCartXFill size={64} className="text-gray-500 m-auto" /><span className="mt-3 font-semibold text-primary">Tu carrito se encuentra vacío</span></p>}
-            </section>
+                    {cartItemsScheduledSpecial && cartItemsScheduledSpecial!.length > 0 &&
+                        <>
+                            <h1 className="flex text-primary text-2xl font-semibold w-full text-center mb-3 justify-center items-center gap-3"><span><BsGift /></span>Pedidos especiales</h1>
+                            {cartItemsScheduledSpecial.map((item: any) => <CardProductCart key={item.id} product={item} />)}
+                            <footer className="mt-4 mb-8">
+                                <p className="text-center font-bold text-gray-700">Total: {formatMoney(totalPriceScheduledSpecial)}</p>
+                                <div className="flex justify-center gap-2 my-3 px-2">
+                                    <button className="button__primary flex items-center gap-2" onClick={openModalScheduledSpecial} disabled={inProcess}>
+                                        <BsGift />Confirmar<div></div>
+                                    </button>
+                                </div>
+                            </footer>
+                        </>
+                    }
+
+                    {cartItems.length == 0 && cartItemsScheduled.length == 0 && cartItemsScheduledSpecial.length == 0 && Object.keys(delayedSubcarts).length == 0 && <p className="text-center m-auto mt-6 flex flex-col gap-4"><BsCartXFill size={64} className="text-gray-500 m-auto" /><span className="mt-3 font-semibold text-primary">Tu carrito se encuentra vacío</span></p>}
+                </section>
+            )}
 
 
 
