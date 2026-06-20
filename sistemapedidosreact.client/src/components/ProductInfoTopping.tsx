@@ -12,16 +12,16 @@ export default function ProductInfoToppings({ toppingProp, checked, multipleChec
     useEffect(() => {
         setTopping(toppingProp);
         setCategoryRequired(toppingProp?.category?.maxQty === 1);
-        setCategoryMultiple(toppingProp?.category?.maxQty > 1);        
+        setCategoryMultiple(toppingProp?.category?.maxQty > 1);
     }, [toppingProp]);
 
     const toggleDetails = () => {
         setIsOpen(!isOpen);
     };
 
-    const handleToppingCheckbox = (topping: any) => { 
-        if(!topping.multiple) {
-            toppingProp = {...toppingProp}
+    const handleToppingCheckbox = (topping: any) => {
+        if (!topping.multiple) {
+            toppingProp = { ...toppingProp }
         }
         setSelectedTopping(topping);
     }
@@ -35,11 +35,15 @@ export default function ProductInfoToppings({ toppingProp, checked, multipleChec
             )
         }
         else {
-            return topping?.items?.map((item: any) =>
-                <ProductInfoToppingItem key={`${item.id}_${productNumber}`} item={item} setSelectedOption={setSelectedTopping} productNumber={productNumber}                    
+            return topping?.items?.filter((item: any) => item.price > 0)?.map((item: any) =>
+                <ProductInfoToppingItem key={`${item.id}_${productNumber}`} item={item} setSelectedOption={setSelectedTopping} productNumber={productNumber}
                     checked={checked?.id === item.id}></ProductInfoToppingItem>
             )
         }
+    }
+
+    if (!topping?.items?.some((item: any) => item.price > 0)) {
+        return null;
     }
 
     return (
