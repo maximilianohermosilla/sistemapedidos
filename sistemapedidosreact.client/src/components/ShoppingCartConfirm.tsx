@@ -343,6 +343,18 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             }
         };
 
+        if (formData?.email) {
+            localStorage.setItem('customerEmail', formData.email);
+        } else {
+            localStorage.removeItem('customerEmail');
+        }
+
+        if (formData?.phone) {
+            localStorage.setItem('customerPhoneNumber', formData.phone);
+        } else {
+            localStorage.removeItem('customerPhoneNumber');
+        }
+
         //console.log(order);
         let response = await CreateOrder(order);
 
