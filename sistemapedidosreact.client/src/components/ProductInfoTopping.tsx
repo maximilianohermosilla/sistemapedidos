@@ -42,9 +42,9 @@ export default function ProductInfoToppings({ toppingProp, checked, multipleChec
         }
     }
 
-    if (!topping?.items?.some((item: any) => item.price > 0)) {
-        return null;
-    }
+    // if (!topping?.items?.some((item: any) => item.price > 0)) {
+    //     return null;
+    // }
 
     return (
         <details open={isOpen} onToggle={toggleDetails} className="">
