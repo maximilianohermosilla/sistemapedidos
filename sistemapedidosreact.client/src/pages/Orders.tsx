@@ -7,14 +7,11 @@ export default function Orders() {
     const [inputSearch, setInputSearch] = useState('');
     const [orders, setOrders] = useState<any[] | undefined>(undefined);
 
-    useEffect(() => {
-
-    }, []);
-
-    const handleSearch = async () => {
+    const handleSearch = async (queryToSearch?: string) => {
+        const query = typeof queryToSearch === 'string' ? queryToSearch : inputSearch;
         setOrders(undefined);
-        if (inputSearch) {
-            const response = await SearchOrdersByCustomer(inputSearch!);
+        if (query) {
+            const response = await SearchOrdersByCustomer(query);
             if(response && response.length > 0) {
                 setOrders(response);
             }
@@ -23,6 +20,19 @@ export default function Orders() {
             }
         }        
     }
+
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('customerEmail');
+        const savedPhone = localStorage.getItem('customerPhoneNumber') || localStorage.getItem('customerPhone');
+        const searchValue = (savedEmail && savedEmail.trim() !== '')
+            ? savedEmail.trim()
+            : ((savedPhone && savedPhone.trim() !== '') ? savedPhone.trim() : '');
+
+        if (searchValue) {
+            setInputSearch(searchValue);
+            handleSearch(searchValue);
+        }
+    }, []);
 
     const handleKeyDown = (event: any) => {
         if (event.key === 'Enter') {
@@ -43,7 +53,7 @@ export default function Orders() {
                         placeholder="Ingrese email o teléfono"
                         className="w-full px-4 py-2 rounded-md text-sm outline-none focus:ring-2 focus:ring-cyan-700"
                     />
-                    <button className="button__primary h-10" onClick={handleSearch}><FaSearch></FaSearch></button>
+                    <button className="button__primary h-10" onClick={() => handleSearch()}><FaSearch></FaSearch></button>
                 </div>
             </section>
             {orders && 

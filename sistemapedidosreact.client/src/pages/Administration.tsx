@@ -2,7 +2,7 @@ import "./Administration.css";
 import { FaRegClock } from "react-icons/fa6";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
-import { GetParameterByKey, UpdateParameter } from "../services/parameter-service";
+import { GetAllParameters, UpdateParameter } from "../services/parameter-service";
 import Login from "../components/Login";
 import { MdLogout } from "react-icons/md";
 import { FaRegSave } from "react-icons/fa";
@@ -12,6 +12,7 @@ import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import { GetAllWeeklySchedules, UpdateAllWeeklySchedules } from "../services/weekly-schedule-service";
 import { GetAllSpecialSchedules } from "../services/special-schedule-service";
 import CardException from "../components/CardException";
+import CardDelay from "../components/CardDelay";
 
 const positionDefault = [-34.92057857658673, -57.95523024039817];
 
@@ -27,6 +28,7 @@ export default function Administration() {
     const [position, setPosition] = useState<any>(positionDefault);
     const [weeklySchedules, setWeeklySchedules] = useState<any[] | undefined>(undefined);
     const [specialSchedules, setSpecialSchedules] = useState<any[] | undefined>(undefined);
+    const [categoryDelays, setCategoryDelays] = useState<any[]>([]);
     const { isLoggedIn, login, logout } = useAuth();
 
     useEffect(() => {
@@ -44,25 +46,30 @@ export default function Administration() {
     };
 
     const getParameters = async () => {
-        const delayParameter = await GetParameterByKey(ParameterEnum.DELAY);
-        const addressParameter = await GetParameterByKey(ParameterEnum.ADDRESS);
-        const whatsappParameter = await GetParameterByKey(ParameterEnum.WHATSAPP);
-        const emailParameter = await GetParameterByKey(ParameterEnum.EMAIL);
-        const instagramParameter = await GetParameterByKey(ParameterEnum.INSTAGRAM);
-        const phoneParameter = await GetParameterByKey(ParameterEnum.PHONE);
-        const schedulesParameter = await GetParameterByKey(ParameterEnum.SCHEDULES);
-        const updateMenuParameter = await GetParameterByKey(ParameterEnum.UPDATE_MENU);
-        const updateMenuAlwaysParameter = await GetParameterByKey(ParameterEnum.UPDATE_MENU_ALWAYS);
-        const latitudeParameter = await GetParameterByKey(ParameterEnum.LATITUDE);
-        const longitudeParameter = await GetParameterByKey(ParameterEnum.LONGITUDE);
-        const openingParameter = await GetParameterByKey(ParameterEnum.OPENING_HOURS);
-        const closingParameter = await GetParameterByKey(ParameterEnum.CLOSING_HOURS);
-        const openingSchedulesParameter = await GetParameterByKey(ParameterEnum.OPENING_SCHEDULES_HOURS);
-        const closingSchedulesParameter = await GetParameterByKey(ParameterEnum.CLOSING_SCHEDULES_HOURS);
+        const parameters = await GetAllParameters() || [];
+        const delayParameter = parameters.find((p: any) => p.key === ParameterEnum.DELAY);
+        const addressParameter = parameters.find((p: any) => p.key === ParameterEnum.ADDRESS);
+        const whatsappParameter = parameters.find((p: any) => p.key === ParameterEnum.WHATSAPP);
+        const emailParameter = parameters.find((p: any) => p.key === ParameterEnum.EMAIL);
+        const instagramParameter = parameters.find((p: any) => p.key === ParameterEnum.INSTAGRAM);
+        const phoneParameter = parameters.find((p: any) => p.key === ParameterEnum.PHONE);
+        const schedulesParameter = parameters.find((p: any) => p.key === ParameterEnum.SCHEDULES);
+        const updateMenuParameter = parameters.find((p: any) => p.key === ParameterEnum.UPDATE_MENU);
+        const updateMenuAlwaysParameter = parameters.find((p: any) => p.key === ParameterEnum.UPDATE_MENU_ALWAYS);
+        const latitudeParameter = parameters.find((p: any) => p.key === ParameterEnum.LATITUDE);
+        const longitudeParameter = parameters.find((p: any) => p.key === ParameterEnum.LONGITUDE);
+        const openingParameter = parameters.find((p: any) => p.key === ParameterEnum.OPENING_HOURS);
+        const closingParameter = parameters.find((p: any) => p.key === ParameterEnum.CLOSING_HOURS);
+        const openingSchedulesParameter = parameters.find((p: any) => p.key === ParameterEnum.OPENING_SCHEDULES_HOURS);
+        const closingSchedulesParameter = parameters.find((p: any) => p.key === ParameterEnum.CLOSING_SCHEDULES_HOURS);
 
         const weeklyDays = await GetAllWeeklySchedules();
         setWeeklySchedules(weeklyDays);
         getAllSpecialSchedules();
+
+        const categoryDelayParams = parameters.filter((p: any) => p.key.startsWith('DELAY '));
+        categoryDelayParams.push({ id: 0, key: '', value: '' });
+        setCategoryDelays(categoryDelayParams);
 
         setFormData({
             ...formData,
@@ -159,6 +166,10 @@ export default function Administration() {
         getAllSpecialSchedules();
     }
 
+    const handleSaveCategoryDelay = () => {
+        getParameters();
+    }
+
     const getAllSpecialSchedules = async () => {
         setSpecialSchedules([]);
         const listSpecialSchedules = await GetAllSpecialSchedules();
@@ -195,7 +206,7 @@ export default function Administration() {
                     weeklySchedule.isOpen = formData._0;
                     break;
                 default:
-                    break;                    
+                    break;
             }
 
             weeklySchedule.openingTime = formData.opening;
@@ -237,33 +248,33 @@ export default function Administration() {
                             <h3 className="text-primary text-lg font-semibold">Contacto</h3>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="address" className="text-gray-600 text-sm mr-2">Dirección:</label>
-                                <input type="text" id="address" name="address" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="address" name="address" className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.address} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="email" className="text-gray-600 text-sm mr-2">Correo:</label>
-                                <input type="text" id="email" name="email" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="email" name="email" className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.email} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="phone" className="text-gray-600 text-sm mr-2">Teléfono:</label>
-                                <input type="text" id="phone" name="phone" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="phone" name="phone" className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.phone} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="instagram" className="text-gray-600 text-sm mr-2">Instagram:</label>
-                                <input type="text" id="instagram" name="instagram" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="instagram" name="instagram" className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.instagram} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-center my-3">
                                 <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Whatsapp:</label>
-                                <input type="text" id="whatsapp" name="whatsapp" className="border border-gray-400 rounded-sm px-2 text-sm"
+                                <input type="text" id="whatsapp" name="whatsapp" className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.whatsapp} onChange={handleChange} />
                             </div>
                             <div className="flex justify-between items-start my-3">
                                 <label htmlFor="schedules" className="text-gray-600 text-sm mr-2">Horarios:</label>
                                 <textarea id="schedules" name="schedules"
-                                    className="border border-gray-400 rounded-sm px-2 text-sm"
+                                    className="border border-gray-400 rounded-sm px-2 text-sm bg-white"
                                     value={formData?.schedules}
                                     onChange={handleChange}
                                     rows={5}
@@ -344,53 +355,67 @@ export default function Administration() {
                                     checked={formData?._0 ?? false} onChange={handleCheckboxChange} />
                             </div>
 
-                            <h3 className="text-primary text-lg font-semibold mt-4">Horarios</h3>
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Apertura:</label>
-                                <input
-                                    className="w-30 px-2 rounded-sm"
-                                    type="time"
-                                    value={formData?.opening}
-                                    onChange={handleOpening}
-                                />
-                            </div>
+                            <h3 className="text-primary text-lg font-semibold mt-5">Horarios</h3>
+                            <h3 className="text-gray-600 text-md font-semibold mt-3">Casa de Comidas</h3>
 
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Cierre:</label>
-                                <input
-                                    className="w-30 px-2 rounded-sm"
-                                    type="time"
-                                    value={formData?.closing}
-                                    onChange={handleClosing}
-                                />
-                            </div>
+                            <section className="bg-white p-3 py-2 rounded-md shadow-md shadow-gray-500/40 ">
+                                <div className="flex justify-between items-center my-3">
+                                    <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Apertura:</label>
+                                    <input
+                                        className="w-30 px-2 rounded-sm"
+                                        type="time"
+                                        value={formData?.opening}
+                                        onChange={handleOpening}
+                                    />
+                                </div>
 
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados desde:</label>
-                                <input
-                                    className="w-30 px-2 rounded-sm"
-                                    type="time"
-                                    value={formData?.openingSchedules}
-                                    onChange={handleOpeningSchedules}
-                                />
-                            </div>
+                                <div className="flex justify-between items-center my-3">
+                                    <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Cierre:</label>
+                                    <input
+                                        className="w-30 px-2 rounded-sm"
+                                        type="time"
+                                        value={formData?.closing}
+                                        onChange={handleClosing}
+                                    />
+                                </div>
+                            </section>
 
-                            <div className="flex justify-between items-center my-3">
-                                <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados hasta:</label>
-                                <input
-                                    className="w-30 px-2 rounded-sm"
-                                    type="time"
-                                    value={formData?.closingSchedules}
-                                    onChange={handleClosingSchedules}
-                                />
-                            </div>
+                            <h3 className="text-gray-600 text-md font-semibold mt-5">Picadas</h3>
+                            <section className="bg-white p-3 py-2 rounded-md shadow-md shadow-gray-500/40 ">
+                                <div className="flex justify-between items-center my-3">
+                                    <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados desde:</label>
+                                    <input
+                                        className="w-30 px-2 rounded-sm"
+                                        type="time"
+                                        value={formData?.openingSchedules}
+                                        onChange={handleOpeningSchedules}
+                                    />
+                                </div>
+
+                                <div className="flex justify-between items-center my-3">
+                                    <label htmlFor="whatsapp" className="text-gray-600 text-sm mr-2">Pedidos programados hasta:</label>
+                                    <input
+                                        className="w-30 px-2 rounded-sm"
+                                        type="time"
+                                        value={formData?.closingSchedules}
+                                        onChange={handleClosingSchedules}
+                                    />
+                                </div>
+                            </section>
+                            <h3 className="text-primary text-lg font-semibold mt-5 mb-2">Demoras por Categoría</h3>
+
+                            {categoryDelays && categoryDelays.length > 0
+                                ? categoryDelays.map((delay: any, index: any) =>
+                                    <CardDelay key={index} delayItem={delay} onSave={handleSaveCategoryDelay}>
+                                    </CardDelay>)
+                                : null}
 
                             <h3 className="text-primary text-lg font-semibold mt-5 mb-2">Excepciones</h3>
 
                             {specialSchedules && specialSchedules.length > 0
-                                ? specialSchedules.map((specialSchedule: any, index: any) => 
-                                <CardException key={index} exception={specialSchedule} onSave={handleSaveSpecialSchedule}>
-                                </CardException>)
+                                ? specialSchedules.map((specialSchedule: any, index: any) =>
+                                    <CardException key={index} exception={specialSchedule} onSave={handleSaveSpecialSchedule}>
+                                    </CardException>)
                                 : <p className="text-lg font-semibold text-center text-primary w-full my-3">No hay excepciones</p>}
                         </div>
                     </section>

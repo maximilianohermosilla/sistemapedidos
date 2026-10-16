@@ -11,17 +11,39 @@ import { BiFoodMenu } from "react-icons/bi";
 import { LuMapPin } from "react-icons/lu";
 import { IoCartOutline } from "react-icons/io5";
 import { PiCheese } from "react-icons/pi";
+import { SearchOrdersByCustomer } from "../services/order-service";
 
 const Header: React.FC = () => {
     const [cartItems, setCartItems] = useState([]);
     const [menuOpen, setMenuOpen] = useState(false);
     const [inputSearch, setInputSearch] = useState('');
+    const [pendingOrdersCount, setPendingOrdersCount] = useState<number>(0);
     const cartContext = useContext<any>(CartContext);
     const navigate = useNavigate();
 
     useEffect(() => {
         setCartItems(cartContext.cartItems);
     }, [cartContext.cartItems]);
+
+    useEffect(() => {
+        const fetchPendingOrders = async () => {
+            const savedEmail = localStorage.getItem('customerEmail');
+            const savedPhone = localStorage.getItem('customerPhoneNumber') || localStorage.getItem('customerPhone');
+            const query = (savedEmail && savedEmail.trim() !== '')
+                ? savedEmail.trim()
+                : ((savedPhone && savedPhone.trim() !== '') ? savedPhone.trim() : '');
+
+            if (query) {
+                const response = await SearchOrdersByCustomer(query);
+                if (response && Array.isArray(response)) {
+                    const activeOrders = response.filter((order: any) => order.state === "" || order.state === "RECIBIDO");
+                    setPendingOrdersCount(activeOrders.length);
+                }
+            }
+        };
+
+        fetchPendingOrders();
+    }, []);
 
     const handleSearch = () => {
         if (inputSearch) {
@@ -37,7 +59,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
+        <header className="bg-white shadow-md fixed w-full top-0 left-0 z-1200">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo */}
@@ -91,8 +113,12 @@ const Header: React.FC = () => {
                     {/* Hamburguesa mobile */}
                     <div className="md:hidden flex items-center">
                         <a href="/picadas" className="header__link flex flex-col justify-center align-center text-gray-600 hover:text-blue-400 mr-5">
-                            <PiCheese className="mx-auto mt-3 mb-0"/> <span className="leading-3 text-xs">Picadas</span>
+                            <PiCheese className="mx-auto mt-3 mb-0" /> <span className="leading-3 text-xs">Picadas</span>
                         </a>
+                        {pendingOrdersCount > 0 && <a href="/orders" className="header__link relative text-gray-600 hover:text-blue-400 mr-5">
+                            <BsPersonVcard />
+                            <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{pendingOrdersCount}</span>
+                        </a>}
                         {cartItems.length > 0 && <a href="/shopping-cart" className="header__link relative text-gray-600 hover:text-blue-400 mr-5">
                             <IoCartOutline />
                             <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{cartItems.length}</span>

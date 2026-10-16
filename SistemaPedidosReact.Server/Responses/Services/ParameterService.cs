@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using SistemaPedidosReact.Server.Responses.Interfaces;
 using SistemaPedidosReact.Server.Data.Interfaces;
 using SistemaPedidosReact.Server.DTOs;
@@ -96,6 +96,18 @@ namespace SistemaPedidosReact.Server.Responses.Services
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        public async Task<bool> Delete(int pId)
+        {
+            try
+            {
+                return vGblRepository.Delete(pId);
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
     }

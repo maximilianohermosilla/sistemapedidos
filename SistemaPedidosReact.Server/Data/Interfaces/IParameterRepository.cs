@@ -1,4 +1,4 @@
-﻿using SistemaPedidosReact.Server.Models;
+using SistemaPedidosReact.Server.Models;
 
 namespace SistemaPedidosReact.Server.Data.Interfaces
 {
@@ -9,5 +9,6 @@ namespace SistemaPedidosReact.Server.Data.Interfaces
         Parameter GetById(int pId);
         Parameter GetByKey(string pKey);
         Parameter Create(Parameter pParameter);
+        bool Delete(int pId);
     }
 }

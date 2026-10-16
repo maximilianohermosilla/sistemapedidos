@@ -1,4 +1,4 @@
-﻿using SistemaPedidosReact.Server.DTOs;
+using SistemaPedidosReact.Server.DTOs;
 
 namespace SistemaPedidosReact.Server.Responses.Interfaces
 {
@@ -9,5 +9,6 @@ namespace SistemaPedidosReact.Server.Responses.Interfaces
         Task<IEnumerable<ParameterReadDTO>> GetAll();
         Task<ParameterReadDTO?> GetById(int pId);
         Task<ParameterReadDTO?> GetByKey(string pKey);
+        Task<bool> Delete(int pId);
     }
 }
