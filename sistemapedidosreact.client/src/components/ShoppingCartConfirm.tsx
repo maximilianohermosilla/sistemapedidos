@@ -7,13 +7,14 @@ import { calculateMinutesBetweenDates, dateToString, parseDDMMYYYYHHMM } from ".
 import { GetAllParameters } from "../services/parameter-service";
 import { ParameterEnum } from "../enums/parameter";
 import { formatDateHHMM } from "../utils/FormatDateUtil";
-import { isTimeBetweenHours } from "../utils/TimeValidation";
+import { isTimeBetweenHours, validateCategorySchedulesForDate } from "../utils/TimeValidation";
+import { GetAllCategorySchedules } from "../services/category-schedule-service";
 import { GetDaySchedule, IsOpen } from "../services/weekly-schedule-service";
 import DatePicker from "./DatePicker";
 import Spinner from "./Spinner";
 import Delay from "./Delay";
 
-export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess, validationError }: any) {
+export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClose, onProcess, validationError, categorySchedules: propCategorySchedules }: any) {
     const [loading, setLoading] = useState(false);
     const [verifying, setVerifying] = useState(false);
     const [shoppingCart, setShoppingCart] = useState<any[]>([]);
@@ -31,24 +32,41 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
     const [selectedDate, setSelectedDate] = useState('2025-12-24');
     const [selectedTime, setSelectedTime] = useState('12:00');
 
+    const [categorySchedules, setCategorySchedules] = useState<any[]>(propCategorySchedules || []);
+
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
     useEffect(() => {
+        if (!propCategorySchedules || propCategorySchedules.length === 0) {
+            GetAllCategorySchedules().then(schedules => {
+                if (schedules) setCategorySchedules(schedules);
+            });
+        } else {
+            setCategorySchedules(propCategorySchedules);
+        }
+    }, [propCategorySchedules]);
+
+    useEffect(() => {
         prop.forEach((item: any) => {
-            if (item?.category?.name?.toUpperCase() === 'PICADAS' || item?.category?.name?.toUpperCase() === 'PICADA') {
+            const catName = item?.category?.name?.toUpperCase();
+            if (catName === 'PICADAS' || catName === 'PICADA') {
                 setScheduledOrder(true);
             }
 
-            if (item?.category?.name?.toUpperCase() === 'MENU FIESTAS') {
+            if (catName === 'MENU FIESTAS') {
                 setScheduledOrderSpecial(true);
+            }
+
+            if (categorySchedules?.some((cs: any) => cs.categoryId === item?.category?.id)) {
+                setScheduledOrder(true);
             }
         });
 
         getDelayParameterByKey();
         setShoppingCart(prop);
-    }, [prop])
+    }, [prop, categorySchedules]);
 
     const getDelayParameterByKey = async () => {
         try {
@@ -127,32 +145,55 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
 
     const validate = async () => {
         const newErrors: any = {};
-        if (!formData.name) {
+        if (!formData.name?.trim()) {
             newErrors!.name = 'Nombre es requerido';
         }
 
-        if (!formData.phone) {
-            newErrors!.phone = 'Teléfono es requerido';
+        if (!formData.phone?.trim() && !formData.email?.trim()) {
+            newErrors!.contact = 'Debe ingresar al menos un teléfono o correo electrónico';
         }
 
         if (formData.email && !/\S+@\S+\.\S+/.test(formData.email)) {
             newErrors!.email = 'Formato de mail es incorrecto';
         }
 
-        // PICADAS
+        // PICADAS Y PEDIDOS PROGRAMADOS CON HORARIOS ESPECIALES
         if (scheduledOrder) {
-            const threeHoursInMilliseconds = 3 * 60 * 60 * 1000;
-
             const now = new Date();
             const dateSelected = parseDDMMYYYYHHMM(dateOrderScheduled);
 
-            //const isValid = isTimeBetweenHours(dateOrderScheduled.split(' ')[1], '10:30', '21:00');
-            const isValid = await IsOpen({ dayOfWeek: dateToString(dateSelected) }, true);
+            if (!dateOrderScheduled) {
+                newErrors.hours = 'Debe seleccionar un horario de retiro.';
+            } else {
+                const hasPicadas = prop.some((item: any) => {
+                    const catName = item?.category?.name?.toUpperCase();
+                    return catName === 'PICADAS' || catName === 'PICADA';
+                });
 
-            if ((dateSelected.getTime() < (now.getTime() + threeHoursInMilliseconds)) || !isValid) {
-                const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(dateSelected) });
-                newErrors.hours = dateSchedules?.isOpen ? `Horario de retiro: ${dateSchedules?.openingScheduleTime || '10:30'} - ${dateSchedules?.closingScheduleTime || '21:00'}hs. Mínimo 3 horas de anticipación.`
-                    : `El local se encontrará cerrado durante el día seleccionado. ${dateSchedules?.isException ? '(' + dateSchedules?.description + ')' : ''}`;
+                if (hasPicadas) {
+                    const threeHoursInMilliseconds = 3 * 60 * 60 * 1000;
+                    const isValid = await IsOpen({ dayOfWeek: dateToString(dateSelected) }, true);
+
+                    if ((dateSelected.getTime() < (now.getTime() + threeHoursInMilliseconds)) || !isValid) {
+                        const dateSchedules = await GetDaySchedule({ dayOfWeek: dateToString(dateSelected) });
+                        newErrors.hours = dateSchedules?.isOpen ? `Horario de retiro: ${dateSchedules?.openingScheduleTime || '10:30'} - ${dateSchedules?.closingScheduleTime || '21:00'}hs. Mínimo 3 horas de anticipación.`
+                            : `El local se encontrará cerrado durante el día seleccionado. ${dateSchedules?.isException ? '(' + dateSchedules?.description + ')' : ''}`;
+                    }
+                }
+
+                // Validar categorías que contienen configuraciones especiales
+                const specialCategoriesInCart = prop
+                    .map((item: any) => item?.category)
+                    .filter((cat: any) => cat && categorySchedules?.some((cs: any) => cs.categoryId === cat.id));
+                const uniqueCategories: any[] = Array.from(new Map(specialCategoriesInCart.map((c: any) => [c.id, c])).values());
+
+                for (const cat of uniqueCategories) {
+                    const validation = validateCategorySchedulesForDate(cat.id, categorySchedules, dateSelected);
+                    if (!validation.isValid) {
+                        newErrors.hours = `${cat.name}: ${validation.error}`;
+                        break;
+                    }
+                }
             }
         }
 
@@ -207,12 +248,30 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
             if (calcMinutes < 0) {
                 setMessageValidation('El horario de retiro no puede ser inferior al horario actual.');
             }
-            else if (calcMinutes < minimumDelayMinutes) {
+            else if (calcMinutes < minimumDelayMinutes && !scheduledOrder) {
                 setMessageValidation(`El horario de retiro debe respetar la demora actual de ${delay.includes('min') ? delay : delay + ' minutos'}.`);
             }
             else {
                 setMessageValidation('');
                 setMinutes(calcMinutes);
+
+                // Validación inmediata para configuraciones especiales de categorías
+                if (scheduledOrder) {
+                    const specialCategoriesInCart = prop
+                        .map((item: any) => item?.category)
+                        .filter((cat: any) => cat && categorySchedules?.some((cs: any) => cs.categoryId === cat.id));
+                    const uniqueCategories: any[] = Array.from(new Map(specialCategoriesInCart.map((c: any) => [c.id, c])).values());
+
+                    let categoryError = '';
+                    for (const cat of uniqueCategories) {
+                        const validation = validateCategorySchedulesForDate(cat.id, categorySchedules, date);
+                        if (!validation.isValid) {
+                            categoryError = `${cat.name}: ${validation.error}`;
+                            break;
+                        }
+                    }
+                    setErrors((prev: any) => ({ ...prev, hours: categoryError }));
+                }
             }
         }
     }
@@ -422,6 +481,7 @@ export default function ShoppingCartConfirm({ prop, totalPrice, onConfirm, onClo
                         </div>
                         <section className="flex flex-col">
                             {errors.name && <span className="text-red-600">* {errors.name}</span>}
+                            {errors.contact && <span className="text-red-600">* {errors.contact}</span>}
                             {errors.email && <span className="text-red-600">* {errors.email}</span>}
                             {errors.phone && <span className="text-red-600">* {errors.phone}</span>}
                         </section>

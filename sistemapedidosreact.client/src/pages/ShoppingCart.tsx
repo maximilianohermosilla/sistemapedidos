@@ -15,6 +15,7 @@ import { IoCartOutline, IoTimeOutline } from "react-icons/io5";
 
 import { IsOpen } from "../services/weekly-schedule-service";
 import { dateToString } from "../utils/ParseDateUtil";
+import { GetAllCategorySchedules } from "../services/category-schedule-service";
 
 export default function ShoppingCart() {
     const cartContext = useContext<any>(CartContext);
@@ -39,12 +40,19 @@ export default function ShoppingCart() {
     const [delayedSubcarts, setDelayedSubcarts] = useState<{ [category: string]: any[] }>({});
     const [isModalOpenDelayed, setIsModalOpenDelayed] = useState<{ [category: string]: boolean }>({});
     const [isModalOpenClearDelayed, setIsModalOpenClearDelayed] = useState<{ [category: string]: boolean }>({});
+    const [categorySchedules, setCategorySchedules] = useState<any[]>([]);
 
     useEffect(() => {
-        GetAllParameters().then((params) => {
+        Promise.all([
+            GetAllParameters(),
+            GetAllCategorySchedules()
+        ]).then(([params, schedules]) => {
             if (params) {
                 const delayParams = params.filter((p: any) => p.key && p.key.startsWith('DELAY '));
                 setDelayParameters(delayParams);
+            }
+            if (schedules) {
+                setCategorySchedules(schedules);
             }
             setLoadingParameters(false);
         }).catch(() => {
@@ -53,15 +61,23 @@ export default function ShoppingCart() {
     }, []);
 
     useEffect(() => {
-        const itemsScheduled = cartContext.cartItems.filter(
-            (item: any) => item?.category?.name?.toUpperCase() === 'PICADAS');
+        const hasSpecialSchedule = (item: any) => {
+            const catId = item?.category?.id;
+            return categorySchedules.some((cs: any) => cs.categoryId === catId);
+        };
+
+        const itemsScheduled = cartContext.cartItems.filter((item: any) => {
+            const catName = item?.category?.name?.toUpperCase();
+            return catName === 'PICADAS' || hasSpecialSchedule(item);
+        });
+
         const itemsScheduledSpecial = cartContext.cartItems.filter(
             (item: any) => item?.category?.name?.toUpperCase() === 'MENU FIESTAS');
 
         const subcarts: { [category: string]: any[] } = {};
         const itemsStandard = cartContext.cartItems.filter((item: any) => {
             const catName = item?.category?.name?.toUpperCase();
-            if (catName === 'PICADAS' || catName === 'MENU FIESTAS') {
+            if (catName === 'PICADAS' || catName === 'MENU FIESTAS' || hasSpecialSchedule(item)) {
                 return false;
             }
 
@@ -90,7 +106,7 @@ export default function ShoppingCart() {
         setTotalPriceScheduled(totalScheduled);
         setTotalPriceScheduledSpecial(totalScheduledSpecial);
         handleTimeChange();
-    }, [cartContext.cartItems, cartContext.cartItems.quantity, delayParameters]);
+    }, [cartContext.cartItems, cartContext.cartItems.quantity, delayParameters, categorySchedules]);
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -294,7 +310,7 @@ export default function ShoppingCart() {
 
             {cartItemsScheduled!.length > 0 !== undefined && isModalOpenScheduled &&
                 <Dialog title="Confirmación" isOpen={isModalOpenScheduled} onClose={closeModalScheduled}>
-                    <ShoppingCartConfirm prop={cartItemsScheduled} totalPrice={totalPriceScheduled}
+                    <ShoppingCartConfirm prop={cartItemsScheduled} totalPrice={totalPriceScheduled} categorySchedules={categorySchedules}
                         onConfirm={handleConfirmScheduled} onClose={closeModalScheduled} onProcess={handleInProcess}></ShoppingCartConfirm>
                 </Dialog>
             }

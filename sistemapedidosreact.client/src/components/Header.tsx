@@ -97,8 +97,9 @@ const Header: React.FC = () => {
                         </CustomTooltip>
 
                         <CustomTooltip content="Pedidos">
-                            <a href="/orders" className="header__link text-gray-600 hover:text-blue-400">
+                            <a href="/orders" className="header__link relative text-gray-600 hover:text-blue-400">
                                 <BsPersonVcard />
+                                {pendingOrdersCount > 0 && <span className="absolute bg-red-500 text-white text-xs font-medium px-2.5 rounded-full -my-1.5 mx-1.5 leading-6">{pendingOrdersCount}</span>}
                             </a>
                         </CustomTooltip>
 
