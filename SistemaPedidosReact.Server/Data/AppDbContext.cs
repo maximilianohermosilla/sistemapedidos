@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SistemaPedidosReact.Server.Models;
 
 namespace SistemaPedidosReact.Server.Data
@@ -30,6 +30,7 @@ namespace SistemaPedidosReact.Server.Data
         public DbSet<User> Users { get; set; }
         public DbSet<SpecialSchedule> SpecialSchedules { get; set; }
         public DbSet<WeeklySchedule> WeeklySchedules { get; set; }
+        public DbSet<CategorySchedule> CategorySchedules { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,6 +43,11 @@ namespace SistemaPedidosReact.Server.Data
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasMany(i => i.Items).WithOne(i => i.Category).HasForeignKey(i => i.CategoryId).OnDelete(DeleteBehavior.NoAction);
+            });
+
+            modelBuilder.Entity<CategorySchedule>(entity =>
+            {
+                entity.HasOne(i => i.Category).WithMany(i => i.CategorySchedules).HasForeignKey(i => i.CategoryId).OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Charges>(entity =>

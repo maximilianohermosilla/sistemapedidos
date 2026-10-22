@@ -44,7 +44,7 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
             //Errors = errors,
             //Timestamp = DateTime.UtcNow
         };
-        Console.WriteLine($"Error de parámetros: \n {context!.ActionDescriptor!.DisplayName!.Split(' ')!.First()} -> {customErrorResponse.Message}");
+        Console.WriteLine($"Error de parÃ¡metros: \n {context!.ActionDescriptor!.DisplayName!.Split(' ')!.First()} -> {customErrorResponse.Message}");
         return new BadRequestObjectResult(customErrorResponse);
     };
 });
@@ -76,9 +76,10 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IParameterRepository, ParameterRepository>();
 builder.Services.AddScoped<ISpecialScheduleRepository, SpecialScheduleRepository>();
 builder.Services.AddScoped<IWeeklyScheduleRepository, WeeklyScheduleRepository>();
+builder.Services.AddScoped<ICategoryScheduleRepository, CategoryScheduleRepository>();
 
 
-// Configurar servicios de la aplicación 
+// Configurar servicios de la aplicaciÃ³n 
 builder.Services.AddScoped<IPaymentMethodService, PaymentMethodService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IMenuService, MenuService>();
@@ -90,6 +91,7 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IParameterService, ParameterService>();
 builder.Services.AddScoped<ISpecialScheduleService, SpecialScheduleService>();
 builder.Services.AddScoped<IWeeklyScheduleService, WeeklyScheduleService>();
+builder.Services.AddScoped<ICategoryScheduleService, CategoryScheduleService>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddHostedService<KeepAliveService>();
@@ -167,7 +169,7 @@ builder.Services.AddAuthentication(options =>
 
                 var response = new
                 {
-                    Message = "Credenciales inválidas",
+                    Message = "Credenciales invÃ¡lidas",
                     //ErrorCode = "INVALID_TOKEN_OR_MISSING_AUTH"
                 };
                 await context.Response.WriteAsJsonAsync(response);
@@ -180,7 +182,7 @@ builder.Services.AddAuthorization();
 // Configurar para evitar el shutdown por inactividad
 builder.WebHost.UseShutdownTimeout(TimeSpan.FromSeconds(30));
 
-// O mantener un timeout más largo
+// O mantener un timeout mÃ¡s largo
 //builder.WebHost.UseShutdownTimeout(TimeSpan.FromMinutes(10));
 
 builder.Services.Configure<HostOptions>(opts =>
@@ -225,7 +227,7 @@ app.UseAuthorization();
 app.MapControllers();
 app.UseMiddleware<CustomUnsupportedMediaTypeMiddleware>();
 
-// Aplicar migraciones automáticamente
+// Aplicar migraciones automÃ¡ticamente
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

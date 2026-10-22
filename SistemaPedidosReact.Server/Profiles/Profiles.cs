@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using SistemaPedidosReact.Server.DTOs;
 using SistemaPedidosReact.Server.Models;
 
@@ -80,6 +80,9 @@ namespace SistemaPedidosReact.Server.Profiles
 
             config.CreateMap<WeeklySchedule, WeeklyScheduleReadDTO>().ReverseMap();
             config.CreateMap<WeeklySchedule, WeeklyScheduleCreateDTO>().ReverseMap();
+
+            config.CreateMap<CategorySchedule, CategoryScheduleReadDTO>().ReverseMap();
+            config.CreateMap<CategorySchedule, CategoryScheduleCreateDTO>().ReverseMap();
 
             //POS
             config.CreateMap<MenuCreatePOS, Menu>().ReverseMap();

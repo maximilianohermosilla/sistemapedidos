@@ -13,6 +13,8 @@ import { GetAllWeeklySchedules, UpdateAllWeeklySchedules } from "../services/wee
 import { GetAllSpecialSchedules } from "../services/special-schedule-service";
 import CardException from "../components/CardException";
 import CardDelay from "../components/CardDelay";
+import CardCategorySchedule from "../components/CardCategorySchedule";
+import { GetAllCategorySchedules } from "../services/category-schedule-service";
 
 const positionDefault = [-34.92057857658673, -57.95523024039817];
 
@@ -29,6 +31,7 @@ export default function Administration() {
     const [weeklySchedules, setWeeklySchedules] = useState<any[] | undefined>(undefined);
     const [specialSchedules, setSpecialSchedules] = useState<any[] | undefined>(undefined);
     const [categoryDelays, setCategoryDelays] = useState<any[]>([]);
+    const [categorySchedules, setCategorySchedules] = useState<any[]>([]);
     const { isLoggedIn, login, logout } = useAuth();
 
     useEffect(() => {
@@ -66,6 +69,7 @@ export default function Administration() {
         const weeklyDays = await GetAllWeeklySchedules();
         setWeeklySchedules(weeklyDays);
         getAllSpecialSchedules();
+        getAllCategorySchedules();
 
         const categoryDelayParams = parameters.filter((p: any) => p.key.startsWith('DELAY '));
         categoryDelayParams.push({ id: 0, key: '', value: '' });
@@ -168,6 +172,29 @@ export default function Administration() {
 
     const handleSaveCategoryDelay = () => {
         getParameters();
+    }
+
+    const handleSaveCategorySchedule = () => {
+        getAllCategorySchedules();
+    }
+
+    const getAllCategorySchedules = async () => {
+        setCategorySchedules([]);
+        const listCategorySchedules = (await GetAllCategorySchedules()) || [];
+        listCategorySchedules.push({
+            id: 0,
+            categoryId: '',
+            description: "",
+            dayCode: 0,
+            dayWeek: "Domingo",
+            isOpen: true,
+            openingTime: "19:45",
+            closingTime: "23:00",
+            openingScheduleTime: "10:30",
+            closingScheduleTime: "20:00"
+        });
+
+        setCategorySchedules(listCategorySchedules);
     }
 
     const getAllSpecialSchedules = async () => {
@@ -408,6 +435,14 @@ export default function Administration() {
                                 ? categoryDelays.map((delay: any, index: any) =>
                                     <CardDelay key={index} delayItem={delay} onSave={handleSaveCategoryDelay}>
                                     </CardDelay>)
+                                : null}
+
+                            <h3 className="text-primary text-lg font-semibold mt-5 mb-2">Horarios por Categoría</h3>
+
+                            {categorySchedules && categorySchedules.length > 0
+                                ? categorySchedules.map((schedule: any, index: any) =>
+                                    <CardCategorySchedule key={index} scheduleItem={schedule} onSave={handleSaveCategorySchedule}>
+                                    </CardCategorySchedule>)
                                 : null}
 
                             <h3 className="text-primary text-lg font-semibold mt-5 mb-2">Excepciones</h3>

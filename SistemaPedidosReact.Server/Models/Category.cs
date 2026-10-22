@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace SistemaPedidosReact.Server.Models
 {
@@ -13,5 +13,6 @@ namespace SistemaPedidosReact.Server.Models
         public int SortingPosition { get; set; } = 0;
 
         public ICollection<Item> Items { get; set; } = new List<Item>();
+        public ICollection<CategorySchedule> CategorySchedules { get; set; } = new List<CategorySchedule>();
     }
 }

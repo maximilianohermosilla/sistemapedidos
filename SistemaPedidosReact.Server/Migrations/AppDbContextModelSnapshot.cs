@@ -82,6 +82,48 @@ namespace SistemaPedidosReact.Server.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.CategorySchedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeOnly?>("ClosingScheduleTime")
+                        .HasColumnType("time(6)");
+
+                    b.Property<TimeOnly>("ClosingTime")
+                        .HasColumnType("time(6)");
+
+                    b.Property<int>("DayCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DayWeek")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("IsOpen")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<TimeOnly?>("OpeningScheduleTime")
+                        .HasColumnType("time(6)");
+
+                    b.Property<TimeOnly>("OpeningTime")
+                        .HasColumnType("time(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("CategorySchedules");
+                });
+
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Charges", b =>
                 {
                     b.Property<int>("Id")
@@ -1065,6 +1107,17 @@ namespace SistemaPedidosReact.Server.Migrations
                         });
                 });
 
+            modelBuilder.Entity("SistemaPedidosReact.Server.Models.CategorySchedule", b =>
+                {
+                    b.HasOne("SistemaPedidosReact.Server.Models.Category", "Category")
+                        .WithMany("CategorySchedules")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Discount", b =>
                 {
                     b.HasOne("SistemaPedidosReact.Server.Models.Item", "Item")
@@ -1268,6 +1321,8 @@ namespace SistemaPedidosReact.Server.Migrations
 
             modelBuilder.Entity("SistemaPedidosReact.Server.Models.Category", b =>
                 {
+                    b.Navigation("CategorySchedules");
+
                     b.Navigation("Items");
                 });
 
