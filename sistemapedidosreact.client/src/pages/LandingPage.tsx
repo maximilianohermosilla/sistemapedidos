@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { GetLastMenu } from "../services/menu-service";
+import { GetAllCategorySchedules } from "../services/category-schedule-service";
+import { isCategoryScheduleActive, shouldShowCategoryBySchedule } from "../utils/TimeValidation";
 import Menu from "../components/Menu";
 import ViewCartButton from "../components/ViewCartButton";
 import Delay from "../components/Delay";
@@ -29,10 +31,24 @@ export default function LandingPage() {
     }
 
     async function getLastMenu() {
-        const data = await GetLastMenu();
-        const productsSpecial = data.items.filter((item: any) => item?.category?.name?.toUpperCase() === 'MENU FIESTAS');
-        const productsWithoutPicadas = data.items.filter((item: any) => item?.category?.name?.toUpperCase() !== 'PICADAS' && item?.category?.name?.toUpperCase() !== 'MENU FIESTAS');
-        const productsGrouped = groupProducts(productsWithoutPicadas);
+        const [data, categorySchedules] = await Promise.all([
+            GetLastMenu(),
+            GetAllCategorySchedules()
+        ]);
+        const schedules = categorySchedules || [];
+
+        const productsSpecial = data?.items?.filter((item: any) =>
+            item?.category?.name?.toUpperCase() === 'MENU FIESTAS' &&
+            shouldShowCategoryBySchedule(item?.category?.id, schedules)
+        ) || [];
+
+        const productsWithoutPicadas = data?.items?.filter((item: any) =>
+            item?.category?.name?.toUpperCase() !== 'PICADAS' &&
+            item?.category?.name?.toUpperCase() !== 'MENU FIESTAS' &&
+            shouldShowCategoryBySchedule(item?.category?.id, schedules)
+        ) || [];
+
+        const productsGrouped = groupProducts(productsWithoutPicadas, schedules);
         setLoading(false);
 
         setMenu(data);
@@ -44,13 +60,37 @@ export default function LandingPage() {
         handleTimeChange();
     }
 
-    const groupProducts = (items: any[]) => {
+    const groupProducts = (items: any[], categorySchedules: any[] = []) => {
         const map = new Map<string, { category: any; items: Omit<any, "category" | "children">[] }>();
+        const disallowedCategoryIds = new Set<any>();
 
         items?.forEach((item: any) => {
             const { category, ...rest } = item;
+            if (!category) return;
+
+            if (disallowedCategoryIds.has(category.id)) {
+                return;
+            }
 
             if (!map.has(category.id)) {
+                const specialSchedules = category.categorySchedules?.length
+                    ? category.categorySchedules
+                    : (categorySchedules?.filter((s: any) => s.categoryId === category.id) || []);
+
+                // Si la categoría tiene al menos una configuración especial
+                if (specialSchedules.length > 0) {
+                    // Validar si alguna configuración coincide con el día de la semana actual y horario entre openingTime y closingTime
+                    const matchesCurrentDayAndTime = specialSchedules.some((schedule: any) =>
+                        isCategoryScheduleActive(schedule)
+                    );
+
+                    // Si ninguna de las configuraciones especiales coincide con el día y hora actual, no se muestra en el menú
+                    if (!matchesCurrentDayAndTime) {
+                        disallowedCategoryIds.add(category.id);
+                        return;
+                    }
+                }
+
                 map.set(category.id, { category, items: [] });
             }
 

@@ -1,6 +1,8 @@
 import "./Menu.css";
 import { useEffect, useState } from "react";
 import { GetLastMenu } from "../services/menu-service";
+import { GetAllCategorySchedules } from "../services/category-schedule-service";
+import { isCategoryScheduleActive } from "../utils/TimeValidation";
 import Spinner from "../components/Spinner";
 import MenuList from "../components/MenuList";
 import logo from '../assets/logo/logo_black_bottom.jpeg';
@@ -14,19 +16,46 @@ export default function MenuPage() {
     }, []);
 
     async function getLastMenu() {
-        const data = await GetLastMenu();
-        const productsGrouped = groupProducts(data?.items);
+        const [data, categorySchedules] = await Promise.all([
+            GetLastMenu(),
+            GetAllCategorySchedules()
+        ]);
+        const productsGrouped = groupProducts(data?.items, categorySchedules || []);
         setMenuGrouped(productsGrouped);
         setLoading(false);
     }
 
-    const groupProducts = (items: any[]) => {
+    const groupProducts = (items: any[], categorySchedules: any[] = []) => {
         const map = new Map<string, { category: any; items: Omit<any, "category" | "children">[] }>();
+        const disallowedCategoryIds = new Set<any>();
 
         items?.forEach((item: any) => {
             const { category, ...rest } = item;
+            if (!category) return;
+
+            if (disallowedCategoryIds.has(category.id)) {
+                return;
+            }
 
             if (!map.has(category.id)) {
+                const specialSchedules = category.categorySchedules?.length
+                    ? category.categorySchedules
+                    : (categorySchedules?.filter((s: any) => s.categoryId === category.id) || []);
+
+                // Si la categoría tiene al menos una configuración especial
+                if (specialSchedules.length > 0) {
+                    // Validar si alguna configuración coincide con el día de la semana actual y horario entre openingTime y closingTime
+                    const matchesCurrentDayAndTime = specialSchedules.some((schedule: any) =>
+                        isCategoryScheduleActive(schedule)
+                    );
+
+                    // Si ninguna de las configuraciones especiales coincide con el día y hora actual, no se muestra en el menú
+                    if (!matchesCurrentDayAndTime) {
+                        disallowedCategoryIds.add(category.id);
+                        return;
+                    }
+                }
+
                 map.set(category.id, { category, items: [] });
             }
 
